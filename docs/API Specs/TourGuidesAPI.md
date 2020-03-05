@@ -25,7 +25,8 @@
     "email": "anakayam.jago@gmail.com",
     "whatsapp": "+62812 3456 7890",
     "experience": null,
-    "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me."
+    "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me.",
+    "status": "active"
   }, {
     "id": 2,
     "name": "Anabelle",
@@ -39,7 +40,8 @@
     "email": "anakayam.jago@gmail.com",
     "whatsapp": "+62812 3456 7890",
     "experience": null,
-    "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me."
+    "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me.",
+    "status": "active"
   }]
 }
 ```
@@ -83,7 +85,8 @@
         "email": "anakayam.jago@gmail.com",
         "whatsapp": "+62812 3456 7890",
         "experience": null,
-        "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me."
+        "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me.",
+        "status": "active"
     }
 }
 ```
@@ -155,7 +158,8 @@
         "email": "anakayam.jago@gmail.com",
         "whatsapp": "+62812 3456 7890",
         "experience": null,
-        "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me."
+        "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me.",
+        "status": "active"
     }
 }
 ```
@@ -229,7 +233,8 @@
         "email": "anakayam.jago@gmail.com",
         "whatsapp": "+62812 3456 7890",
         "experience": null,
-        "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me."
+        "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me.",
+        "status": "active"
     }
 }
 ```
