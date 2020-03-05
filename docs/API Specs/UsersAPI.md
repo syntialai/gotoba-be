@@ -4,7 +4,8 @@
 
 + Endpoint : ``/users/register``
 + HTTP Method : ``POST``
-+ Request Body : 
++ Request Body :
+
 ```json
 {
     "nickname" : "hendra",
@@ -16,20 +17,22 @@
     "status" : 1
 }
 ```
-+ Request Header : 
-	+ Accept : ``application/json``
-   + Response Body (Success) :
+
++ Request Header :
+
+  + Accept : ``application/json``
+  + Response Body (Success) :
 
 ```json
 {
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "code" : 200,
     "status" : "OK",
-    "message" : "User register successfully"
+    "message" : "User registered successfully."
 }
 ```
 
-+ Response Body (Fail) : 
++ Response Body (Fail) :
 
 ```json
 {
@@ -37,14 +40,6 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Email Address already in use!"
-}
-```
-```json
-{
-    "timestamp": "2019-08-23T04:22:26.690+0000",
-    "status": 400,
-    "error": "Bad Request",
-    "message": "Username Address already in use!"
 }
 ```
 
@@ -58,14 +53,14 @@
 }
 ```
 
-## Get All Users 
+## Get All Users
 
 + Endpoint : ``/users/``
 + HTTP Method : `GET`
-+ Request Header : 
-	+ Accept: `application/json`
-    + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
-+ Response Body (Success) : 
++ Request Header :
+  + Accept: `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
 
 ```json
 {
@@ -79,7 +74,7 @@
         "password" : "hendra77",
         "role" : "Merchant",
         "status" : 1
-    }, 
+    },
     {
         "sku" : "sima_cust_001",
         "nickname" : "simangunsong",
@@ -105,7 +100,7 @@
 
 ```json
 {
-	"timestamp": "2019-08-23T04:22:26.690+0000",
+    "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 401,
     "error": "Unauthorized",
     "message": "Login required"
@@ -116,12 +111,12 @@
 
 + Endpoint : ``/users/{user-sku}``
 + HTTP Method : `GET`
-+ Path Variable : 
-    + user-sku
-+ Request Header : 
-	+ Accept: `application/json`
-    + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
-+ Response Body (Success) : 
++ Path Variable :
+  + user-sku
++ Request Header :
+  + Accept: `application/json`
+  + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
++ Response Body (Success) :
 
 ```json
 {
