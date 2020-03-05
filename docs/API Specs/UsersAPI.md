@@ -13,7 +13,7 @@
     "password" : "hendra77",
     "confirmPassword" : "hendra77",
     "role" : "Merchant",
-    "status" : 1
+    "status" : "active"
 }
 ```
 + Request Header : 
@@ -44,7 +44,7 @@
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 400,
     "error": "Bad Request",
-    "message": "Username Address already in use!"
+    "message": "Username already in use!"
 }
 ```
 
@@ -78,7 +78,7 @@
         "email" : "hendra@gmail.com",
         "password" : "hendra77",
         "role" : "Merchant",
-        "status" : 1
+        "status" : "active"
     }, 
     {
         "sku" : "sima_cust_001",
@@ -87,7 +87,7 @@
         "email" : "simangunsong@gmail.com",
         "password" : "simangunsong12",
         "role" : "Customer",
-        "status" : 1
+        "status" : "active"
     },
     {
         "sku" : "josh_merc_001",
@@ -96,7 +96,7 @@
         "email" : "joshua@gmail.com",
         "password" : "joshua",
         "role" : "Merchant",
-        "status" : 1
+        "status" : "active"
     }]
 }
 ```
@@ -134,7 +134,7 @@
          "email" : "joshua@gmail.com",
          "password" : "joshua",
          "role" : "Merchant",
-         "status" : 1
+         "status" : "active"
     }
 }
 ```
@@ -179,7 +179,7 @@
          "email" : "joshua@gmail.com",
          "password" : "joshua",
          "role" : "Merchant",
-         "status" : 1
+         "status" : "active"
     }
 }
 ```
@@ -215,7 +215,7 @@
          "email" : "joshua@gmail.com",
          "password" : "joshua",
          "role" : "Merchant",
-         "status" : 0
+         "status" : "blocked"
     }
 }
 ```
@@ -243,7 +243,7 @@
     "email" : "joshua@gmail.com",
     "password" : "joshua",
     "role" : "Merchant",
-    "status" : 0
+    "status" : "blocked"
 }
 ```
 + Request Header : 
@@ -262,7 +262,7 @@
          "email" : "joshua@gmail.com",
          "password" : "joshua",
          "role" : "Merchant",
-         "status" : 1
+         "status" : "active"
     }
 }
 ```
@@ -308,7 +308,7 @@
          "email" : "joshua@gmail.com",
          "password" : "joshua",
          "role" : "Merchant",
-         "status" : 1
+         "status" : "active"
     }
 }
 ```
@@ -329,5 +329,21 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find User with that username."
+}
+```
+```json
+{
+	"timestamp": "2019-08-23T04:22:26.690+0000",
+    "status": 400,
+    "error": "Bad Request",
+    "message": "Email Address already in use!"
+}
+```
+```json
+{
+	"timestamp": "2019-08-23T04:22:26.690+0000",
+    "status": 400,
+    "error": "Bad Request",
+    "message": "Username Address already in use!"
 }
 ```
