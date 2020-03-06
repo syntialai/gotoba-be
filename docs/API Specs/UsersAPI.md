@@ -234,7 +234,7 @@
 ## Edit Users (by sku)
 
 + Endpoint : ``/users/{sku}``
-+ HTTP Method : `POST`
++ HTTP Method : `PUT`
 + Path Variable :
   + sku
 + Request Header :
