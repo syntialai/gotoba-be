@@ -79,7 +79,7 @@
 {
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 404,
-    "error": "Data not founf",
+    "error": "Data not found",
     "message": "Message: There is no data wisata"
 }
 ```
