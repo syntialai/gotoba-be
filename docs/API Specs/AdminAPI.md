@@ -1,11 +1,11 @@
 # Admin API
 
-## Get Admin by Id
+## Get Admin by Sku
 
-+ Endpoint : ``/admins/{admin-id}``
++ Endpoint : ``/admin/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
-  + admin-id
+  + sku
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
@@ -17,6 +17,7 @@
     "status": "OK",
     "data": {
         "id": 1,
+        "sku": "Adm-0001",
         "name": "Hendra Simangunsong",
         "username": "Admin1",
         "email": "hendra@gmail.com",
@@ -33,7 +34,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/admins/{admin-id}"
+    "path": "/admin/{sku}"
 }
 ```
 
@@ -43,13 +44,13 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find merchant with id ABC.",
-    "path": "/admins/{admin-id}"
+    "path": "/admin/{sku}"
 }
 ```
 
 ## Add Admin
 
-+ Endpoint : ``/admins``
++ Endpoint : ``/admin``
 + HTTP Method : `POST`
 + Request Body :
 
@@ -74,6 +75,7 @@
     "status": "OK",
     "data": {
         "id": 2,
+        "sku": "Adm-0002",
         "name": "Syntiaaa",
         "username": "Admin2",
         "email": "syntialay@gmail.com",
@@ -90,7 +92,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/admins"
+    "path": "/admin"
 }
 ```
 
@@ -100,16 +102,16 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/admins"
+    "path": "/admin"
 }
 ```
 
 ## Edit Admin by Id
 
-+ Endpoint : ``/admins/{admin-id}``
++ Endpoint : ``/admin/{sku}``
 + HTTP Method : `PUT`
 + Path Variable :
-  + admin-id
+  + sku
 + Request Body :
 
 ```json
@@ -131,6 +133,7 @@
     "status": "OK",
     "data": {
         "id": 1,
+        "sku": "Adm-0001",
         "name": "Hendra Simangunsong",
         "username": "Admin1",
         "email": "hendra@gmail.com",
@@ -147,7 +150,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/admins/{admin-id}"
+    "path": "/admin/{sku}"
 }
 ```
 
@@ -157,7 +160,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/admins/{admin-id}"
+    "path": "/admin/{sku}"
 }
 ```
 
@@ -167,6 +170,6 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find merchant with id ABC.",
-    "path": "/admins/{admin-id}"
+    "path": "/admin/{sku}"
 }
 ```

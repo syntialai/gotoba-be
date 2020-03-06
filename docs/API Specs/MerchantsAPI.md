@@ -2,7 +2,7 @@
 
 ## Get Merchants
 
-+ Endpoint : ``/merchants``
++ Endpoint : ``/merchant``
 + HTTP Method : `GET`
 + Request Header :
   + Accept : `application/json`
@@ -15,18 +15,21 @@
     "status": "OK",
     "data": [{
         "id": 1,
+        "sku": "synt_merc_0001",
         "name": "Syntia",
         "email": "syntiaaa00@gmail.com",
         "username": "syntialai",
         "status": 1
     }, {
         "id": 2,
+        "sku": "synt_merc_0002",
         "name": "Syntia",
         "email": "syntiaaa00@gmail.com",
         "username": "syntialai",
         "status": 1
     }, {
         "id": 3,
+        "sku": "synt_merc_0003",
         "name": "Syntia",
         "email": "syntiaaa00@gmail.com",
         "username": "syntialai",
@@ -43,16 +46,16 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/merchants"
+    "path": "/merchant"
 }
 ```
 
-## Get Merchants by Id
+## Get Merchants by Sku
 
-+ Endpoint : ``/merchants/{merchant-id}``
++ Endpoint : ``/merchant/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
-  + merchant-id
+  + sku
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
@@ -64,6 +67,7 @@
     "status": "OK",
     "data": {
         "id": 3,
+        "sku": "synt_merc_0003",
         "name": "Syntia",
         "email": "syntiaaa00@gmail.com",
         "username": "syntialai",
@@ -80,7 +84,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/merchants/{merchant-id}"
+    "path": "/merchant/{sku}"
 }
 ```
 
@@ -90,13 +94,13 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find merchant with id ABC.",
-    "path": "/merchants/{merchant-id}"
+    "path": "/merchant/{sku}"
 }
 ```
 
 ## Add New Merchant
 
-+ Endpoint : ``/merchants``
++ Endpoint : ``/merchant``
 + HTTP Method : `POST`
 + Request Body :
 
@@ -121,6 +125,7 @@
     "status": "OK",
     "data": {
         "id": 4,
+        "sku": "synt_merc_0004",
         "name": "Syntia",
         "email": "syntialaii407@gmail.com",
         "username": "syntialaii",
@@ -137,7 +142,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/merchants"
+    "path": "/merchant"
 }
 ```
 
@@ -147,16 +152,16 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: Invalid erchant authentication or Unauthorized.",
-    "path": "/merchants"
+    "path": "/merchant"
 }
 ```
 
 ## Edit Merchant by Id
 
-+ Endpoint : ``/merchants/{merchant-id}``
++ Endpoint : ``/merchant/{sku}``
 + HTTP Method : `PUT`
 + Path Variable :
-  + merchant-id
+  + sku
 
 + Request Body :
 
@@ -179,6 +184,7 @@
     "status": "OK",
     "data": {
         "id": 4,
+        "sku": "synt_merc_0004",
         "name": "Syntia",
         "email": "syntialaii407@gmail.com",
         "username": "syntialaii407",
@@ -195,7 +201,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/merchants/{merchant-id}"
+    "path": "/merchant/{sku}"
 }
 ```
 
@@ -205,7 +211,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: Invalid merchant authentication or Unauthorized.",
-    "path": "/merchants/{merchant-id}"
+    "path": "/merchant/{sku}"
 }
 ```
 
@@ -215,6 +221,6 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find merchant with id ABC.",
-    "path": "/merchants/{merchant-id}"
+    "path": "/merchant/{sku}"
 }
 ```

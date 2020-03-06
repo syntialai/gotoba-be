@@ -14,6 +14,7 @@
     "status": "OK",
     "data": [{
         "id": 1,
+        "sku": "PHOTO_0000_0001",
         "name": "Lake Toba Photo",
         "title": "Lake Toba Photo",
         "description": "jdfalfjkaljdkna....",
@@ -21,6 +22,7 @@
         "show": true
     }, {
         "id": 2,
+        "sku": "PHOTO_0000_0002",
         "name": "Lake Toba Photo",
         "title": "Lake Toba Photo",
         "description": "jdfalfjkaljdkna....",
@@ -28,6 +30,7 @@
         "show": true
     }, {
         "id": 3,
+        "sku": "PHOTO_0000_0003",
         "name": "Lake Toba Photo",
         "title": "Lake Toba Photo",
         "description": "jdfalfjkaljdkna....",
@@ -49,12 +52,12 @@
 }
 ```
 
-## Get Gallery Photo by Id
+## Get Gallery Photo by Sku
 
-+ Endpoint : ``/gallery/{photo-id}``
++ Endpoint : ``/gallery/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
-  + photo-id
+  + sku
 + Request Header :
   + Accept : `application/json`
 + Response Body (Success) :
@@ -65,6 +68,7 @@
     "status": "OK",
     "data": {
         "id": 1,
+        "sku": "PHOTO_0000_0001",
         "name": "Lake Toba Photo",
         "title": "Lake Toba Photo",
         "description": "jdfalfjkaljdkna....",
@@ -82,7 +86,7 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find photo with id 10.",
-    "path": "/gallery/{photo-id}"
+    "path": "/gallery/{sku}"
 }
 ```
 
@@ -92,7 +96,7 @@
     "status": 500,
     "error": "Internal Server Error",
     "message": "Server Error: Error while getting and/or parsing the data.",
-    "path": "/gallery/{photo-id}"
+    "path": "/gallery/{sku}"
 }
 ```
 
@@ -123,6 +127,7 @@
     "status": "OK",
     "data": {
         "id": 1,
+        "sku": "PHOTO_0000_0001",
         "name": "Lake Toba Photo",
         "title": "Lake Toba Photo",
         "description": "jdfalfjkaljdkna....",
@@ -156,10 +161,10 @@
 
 ## Edit Photo by Id
 
-+ Endpoint : ``/gallery/{photo-id}``
++ Endpoint : ``/gallery/{sku}``
 + HTTP Method : `PUT`
 + Path Variable :
-  + photo-id
+  + sku
 + Request Body :
 
 ```json
@@ -183,6 +188,7 @@
     "status": "OK",
     "data": {
         "id": 1,
+        "sku": "PHOTO_0000_0001",
         "name": "Lake Toba Photo",
         "title": "Lake Toba Photo",
         "description": "jdfalfjkaljdkna....",
@@ -200,7 +206,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/gallery/{photo-id}"
+    "path": "/gallery/{sku}"
 }
 ```
 
@@ -210,7 +216,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/gallery/{photo-id}"
+    "path": "/gallery/{sku}"
 }
 ```
 
@@ -220,6 +226,6 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find photo with id 10.",
-    "path": "/gallery/{photo-id}"
+    "path": "/gallery/{sku}"
 }
 ```

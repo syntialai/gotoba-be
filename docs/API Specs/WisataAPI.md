@@ -1,6 +1,6 @@
 # Wisata API
 
-## Get All Wisata 
+## Get All Wisata
 
 + Endpoint : ``/wisata/``
 + HTTP Method : `GET`
@@ -53,7 +53,7 @@
     }, {
         "sku": "hend-bali-lumb-002",
          "name": "Lumban bulbul pantai 2",
-         "title": "Tempat wisata pantai 2 lumban bulbul",            
+         "title": "Tempat wisata pantai 2 lumban bulbul",
          "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
          "image": "cvdafzxsqzxcasdasd.png",
          "address": "jl.balige",
@@ -68,7 +68,7 @@
                       "Saturday": ["8AM", "10PM"],
                       "Sunday": ["8AM", "10PM"]
                       },
-         "status": "active"    
+         "status": "active"
     }]
 }
 ```
@@ -101,7 +101,7 @@
     "data": {
         "sku": "hend-bali-lumb-002",
         "name": "Lumban bulbul pantai 2",
-        "title": "Tempat wisata pantai 2 lumban bulbul",            
+        "title": "Tempat wisata pantai 2 lumban bulbul",
         "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
         "image": "cvdafzxsqzxcasdasd.png",
         "address": "jl.balige",
@@ -116,7 +116,7 @@
                      "Saturday": ["8AM", "10PM"],
                      "Sunday": ["8AM", "10PM"]
                      },
-        "status": "active"    
+        "status": "active"
     }
 }
 ```
@@ -132,7 +132,6 @@
 }
 ```
 
-
 ## Add new wisata
 
 + Endpoint : ``/wisata/add``
@@ -142,7 +141,7 @@
 ```json
 {
     "name": "Lumban bulbul pantai 2",
-    "title": "Tempat wisata pantai 2 lumban bulbul",            
+    "title": "Tempat wisata pantai 2 lumban bulbul",
     "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
     "image": "cvdafzxsqzxcasdasd.png",
     "address": "jl.balige",
@@ -159,6 +158,7 @@
                  }  
 }
 ```
+
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
@@ -203,7 +203,7 @@
 ```json
 {
     "name": "Lumban bulbul pantai 3",
-    "title": "Tempat wisata pantai 3 lumban bulbul",            
+    "title": "Tempat wisata pantai 3 lumban bulbul",
     "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
     "image": "cvdafzxsqzxcasdasd.png",
     "address": "jl.balige",
@@ -229,7 +229,7 @@
 ```json
 {
     "name": "Lumban bulbul pantai 3",
-    "title": "Tempat wisata pantai 3 lumban bulbul",            
+    "title": "Tempat wisata pantai 3 lumban bulbul",
     "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
     "image": "cvdafzxsqzxcasdasd.png",
     "address": "jl.balige",
@@ -275,6 +275,7 @@
     "message": "Invalid Request: Cannot find wisata with that sku."
 }
 ```
+
 ## Delete Wisata by Sku
 
 + Endpoint : ``/wisata/delete/{sku}``
@@ -295,7 +296,6 @@
 ```
 
 + Response Body (Fail) :
-
 
 ```json
 {

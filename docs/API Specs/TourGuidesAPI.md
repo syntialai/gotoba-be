@@ -14,6 +14,7 @@
   "status": "OK",
   "data": [{
     "id": 1,
+    "sku": "TG_ANAS_0001",
     "name": "Anastasya",
     "age": 20,
     "occupation": "Tour Guide",
@@ -29,6 +30,7 @@
     "status": "active"
   }, {
     "id": 2,
+    "sku": "TG_ANAB_0002",
     "name": "Anabelle",
     "age": 25,
     "occupation": "Translator",
@@ -58,9 +60,9 @@
 }
 ```
 
-## Get Tour Guide by Id
+## Get Tour Guide by Sku
 
-+ Endpoint : ``/tour-guide/{tg-id}``
++ Endpoint : ``/tour-guide/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
   + tg-id
@@ -74,6 +76,7 @@
     "status": "OK",
     "data": {
         "id": 1,
+        "sku": "TG_ANAS_0001",
         "name": "Anastasya",
         "age": 20,
         "occupation": "Tour Guide",
@@ -99,7 +102,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/tour-guide/{tg-id}"
+    "path": "/tour-guide/{sku}"
 }
 ```
 
@@ -109,7 +112,7 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find tour guide with id ABC.",
-    "path": "/tour-guide/{tg-id}"
+    "path": "/tour-guide/{sku}"
 }
 ```
 
@@ -147,6 +150,7 @@
     "status": "OK",
     "data": {
         "id": 1,
+        "sku": "TG_ANAS_0001",
         "name": "Anastasya",
         "age": 20,
         "occupation": "Tour Guide",
@@ -188,7 +192,7 @@
 
 ## Edit Tour Guide by Id
 
-+ Endpoint : ``/tour-guide/{tg-id}``
++ Endpoint : ``/tour-guide/{sku}``
 + HTTP Method : `POST`
 + Path Variable :
   + tg-id
@@ -222,6 +226,7 @@
     "status": "OK",
     "data": {
         "id": 1,
+        "sku": "TG_ANAS_0001",
         "name": "Anastasya",
         "age": 20,
         "occupation": "Tour Guide",
@@ -247,7 +252,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/tour-guide/{tg-id}"
+    "path": "/tour-guide/{sku}"
 }
 ```
 
@@ -257,7 +262,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/tour-guide/{tg-id}"
+    "path": "/tour-guide/{sku}"
 }
 ```
 
@@ -267,6 +272,6 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find tour guide with id ABC.",
-    "path": "/tour-guide/{tg-id}"
+    "path": "/tour-guide/{sku}"
 }
 ```
