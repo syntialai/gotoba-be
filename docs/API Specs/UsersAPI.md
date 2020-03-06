@@ -1,13 +1,13 @@
 # Users API (For Customers)
 
-## Get All Users 
+## Get All Users
 
 + Endpoint : ``/users/``
 + HTTP Method : `GET`
-+ Request Header : 
-	+ Accept: `application/json`
-    + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
-+ Response Body (Success) : 
++ Request Header :
+  + Accept: `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
 
 ```json
 {
@@ -21,7 +21,7 @@
         "password" : "hendra77",
         "role" : "Merchant",
         "status" : "active"
-    }, 
+    },
     {
         "sku" : "sima_cust_001",
         "nickname" : "simangunsong",
@@ -47,7 +47,7 @@
 
 ```json
 {
-	"timestamp": "2019-08-23T04:22:26.690+0000",
+    "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 401,
     "error": "Unauthorized",
     "message": "Login required"
@@ -58,12 +58,12 @@
 
 + Endpoint : ``/users/{user-sku}``
 + HTTP Method : `GET`
-+ Path Variable : 
-    + user-sku
-+ Request Header : 
-	+ Accept: `application/json`
-    + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
-+ Response Body (Success) : 
++ Path Variable :
+  + user-sku
++ Request Header :
+  + Accept: `application/json`
+  + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
++ Response Body (Success) :
 
 ```json
 {
@@ -85,30 +85,30 @@
 
 ```json
 {
-	"timestamp": "2019-08-23T04:22:26.690+0000",
+    "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 401,
     "error": "Unauthorized",
     "message": "Login required"
 }
 ```
+
 ```json
 {
-	"timestamp": "2019-08-23T04:22:26.690+0000",
+    "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find User with that sku."
 }
 ```
 
-
 ## Get Users Active (by status)
 
 + Endpoint : ``/users/active``
 + HTTP Method : `GET`
-+ Request Header : 
-	+ Accept: `application/json`
-    + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
-+ Response Body (Success) : 
++ Request Header :
+  + Accept: `application/json`
+  + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
++ Response Body (Success) :
 
 ```json
 {
@@ -130,7 +130,7 @@
 
 ```json
 {
-	"timestamp": "2019-08-23T04:22:26.690+0000",
+    "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 401,
     "error": "Unauthorized",
     "message": "Login required"
@@ -141,10 +141,10 @@
 
 + Endpoint : ``/users/active``
 + HTTP Method : `GET`
-+ Request Header : 
-	+ Accept: `application/json`
-    + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
-+ Response Body (Success) : 
++ Request Header :
+  + Accept: `application/json`
+  + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
++ Response Body (Success) :
 
 ```json
 {
@@ -166,7 +166,7 @@
 
 ```json
 {
-	"timestamp": "2019-08-23T04:22:26.690+0000",
+    "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 401,
     "error": "Unauthorized",
     "message": "Login required"
@@ -177,7 +177,8 @@
 
 + Endpoint : ``/users/update/{sku}``
 + HTTP Method : `GET`
-+ Request Body : 
++ Request Body :
+
 ```json
 {
     "nickname" : "joshua",
@@ -188,10 +189,11 @@
     "status" : "blocked"
 }
 ```
-+ Request Header : 
-	+ Accept: `application/json`
-    + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
-+ Response Body (Success) : 
+
++ Request Header :
+  + Accept: `application/json`
+  + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
++ Response Body (Success) :
 
 ```json
 {
@@ -213,15 +215,16 @@
 
 ```json
 {
-	"timestamp": "2019-08-23T04:22:26.690+0000",
+    "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 401,
     "error": "Unauthorized",
     "message": "Login required"
 }
 ```
+
 ```json
 {
-	"timestamp": "2019-08-23T04:22:26.690+0000",
+    "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find User with that username."
@@ -232,12 +235,12 @@
 
 + Endpoint : ``/users/{sku}``
 + HTTP Method : `POST`
-+ Path Variable : 
-    + sku
-+ Request Header : 
-	+ Accept: `application/json`
-    + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
-+ Response Body (Success) : 
++ Path Variable :
+  + sku
++ Request Header :
+  + Accept: `application/json`
+  + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
++ Response Body (Success) :
 
 ```json
 {
@@ -259,31 +262,34 @@
 
 ```json
 {
-	"timestamp": "2019-08-23T04:22:26.690+0000",
+    "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 401,
     "error": "Unauthorized",
     "message": "Login required"
 }
 ```
+
 ```json
 {
-	"timestamp": "2019-08-23T04:22:26.690+0000",
+    "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find User with that username."
 }
 ```
+
 ```json
 {
-	"timestamp": "2019-08-23T04:22:26.690+0000",
+    "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 400,
     "error": "Bad Request",
     "message": "Email Address already in use!"
 }
 ```
+
 ```json
 {
-	"timestamp": "2019-08-23T04:22:26.690+0000",
+    "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 400,
     "error": "Bad Request",
     "message": "Username Address already in use!"

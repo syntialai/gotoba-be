@@ -20,7 +20,7 @@
         "name": "Hendra Simangunsong",
         "username": "Admin1",
         "email": "hendra@gmail.com",
-        "status": "active"
+        "status": 1
     }
 }
 ```
@@ -77,7 +77,7 @@
         "name": "Syntiaaa",
         "username": "Admin2",
         "email": "syntialay@gmail.com",
-        "status": "active"
+        "status": 1
     }
 }
 ```
@@ -134,7 +134,7 @@
         "name": "Hendra Simangunsong",
         "username": "Admin1",
         "email": "hendra@gmail.com",
-        "status": "active"
+        "status": 1
     }
 }
 ```

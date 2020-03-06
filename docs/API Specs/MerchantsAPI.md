@@ -18,19 +18,19 @@
         "name": "Syntia",
         "email": "syntiaaa00@gmail.com",
         "username": "syntialai",
-        "status": "active"
+        "status": 1
     }, {
         "id": 2,
         "name": "Syntia",
         "email": "syntiaaa00@gmail.com",
         "username": "syntialai",
-        "status": "active"
+        "status": 1
     }, {
         "id": 3,
         "name": "Syntia",
         "email": "syntiaaa00@gmail.com",
         "username": "syntialai",
-        "status": "blocked"
+        "status": 0
     }]
 }
 ```
@@ -66,7 +66,8 @@
         "id": 3,
         "name": "Syntia",
         "email": "syntiaaa00@gmail.com",
-        "username": "syntialai"
+        "username": "syntialai",
+        "status": 1
     }
 }
 ```
@@ -123,7 +124,7 @@
         "name": "Syntia",
         "email": "syntialaii407@gmail.com",
         "username": "syntialaii",
-        "status": "active"
+        "status": 1
     }
 }
 ```
@@ -181,7 +182,7 @@
         "name": "Syntia",
         "email": "syntialaii407@gmail.com",
         "username": "syntialaii407",
-        "status": "active"
+        "status": 1
     }
 }
 ```

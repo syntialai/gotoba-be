@@ -1,9 +1,11 @@
 # API for Authentication
+
 ## Register
 
 + Endpoint : ``/auth/signup``
 + HTTP Method : ``POST``
-+ Request Body : 
++ Request Body :
+
 ```json
 {
     "nickname" : "hendra",
@@ -15,20 +17,21 @@
     "status" : "active"
 }
 ```
-+ Request Header : 
-	+ Accept : ``application/json``
-   + Response Body (Success) :
+
++ Request Header :
+  + Accept : ``application/json``
++ Response Body (Success) :
 
 ```json
 {
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "code" : 200,
     "status" : "OK",
-    "message" : "User register successfully"
+    "message" : "User registered successfully"
 }
 ```
 
-+ Response Body (Fail) : 
++ Response Body (Fail) :
 
 ```json
 {
@@ -38,6 +41,7 @@
     "message": "Email Address already in use!"
 }
 ```
+
 ```json
 {
     "timestamp": "2019-08-23T04:22:26.690+0000",

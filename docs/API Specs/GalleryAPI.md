@@ -54,7 +54,7 @@
 + Endpoint : ``/gallery/{photo-id}``
 + HTTP Method : `GET`
 + Path Variable :
-  photo-id
+  + photo-id
 + Request Header :
   + Accept : `application/json`
 + Response Body (Success) :
@@ -96,7 +96,7 @@
 }
 ```
 
-## Add Photo
+## Add new Photo
 
 + Endpoint : ``/gallery``
 + HTTP Method : `POST`
@@ -159,7 +159,7 @@
 + Endpoint : ``/gallery/{photo-id}``
 + HTTP Method : `PUT`
 + Path Variable :
-  photo-id
+  + photo-id
 + Request Body :
 
 ```json
