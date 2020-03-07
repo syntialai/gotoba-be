@@ -237,6 +237,16 @@
 + HTTP Method : `PUT`
 + Path Variable :
   + sku
++ Request Body :
+
+```json
+{
+    "nickname" : "hendra",
+    "username" : "hendra",
+    "email" : "hendra@gmail.com",
+    "password" : "hendra77"
+}
+```
 + Request Header :
   + Accept: `application/json`
   + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
