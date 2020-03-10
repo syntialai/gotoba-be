@@ -65,7 +65,7 @@
 + Endpoint : ``/tour-guide/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
-  + tg-id
+  + sku
 + Request Header :
   + Accept : `application/json`
 + Response Body (Success) :
@@ -190,12 +190,12 @@
 }
 ```
 
-## Edit Tour Guide by Id
+## Edit Tour Guide by Sku
 
 + Endpoint : ``/tour-guide/{sku}``
 + HTTP Method : `POST`
 + Path Variable :
-  + tg-id
+  + sku
 + Request Body :
 
 ```json
