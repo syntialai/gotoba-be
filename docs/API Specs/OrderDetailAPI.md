@@ -24,7 +24,7 @@
         "merchantId": 1,
         "merchantSku": "synt_merc_0001",
         "userId": 1,
-        "userSku": "sima_cust_001",
+        "userSku": "sima_cust_001"
     }
 }
 ```
@@ -75,7 +75,7 @@
         "merchantId": 1,
         "merchantSku": "synt_merc_0001",
         "userId": 1,
-        "userSku": "sima_cust_001",
+        "userSku": "sima_cust_001"
     }]
 }
 ```
@@ -126,8 +126,7 @@
         "merchantId": 1,
         "merchantSku": "synt_merc_0001",
         "userId": 1,
-        "userSku": "sima_cust_001
-        ",
+        "userSku": "sima_cust_001"
     }]
 }
 ```
