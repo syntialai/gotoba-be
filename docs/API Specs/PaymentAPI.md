@@ -2,10 +2,10 @@
 
 ## Get Payment by Merchant Sku
 
-+ Endpoint : ``/pay?m={merchant-sku}``
++ Endpoint : ``/pay?m={merchantSku}``
 + HTTP Method : `GET`
 + Path Variable :
-  + merchant-sku
+  + merchantSku
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
@@ -21,33 +21,33 @@
         "category": "rest",
         "total": 50000,
         "status": "ACCEPTED",
-        "order-id": 1,
-        "merchant-id": 1,
-        "merchant-sku": "synt_merc_0001",
-        "user-id": 1,
-        "user-sku": "sima_cust_001"
+        "orderId": 1,
+        "merchantId": 1,
+        "merchantSku": "synt_merc_0001",
+        "userId": 1,
+        "userSku": "sima_cust_001"
     }, {
         "id": 2,
         "sku": "REV_rest_0001_0002",
         "category": "rest",
         "total": 100000,
         "status": "WAITING",
-        "order-id": 1,
-        "merchant-id": 1,
-        "merchant-sku": "synt_merc_0001",
-        "user-id": 1,
-        "user-sku": "sima_cust_001"
+        "orderId": 1,
+        "merchantId": 1,
+        "merchantSku": "synt_merc_0001",
+        "userId": 1,
+        "userSku": "sima_cust_001"
     }, {
         "id": 3,
         "sku": "REV_rest_0001_0002",
         "category": "rest",
         "total": 100000,
         "status": "CANCELLED",
-        "order-id": 1,
-        "merchant-id": 1,
-        "merchant-sku": "synt_merc_0001",
-        "user-id": 1,
-        "user-sku": "sima_cust_001"
+        "orderId": 1,
+        "merchantId": 1,
+        "merchantSku": "synt_merc_0001",
+        "userId": 1,
+        "userSku": "sima_cust_001"
     }]
 }
 ```
@@ -60,7 +60,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/pay?m={merchant-sku}"
+    "path": "/pay?m={merchantSku}"
 }
 ```
 
@@ -69,18 +69,18 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find merchant with sku {merchant-sku}.",
-    "path": "/pay?m={merchant-sku}"
+    "message": "Invalid Request: Cannot find merchant with sku {merchantSku}.",
+    "path": "/pay?m={merchantSku}"
 }
 ```
 
 ## Get Payment by Merchant Sku and by Category
 
-+ Endpoint : ``/pay?m={merchant-sku}&category={category-name}``
++ Endpoint : ``/pay?m={merchantSku}&category={categoryName}``
 + HTTP Method : `GET`
 + Path Variable :
-  + merchant-sku
-  + category-name
+  + merchantSku
+  + categoryName
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
@@ -96,33 +96,33 @@
         "category": "rest",
         "total": 50000,
         "status": "ACCEPTED",
-        "order-id": 1,
-        "merchant-id": 1,
-        "merchant-sku": "synt_merc_0001",
-        "user-id": 1,
-        "user-sku": "sima_cust_001"
+        "orderId": 1,
+        "merchantId": 1,
+        "merchantSku": "synt_merc_0001",
+        "userId": 1,
+        "userSku": "sima_cust_001"
     }, {
         "id": 2,
         "sku": "REV_rest_0001_0002",
         "category": "rest",
         "total": 100000,
         "status": "WAITING",
-        "order-id": 1,
-        "merchant-id": 1,
-        "merchant-sku": "synt_merc_0001",
-        "user-id": 1,
-        "user-sku": "sima_cust_001"
+        "orderId": 1,
+        "merchantId": 1,
+        "merchantSku": "synt_merc_0001",
+        "userId": 1,
+        "userSku": "sima_cust_001"
     }, {
         "id": 3,
         "sku": "REV_rest_0001_0002",
         "category": "rest",
         "total": 100000,
         "status": "CANCELLED",
-        "order-id": 1,
-        "merchant-id": 1,
-        "merchant-sku": "synt_merc_0001",
-        "user-id": 1,
-        "user-sku": "sima_cust_001"
+        "orderId": 1,
+        "merchantId": 1,
+        "merchantSku": "synt_merc_0001",
+        "userId": 1,
+        "userSku": "sima_cust_001"
     }]
 }
 ```
@@ -135,7 +135,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/pay?m={merchant-sku}&category={category-name}"
+    "path": "/pay?m={merchantSku}&category={categoryName}"
 }
 ```
 
@@ -144,17 +144,17 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find category with category-name {category-name}.",
-    "path": "/pay?m={merchant-sku}&category={category-name}"
+    "message": "Invalid Request: Cannot find category with categoryName {categoryName}.",
+    "path": "/pay?m={merchantSku}&category={categoryName}"
 }
 ```
 
 ## Get Payment by User Sku and by Status
 
-+ Endpoint : ``/pay?u={user-sku}&status={status}``
++ Endpoint : ``/pay?u={userSku}&status={status}``
 + HTTP Method : `GET`
 + Path Variable :
-  + user-sku
+  + userSku
   + status
 + Request Header :
   + Accept : `application/json`
@@ -171,11 +171,11 @@
         "category": "rest",
         "total": 50000,
         "status": "ACCEPTED",
-        "order-id": 1,
-        "merchant-id": 1,
-        "merchant-sku": "synt_merc_0001",
-        "user-id": 1,
-        "user-sku": "sima_cust_001"
+        "orderId": 1,
+        "merchantId": 1,
+        "merchantSku": "synt_merc_0001",
+        "userId": 1,
+        "userSku": "sima_cust_001"
     }]
 }
 ```
@@ -188,7 +188,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/pay?u={user-sku}&status={status}"
+    "path": "/pay?u={userSku}&status={status}"
 }
 ```
 
@@ -197,8 +197,8 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find user with sku {user-sku}.",
-    "path": "/pay?u={user-sku}&status={status}"
+    "message": "Invalid Request: Cannot find user with sku {userSku}.",
+    "path": "/pay?u={userSku}&status={status}"
 }
 ```
 
@@ -223,11 +223,11 @@
         "category": "rest",
         "total": 50000,
         "status": "ACCEPTED",
-        "order-id": 1,
-        "merchant-id": 1,
-        "merchant-sku": "synt_merc_0001",
-        "user-id": 1,
-        "user-sku": "sima_cust_001"
+        "orderId": 1,
+        "merchantId": 1,
+        "merchantSku": "synt_merc_0001",
+        "userId": 1,
+        "userSku": "sima_cust_001"
     }
 }
 ```
@@ -249,25 +249,25 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find user with sku {user-sku}.",
+    "message": "Invalid Request: Cannot find user with sku {userSku}.",
     "path": "/pay/{sku}"
 }
 ```
 
 ## Add Payment
 
-+ Endpoint : ``/pay?u={user-sku}&m={merchant-sku}``
++ Endpoint : ``/pay?u={userSku}&m={merchantSku}``
 + HTTP Method : `POST`
 + Path Variable :
-  + user-sku
-  + merchant-sku
+  + userSku
+  + merchantSku
 + Request Body :
 
 ```json
 {
     "total": 50000,
     "status": "WAITING",
-    "order-id": 2
+    "orderId": 2
 }
 ```
 
@@ -286,11 +286,11 @@
         "category": "rest",
         "total": 50000,
         "status": "WAITING",
-        "order-id": 2,
-        "merchant-id": 1,
-        "merchant-sku": "synt_merc_0001",
-        "user-id": 1,
-        "user-sku": "sima_cust_001"
+        "orderId": 2,
+        "merchantId": 1,
+        "merchantSku": "synt_merc_0001",
+        "userId": 1,
+        "userSku": "sima_cust_001"
     }
 }
 ```
@@ -303,7 +303,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/pay?u={user-sku}&m={merchant-sku}"
+    "path": "/pay?u={userSku}&m={merchantSku}"
 }
 ```
 
@@ -313,7 +313,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/pay?u={user-sku}&m={merchant-sku}"
+    "path": "/pay?u={userSku}&m={merchantSku}"
 }
 ```
 
@@ -322,8 +322,8 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find user with sku {user-sku}.",
-    "path": "/pay?u={user-sku}&m={merchant-sku}"
+    "message": "Invalid Request: Cannot find user with sku {userSku}.",
+    "path": "/pay?u={userSku}&m={merchantSku}"
 }
 ```
 
@@ -339,7 +339,7 @@
 {
     "total": 50000,
     "status": "ACCEPTED",
-    "order-id": 2
+    "orderId": 2
 }
 ```
 
@@ -358,11 +358,11 @@
         "category": "rest",
         "total": 50000,
         "status": "ACCEPTED",
-        "order-id": 2,
-        "merchant-id": 1,
-        "merchant-sku": "synt_merc_0001",
-        "user-id": 1,
-        "user-sku": "sima_cust_001"
+        "orderId": 2,
+        "merchantId": 1,
+        "merchantSku": "synt_merc_0001",
+        "userId": 1,
+        "userSku": "sima_cust_001"
     }
 }
 ```

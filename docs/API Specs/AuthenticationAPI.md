@@ -61,21 +61,21 @@
 }
 ```
 
-
-
 ## Login
 
 + Endpoint : ``/auth/login``
 + HTTP Method : ``POST``
-+ Request Body : 
++ Request Body :
+
 ```json
 {
-	"username": "hendra",
-	"password": "hendra"
+    "username": "hendra",
+    "password": "hendra"
 }
 ```
-+ Request Header : 
-	+ Accept : ``application/json``
+
++ Request Header :
+  + Accept : ``application/json``
 + Response Body (Success) :
 
 ```json
@@ -83,11 +83,11 @@
     "name" : "hendra",
     "role" : "ROLE_USER",
     "sku_user" : "hend-cust-001",
-	"token" : "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg"
+    "token" : "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg"
 }
 ```
 
-+ Response Body (Fail) : 
++ Response Body (Fail) :
 
 ```json
 {
@@ -97,6 +97,7 @@
     "message": "Invalid Request: Invalid user authentication or invalid request format"
 }
 ```
+
 ```json
 {
     "timestamp": "2019-08-23T04:22:26.690+0000",
