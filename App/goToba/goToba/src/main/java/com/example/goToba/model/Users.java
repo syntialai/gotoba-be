@@ -15,7 +15,6 @@ import java.util.Set;
  * Created by Sogumontar Hendra Simangunsong on 24/03/2020.
  */
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
@@ -53,6 +52,15 @@ public class Users extends Timestamp {
 
     @Column(name = "status")
     public int status;
+
+    public Users(String sku, String nickname, String username, @Email String email, String password, int status) {
+        this.sku = sku;
+        this.nickname = nickname;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.status = status;
+    }
 
     public String getSku() {
         return sku;
