@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = TablesConstant.TABEL_USER_ROLE)
-public class UserRole {
+public class UserRole  {
     @Id
     public String sku_user;
 

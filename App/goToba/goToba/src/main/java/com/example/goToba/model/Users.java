@@ -1,6 +1,7 @@
 package com.example.goToba.model;
 
 import com.example.goToba.model.constants.TablesConstant;
+import com.example.goToba.model.timestamp.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,7 @@ import java.util.Set;
                 "email"
         })
 })
-public class Users {
+public class Users extends Timestamp {
     @Id
     public String sku;
 
