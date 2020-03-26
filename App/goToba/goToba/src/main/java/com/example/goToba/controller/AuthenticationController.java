@@ -1,8 +1,7 @@
 package com.example.goToba.controller;
 
 import com.example.goToba.payload.RegisterRequest;
-import com.example.goToba.repository.UsersRepo;
-import com.example.goToba.service.AuthenticationService;
+import com.example.goToba.service.implement.AuthenticationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     @Autowired
-    AuthenticationService authenticationService;
+    AuthenticationServiceImpl authenticationServiceImpl;
 
     @PostMapping("/signup")
     public ResponseEntity<?> register(RegisterRequest registerRequest){
 
-        return authenticationService.register(registerRequest);
+        return authenticationServiceImpl.register(registerRequest);
     }
 }
