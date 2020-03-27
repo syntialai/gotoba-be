@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collections;
 
@@ -34,6 +35,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Autowired
     SequenceUsersRepo sequenceUsersRepo;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest){
 
@@ -50,7 +54,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 registerRequest.getPassword(),
                 1
                 );
-
+        users.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         users.setRoles(Collections.singleton(roles));
 
 
