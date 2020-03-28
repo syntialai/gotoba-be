@@ -1,7 +1,10 @@
 package com.example.goToba.payload;
 
 import com.example.goToba.model.RoleName;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -10,6 +13,8 @@ import javax.validation.constraints.NotBlank;
  * Created by Sogumontar Hendra Simangunsong on 25/03/2020.
  */
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class RegisterRequest {
 
     @NotBlank
@@ -26,10 +31,11 @@ public class RegisterRequest {
     private String password;
 
     @NotBlank
-    private RoleName role;
+    private String confirmPassword;
 
     @NotBlank
-    private String status;
+    private RoleName role;
+
 
     public String getNickname() {
         return nickname;
@@ -71,11 +77,12 @@ public class RegisterRequest {
         this.role = role;
     }
 
-    public String getStatus() {
-        return status;
+
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }

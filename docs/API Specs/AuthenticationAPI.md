@@ -13,8 +13,7 @@
     "email" : "hendra@gmail.com",
     "password" : "hendra77",
     "confirmPassword" : "hendra77",
-    "role" : "Merchant",
-    "status" : "active"
+    "role" : "Merchant"
 }
 ```
 
@@ -51,15 +50,6 @@
 }
 ```
 
-```json
-{
-    "timestamp": "2019-08-23T04:22:26.690+0000",
-    "status": 401,
-    "error": "Unauthorized",
-    "message": "Invalid Request: Invalid user authentication or Unauthorized",
-    "path": "/users"
-}
-```
 
 ## Login
 

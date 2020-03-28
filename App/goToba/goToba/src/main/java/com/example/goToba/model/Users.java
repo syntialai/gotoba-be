@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,16 +17,16 @@ import java.util.Set;
  */
 
 @NoArgsConstructor
-@Builder
 @Entity
-@Table(name = TablesConstant.TABEL_USER, uniqueConstraints = {
-        @UniqueConstraint(columnNames = {
-                "username"
-        }),
-        @UniqueConstraint(columnNames = {
-                "email"
-        })
-})
+//@Table(name = TablesConstant.TABEL_USER, uniqueConstraints = {
+//        @UniqueConstraint(columnNames = {
+//                "username"
+//        }),
+//        @UniqueConstraint(columnNames = {
+//                "email"
+//        })
+//})
+@Table(name = TablesConstant.TABEL_USER)
 public class Users extends Timestamp {
     @Id
     public String sku;

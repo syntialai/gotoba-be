@@ -3,6 +3,7 @@ package com.example.goToba.model;
 import com.example.goToba.model.constants.SequenceConstantField;
 import com.example.goToba.model.constants.TablesConstant;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +14,7 @@ import javax.persistence.Table;
  * Created by Sogumontar Hendra Simangunsong on 26/03/2020.
  */
 @Entity
-@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = TablesConstant.TABEL_SEQUENCE_USERS)
 public class SequenceUsers {
     @Id

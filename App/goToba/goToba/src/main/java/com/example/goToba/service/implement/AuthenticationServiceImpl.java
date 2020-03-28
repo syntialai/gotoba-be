@@ -1,5 +1,6 @@
 package com.example.goToba.service.implement;
 
+import com.example.goToba.controller.apiResponse.AuthenticationResponse;
 import com.example.goToba.exception.AppException;
 import com.example.goToba.model.RoleName;
 import com.example.goToba.model.Roles;
@@ -14,10 +15,14 @@ import com.example.goToba.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
+import java.sql.Timestamp;
 import java.util.Collections;
 
 /**
@@ -41,9 +46,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest){
 
+
+        if(!checkPassword(registerRequest.getPassword(),registerRequest.getConfirmPassword())){
+            return ResponseEntity.badRequest().body("Check your password again");
+        }
+
         checkEmail(registerRequest.getEmail());
         checkUsername(registerRequest.getUsername());
 
+        System.out.println("testing");
         Roles roles =checkRole(registerRequest.getRole().toString());
         String skuFix=skuGenerator(registerRequest.getUsername(),roles.toString());
         Users users=new Users(
@@ -57,12 +68,25 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         users.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         users.setRoles(Collections.singleton(roles));
 
-
-        return ResponseEntity.ok(usersRepo.save(users));
+        Users save= usersRepo.save(users);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentContextPath().path("/users/{username}")
+                .buildAndExpand(save.getUsername()).toUri();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        return ResponseEntity.created(location).body(new AuthenticationResponse(timestamp.toString(),"201", "OK", "User registered successfully"));
+    }
+    @Override
+    public Boolean checkPassword(String password, String confirmPassword){
+        if(password.toString().equals(confirmPassword.toString())){
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Roles checkRole(String role){
+
+        System.out.println("testing2");
         Roles roles;
         RoleName roleName=RoleName.ROLE_USER;
         if(role.equals(RoleName.ROLE_ADMIN)){
@@ -100,7 +124,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public ResponseEntity<?> checkUsername(String username) {
         if(usersRepo.existsByUsername(username)){
-            return new ResponseEntity(new ApiResponse(false,"Username is Already Taken!"),
+            return new ResponseEntity(new ApiResponse(false,"Username Already in use!"),
             HttpStatus.BAD_REQUEST);
         }
         return null;

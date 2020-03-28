@@ -15,4 +15,5 @@ public interface AuthenticationService {
     ResponseEntity<?> checkUsername(String username);
     ResponseEntity<?> checkEmail(String email);
     String sub_str(String str);
+    Boolean checkPassword(String password, String confirmPassword);
 }
