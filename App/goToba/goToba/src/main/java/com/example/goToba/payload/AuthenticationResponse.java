@@ -1,12 +1,14 @@
-package com.example.goToba.controller.apiResponse;
+package com.example.goToba.payload;
 
 import com.example.goToba.model.timestamp.Timestamp;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 28/03/2020.
  */
+@Builder
 @NoArgsConstructor
 public class AuthenticationResponse {
     String timestamp;

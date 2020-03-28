@@ -1,6 +1,6 @@
 package com.example.goToba.service.implement;
 
-import com.example.goToba.controller.apiResponse.AuthenticationResponse;
+import com.example.goToba.payload.AuthenticationResponse;
 import com.example.goToba.exception.AppException;
 import com.example.goToba.model.RoleName;
 import com.example.goToba.model.Roles;
@@ -15,7 +15,6 @@ import com.example.goToba.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.security.crypto.password.PasswordEncoder;
