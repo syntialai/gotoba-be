@@ -2,10 +2,12 @@ package com.example.goToba.controller;
 
 import com.example.goToba.controller.route.AuthenticationControllerRoute;
 import com.example.goToba.exception.AuthException;
+import com.example.goToba.model.TestTable;
 import com.example.goToba.model.Users;
 import com.example.goToba.payload.JwtLoginResponse;
 import com.example.goToba.payload.LoginRequest;
 import com.example.goToba.payload.RegisterRequest;
+import com.example.goToba.repository.TestingMultiple;
 import com.example.goToba.security.JwtTokenProvider;
 import com.example.goToba.security.UserPrincipal;
 import com.example.goToba.service.UsersService;
@@ -39,12 +41,15 @@ public class AuthenticationController {
     @Autowired
     UsersServiceImpl usersService;
 
+    @Autowired
+    TestingMultiple testingMultiple;
+
     @PostMapping(AuthenticationControllerRoute.ROUTE_SIGN_UP)
     public ResponseEntity<?> register(@RequestBody  RegisterRequest registerRequest){
         return authenticationServiceImpl.register(registerRequest);
     }
 
-    @PostMapping()
+    @PostMapping(AuthenticationControllerRoute.ROUTE_SIGN_IN)
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -69,4 +74,11 @@ public class AuthenticationController {
                 userPrincipal.getEmail())
         );
     }
+    @PostMapping("/test")
+    public String test(@RequestBody TestTable testTable){
+        TestTable testTable1=new TestTable("asd");
+        testingMultiple.save( testTable1);
+        return "Sukses";
+    }
+
 }
