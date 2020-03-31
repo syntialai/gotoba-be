@@ -77,7 +77,7 @@ public class AuthenticationController {
     @PostMapping("/test")
     public String test(@RequestBody TestTable testTable){
         TestTable testTable1=new TestTable("asd");
-        testingMultiple.save( testTable1);
+        testingMultiple.save( testTable1).subscribe();
         return "Sukses";
     }
 
