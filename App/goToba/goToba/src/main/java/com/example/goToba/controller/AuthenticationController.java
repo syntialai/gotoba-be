@@ -74,11 +74,11 @@ public class AuthenticationController {
                 userPrincipal.getEmail())
         );
     }
-    @PostMapping("/test")
-    public String test(@RequestBody TestTable testTable){
-        TestTable testTable1=new TestTable("asd");
-        testingMultiple.save( testTable1).subscribe();
-        return "Sukses";
-    }
+//    @PostMapping("/test")
+//    public String test(@RequestBody TestTable testTable){
+//        TestTable testTable1=new TestTable("asd");
+//        testingMultiple.save( testTable1).subscribe();
+//        return "Sukses";
+//    }
 
 }
