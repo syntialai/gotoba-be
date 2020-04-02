@@ -1,4 +1,4 @@
-package com.example.goToba.payload;
+package com.example.goToba.payload.request;
 
 import com.example.goToba.model.RoleName;
 import lombok.AllArgsConstructor;

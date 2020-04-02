@@ -2,15 +2,13 @@ package com.example.goToba.controller;
 
 import com.example.goToba.controller.route.AuthenticationControllerRoute;
 import com.example.goToba.exception.AuthException;
-import com.example.goToba.model.TestTable;
 import com.example.goToba.model.Users;
 import com.example.goToba.payload.JwtLoginResponse;
-import com.example.goToba.payload.LoginRequest;
-import com.example.goToba.payload.RegisterRequest;
+import com.example.goToba.payload.request.LoginRequest;
+import com.example.goToba.payload.request.RegisterRequest;
 import com.example.goToba.repository.TestingMultiple;
 import com.example.goToba.security.JwtTokenProvider;
 import com.example.goToba.security.UserPrincipal;
-import com.example.goToba.service.UsersService;
 import com.example.goToba.service.implement.AuthenticationServiceImpl;
 import com.example.goToba.service.implement.UsersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

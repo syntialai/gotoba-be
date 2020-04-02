@@ -7,7 +7,7 @@ import com.example.goToba.model.Roles;
 import com.example.goToba.model.SequenceUsers;
 import com.example.goToba.model.Users;
 import com.example.goToba.payload.ApiResponse;
-import com.example.goToba.payload.RegisterRequest;
+import com.example.goToba.payload.request.RegisterRequest;
 import com.example.goToba.repository.RoleRepo;
 import com.example.goToba.repository.SequenceUsersRepo;
 import com.example.goToba.repository.UsersRepo;

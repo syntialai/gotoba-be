@@ -1,7 +1,7 @@
 package com.example.goToba.service;
 
 import com.example.goToba.model.Roles;
-import com.example.goToba.payload.RegisterRequest;
+import com.example.goToba.payload.request.RegisterRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
