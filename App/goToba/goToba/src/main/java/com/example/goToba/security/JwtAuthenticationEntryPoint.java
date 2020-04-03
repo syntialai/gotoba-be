@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 28/03/2020.
+ * Created by Sogumontar Hendra Simangunsong on 03/04/2020.
  */
-public class JwtAuthenticationEntryPoint  implements AuthenticationEntryPoint {
+@Component
+public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationEntryPoint.class);
     @Override

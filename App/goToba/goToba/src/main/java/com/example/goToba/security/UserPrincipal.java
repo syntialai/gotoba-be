@@ -2,23 +2,20 @@ package com.example.goToba.security;
 
 import com.example.goToba.model.Users;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Objects;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 28/03/2020.
+ * Created by Sogumontar Hendra Simangunsong on 03/04/2020.
  */
-@Data
-@NoArgsConstructor
+
 public class UserPrincipal implements UserDetails {
     private String sku;
 
-    private String nickName;
+    private String name;
 
     private String username;
 
@@ -30,13 +27,13 @@ public class UserPrincipal implements UserDetails {
 
     private int status;
 
-    public UserPrincipal(String sku, String nickName, String username, String email, String password, int status) {
+    public UserPrincipal(String sku, String name, String username, String email, String password ,int status) {
         this.sku = sku;
-        this.nickName = nickName;
+        this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.status = status;
+        this.status=status;
     }
 
     public static UserPrincipal create(Users user) {
@@ -54,44 +51,29 @@ public class UserPrincipal implements UserDetails {
         );
     }
 
-    public String getSku() {
-        return sku;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public int getStatus() {
         return status;
     }
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
     }
 
     @Override
@@ -101,31 +83,40 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
+        return password;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserPrincipal that = (UserPrincipal) o;
+        return Objects.equals(sku, that.sku);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(sku);
     }
 }

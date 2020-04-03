@@ -1,5 +1,6 @@
 package com.example.goToba.security;
 
+
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,13 +11,12 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 28/03/2020.
+ * Created by Sogumontar Hendra Simangunsong on 03/04/2020.
  */
-
 @Component
 public class JwtTokenProvider {
 
-    private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
+    private static final Logger logger = (Logger) LoggerFactory.getLogger(JwtTokenProvider.class);
 
     @Value("${app.jwtSecret}")
     private String jwtSecret;
