@@ -106,8 +106,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         System.out.println("testing");
         Users user = usersService.findByUsername(loginRequest.getUsername());
-        String role=user.getRoles().toString();
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        String role=userPrincipal.getAuthorities().toString();
         if (userPrincipal.getStatus()!=1) throw new AuthException("User has been blocked");
         String token=jwtTokenProvider.generateToken(authentication);
         return ResponseEntity.ok(new JwtLoginResponse(
@@ -115,7 +115,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 role,
                 userPrincipal.getSku(),
                 userPrincipal.getStatus(),
-                userPrincipal.getName(),
+                userPrincipal.getNickName(),
                 userPrincipal.getEmail())
         );
     }
