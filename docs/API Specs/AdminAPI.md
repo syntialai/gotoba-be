@@ -48,65 +48,7 @@
 }
 ```
 
-## Add Admin
-
-+ Endpoint : ``/admin``
-+ HTTP Method : `POST`
-+ Request Body :
-
-```json
-{
-    "name": "Syntiaaa",
-    "username": "Admin2",
-    "email": "syntialay@gmail.com",
-    "password": "Syntia",
-    "rePassword": "Syntia"
-}
-```
-
-+ Request Header :
-  + Accept : `application/json`
-  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
-+ Response Body (Success) :
-
-```json
-{
-    "code": 200,
-    "status": "OK",
-    "data": {
-        "id": 2,
-        "sku": "Adm-0002",
-        "name": "Syntiaaa",
-        "username": "Admin2",
-        "email": "syntialay@gmail.com",
-        "status": 1
-    }
-}
-```
-
-+ Response Body (Fail) :
-
-```json
-{
-    "timestamp": "2020-11-15T22:55:40.110Z",
-    "status": 400,
-    "error": "Bad Request",
-    "message": "Invalid Request: Invalid request format.",
-    "path": "/admin"
-}
-```
-
-```json
-{
-    "timestamp": "2020-11-15T22:55:40.110Z",
-    "status": 401,
-    "error": "Unauthorized",
-    "message": "Invalid Request: You are not allowed to access.",
-    "path": "/admin"
-}
-```
-
-## Edit Admin by Id
+## Edit Admin by Sku
 
 + Endpoint : ``/admin/{sku}``
 + HTTP Method : `PUT`

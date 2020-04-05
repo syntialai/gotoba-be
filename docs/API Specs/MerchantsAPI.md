@@ -98,71 +98,12 @@
 }
 ```
 
-## Add New Merchant
-
-+ Endpoint : ``/merchant``
-+ HTTP Method : `POST`
-+ Request Body :
-
-```json
-{
-    "name": "Syntia",
-    "username": "syntialaii",
-    "email": "syntialaii407@gmail.com",
-    "password": "abcdefgh",
-    "rePassword": "abcdefgh"
-}
-```
-
-+ Request Header :
-  + Accept : `application/json`
-  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
-+ Response Body (Success) :
-
-```json
-{
-    "code": 200,
-    "status": "OK",
-    "data": {
-        "id": 4,
-        "sku": "synt_merc_0004",
-        "name": "Syntia",
-        "email": "syntialaii407@gmail.com",
-        "username": "syntialaii",
-        "status": 1
-    }
-}
-```
-
-+ Response Body (Fail) :
-
-```json
-{
-    "timestamp": "2016-11-15T22:55:40.110Z",
-    "status": 400,
-    "error": "Bad Request",
-    "message": "Invalid Request: Invalid request format.",
-    "path": "/merchant"
-}
-```
-
-```json
-{
-    "timestamp": "2016-11-15T22:55:40.110Z",
-    "status": 401,
-    "error": "Unauthorized",
-    "message": "Invalid Request: Invalid erchant authentication or Unauthorized.",
-    "path": "/merchant"
-}
-```
-
-## Edit Merchant by Id
+## Edit Merchant by Sku
 
 + Endpoint : ``/merchant/{sku}``
 + HTTP Method : `PUT`
 + Path Variable :
   + sku
-
 + Request Body :
 
 ```json
