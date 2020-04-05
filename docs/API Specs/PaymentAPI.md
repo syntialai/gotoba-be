@@ -1,14 +1,14 @@
 # Payment API
 
-## Get Payment by Merchant Sku
+## Get Payment (by Merchant Sku)
 
 + Endpoint : ``/pay?m={merchantSku}``
 + HTTP Method : `GET`
-+ Path Variable :
-  + merchantSku
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Request Param :
+  + merchantSku
 + Response Body (Success) :
 
 ```json
@@ -74,16 +74,16 @@
 }
 ```
 
-## Get Payment by Merchant Sku and by Category
+## Get Payment (by Merchant Sku and by Category)
 
 + Endpoint : ``/pay?m={merchantSku}&category={categoryName}``
 + HTTP Method : `GET`
-+ Path Variable :
-  + merchantSku
-  + categoryName
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Request Param :
+  + merchantSku
+  + categoryName
 + Response Body (Success) :
 
 ```json
@@ -149,16 +149,16 @@
 }
 ```
 
-## Get Payment by User Sku and by Status
+## Get Payment (by User Sku and by Status)
 
 + Endpoint : ``/pay?u={userSku}&status={status}``
 + HTTP Method : `GET`
-+ Path Variable :
-  + userSku
-  + status
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Request Param :
+  + userSku
+  + status
 + Response Body (Success) :
 
 ```json
@@ -202,7 +202,7 @@
 }
 ```
 
-## Get Payment by Sku
+## Get Payment (by Sku)
 
 + Endpoint : ``/pay/{sku}``
 + HTTP Method : `GET`
@@ -258,9 +258,6 @@
 
 + Endpoint : ``/pay?u={userSku}&m={merchantSku}``
 + HTTP Method : `POST`
-+ Path Variable :
-  + userSku
-  + merchantSku
 + Request Body :
 
 ```json
@@ -274,6 +271,9 @@
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Request Param :
+  + userSku
+  + merchantSku
 + Response Body (Success) :
 
 ```json
@@ -327,7 +327,7 @@
 }
 ```
 
-## Edit Payment by Sku
+## Edit Payment (by Sku)
 
 + Endpoint : ``/pay/{sku}``
 + HTTP Method : `PUT`
