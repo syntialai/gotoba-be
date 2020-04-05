@@ -50,7 +50,7 @@
 }
 ```
 
-## Get Merchants by Sku
+## Get Merchants (by Sku)
 
 + Endpoint : ``/merchant/{sku}``
 + HTTP Method : `GET`

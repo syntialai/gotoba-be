@@ -1,6 +1,6 @@
 # Admin API
 
-## Get Admin by Sku
+## Get Admin (by Sku)
 
 + Endpoint : ``/admin/{sku}``
 + HTTP Method : `GET`
@@ -48,7 +48,7 @@
 }
 ```
 
-## Edit Admin by Sku
+## Edit Admin (by Sku)
 
 + Endpoint : ``/admin/{sku}``
 + HTTP Method : `PUT`
