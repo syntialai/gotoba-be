@@ -6,5 +6,6 @@ package com.example.goToba.controller.route;
 public interface WisataControllerRoute {
     public String ROUTE_WISATA = "/wisata";
     public String ROUTE_WISATA_ADD_NEW = "/add";
+    public String ROUTE_WISATA_All = "/";
 
 }
