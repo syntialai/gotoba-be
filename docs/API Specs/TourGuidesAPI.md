@@ -1,6 +1,6 @@
 # Tour Guide API
 
-## Get Tour Guide
+## Get All Tour Guide
 
 + Endpoint : ``/tour-guide``
 + HTTP Method : `GET`
@@ -60,7 +60,7 @@
 }
 ```
 
-## Get Tour Guide by Sku
+## Get Tour Guide (by Sku)
 
 + Endpoint : ``/tour-guide/{sku}``
 + HTTP Method : `GET`
@@ -190,10 +190,10 @@
 }
 ```
 
-## Edit Tour Guide by Sku
+## Edit Tour Guide (by Sku)
 
-+ Endpoint : ``/tour-guide/{sku}``
-+ HTTP Method : `POST`
++ Endpoint : ``/tour-guide/{sku}/edit``
++ HTTP Method : `PUT`
 + Path Variable :
   + sku
 + Request Body :
@@ -252,7 +252,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/tour-guide/{sku}"
+    "path": "/tour-guide/{sku}/edit"
 }
 ```
 
@@ -262,7 +262,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/tour-guide/{sku}"
+    "path": "/tour-guide/{sku}/edit"
 }
 ```
 
@@ -272,6 +272,6 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find tour guide with id ABC.",
-    "path": "/tour-guide/{sku}"
+    "path": "/tour-guide/{sku}/edit"
 }
 ```

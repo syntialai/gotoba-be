@@ -84,7 +84,7 @@
 }
 ```
 
-## Get Wisata By sku
+## Get Wisata (by Sku)
 
 + Endpoint : ``/wisata/{sku}``
 + HTTP Method : `GET`
@@ -132,9 +132,9 @@
 }
 ```
 
-## Add new wisata
+## Add new Wisata
 
-+ Endpoint : ``/wisata/add``
++ Endpoint : ``/wisata``
 + HTTP Method : `POST`
 + Request Body :
 
@@ -192,9 +192,9 @@
 }
 ```
 
-## Edit Wisata by Sku
+## Edit Wisata (by Sku)
 
-+ Endpoint : ``/wisata/edit/{sku}``
++ Endpoint : ``/wisata/{sku}/edit``
 + HTTP Method : `PUT`
 + Path Variable :
   + sku
@@ -276,9 +276,9 @@
 }
 ```
 
-## Delete Wisata by Sku
+## Delete Wisata (by Sku)
 
-+ Endpoint : ``/wisata/delete/{sku}``
++ Endpoint : ``/wisata/{sku}/delete``
 + HTTP Method : `DELETE`
 + Path Variable :
   + sku

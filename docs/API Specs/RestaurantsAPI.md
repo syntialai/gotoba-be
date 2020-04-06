@@ -186,7 +186,7 @@
 }
 ```
 
-## Get Menu (by Id)
+## Get Menu from Restaurant (by Id)
 
 + Endpoint : ``/restaurant/{sku}/menu/{id}``
 + HTTP Method : `GET`
@@ -328,7 +328,7 @@
 }
 ```
 
-## Add new Menu
+## Add new Menu from Restaurant
 
 + Endpoint : `/restaurant/{sku}/menu`
 + HTTP Method : `POST`
@@ -483,7 +483,7 @@
 }
 ```
 
-## Edit Menu (by Id)
+## Edit Menu from Restaurant (by Id)
 
 + Endpoint : ``/restaurant/menu/{sku}/edit/{id}``
 + HTTP Method : `PUT`

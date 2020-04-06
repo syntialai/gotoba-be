@@ -222,7 +222,7 @@
 
 ## Edit Users (by Sku)
 
-+ Endpoint : ``/users/{sku}``
++ Endpoint : ``/users/{sku}/edit``
 + HTTP Method : `PUT`
 + Path Variable :
   + sku
