@@ -7,6 +7,8 @@ import java.util.List;
 /**
  * Created by Sogumontar Hendra Simangunsong on 02/04/2020.
  */
+@Builder
+@Data
 public class Wisata {
     public String skuWisata;
     public String name;
