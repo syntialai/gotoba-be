@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -86,10 +87,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         users.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         users.setRoles(Collections.singleton(roles));
 
-        Users save= usersRepo.save(users);
+        usersRepo.save(users);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/users/{username}")
-                .buildAndExpand(save.getUsername()).toUri();
+                .buildAndExpand(registerRequest.getUsername()).toUri();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return ResponseEntity.created(location).body(new AuthenticationResponse(timestamp.toString(),"201", "OK", "User registered successfully"));
     }

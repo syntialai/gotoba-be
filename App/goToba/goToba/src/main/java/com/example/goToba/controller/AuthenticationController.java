@@ -1,22 +1,14 @@
 package com.example.goToba.controller;
 
 import com.example.goToba.controller.route.AuthenticationControllerRoute;
-import com.example.goToba.exception.AuthException;
-import com.example.goToba.model.Users;
-import com.example.goToba.payload.JwtLoginResponse;
 import com.example.goToba.payload.request.LoginRequest;
 import com.example.goToba.payload.request.RegisterRequest;
-import com.example.goToba.repository.TestingMultiple;
 import com.example.goToba.security.JwtTokenProvider;
-import com.example.goToba.security.UserPrincipal;
 import com.example.goToba.service.implement.AuthenticationServiceImpl;
 import com.example.goToba.service.implement.UsersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -40,13 +32,6 @@ public class AuthenticationController {
 
     @Autowired
     UsersServiceImpl usersService;
-
-    @Autowired
-    TestingMultiple testingMultiple;
-     @GetMapping("/test/{username}")
-     public Users findwithUsername(@PathVariable String username){
-         return usersService.findByUsername(username);
-     }
 
     @PostMapping(AuthenticationControllerRoute.ROUTE_SIGN_UP)
     public ResponseEntity<?> register(@RequestBody  RegisterRequest registerRequest){
