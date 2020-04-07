@@ -18,14 +18,6 @@ import java.util.Set;
 
 @NoArgsConstructor
 @Entity
-//@Table(name = TablesConstant.TABEL_USER, uniqueConstraints = {
-//        @UniqueConstraint(columnNames = {
-//                "username"
-//        }),
-//        @UniqueConstraint(columnNames = {
-//                "email"
-//        })
-//})
 @Table(name = TablesConstant.TABEL_USER)
 public class Users extends Timestamp {
     @Id
@@ -45,22 +37,19 @@ public class Users extends Timestamp {
     public String password;
 
     @Column(name = "role")
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "sku_user"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Roles> roles = new HashSet<>();
+    private String roles ;
 
     @Column(name = "status")
     public int status;
 
-    public Users(String sku, String nickname, String username, @Email String email, String password, int status) {
+    public Users(String sku, String nickname, String username, @Email String email, String password, int status,String roles) {
         this.sku = sku;
         this.nickname = nickname;
         this.username = username;
         this.email = email;
         this.password = password;
         this.status = status;
+        this.roles = roles;
     }
 
     public String getSku() {
@@ -103,11 +92,11 @@ public class Users extends Timestamp {
         this.password = password;
     }
 
-    public Set<Roles> getRoles() {
+    public String getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Roles> roles) {
+    public void setRoles(String roles) {
         this.roles = roles;
     }
 

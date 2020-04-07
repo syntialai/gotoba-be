@@ -39,38 +39,8 @@ public class AuthenticationController {
     }
 
     @PostMapping(AuthenticationControllerRoute.ROUTE_SIGN_IN)
-    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest){
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
         return authenticationService.login(loginRequest);
-//        System.out.println("username : " + loginRequest.getUsername());
-//        System.out.println("password : " + loginRequest.getPassword());
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        loginRequest.getUsername(),
-//                        loginRequest.getPassword()
-//                )
-//        );
-//
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        System.out.println("testing");
-//        Users user = usersService.findByUsername(loginRequest.getUsername());
-//        String role=user.getRoles().toString();
-//        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-//        if (userPrincipal.getStatus()!=1) throw new AuthException("User has been blocked");
-//        String token=jwtTokenProvider.generateToken(authentication);
-//        return ResponseEntity.ok(new JwtLoginResponse(
-//                token,
-//                role,
-//                userPrincipal.getSku(),
-//                userPrincipal.getStatus(),
-//                userPrincipal.getName(),
-//                userPrincipal.getEmail())
-//        );
     }
-//    @PostMapping("/test")
-//    public String test(@RequestBody TestTable testTable){
-//        TestTable testTable1=new TestTable("asd");
-//        testingMultiple.save( testTable1).subscribe();
-//        return "Sukses";
-//    }
 
 }
