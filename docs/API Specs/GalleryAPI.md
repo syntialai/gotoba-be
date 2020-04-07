@@ -52,7 +52,7 @@
 }
 ```
 
-## Get Gallery Photo by Sku
+## Get Gallery Photo (by Sku)
 
 + Endpoint : ``/gallery/{sku}``
 + HTTP Method : `GET`

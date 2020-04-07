@@ -1,8 +1,8 @@
-# Wisata API
+# Travelling Schedule API
 
-## Get All My Schedule (By SKU)
+## Get All My Schedule (by Sku)
 
-+ Endpoint : ``/shcedule/{sku}``
++ Endpoint : ``/schedule/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
   + sku
@@ -54,9 +54,9 @@
 }
 ```
 
-## Get detail schedule (By schedule Id)
+## Get Detail Schedule (by Schedule Id)
 
-+ Endpoint : ``/shcedule/{scheduleId}``
++ Endpoint : ``/schedule/{scheduleId}``
 + HTTP Method : `GET`
 + Path Variable :
   + scheduleId
@@ -100,9 +100,9 @@
 }
 ```
 
-## Update schedule (By schedule Id)
+## Edit Schedule (by Schedule Id)
 
-+ Endpoint : ``/shcedule/update/{scheduleId}``
++ Endpoint : ``/schedule/{scheduleId}/edit``
 + HTTP Method : `PUT`
 + Path Variable :
   + scheduleId

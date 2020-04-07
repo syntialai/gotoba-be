@@ -54,7 +54,7 @@
 }
 ```
 
-## Get Users (by sku)
+## Get Users (by Sku)
 
 + Endpoint : ``/users/{user-sku}``
 + HTTP Method : `GET`
@@ -101,7 +101,7 @@
 }
 ```
 
-## Get Users Active (by status)
+## Get Users Active (by Status)
 
 + Endpoint : ``/users/active``
 + HTTP Method : `GET`
@@ -137,9 +137,9 @@
 }
 ```
 
-## Get Users Blocked (by status)
+## Get Users Blocked (by Status)
 
-+ Endpoint : ``/users/active``
++ Endpoint : ``/users/blocked``
 + HTTP Method : `GET`
 + Request Header :
   + Accept: `application/json`
@@ -173,23 +173,12 @@
 }
 ```
 
-## Get Users (by username)
+## Get Users (by Username)
 
-+ Endpoint : ``/users/update/{sku}``
++ Endpoint : ``/users/{username}``
 + HTTP Method : `GET`
-+ Request Body :
-
-```json
-{
-    "nickname" : "joshua",
-    "username" : "joshua",
-    "email" : "joshua@gmail.com",
-    "password" : "joshua",
-    "role" : "Merchant",
-    "status" : "blocked"
-}
-```
-
++ Path Variable :
+  + username
 + Request Header :
   + Accept: `application/json`
   + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
@@ -218,7 +207,7 @@
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 401,
     "error": "Unauthorized",
-    "message": "Login required"
+    "message": "Invalid Request: Invalid User authentication or Unauthorized."
 }
 ```
 
@@ -231,9 +220,9 @@
 }
 ```
 
-## Edit Users (by sku)
+## Edit Users (by Sku)
 
-+ Endpoint : ``/users/{sku}``
++ Endpoint : ``/users/{sku}/edit``
 + HTTP Method : `PUT`
 + Path Variable :
   + sku

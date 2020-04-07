@@ -23,10 +23,15 @@
 
 ```json
 {
-    "timestamp": "2019-08-23T04:22:26.690+0000",
     "code" : 200,
     "status" : "OK",
-    "message" : "User registered successfully"
+    "data": {
+        "nickname" : "hendra",
+        "username" : "hendra",
+        "email" : "hendra@gmail.com",
+        "role" : "Merchant",
+        "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg"
+    }
 }
 ```
 
@@ -49,7 +54,6 @@
     "message": "Username already in use!"
 }
 ```
-
 
 ## Login
 

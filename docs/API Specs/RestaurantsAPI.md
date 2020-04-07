@@ -67,7 +67,7 @@
 }
 ```
 
-## Get Restaurant by Sku
+## Get Restaurant (by Sku)
 
 + Endpoint : ``/restaurant/{sku}``
 + HTTP Method : `GET`
@@ -127,7 +127,117 @@
 }
 ```
 
-## Add new Restaurant by Sku
+## Get All Menu (by Sku)
+
++ Endpoint : ``/restaurant/{sku}/menu/``
++ HTTP Method : `GET`
++ Path Variable :
+  + sku
++ Request Header :
+  + Accept : `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
+    "code": 200,
+    "status": "OK",
+    "data": [{
+        "id":1,
+        "name": "Cumi Goreng",
+        "picture": "asduqwyieuhxmz.png",
+        "category" : "Food",
+        "harga": "50000",
+        "status": "1",
+        "restoranSku": "jenn_rest_001_001",
+        "merchantSku": "josh_merc_001"
+    }, {
+       "id":2,
+       "name": "Air Kelapa",
+       "picture": "caxjkhsiayieuhxmz.png",
+       "category" : "Drinks",
+       "harga": "10000",
+       "status": "1",
+       "restoranSku": "josh_rest_001_001",
+       "merchantSku": "josh_merc_001"
+    }]
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2019-08-23T04:22:26.690+0000",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/restaurant/{sku}/menu"
+}
+```
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Invalid Request: Cannot find menu with that skuRestaurant. ",
+    "path": "/restaurant/{sku}/menu"
+}
+```
+
+## Get Menu from Restaurant (by Id)
+
++ Endpoint : ``/restaurant/{sku}/menu/{id}``
++ HTTP Method : `GET`
++ Path Variable :
+  + sku
+  + id
++ Request Header :
+  + Accept : `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
+    "code": 200,
+    "status": "OK",
+    "data": {
+        "id":1,
+        "name": "Cumi Goreng",
+        "picture": "asduqwyieuhxmz.png",
+        "category" : "Food",
+        "harga": "50000",
+        "status": "1",
+        "restoranSku": "jenn_rest_001_001",
+        "merchantSku": "josh_merc_001"
+    }
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2019-08-23T04:22:26.690+0000",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/restaurant/{sku}/menu/{id}"
+}
+```
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Invalid Request: Cannot find menu with that id.",
+    "path": "/restaurant/{sku}/menu/{id}"
+}
+```
+
+## Add new Restaurant (by Sku)
 
 + Endpoint : ``/restaurant/{sku}``
 + HTTP Method : `POST`
@@ -218,9 +328,73 @@
 }
 ```
 
-## Edit Restaurant by Sku
+## Add new Menu from Restaurant
 
-+ Endpoint : `/restaurant/{sku}`
++ Endpoint : `/restaurant/{sku}/menu`
++ HTTP Method : `POST`
++ Path Variable :
+  + sku
++ Request Body :
+
+```json
+{
+    "name": "Cumi Goreng",
+    "picture": "asduqwyieuhxmz.png",
+    "category" : "Food",
+    "harga": "50000",
+    "status": "1",
+    "restoranSku": "jenn_rest_001_001",
+    "merchantSku": "josh_merc_001"
+}
+```
+
++ Request Header :
+  + Accept : `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
+    "code": 200,
+    "status": "OK",
+    "data": {
+        "id": 1,
+        "name": "Cumi Goreng",
+        "picture": "asduqwyieuhxmz.png",
+        "category" : "Food",
+        "harga": "50000",
+        "status": "1",
+        "restoranSku": "jenn_rest_001_001",
+        "merchantSku": "josh_merc_001"
+    }
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2020-11-15T22:55:40.110Z",
+    "status": 400,
+    "error": "Bad Request",
+    "message": "Invalid Request: Invalid picture format, picture must be .png/.jpg/,.jpeg !",
+    "path": "/restaurant/{sku}/menu"
+}
+```
+
+```json
+{
+    "timestamp": "2020-11-15T22:55:40.110Z",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/restaurant/{sku}/menu"
+}
+```
+
+## Edit Restaurant (by Sku)
+
++ Endpoint : ``/restaurant/{sku}``
 + HTTP Method : `PUT`
 + Path Variable :
   + sku
@@ -309,74 +483,12 @@
 }
 ```
 
+## Edit Menu from Restaurant (by Id)
 
-## Add new foods/drinks
-
-+ Endpoint : `/restaurant/addMenu`
-+ HTTP Method : `POST`
-+ Request Body :
-
-```json
-{
-    "name": "Cumi Goreng",
-    "picture": "asduqwyieuhxmz.png",
-    "category" : "Food",
-    "harga": "50000",
-    "status": "1",
-    "restoranSku": "jenn_rest_001_001",
-    "merchantSku": "josh_merc_001"
-}
-```
-
-+ Request Header :
-  + Accept : `application/json`
-  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
-+ Response Body (Success) :
-
-```json
-{
-    "code": 200,
-    "status": "OK",
-        "data": {
-        "id":1,
-        "name": "Cumi Goreng",
-        "picture": "asduqwyieuhxmz.png",
-        "category" : "Food",
-        "harga": "50000",
-        "status": "1",
-        "restoranSku": "jenn_rest_001_001",
-        "merchantSku": "josh_merc_001"
-    }
-}
-```
-
-+ Response Body (Fail) :
-
-```json
-{
-    "timestamp": "2020-11-15T22:55:40.110Z",
-    "status": 400,
-    "error": "Bad Request",
-    "message": "Invalid Request: Invalid picture format, picture must be .png/.jpg/,.jpeg !",
-    "path": "/restaurant/addMenu"
-}
-```
-
-```json
-{
-    "timestamp": "2020-11-15T22:55:40.110Z",
-    "status": 401,
-    "error": "Unauthorized",
-    "message": "Invalid Request: You are not allowed to access.",
-    "path": "/restaurant/addMenu"
-}
-```
-
-## Edit new foods/drinks
-
-+ Endpoint : `/restaurant/editMenu/{id}`
++ Endpoint : ``/restaurant/menu/{sku}/edit/{id}``
 + HTTP Method : `PUT`
 + Path Variable :
+  + sku
   + id
 + Request Body :
 
@@ -410,8 +522,7 @@
         "status": "1",
         "restoranSku": "jenn_rest_001_001",
         "merchantSku": "josh_merc_001"
-    },
-    "message" :  "Update Sukses"
+    }
 }
 ```
 
@@ -423,7 +534,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid picture format, picture must be .png/.jpg/,.jpeg !",
-    "path": "/restaurant/editMenu/{id}"
+    "path": "/restaurant/{sku}/menu/edit/{id}"
 }
 ```
 
@@ -433,21 +544,23 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/restaurant/editMenu/{id}"
+    "path": "/restaurant/{sku}/menu/edit/{id}"
 }
 ```
+
 ```json
 {
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find menu with taht id. ",
-    "path": "/restaurant/editMenu/{id}"
+    "message": "Invalid Request: Cannot find menu with that id. ",
+    "path": "/restaurant/{sku}/menu/edit/{id}"
 }
 ```
-## Delete foods/drinks by id
 
-+ Endpoint : `/restaurant/menu/delete/{id}`
+## Delete Menu (by Id)
+
++ Endpoint : ``/restaurant/{sku}/menu/delete/{id}``
 + HTTP Method : `PUT`
 + Path Variable :
   + id
@@ -460,17 +573,7 @@
 {
     "code": 200,
     "status": "OK",
-    "data": {
-        "id": 1,
-        "name": "Cumi Goreng",
-        "picture": "asduqwyieuhxmz.png",
-        "category" : "Food",
-        "harga": "45000",
-        "status": "2",
-        "restoranSku": "jenn_rest_001_001",
-        "merchantSku": "josh_merc_001"
-    },
-    "message" :  "Delete Sukses"
+    "message":  "Delete Sukses"
 }
 ```
 
@@ -482,123 +585,16 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/restaurant/menu/delete/{id}"
+    "path": "/restaurant/{sku}/menu/delete/{id}"
 }
 ```
+
 ```json
 {
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find menu with that id. ",
-    "path": "/restaurant/menu/delete/{id}"
-}
-```
-
-
-## Get All Menu By skuRestaurants
-
-+ Endpoint : ``/restaurant/menu/byRestaurants/{skuRestaurants}``
-+ HTTP Method : `GET`
-+ Path Variable :
-  + skuRestaurants
-+ Request Header :
-  + Accept : `application/json`
-  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
-+ Response Body (Success) :
-
-```json
-{
-    "code": 200,
-    "status": "OK",
-    "data": [{
-        "id":1,
-        "name": "Cumi Goreng",
-        "picture": "asduqwyieuhxmz.png",
-        "category" : "Food",
-        "harga": "50000",
-        "status": "1",
-        "restoranSku": "jenn_rest_001_001",
-        "merchantSku": "josh_merc_001"
-    }, {
-       "id":2,
-       "name": "Air Kelapa",
-       "picture": "caxjkhsiayieuhxmz.png",
-       "category" : "Drinks",
-       "harga": "10000",
-       "status": "1",
-       "restoranSku": "josh_rest_001_001",
-       "merchantSku": "josh_merc_001"
-    }]
-}
-```
-
-+ Response Body (Fail) :
-
-```json
-{
-    "timestamp": "2019-08-23T04:22:26.690+0000",
-    "status": 401,
-    "error": "Unauthorized",
-    "message": "Invalid Request: You are not allowed to access.",
-    "path": "/restaurant/menu/byRestaurants/{skuRestaurants}"
-}
-```
-```json
-{
-    "timestamp": "2016-11-15T22:55:40.110Z",
-    "status": 404,
-    "error": "Not Found",
-    "message": "Invalid Request: Cannot find menu with that skuRestaurant. ",
-    "path": "/restaurant/menu/byRestaurants/{skuRestaurants}"
-}
-```
-
-## Get Menu By Id
-
-+ Endpoint : ``/restaurant/menu/{id}``
-+ HTTP Method : `GET`
-+ Path Variable :
-  + id
-+ Request Header :
-  + Accept : `application/json`
-  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
-+ Response Body (Success) :
-
-```json
-{
-    "code": 200,
-    "status": "OK",
-    "data": {
-        "id":1,
-        "name": "Cumi Goreng",
-        "picture": "asduqwyieuhxmz.png",
-        "category" : "Food",
-        "harga": "50000",
-        "status": "1",
-        "restoranSku": "jenn_rest_001_001",
-        "merchantSku": "josh_merc_001"
-    }
-}
-```
-
-+ Response Body (Fail) :
-
-```json
-{
-    "timestamp": "2019-08-23T04:22:26.690+0000",
-    "status": 401,
-    "error": "Unauthorized",
-    "message": "Invalid Request: You are not allowed to access.",
-    "path": "/restaurant/menu/{id}"
-}
-```
-```json
-{
-    "timestamp": "2016-11-15T22:55:40.110Z",
-    "status": 404,
-    "error": "Not Found",
-    "message": "Invalid Request: Cannot find menu with that skuRestaurant. ",
-    "path": "/restaurant/menu/{id}"
+    "message": "Invalid Request: Cannot find menu with that id.",
+    "path": "/restaurant/{sku}/menu/delete/{id}"
 }
 ```

@@ -1,14 +1,14 @@
 # Review API
 
-## Get Review By Category
+## Get Reviews (by Category)
 
 + Endpoint : ``/review?category={categoryName}``
 + HTTP Method : `GET`
-+ Path Variable :
-  + categoryName
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Request Param :
+  + categoryName
 + Response Body (Success) :
 
 ```json
@@ -61,16 +61,16 @@
 }
 ```
 
-## Get Review by Category and by Rating
+## Get Reviews (by Category and by Rating)
 
 + Endpoint : ``/review?category={category-name}&rate={rating}``
 + HTTP Method : `GET`
-+ Path Variable :
-  + category-name
-  + rating
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Request Param :
+  + category-name
+  + rating
 + Response Body (Success) :
 
 ```json
@@ -123,7 +123,7 @@
 }
 ```
 
-## Get Review by Sku
+## Get Review (by Sku)
 
 + Endpoint : ``/review/{sku}``
 + HTTP Method : `GET`
@@ -174,12 +174,10 @@
 }
 ```
 
-## Add Review by Category
+## Add Review (by Category)
 
 + Endpoint : ``/review?category={category-name}``
 + HTTP Method : `GET`
-+ Path Variable :
-  + category-name
 + Request Body :
 
 ```json
@@ -192,6 +190,8 @@
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Request Param :
+  + category-name
 + Response Body (Success) :
 
 ```json

@@ -1,6 +1,6 @@
 # Order Detail API
 
-## Get Order Detail by Sku
+## Get Order Detail (by Sku)
 
 + Endpoint : ``/order/{sku}``
 + HTTP Method : `GET`
@@ -51,15 +51,15 @@
 }
 ```
 
-## Get Order Detail by Merchant Sku
+## Get Order Detail (by Merchant Sku)
 
 + Endpoint : ``/order?m={merchantSku}``
 + HTTP Method : `GET`
-+ Path Variable :
-  + merchantSku
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Request Param :
+  + merchantSku
 + Response Body (Success) :
 
 ```json
@@ -102,15 +102,15 @@
 }
 ```
 
-## Get Order Detail by User Sku
+## Get Order Detail (by User Sku)
 
 + Endpoint : ``/order?u={userSku}``
 + HTTP Method : `GET`
-+ Path Variable :
-  + userSku
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Request Param :
+  + userSku
 + Response Body (Success) :
 
 ```json
@@ -157,8 +157,6 @@
 
 + Endpoint : ``/order?u={userSku}``
 + HTTP Method : `POST`
-+ Path Variable :
-  + userSku
 + Request Body :
 
 ```json
@@ -172,6 +170,8 @@
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Request Param :
+  + userSku
 + Response Body (Success) :
 
 ```json
@@ -214,7 +214,7 @@
 }
 ```
 
-## Edit Order Detail by Sku
+## Edit Order Detail (by Sku)
 
 + Endpoint : ``/order/{sku}``
 + HTTP Method : `PUT`
