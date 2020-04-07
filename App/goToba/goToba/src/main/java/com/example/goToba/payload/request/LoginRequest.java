@@ -1,4 +1,4 @@
-package com.example.goToba.payload;
+package com.example.goToba.payload.request;
 
 import lombok.NoArgsConstructor;
 
@@ -8,13 +8,19 @@ import javax.validation.constraints.NotBlank;
  * Created by Sogumontar Hendra Simangunsong on 28/03/2020.
  */
 
-
-@NoArgsConstructor
 public class LoginRequest {
     @NotBlank
     private String username;
     @NotBlank
     private String password;
+
+    public LoginRequest(){
+
+    }
+    public LoginRequest(@NotBlank String username, @NotBlank String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public String getUsername() {
         return username;

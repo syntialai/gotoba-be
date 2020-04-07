@@ -1,7 +1,8 @@
 package com.example.goToba.service;
 
 import com.example.goToba.model.Roles;
-import com.example.goToba.payload.RegisterRequest;
+import com.example.goToba.payload.request.LoginRequest;
+import com.example.goToba.payload.request.RegisterRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 public interface AuthenticationService {
     ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest);
+    ResponseEntity<?> login(@RequestBody LoginRequest loginRequest);
     Roles checkRole(String role);
     String skuGenerator(String Username,String role);
     ResponseEntity<?> checkUsername(String username);
