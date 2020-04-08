@@ -5,6 +5,7 @@ import com.example.goToba.payload.request.LoginRequest;
 import com.example.goToba.payload.request.RegisterRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
+import reactor.core.publisher.Mono;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 26/03/2020.
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface AuthenticationService {
     ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest);
     ResponseEntity<?> login(@RequestBody LoginRequest loginRequest);
-    Roles checkRole(String role);
+    String checkRole(String role);
     String skuGenerator(String Username,String role);
     ResponseEntity<?> checkUsername(String username);
     ResponseEntity<?> checkEmail(String email);

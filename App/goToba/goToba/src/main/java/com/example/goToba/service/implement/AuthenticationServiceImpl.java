@@ -33,7 +33,6 @@ import reactor.core.publisher.Mono;
 import javax.validation.Valid;
 import java.net.URI;
 import java.sql.Timestamp;
-import java.util.Collections;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 25/03/2020.
@@ -74,7 +73,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         checkUsername(registerRequest.getUsername());
 
         System.out.println("testing");
-        Roles roles =checkRole(registerRequest.getRole().toString());
+        Mono<Roles> roles =checkRole(registerRequest.getRole().toString());
         String skuFix=skuGenerator(registerRequest.getUsername(),roles.toString());
         Users users=new Users(
                 skuFix,
@@ -82,10 +81,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 registerRequest.getUsername(),
                 registerRequest.getEmail(),
                 registerRequest.getPassword(),
-                1
+                1,
+                roles.toString()
                 );
         users.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        users.setRoles(Collections.singleton(roles));
+//        users.setRoles(Collections.singleton(roles));
 
         usersRepo.save(users);
         URI location = ServletUriComponentsBuilder
@@ -130,10 +130,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public Roles checkRole(String role){
+    public Mono<Roles> checkRole(String role){
 
         System.out.println("testing2");
-        Roles roles;
+        Mono<Roles> roles;
         RoleName roleName=RoleName.ROLE_USER;
         if(role.equals(RoleName.ROLE_ADMIN)){
             roleName=RoleName.ROLE_ADMIN;
@@ -150,7 +150,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         String skuFinal="";
         String usr=sub_str(username);
         String awal="000";
-        if(sequenceUsersRepo.existsByKey(usr)){
+        Mono<Boolean> test;
+        test=sequenceUsersRepo.existsByKey(usr);
+        if(test){
             SequenceUsers sequenceUsers = sequenceUsersRepo.findFirstByKey(usr);
             Integer val = Integer.parseInt(sequenceUsers.getLast_seq());
             String finalSeq = awal.concat(String.valueOf(val+1));

@@ -4,10 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.EntityListeners;
-import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.time.Instant;
 
@@ -15,12 +11,12 @@ import java.time.Instant;
  * Created by Sogumontar Hendra Simangunsong on 25/03/2020.
  */
 
-@MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(
-        value = {"created_at", "updated_at"},
-        allowGetters = true
-)
+//@MappedSuperclass
+//@EntityListeners(AuditingEntityListener.class)
+//@JsonIgnoreProperties(
+//        value = {"created_at", "updated_at"},
+//        allowGetters = true
+//)
 public abstract class Timestamp implements Serializable {
 
     @CreatedDate

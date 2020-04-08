@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.time.Instant;
 import java.util.HashSet;
@@ -16,30 +15,20 @@ import java.util.Set;
  * Created by Sogumontar Hendra Simangunsong on 24/03/2020.
  */
 
-@NoArgsConstructor
-@Entity
-@Table(name = TablesConstant.TABEL_USER)
 public class Users extends Timestamp {
-    @Id
     public String sku;
 
-    @Column(name = "nickname")
     public String  nickname;
 
-    @Column(name = "username")
     public String username;
 
     @Email
-    @Column(name = "email")
     public String email;
 
-    @Column(name = "password")
     public String password;
 
-    @Column(name = "role")
     private String roles ;
 
-    @Column(name = "status")
     public int status;
 
     public Users(String sku, String nickname, String username, @Email String email, String password, int status,String roles) {

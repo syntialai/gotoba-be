@@ -4,6 +4,7 @@ import com.example.goToba.model.RoleName;
 import com.example.goToba.model.Roles;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 
@@ -13,5 +14,6 @@ import java.util.Optional;
 @Repository
 public interface RoleRepo extends ReactiveMongoRepository<Roles, Integer> {
     Boolean existsByName(RoleName roleName);
-    Optional<Roles> findByName(RoleName roleName);
+    String findByName(RoleName roleName);
+//    Optional<Roles> findByName(RoleName roleName);
 }
