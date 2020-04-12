@@ -1,94 +1,54 @@
 package com.example.goToba.config;
 
-import com.example.goToba.security.CustomUserDetailsService;
-import com.example.goToba.security.JwtAuthenticationEntryPoint;
-import com.example.goToba.security.JwtAuthenticationFilter;
+
+import com.example.goToba.security.AuthenticationManager;
+import com.example.goToba.security.SecurityContextRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.BeanIds;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.web.server.SecurityWebFilterChain;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 27/03/2020.
  */
-@Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(
-        securedEnabled = true,
-        jsr250Enabled = true,
-        prePostEnabled = true
-)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableWebFluxSecurity
+@EnableReactiveMethodSecurity
+public class SecurityConfig {
 
     @Autowired
-    CustomUserDetailsService customUserDetailsService;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    private JwtAuthenticationEntryPoint unauthorizedHandler;
+    private SecurityContextRepository securityContextRepository;
 
     @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter();
-    }
-
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-    @Override
-    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder
-                .userDetailsService(customUserDetailsService);
-    }
-
-    @Bean(BeanIds.AUTHENTICATION_MANAGER)
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .cors()
-                .and()
-                .csrf()
-                .disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(unauthorizedHandler)
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/",
-                        "/favicon.ico",
-                        "/**/*.png",
-                        "/**/*.gif",
-                        "/**/*.svg",
-                        "/**/*.jpg",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js")
-                .permitAll()
-                .antMatchers("/api/**")
-                .permitAll()
-
-        ;
-
-        // Add our custom JWT security filter
-        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-
+    public SecurityWebFilterChain securitygWebFilterChain(ServerHttpSecurity http) {
+        return http
+                .exceptionHandling().and().csrf().disable().build();
+//				.authenticationEntryPoint((swe, e) -> {
+//					return Mono.fromRunnable(() -> {
+//						swe.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+//					});
+//				}).accessDeniedHandler((swe, e) -> {
+//					return Mono.fromRunnable(() -> {
+//						swe.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
+//					});
+//				}).and()
+//				.and()
+//				.csrf().disable()
+//				.formLogin().disable()
+//				.httpBasic().disable()
+//				.authenticationManager(authenticationManager)
+//				.securityContextRepository(securityContextRepository)
+//				.authorizeExchange()
+//				.pathMatchers(HttpMethod.OPTIONS).permitAll()
+//				.pathMatchers("/login").permitAll()
+//				.pathMatchers("/test/").permitAll()
+//				.pathMatchers("/signin").permitAll()
+//				.pathMatchers("/signup").permitAll()
+////				.anyExchange().authenticated()
+//				.and().build();
     }
 }

@@ -1,21 +1,22 @@
 package com.example.goToba.model;
 
-import com.example.goToba.model.constants.TablesConstant;
-import com.example.goToba.model.timestamp.Timestamp;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.Email;
-import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collection;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 24/03/2020.
+ * Created by Sogumontar Hendra Simangunsong on 11/04/2020.
  */
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class Users  implements UserDetails {
 
-public class Users extends Timestamp {
     public String sku;
 
     public String  nickname;
@@ -27,73 +28,44 @@ public class Users extends Timestamp {
 
     public String password;
 
-    private String roles ;
+    private RoleName roles ;
 
     public int status;
 
-    public Users(String sku, String nickname, String username, @Email String email, String password, int status,String roles) {
-        this.sku = sku;
-        this.nickname = nickname;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.status = status;
-        this.roles = roles;
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
-    public String getSku() {
-        return sku;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    @Override
     public String getPassword() {
-        return password;
+        return null;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public String getUsername() {
+        return null;
     }
 
-    public String getRoles() {
-        return roles;
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
     }
 
-    public void setRoles(String roles) {
-        this.roles = roles;
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
     }
 
-    public int getStatus() {
-        return status;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 }

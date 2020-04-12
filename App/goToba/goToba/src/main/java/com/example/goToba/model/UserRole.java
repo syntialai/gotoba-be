@@ -1,13 +1,15 @@
 package com.example.goToba.model;
 
-
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 24/03/2020.
+ * Created by Sogumontar Hendra Simangunsong on 11/04/2020.
  */
-public class UserRole  {
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserRole {
     public String sku_user;
-
     private Integer role_id;
 
     public String getSku_user() {

@@ -1,14 +1,13 @@
 package com.example.goToba.model;
 
-import com.example.goToba.model.constants.SequenceConstantField;
-import com.example.goToba.model.constants.TablesConstant;
+import lombok.NoArgsConstructor;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 26/03/2020.
+ * Created by Sogumontar Hendra Simangunsong on 11/04/2020.
  */
+@NoArgsConstructor
 public class SequenceUsers {
     private String key;
-
     private String last_seq;
 
     public SequenceUsers(String key, String last_seq) {

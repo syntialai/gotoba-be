@@ -1,8 +1,5 @@
 //package com.example.goToba.seeder;
 //
-//import com.example.goToba.model.RoleName;
-//import com.example.goToba.model.Roles;
-//import com.example.goToba.repository.RoleRepo;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.context.event.ContextRefreshedEvent;
 //import org.springframework.context.event.EventListener;

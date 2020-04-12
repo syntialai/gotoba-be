@@ -1,68 +1,71 @@
 package com.example.goToba.security;
 
-
-import io.jsonwebtoken.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.example.goToba.model.Users;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
+import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 03/04/2020.
+ * Created by Sogumontar Hendra Simangunsong on 11/04/2020.
  */
 @Component
-public class JwtTokenProvider {
+public class JwtTokenProvider implements Serializable {
 
-    private static final Logger logger = (Logger) LoggerFactory.getLogger(JwtTokenProvider.class);
+    private static final long serialVersionUID = 1L;
 
-    @Value("${app.jwtSecret}")
-    private String jwtSecret;
+    @Value("${springbootwebfluxjjwt.jjwt.secret}")
+    private String secret;
 
-    @Value("${app.jwtExpirationInMs}")
-    private int jwtExpirationInMs;
+    @Value("${springbootwebfluxjjwt.jjwt.expiration}")
+    private String expirationTime;
 
-    public String generateToken(Authentication authentication) {
+    public Claims getAllClaimsFromToken(String token) {
+        return Jwts.parser().setSigningKey(Base64.getEncoder().encodeToString(secret.getBytes())).parseClaimsJws(token).getBody();
+    }
 
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+    public String getUsernameFromToken(String token) {
+        return getAllClaimsFromToken(token).getSubject();
+    }
 
-        Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
+    public Date getExpirationDateFromToken(String token) {
+        return getAllClaimsFromToken(token).getExpiration();
+    }
 
+    private Boolean isTokenExpired(String token) {
+        final Date expiration = getExpirationDateFromToken(token);
+        return expiration.before(new Date());
+    }
+
+    public String generateToken(Users user) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("role", user.getRoles());
+        return doGenerateToken(claims, user.getUsername());
+    }
+
+    private String doGenerateToken(Map<String, Object> claims, String username) {
+        Long expirationTimeLong = Long.parseLong(expirationTime); //in second
+
+        final Date createdDate = new Date();
+        final Date expirationDate = new Date(createdDate.getTime() + expirationTimeLong * 1000);
         return Jwts.builder()
-                .setSubject(userPrincipal.getSku())
-                .setIssuedAt(new Date())
-                .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .setClaims(claims)
+                .setSubject(username)
+                .setIssuedAt(createdDate)
+                .setExpiration(expirationDate)
+                .signWith(SignatureAlgorithm.HS512, Base64.getEncoder().encodeToString(secret.getBytes()))
                 .compact();
     }
 
-    public String getUserIdFromJWT(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
-                .parseClaimsJws(token)
-                .getBody();
-
-        return claims.getSubject();
+    public Boolean validateToken(String token) {
+        return !isTokenExpired(token);
     }
 
-    public boolean validateToken(String authToken) {
-        try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
-            return true;
-        } catch (SignatureException ex) {
-            logger.error("Invalid JWT signature");
-        } catch (MalformedJwtException ex) {
-            logger.error("Invalid JWT token");
-        } catch (ExpiredJwtException ex) {
-            logger.error("Expired JWT token");
-        } catch (UnsupportedJwtException ex) {
-            logger.error("Unsupported JWT token");
-        } catch (IllegalArgumentException ex) {
-            logger.error("JWT claims string is empty.");
-        }
-        return false;
-    }
 }

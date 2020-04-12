@@ -1,6 +1,5 @@
 package com.example.goToba.payload;
 
-import com.example.goToba.model.timestamp.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
