@@ -1,37 +1,27 @@
 package com.example.goToba.model;
 
-import com.example.goToba.model.constants.TablesConstant;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.*;
+import java.util.UUID;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 24/03/2020.
+ * Created by Sogumontar Hendra Simangunsong on 11/04/2020.
  */
-
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Entity
-@Table(name = TablesConstant.TABEL_ROLES)
 public class Roles {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Enumerated(EnumType.STRING)
-    @NaturalId
-    @Column(length = 60)
+    private String id= UUID.randomUUID().toString();
     private RoleName name;
 
-    public int getId() {
+    public Roles(String id, RoleName name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

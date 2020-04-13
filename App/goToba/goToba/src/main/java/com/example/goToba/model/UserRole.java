@@ -1,22 +1,15 @@
 package com.example.goToba.model;
 
-import com.example.goToba.model.constants.TablesConstant;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 24/03/2020.
+ * Created by Sogumontar Hendra Simangunsong on 11/04/2020.
  */
-@Entity
-@Table(name = TablesConstant.TABEL_USER_ROLE)
-public class UserRole  {
-    @Id
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserRole {
     public String sku_user;
-
     private Integer role_id;
 
     public String getSku_user() {
