@@ -3,6 +3,7 @@ package com.example.goToba.controller;
 import com.example.goToba.controller.route.WisataControllerRoute;
 import com.example.goToba.model.Wisata;
 import com.example.goToba.payload.AuthenticationResponse;
+import com.example.goToba.payload.CreateResponse;
 import com.example.goToba.payload.request.WisataRequest;
 import com.example.goToba.repository.WisataRepo;
 import com.example.goToba.service.implement.WisataServiceImpl;
@@ -30,7 +31,7 @@ public class WisataController {
     @PostMapping(WisataControllerRoute.ROUTE_WISATA_ADD_NEW)
     public ResponseEntity<?> addNew(@RequestBody WisataRequest wisataRequest) {
         wisataService.addWisata(wisataRequest);
-        return ResponseEntity.ok(new AuthenticationResponse("test", "201", "OK", "Tambah data wisata sukses"));
+        return ResponseEntity.ok(new CreateResponse("dateNow", "201", "OK", "Tambah data wisata sukses"));
     }
 
     @GetMapping(WisataControllerRoute.ROUTE_WISATA_All)

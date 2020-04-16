@@ -2,7 +2,7 @@
 
 ## Get Gallery Photos
 
-+ Endpoint : ``/gallery``
++ Endpoint : ``/gallery/``
 + HTTP Method : `GET`
 + Request Header :
   + Accept : `application/json`

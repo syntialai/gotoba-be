@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 @Data
 public class Galery {
-    public String id = UUID.randomUUID().toString();
+    public String sku = UUID.randomUUID().toString();
     public String name;
     public String title;
     public String description;
