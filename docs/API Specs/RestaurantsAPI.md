@@ -399,7 +399,7 @@
 
 ```json
 {
-    "code": 200,
+    "code": 201,
     "status": "OK",
     "data": {
         "id": 1,

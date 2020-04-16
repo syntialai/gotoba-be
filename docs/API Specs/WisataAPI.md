@@ -146,7 +146,7 @@
     "image": "cvdafzxsqzxcasdasd.png",
     "address": "jl.balige",
     "createdBy" : "admi-josh-001",
-    "price" : "10000",
+    "price" : 10000,
     "hoursOpen": {
                  "Monday": ["8AM", "10PM"],
                  "Tuesday": ["8AM", "10PM"],
