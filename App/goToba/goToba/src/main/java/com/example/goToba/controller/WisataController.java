@@ -30,7 +30,7 @@ public class WisataController {
     @PostMapping(WisataControllerRoute.ROUTE_WISATA_ADD_NEW)
     public ResponseEntity<?> addNew(@RequestBody WisataRequest wisataRequest) {
         wisataService.addWisata(wisataRequest);
-        return ResponseEntity.ok(new AuthenticationResponse("test", "200", "OK", "Tambah data wisata sukses"));
+        return ResponseEntity.ok(new AuthenticationResponse("test", "201", "OK", "Tambah data wisata sukses"));
     }
 
     @GetMapping(WisataControllerRoute.ROUTE_WISATA_All)

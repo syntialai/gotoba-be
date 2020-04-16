@@ -1,10 +1,15 @@
 package com.example.goToba.payload.request;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 02/04/2020.
  */
+@NoArgsConstructor
+@Data
 public class WisataRequest {
     public String name;
     public String title;
@@ -26,67 +31,5 @@ public class WisataRequest {
         this.hoursOpen = hoursOpen;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public List getHoursOpen() {
-        return hoursOpen;
-    }
-
-    public void setHoursOpen(List hoursOpen) {
-        this.hoursOpen = hoursOpen;
-    }
 }
