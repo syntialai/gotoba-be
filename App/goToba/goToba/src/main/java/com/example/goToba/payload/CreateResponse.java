@@ -1,5 +1,6 @@
 package com.example.goToba.payload;
 
+import com.example.goToba.payload.request.GaleryRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,17 +11,12 @@ import lombok.NoArgsConstructor;
  */
 @Builder
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class CreateResponse {
-    String timestamp;
     String code;
     String status;
-    String message;
+    GaleryRequest data;
 
-    public CreateResponse(String timestamp, String code, String status, String message) {
-        this.timestamp = timestamp;
-        this.code = code;
-        this.status = status;
-        this.message = message;
-    }
+
 }

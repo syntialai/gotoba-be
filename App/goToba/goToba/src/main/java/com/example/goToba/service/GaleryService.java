@@ -16,7 +16,9 @@ public interface GaleryService {
 
     public Mono<Galery> findGaleryBySku(String sku);
 
-    public void addNewFoto(GaleryRequest galeryRequest);
+    public Mono<Galery> addNewFoto(GaleryRequest galeryRequest);
 
     public void editFotoBySku(GaleryRequest galeryRequest, String sku);
+
+    public Mono<Galery> updateBySku(String sku, GaleryRequest request);
 }

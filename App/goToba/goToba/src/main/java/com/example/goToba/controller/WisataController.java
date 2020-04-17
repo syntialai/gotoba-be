@@ -2,6 +2,7 @@ package com.example.goToba.controller;
 
 import com.example.goToba.controller.route.WisataControllerRoute;
 import com.example.goToba.model.Wisata;
+import com.example.goToba.payload.ApiResponse;
 import com.example.goToba.payload.AuthenticationResponse;
 import com.example.goToba.payload.CreateResponse;
 import com.example.goToba.payload.request.WisataRequest;
@@ -12,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import static java.lang.Boolean.TRUE;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 02/04/2020.
@@ -31,7 +34,7 @@ public class WisataController {
     @PostMapping(WisataControllerRoute.ROUTE_WISATA_ADD_NEW)
     public ResponseEntity<?> addNew(@RequestBody WisataRequest wisataRequest) {
         wisataService.addWisata(wisataRequest);
-        return ResponseEntity.ok(new CreateResponse("dateNow", "201", "OK", "Tambah data wisata sukses"));
+        return ResponseEntity.ok(new ApiResponse( TRUE, "Tambah data wisata sukses"));
     }
 
     @GetMapping(WisataControllerRoute.ROUTE_WISATA_All)
@@ -52,7 +55,7 @@ public class WisataController {
     public Mono<Boolean> check(@PathVariable String name) {
         return wisataRepo.existsByName(name)
                 .flatMap(b -> {
-                    return Mono.just(Boolean.TRUE);
+                    return Mono.just(TRUE);
                 })
                 .switchIfEmpty(
                         Mono.just(Boolean.FALSE)
