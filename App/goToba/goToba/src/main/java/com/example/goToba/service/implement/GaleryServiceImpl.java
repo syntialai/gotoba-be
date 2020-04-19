@@ -6,6 +6,7 @@ import com.example.goToba.repository.GaleryRepo;
 import com.example.goToba.service.GaleryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -20,8 +21,8 @@ public class GaleryServiceImpl implements GaleryService {
     GaleryRepo galeryRepo;
 
     @Override
-    public List findAllGalery() {
-        return (List) galeryRepo.findAll();
+    public Flux<Galery> findAllGalery() {
+        return  galeryRepo.findAll();
     }
 
     @Override

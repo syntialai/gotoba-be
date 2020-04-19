@@ -31,27 +31,29 @@ public class GaleryController {
 
     @GetMapping(GaleryControllerRoute.ROUTE_GALERY_All)
     public ResponseEntity<?> findAll() {
-        return ResponseEntity.ok(new GetAllDataResponse("Success", galeryService.findAllGalery()));
+        return ResponseEntity.ok(galeryService.findAllGalery());
     }
+
     @PostMapping(GaleryControllerRoute.ROUTE_GALERY_ADD_NEW)
-    public ResponseEntity<?> addGalery(@RequestBody GaleryRequest request){
+    public ResponseEntity<?> addGalery(@RequestBody GaleryRequest request) {
         galeryService.addNewFoto(request).subscribe();
 
-        return ResponseEntity.ok(new CreateResponse("201","success",request));
+        return ResponseEntity.ok(new CreateResponse("201", "success", request));
     }
 
-    @GetMapping(GaleryControllerRoute.ROUTE_GALERY_FIND_BY_SKU)
-    public String  findBySku(@PathVariable String sku){
-//        System.out.println(galeryRepo.findFirstBySku(sku));
-//        return galeryRepo.findFirstBySku(sku);
-        return "bisa";
+    @GetMapping("/{sku}")
+    public Mono<Galery> findBySku(@PathVariable String sku) {
+        return galeryRepo.findFirstBySku(sku);
     }
 
 
     @PutMapping(GaleryControllerRoute.ROUTE_GALERY_UPDATE_BY_SKU)
-    public ResponseEntity<?> updateBySku(@RequestBody GaleryRequest request, @PathVariable String sku){
-        galeryService.updateBySku(sku,request).subscribe();
-        return ResponseEntity.ok(new CreateResponse("200","success",request));
+    public ResponseEntity<?> updateBySku(@RequestBody GaleryRequest request, @PathVariable String sku) {
+        Mono.fromCallable(() -> request)
+                .flatMap(string -> galeryService.updateBySku(sku, request))
+                .doOnNext( i-> System.out.println(sku))
+                .subscribe();
+        return ResponseEntity.ok(new CreateResponse("200", "success", request));
     }
 
 }

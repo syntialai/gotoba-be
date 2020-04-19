@@ -3,6 +3,7 @@ package com.example.goToba.service;
 import com.example.goToba.model.Galery;
 import com.example.goToba.payload.request.GaleryRequest;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 @Service
 public interface GaleryService {
-    public List findAllGalery();
+    public Flux<Galery> findAllGalery();
 
     public Mono<Galery> findGaleryBySku(String sku);
 

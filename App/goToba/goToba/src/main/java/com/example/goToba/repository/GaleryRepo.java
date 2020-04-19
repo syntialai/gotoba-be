@@ -10,6 +10,6 @@ import reactor.core.publisher.Mono;
  */
 @Repository
 public interface GaleryRepo extends ReactiveMongoRepository<Galery, String> {
-//    Mono<Galery> findFirstBySku(String sku);
+    Mono<Galery> findFirstBySku(String sku);
     Mono<Boolean> deleteBySku(String sku);
 }
