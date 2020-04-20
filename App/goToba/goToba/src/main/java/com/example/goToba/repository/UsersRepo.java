@@ -10,5 +10,5 @@ import reactor.core.publisher.Mono;
  */
 @Repository
 public interface UsersRepo extends ReactiveMongoRepository<Users,String> {
-    Mono<Users> findFirstByUsername(String username);
+    Mono<Users> findFirstByNickname(String nickname);
 }

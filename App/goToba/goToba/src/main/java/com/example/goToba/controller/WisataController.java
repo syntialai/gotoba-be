@@ -4,6 +4,7 @@ import com.example.goToba.controller.route.WisataControllerRoute;
 import com.example.goToba.model.Wisata;
 import com.example.goToba.payload.ApiResponse;
 import com.example.goToba.payload.AuthenticationResponse;
+import com.example.goToba.payload.CreateResponse;
 import com.example.goToba.payload.request.WisataRequest;
 import com.example.goToba.repository.WisataRepo;
 import com.example.goToba.service.implement.WisataServiceImpl;
@@ -12,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import static java.lang.Boolean.TRUE;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 02/04/2020.
@@ -29,34 +32,34 @@ public class WisataController {
     WisataRepo wisataRepo;
 
     @PostMapping(WisataControllerRoute.ROUTE_WISATA_ADD_NEW)
-    public ResponseEntity<?> addNew(@RequestBody WisataRequest wisataRequest){
+    public ResponseEntity<?> addNew(@RequestBody WisataRequest wisataRequest) {
         wisataService.addWisata(wisataRequest);
-        return ResponseEntity.ok(new AuthenticationResponse("test","200","OK","Tambah data wisata sukses"));
+        return ResponseEntity.ok(new ApiResponse( TRUE, "Tambah data wisata sukses"));
     }
+
     @GetMapping(WisataControllerRoute.ROUTE_WISATA_All)
-    public Flux<Wisata> findAll(){
+    public Flux<Wisata> findAll() {
         return wisataService.findAll();
     }
 
-    @GetMapping("/find/{name}")
-    public Mono<ResponseEntity<String>> findOne(@PathVariable String name){
+    @GetMapping(WisataControllerRoute.ROUTE_WISATA_FIND_BY_NAME)
+    public Mono<ResponseEntity<String>> findOne(@PathVariable String name) {
 
         return wisataRepo.findFirstByName(name).
-                flatMap(b ->{
+                flatMap(b -> {
                     return Mono.just(ResponseEntity.ok().body("ada data"));
-                }).switchIfEmpty(Mono.just(ResponseEntity.badRequest().body("Tidak ada bro")));
+                }).switchIfEmpty(Mono.just(ResponseEntity.badRequest().body("Tidak ada data")));
     }
 
-    @GetMapping("/ex/{name}")
-    public Mono<Boolean> check(@PathVariable String name){
+    @GetMapping(WisataControllerRoute.ROUTE_WISATA_EXISTS_BY_NAME)
+    public Mono<Boolean> check(@PathVariable String name) {
         return wisataRepo.existsByName(name)
-                .flatMap(b->{
-                   return Mono.just(Boolean.TRUE);
+                .flatMap(b -> {
+                    return Mono.just(TRUE);
                 })
                 .switchIfEmpty(
                         Mono.just(Boolean.FALSE)
                 );
     }
-
 
 }

@@ -2,7 +2,7 @@
 
 ## Get Gallery Photos
 
-+ Endpoint : ``/gallery``
++ Endpoint : ``/gallery/``
 + HTTP Method : `GET`
 + Request Header :
   + Accept : `application/json`
@@ -102,7 +102,7 @@
 
 ## Add new Photo
 
-+ Endpoint : ``/gallery``
++ Endpoint : ``/gallery/add``
 + HTTP Method : `POST`
 + Request Body :
 
@@ -161,7 +161,7 @@
 
 ## Edit Photo by Id
 
-+ Endpoint : ``/gallery/{sku}``
++ Endpoint : ``/gallery/update/{sku}``
 + HTTP Method : `PUT`
 + Path Variable :
   + sku
