@@ -49,6 +49,7 @@ public class GaleryController {
 
     @PutMapping(GaleryControllerRoute.ROUTE_GALERY_UPDATE_BY_SKU)
     public ResponseEntity<?> updateBySku(@RequestBody GaleryRequest request, @PathVariable String sku) {
+        System.out.println("test");
         Mono.fromCallable(() -> request)
                 .flatMap(string -> galeryService.updateBySku(sku, request))
                 .doOnNext( i-> System.out.println(sku))
