@@ -67,17 +67,27 @@ public class GaleryServiceImpl implements GaleryService {
         return Mono.fromCallable(() -> request)
                 .doOnNext(req -> System.out.println(req))
                 .map(id -> sku.toString())
-                .doOnNext(id -> galeryRepo.deleteBySku(sku))
+                .doOnNext(id -> galeryRepo.deleteBySku(sku).subscribe())
                 .flatMap(req -> {
                     Galery galery = new Galery(
                             request.getName(),
                             request.getTitle(),
                             request.getDescription(),
                             request.getImage(),
-                            request.getShow()
+                            Boolean.TRUE
                     );
                     galery.setSku(sku);
                     return galeryRepo.save(galery);
                 });
+    }
+
+    @Override
+    public Mono<Galery> suspendBySku(String sku) {
+        return null;
+    }
+
+    @Override
+    public Mono<Galery> activateBySku(String sku) {
+        return null;
     }
 }

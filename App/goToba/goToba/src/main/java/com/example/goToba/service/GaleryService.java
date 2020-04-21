@@ -22,4 +22,6 @@ public interface GaleryService {
     public void editFotoBySku(GaleryRequest galeryRequest, String sku);
 
     public Mono<Galery> updateBySku(String sku, GaleryRequest request);
+    public Mono<Galery> suspendBySku(String sku);
+    public Mono<Galery> activateBySku(String sku);
 }

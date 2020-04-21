@@ -9,4 +9,7 @@ public interface GaleryControllerRoute {
     public String ROUTE_GALERY_ADD_NEW = "/add";
     public String ROUTE_GALERY_FIND_BY_SKU = "/{sku}";
     public String ROUTE_GALERY_UPDATE_BY_SKU = "/gallery/update/{sku}";
+    public String ROUTE_GALERY_DELETE_BY_SKU = "/delete/{sku}";
+    public String ROUTE_GALERY_SUSPEND_BY_SKU = "/suspend/{sku}";
+    public String ROUTE_GALERY_ACTIVATE_BY_SKU = "/activate/{sku}";
 }

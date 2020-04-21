@@ -15,5 +15,4 @@ public class GaleryRequest {
     public String title;
     public String description;
     public String image;
-    public Boolean show;
 }

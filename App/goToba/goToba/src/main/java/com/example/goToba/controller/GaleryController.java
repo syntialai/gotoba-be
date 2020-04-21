@@ -41,20 +41,35 @@ public class GaleryController {
         return ResponseEntity.ok(new CreateResponse("201", "success", request));
     }
 
-    @GetMapping("/{sku}")
-    public Mono<Galery> findBySku(@PathVariable String sku) {
-        return galeryRepo.findFirstBySku(sku);
+    @GetMapping(GaleryControllerRoute.ROUTE_GALERY_FIND_BY_SKU)
+    public ResponseEntity<Mono<Galery>> findBySku(@PathVariable String sku) {
+        System.out.println(galeryRepo.findFirstBySku(sku));
+        return ResponseEntity.ok(galeryRepo.findFirstBySku(sku));
     }
 
 
     @PutMapping(GaleryControllerRoute.ROUTE_GALERY_UPDATE_BY_SKU)
     public ResponseEntity<?> updateBySku(@RequestBody GaleryRequest request, @PathVariable String sku) {
-        System.out.println("test");
         Mono.fromCallable(() -> request)
                 .flatMap(string -> galeryService.updateBySku(sku, request))
                 .doOnNext( i-> System.out.println(sku))
                 .subscribe();
         return ResponseEntity.ok(new CreateResponse("200", "success", request));
     }
+    @PutMapping(GaleryControllerRoute.ROUTE_GALERY_SUSPEND_BY_SKU)
+    public ResponseEntity<?> suspendBySku( @PathVariable String sku) {
+        Mono.fromCallable(() -> sku)
+                .flatMap(string -> galeryService.updateBySku(sku, request))
+                .doOnNext( i-> System.out.println(sku))
+                .subscribe();
+        return ResponseEntity.ok(new CreateResponse("200", "success", request));
+    }
+
+    @DeleteMapping(GaleryControllerRoute.ROUTE_GALERY_DELETE_BY_SKU)
+    public ResponseEntity<?> deletBySku(@PathVariable String sku){
+        galeryRepo.deleteBySku(sku).subscribe();
+        return ResponseEntity.ok("Delete Success");
+    }
+
 
 }
