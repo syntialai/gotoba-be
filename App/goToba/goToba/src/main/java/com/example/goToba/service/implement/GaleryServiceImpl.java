@@ -21,6 +21,7 @@ public class GaleryServiceImpl implements GaleryService {
 
     @Autowired
     GaleryRepo galeryRepo;
+
     @Autowired
     SequenceGaleryRepo sequenceGaleryRepo;
 
@@ -36,77 +37,81 @@ public class GaleryServiceImpl implements GaleryService {
     }
 
     @Override
-    public Mono<Galery> addNewFoto(GaleryRequest galeryRequest) {
-        return Mono.fromCallable(() -> galeryRequest)
-                .doOnNext(request -> {
-                    Galery gal = new Galery(
-                            galeryRequest.getName(),
-                            galeryRequest.getTitle(),
-                            galeryRequest.getDescription(),
-                            galeryRequest.getImage(),
-                            Boolean.TRUE
-                    );
-                })
-                .doOnNext(req -> System.out.println("Data res : " + req))
-                .flatMap(request -> {
-                    Galery gal = new Galery(
-                            galeryRequest.getName(),
-                            galeryRequest.getTitle(),
-                            galeryRequest.getDescription(),
-                            galeryRequest.getImage(),
-                            Boolean.TRUE
-                    );
-                    return galeryRepo.save(gal);
-                }).doOnSuccess(i -> System.out.println("Add Data Success"));
-    }
-
-    @Override
-    public void editFotoBySku(GaleryRequest galeryRequest, String sku) {
-
-    }
-
-    @Override
-    public Mono<Galery> updateBySku(String sku, GaleryRequest request) {
-
+    public Mono<Galery> addNewFoto(GaleryRequest request) {
+        String key = substring(request.getName());
         return Mono.fromCallable(() -> request)
-                .doOnNext(req -> System.out.println(req))
-                .map(id -> sku.toString())
-                .doOnNext(id -> galeryRepo.deleteBySku(sku).subscribe())
+                .flatMap(i -> sequenceGaleryRepo.findFirstByKey(key))
+                .doOnNext(i -> sequenceGaleryRepo.deleteByKey(key).subscribe())
+                .doOnNext(i -> sequenceGaleryRepo.save(new SequenceGalery(key, "000" + (Integer.parseInt(i.getLast_seq()) + 1))).subscribe())
+                .switchIfEmpty(sequenceGaleryRepo.save(new SequenceGalery(key, "0001")))
+                .flatMap(i -> sequenceGaleryRepo.findFirstByKey(key))
                 .flatMap(req -> {
                     Galery galery = new Galery(
+                            req.getKey() + "-" + "000" + (Integer.parseInt(req.getLast_seq())),
                             request.getName(),
                             request.getTitle(),
                             request.getDescription(),
                             request.getImage(),
                             Boolean.TRUE
                     );
-                    galery.setSku(sku);
+                    return galeryRepo.save(galery);
+                });
+    }
+
+
+    @Override
+    public Mono<Galery> updateBySku(String sku, GaleryRequest request) {
+        return Mono.fromCallable(() -> request)
+                .doOnNext(id -> galeryRepo.deleteBySku(sku).subscribe())
+                .flatMap(req -> {
+                    Galery galery = new Galery(
+                            sku,
+                            request.getName(),
+                            request.getTitle(),
+                            request.getDescription(),
+                            request.getImage(),
+                            Boolean.TRUE
+                    );
                     return galeryRepo.save(galery);
                 });
     }
 
     @Override
     public Mono<Galery> suspendBySku(String sku) {
-        return null;
+        return Mono.just(galeryRepo.findFirstBySku(sku))
+                .flatMap(data -> galeryRepo.findFirstBySku(sku))
+                .doOnNext(id -> galeryRepo.deleteBySku(sku).subscribe())
+                .doOnNext(request -> {
+                    Galery galery = new Galery(
+                            sku,
+                            request.getName(),
+                            request.getTitle(),
+                            request.getDescription(),
+                            request.getImage(),
+                            Boolean.FALSE
+                    );
+                    galeryRepo.save(galery).subscribe();
+                });
     }
 
     @Override
     public Mono<Galery> activateBySku(String sku) {
-        return null;
+        return Mono.just(galeryRepo.findFirstBySku(sku))
+                .flatMap(data -> galeryRepo.findFirstBySku(sku))
+                .doOnNext(id -> galeryRepo.deleteBySku(sku).subscribe())
+                .doOnNext(request -> {
+                    Galery galery = new Galery(
+                            sku,
+                            request.getName(),
+                            request.getTitle(),
+                            request.getDescription(),
+                            request.getImage(),
+                            Boolean.TRUE
+                    );
+                    galeryRepo.save(galery).subscribe();
+                });
     }
 
-    @Override
-    public String skuGenerator(String name) {
-        System.out.println("masuk kok");
-        String key = substring(name);
-        Mono.fromCallable(() -> sequenceGaleryRepo.findFirstByKey(key))
-                .flatMap(i -> sequenceGaleryRepo.findFirstByKey(key))
-                .doOnNext(i -> sequenceGaleryRepo.deleteByKey(key).subscribe())
-                .doOnNext(i -> sequenceGaleryRepo.save(new SequenceGalery(key,"000"+ (Integer.parseInt(i.getLast_seq()) + 1))).subscribe())
-                .switchIfEmpty(sequenceGaleryRepo.save(new SequenceGalery(key, "0001")))
-                .subscribe();
-        return name.substring(0, 4).toUpperCase();
-    }
 
     @Override
     public String substring(String str) {
