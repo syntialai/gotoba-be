@@ -1,8 +1,10 @@
 package com.example.goToba.service.implement;
 
 import com.example.goToba.model.Galery;
+import com.example.goToba.model.SequenceGalery;
 import com.example.goToba.payload.request.GaleryRequest;
 import com.example.goToba.repository.GaleryRepo;
+import com.example.goToba.repository.SequenceGaleryRepo;
 import com.example.goToba.service.GaleryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +21,12 @@ public class GaleryServiceImpl implements GaleryService {
 
     @Autowired
     GaleryRepo galeryRepo;
+    @Autowired
+    SequenceGaleryRepo sequenceGaleryRepo;
 
     @Override
     public Flux<Galery> findAllGalery() {
-        return  galeryRepo.findAll();
+        return galeryRepo.findAll();
     }
 
     @Override
@@ -89,5 +93,23 @@ public class GaleryServiceImpl implements GaleryService {
     @Override
     public Mono<Galery> activateBySku(String sku) {
         return null;
+    }
+
+    @Override
+    public String skuGenerator(String name) {
+        System.out.println("masuk kok");
+        String key = substring(name);
+        Mono.fromCallable(() -> sequenceGaleryRepo.findFirstByKey(key))
+                .flatMap(i -> sequenceGaleryRepo.findFirstByKey(key))
+                .doOnNext(i -> sequenceGaleryRepo.deleteByKey(key).subscribe())
+                .doOnNext(i -> sequenceGaleryRepo.save(new SequenceGalery(key,"000"+ (Integer.parseInt(i.getLast_seq()) + 1))).subscribe())
+                .switchIfEmpty(sequenceGaleryRepo.save(new SequenceGalery(key, "0001")))
+                .subscribe();
+        return name.substring(0, 4).toUpperCase();
+    }
+
+    @Override
+    public String substring(String str) {
+        return str.substring(0, 4).toUpperCase();
     }
 }

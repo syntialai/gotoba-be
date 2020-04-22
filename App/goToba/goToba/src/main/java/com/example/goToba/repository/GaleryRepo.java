@@ -15,10 +15,6 @@ public interface GaleryRepo extends ReactiveMongoRepository<Galery, String> {
     Mono<Galery> findFirstBySku(String sku);
     Mono<Boolean> deleteBySku(String sku);
 
-    @Query()
-    Mono<Galery> suspend(String sku);
-
-    Mono<Galery> activate(String sku);
 
 
 }

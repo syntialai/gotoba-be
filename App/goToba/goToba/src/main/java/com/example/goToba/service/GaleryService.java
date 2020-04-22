@@ -24,4 +24,6 @@ public interface GaleryService {
     public Mono<Galery> updateBySku(String sku, GaleryRequest request);
     public Mono<Galery> suspendBySku(String sku);
     public Mono<Galery> activateBySku(String sku);
+    public String skuGenerator(String name);
+    public String substring(String str);
 }

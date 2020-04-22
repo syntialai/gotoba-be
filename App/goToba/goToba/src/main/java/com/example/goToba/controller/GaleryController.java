@@ -37,7 +37,7 @@ public class GaleryController {
     @PostMapping(GaleryControllerRoute.ROUTE_GALERY_ADD_NEW)
     public ResponseEntity<?> addGalery(@RequestBody GaleryRequest request) {
         galeryService.addNewFoto(request).subscribe();
-
+        galeryService.skuGenerator(request.getName());
         return ResponseEntity.ok(new CreateResponse("201", "success", request));
     }
 
@@ -57,7 +57,7 @@ public class GaleryController {
         return ResponseEntity.ok(new CreateResponse("200", "success", request));
     }
     @PutMapping(GaleryControllerRoute.ROUTE_GALERY_SUSPEND_BY_SKU)
-    public ResponseEntity<?> suspendBySku( @PathVariable String sku) {
+    public ResponseEntity<?> suspendBySku(@RequestBody GaleryRequest request, @PathVariable String sku) {
         Mono.fromCallable(() -> sku)
                 .flatMap(string -> galeryService.updateBySku(sku, request))
                 .doOnNext( i-> System.out.println(sku))
