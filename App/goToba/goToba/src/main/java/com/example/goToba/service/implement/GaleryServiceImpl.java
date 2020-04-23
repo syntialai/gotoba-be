@@ -47,7 +47,7 @@ public class GaleryServiceImpl implements GaleryService {
                 .flatMap(i -> sequenceGaleryRepo.findFirstByKey(key))
                 .flatMap(req -> {
                     Galery galery = new Galery(
-                            req.getKey() + "-" + "000" + (Integer.parseInt(req.getLast_seq())),
+                            req.getKey() + "_" + "000" + (Integer.parseInt(req.getLast_seq())),
                             request.getName(),
                             request.getTitle(),
                             request.getDescription(),

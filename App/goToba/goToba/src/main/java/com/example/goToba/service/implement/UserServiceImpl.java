@@ -44,19 +44,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> save(RegisterRequest registerRequest) {
-        Users users = new Users(
-                "00" + skuFinal,
-                registerRequest.getNickname(),
-                registerRequest.getUsername(),
-                registerRequest.getEmail(),
-                registerRequest.getPassword(),
-                RoleName.ROLE_CUSTOMER,
-                1
-        );
-        sequenceSku(sub_str(registerRequest.getUsername()), users);
-        usersRepo.save(users).subscribe();
-        return ResponseEntity.ok("Register Success");
+    public Mono<Users> save(RegisterRequest request) {
+        String key = sub_str(request.getNickname());
+        return Mono.fromCallable(() -> request)
+                .flatMap(i -> sequenceUsersRepo.findFirstByKey(key))
+                .doOnNext(i -> sequenceUsersRepo.deleteByKey(key).subscribe())
+                .doOnNext(i -> sequenceUsersRepo.save(new SequenceUsers(key, "000" + (Integer.parseInt(i.getLast_seq()) + 1))).subscribe())
+                .switchIfEmpty(sequenceUsersRepo.save(new SequenceUsers(key, "0001")))
+                .flatMap(i -> sequenceUsersRepo.findFirstByKey(key))
+                .flatMap(req -> {
+                    Users users = new Users(
+                            req.getKey() + "_" + "000" + (Integer.parseInt(req.getLast_seq())),
+                            request.getNickname(),
+                            request.getUsername(),
+                            request.getEmail(),
+                            request.getPassword(),
+                            RoleName.ROLE_CUSTOMER,
+                            1
+                    );
+                     return usersRepo.save(users);
+                });
     }
 
     @Override

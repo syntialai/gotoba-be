@@ -12,4 +12,5 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface SequenceUsersRepo extends ReactiveMongoRepository<SequenceUsers,Integer> {
     public Mono<SequenceUsers> findFirstByKey(String key);
+    public Mono<Boolean> deleteByKey(String key);
 }

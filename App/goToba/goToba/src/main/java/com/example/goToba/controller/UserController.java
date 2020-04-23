@@ -37,7 +37,7 @@ public class UserController {
 
     @PostMapping(UserControllerRoute.ROUTE_SIGN_UP)
     public ResponseEntity<?> signup(@RequestBody RegisterRequest registerRequest) {
-        userService.save(registerRequest);
+        userService.save(registerRequest).subscribe();
         return ResponseEntity.ok("Register Success");
     }
 

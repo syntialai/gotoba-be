@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 public interface UserService {
     public String skuGenerator(String username, String role);
     public String sub_str(String str);
-    public ResponseEntity<?> save(RegisterRequest registerRequest);
+    public Mono<Users> save(RegisterRequest registerRequest);
     public Mono<Users> findByNickname(String nickname);
     public Disposable sequenceSku(String key, Users users);
 }
