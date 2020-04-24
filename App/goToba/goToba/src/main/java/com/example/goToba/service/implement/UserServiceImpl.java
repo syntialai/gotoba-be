@@ -3,16 +3,23 @@ package com.example.goToba.service.implement;
 import com.example.goToba.model.RoleName;
 import com.example.goToba.model.SequenceUsers;
 import com.example.goToba.model.Users;
+import com.example.goToba.payload.AuthenticationResponse;
+import com.example.goToba.payload.JwtLoginResponse;
+import com.example.goToba.payload.request.LoginRequest;
 import com.example.goToba.payload.request.RegisterRequest;
 import com.example.goToba.repository.SequenceUsersRepo;
 import com.example.goToba.repository.UsersRepo;
+import com.example.goToba.security.Encode;
+import com.example.goToba.security.JwtTokenProvider;
 import com.example.goToba.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.Disposable;
 import reactor.core.publisher.Mono;
 
+import java.sql.Timestamp;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -21,21 +28,24 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Service
 public class UserServiceImpl implements UserService {
 
-    String skuFinal = "";
-
     @Autowired
     SequenceUsersRepo sequenceUsersRepo;
 
     @Autowired
     UsersRepo usersRepo;
 
-    @Override
-    public String skuGenerator(String username, String role) {
-        String skuFinal = "";
-        String usr = sub_str(username);
-        String awal = "000";
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
-        return skuFinal;
+    @Autowired
+    private Encode passwordEncoder;
+
+    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+    @Override
+    public String skuGenerator(String key, Integer seq) {
+        String counter = "_000";
+        return key + counter + seq;
     }
 
     @Override
@@ -54,46 +64,42 @@ public class UserServiceImpl implements UserService {
                 .flatMap(i -> sequenceUsersRepo.findFirstByKey(key))
                 .flatMap(req -> {
                     Users users = new Users(
-                            req.getKey() + "_" + "000" + (Integer.parseInt(req.getLast_seq())),
+                            skuGenerator(req.getKey(), Integer.parseInt(req.getLast_seq())),
                             request.getNickname(),
                             request.getUsername(),
                             request.getEmail(),
-                            request.getPassword(),
-                            RoleName.ROLE_CUSTOMER,
+                            passwordEncoder.encode(request.getPassword()),
+                            checkRole(request.getRole().toString()),
                             1
                     );
-                     return usersRepo.save(users);
+                    return usersRepo.save(users);
                 });
     }
 
     @Override
     public Mono<Users> findByNickname(String nickname) {
-        return usersRepo.findFirstByNickname(nickname)
-                .doOnNext(i -> {
-                    usersRepo.findFirstByNickname(nickname);
-                });
-
+        return usersRepo.findFirstByNickname(nickname);
     }
 
     @Override
-    public Disposable sequenceSku(String key, Users users) {
-        SequenceUsers sequenceUsers;
-        final AtomicInteger[] last = {new AtomicInteger()};
-        String lastStr = last[0].toString();
-        skuFinal = key + "_" + lastStr;
-        System.out.println(skuFinal);
-        return sequenceUsersRepo.findFirstByKey(key)
-                .doOnNext(i -> last[0].set(Integer.parseInt(i.getLast_seq()) + 1))
-                .doOnNext(i -> skuFinal = key + "_" + last[0].toString())
-                .doOnNext(i -> users.setSku(skuFinal))
-                .doOnNext(i -> {
-                    usersRepo.save(users);
-                })
-                .flatMap(b -> {
-                    return sequenceUsersRepo.save(new SequenceUsers(key, "00" + last[0].toString()));
-                })
-                .switchIfEmpty(
-                        sequenceUsersRepo.save(new SequenceUsers(key, "001"))
-                ).subscribe();
+    public Mono<ResponseEntity<?>> signin(LoginRequest request) {
+        return usersRepo.findFirstByUsername(request.getUsername()).map((userDetails) -> {
+            if (passwordEncoder.encode(request.getPassword()).equals(userDetails.getPassword())) {
+                return ResponseEntity.ok(new JwtLoginResponse(userDetails.getNickname(), userDetails.getRoles().toString(), userDetails.getSku(), jwtTokenProvider.generateToken(userDetails)));
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthenticationResponse(timestamp.toString(), "401", "UNAUTHORIZED", "username or password is wrong"));
+            }
+        }).defaultIfEmpty(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
     }
+
+    @Override
+    public RoleName checkRole(String role) {
+        if (role.equals("ROLE_MERCHANT")) {
+            return RoleName.ROLE_MERCHANT;
+        } else if (role.equals("ROLE_ADMIN")) {
+            return RoleName.ROLE_ADMIN;
+        }
+        return RoleName.ROLE_USER;
+    }
+
 }

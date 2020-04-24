@@ -31,35 +31,25 @@ public class WisataController {
     @Autowired
     WisataRepo wisataRepo;
 
-    @PostMapping(WisataControllerRoute.ROUTE_WISATA_ADD_NEW)
-    public ResponseEntity<?> addNew(@RequestBody WisataRequest wisataRequest) {
-        wisataService.addWisata(wisataRequest);
-        return ResponseEntity.ok(new ApiResponse( TRUE, "Tambah data wisata sukses"));
-    }
-
     @GetMapping(WisataControllerRoute.ROUTE_WISATA_All)
-    public Flux<Wisata> findAll() {
-        return wisataService.findAll();
+    public ResponseEntity<?> findAll() {
+        return ResponseEntity.ok(wisataService.findAll());
     }
 
     @GetMapping(WisataControllerRoute.ROUTE_WISATA_FIND_BY_NAME)
-    public Mono<ResponseEntity<String>> findOne(@PathVariable String name) {
-
-        return wisataRepo.findFirstByName(name).
-                flatMap(b -> {
-                    return Mono.just(ResponseEntity.ok().body("ada data"));
-                }).switchIfEmpty(Mono.just(ResponseEntity.badRequest().body("Tidak ada data")));
+    public ResponseEntity<?> findOne(@PathVariable String name) {
+        return ResponseEntity.ok(wisataRepo.findFirstByName(name));
     }
 
-    @GetMapping(WisataControllerRoute.ROUTE_WISATA_EXISTS_BY_NAME)
-    public Mono<Boolean> check(@PathVariable String name) {
-        return wisataRepo.existsByName(name)
-                .flatMap(b -> {
-                    return Mono.just(TRUE);
-                })
-                .switchIfEmpty(
-                        Mono.just(Boolean.FALSE)
-                );
+    @GetMapping(WisataControllerRoute.ROUTE_WISATA_FIND_BY_SKU)
+    public ResponseEntity<?> findBySku(@PathVariable String sku) {
+        return ResponseEntity.ok(wisataRepo.findFirstBySkuWisata(sku));
+    }
+
+    @PostMapping(WisataControllerRoute.ROUTE_WISATA_ADD_NEW)
+    public ResponseEntity<?> addNew(@RequestBody WisataRequest wisataRequest) {
+        wisataService.addWisata(wisataRequest);
+        return ResponseEntity.ok(new ApiResponse(TRUE, "Tambah data wisata sukses"));
     }
 
 }

@@ -9,4 +9,6 @@ public interface UserControllerRoute {
     public String ROUTE_SIGN_IN = "/signin";
     public String ROUTE_USER_FIND_ALL = "/";
     public String ROUTE_USER_FIND_BY_NICKNAME = "/nickname/{nickname}";
+    public String ROUTE_USER_FIND_BY_USERNAME = "/{username}";
+    public String ROUTE_USER_FIND_BY_SKU = "/{sku}";
 }

@@ -12,4 +12,5 @@ import reactor.core.publisher.Mono;
 public interface WisataRepo extends ReactiveMongoRepository<Wisata,String> {
     public Mono<Boolean> existsByName(String name);
     public Mono<Wisata> findFirstByName(String name);
+    public Mono<Wisata> findFirstBySkuWisata(String sku);
 }

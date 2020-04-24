@@ -1,5 +1,6 @@
 package com.example.goToba.payload.request;
 
+import com.example.goToba.model.WisataHoursOpen;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,9 +19,9 @@ public class WisataRequest {
     public String address;
     public String createdBy;
     public int price;
-    public List hoursOpen;
+    public WisataHoursOpen hoursOpen;
 
-    public WisataRequest(String name, String title, String description, String image, String address, String createdBy, int price, List hoursOpen) {
+    public WisataRequest(String name, String title, String description, String image, String address, String createdBy, int price, WisataHoursOpen hoursOpen) {
         this.name = name;
         this.title = title;
         this.description = description;

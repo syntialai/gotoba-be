@@ -10,4 +10,6 @@ import reactor.core.publisher.Flux;
 public interface WisataService {
     public void addWisata(WisataRequest wisataRequest);
     public Flux<Wisata> findAll();
+    public String skuGenerator(String creator,String name);
+    public String substr(String str);
 }

@@ -12,7 +12,6 @@ import java.util.Collection;
 /**
  * Created by Sogumontar Hendra Simangunsong on 11/04/2020.
  */
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Users  implements UserDetails {
@@ -30,23 +29,40 @@ public class Users  implements UserDetails {
 
     private RoleName roles ;
 
+    private String test;
     public int status;
 
-
+    public Users(String sku, String nickname, String username, @Email String email, String password, RoleName roles, int status) {
+        this.sku = sku;
+        this.nickname = nickname;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+        this.status = status;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
 
+    public RoleName getRoles() {
+        return roles;
+    }
+
+    public void setRoles(RoleName roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
     @Override
