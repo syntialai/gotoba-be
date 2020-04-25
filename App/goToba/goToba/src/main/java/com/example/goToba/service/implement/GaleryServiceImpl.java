@@ -39,7 +39,7 @@ public class GaleryServiceImpl implements GaleryService {
     @Override
     public Mono<Galery> addNewFoto(GaleryRequest request) {
         String key = substring(request.getName());
-        return Mono.fromCallable(() -> request)
+        return Mono.fromCallable(() -> sequenceGaleryRepo.findFirstByKey(key))
                 .flatMap(i -> sequenceGaleryRepo.findFirstByKey(key))
                 .doOnNext(i -> sequenceGaleryRepo.deleteByKey(key).subscribe())
                 .doOnNext(i -> sequenceGaleryRepo.save(new SequenceGalery(key, "000" + (Integer.parseInt(i.getLast_seq()) + 1))).subscribe())

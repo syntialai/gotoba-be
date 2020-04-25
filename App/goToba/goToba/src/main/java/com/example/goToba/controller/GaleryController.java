@@ -76,7 +76,7 @@ public class GaleryController {
     }
 
     @DeleteMapping(GaleryControllerRoute.ROUTE_GALERY_DELETE_BY_SKU)
-    public ResponseEntity<?> deletBySku(@PathVariable String sku) {
+    public ResponseEntity<?> deleteBySku(@PathVariable String sku) {
         galeryRepo.deleteBySku(sku).subscribe();
         return ResponseEntity.ok("Delete Success");
     }

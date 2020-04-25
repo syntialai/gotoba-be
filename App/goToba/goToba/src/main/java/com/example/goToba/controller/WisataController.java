@@ -3,16 +3,13 @@ package com.example.goToba.controller;
 import com.example.goToba.controller.route.WisataControllerRoute;
 import com.example.goToba.model.Wisata;
 import com.example.goToba.payload.ApiResponse;
-import com.example.goToba.payload.AuthenticationResponse;
-import com.example.goToba.payload.CreateResponse;
+import com.example.goToba.payload.message.MessageResponse;
 import com.example.goToba.payload.request.WisataRequest;
 import com.example.goToba.repository.WisataRepo;
 import com.example.goToba.service.implement.WisataServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import static java.lang.Boolean.TRUE;
 
@@ -31,6 +28,7 @@ public class WisataController {
     @Autowired
     WisataRepo wisataRepo;
 
+
     @GetMapping(WisataControllerRoute.ROUTE_WISATA_All)
     public ResponseEntity<?> findAll() {
         return ResponseEntity.ok(wisataService.findAll());
@@ -48,8 +46,15 @@ public class WisataController {
 
     @PostMapping(WisataControllerRoute.ROUTE_WISATA_ADD_NEW)
     public ResponseEntity<?> addNew(@RequestBody WisataRequest wisataRequest) {
-        wisataService.addWisata(wisataRequest);
-        return ResponseEntity.ok(new ApiResponse(TRUE, "Tambah data wisata sukses"));
+        wisataService.addWisata(wisataRequest).subscribe();
+        return ResponseEntity.ok(new ApiResponse(TRUE, MessageResponse.MESSAGES_FOR_ADD_WISATA));
     }
+
+    @PutMapping(WisataControllerRoute.ROUTE_WISATA_EDIT_BY_SKU)
+    public ResponseEntity<?> updateBySku(@RequestBody WisataRequest request, @PathVariable String sku) {
+        wisataService.updateWisata(sku, request).subscribe();
+        return ResponseEntity.ok(request);
+    }
+
 
 }

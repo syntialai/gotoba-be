@@ -14,6 +14,7 @@ import java.util.Collection;
  */
 @NoArgsConstructor
 @Data
+@AllArgsConstructor
 public class Users  implements UserDetails {
 
     public String sku;
@@ -29,18 +30,8 @@ public class Users  implements UserDetails {
 
     private RoleName roles ;
 
-    private String test;
     public int status;
 
-    public Users(String sku, String nickname, String username, @Email String email, String password, RoleName roles, int status) {
-        this.sku = sku;
-        this.nickname = nickname;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-        this.status = status;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
