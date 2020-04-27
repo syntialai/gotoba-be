@@ -12,18 +12,18 @@ import java.util.UUID;
  * Created by Sogumontar Hendra Simangunsong on 16/04/2020.
  */
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Galery {
-    public String sku = UUID.randomUUID().toString();
+    public String sku;
     public String name;
     public String title;
     public String description;
     public String image;
     public Boolean show = true;
 
-    public Galery(String name, String title, String description, String image, Boolean show) {
+    public Galery(String sku, String name, String title, String description, String image, Boolean show) {
+        this.sku = sku;
         this.name = name;
         this.title = title;
         this.description = description;

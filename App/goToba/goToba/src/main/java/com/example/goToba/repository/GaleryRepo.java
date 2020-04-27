@@ -1,6 +1,7 @@
 package com.example.goToba.repository;
 
 import com.example.goToba.model.Galery;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
@@ -10,6 +11,9 @@ import reactor.core.publisher.Mono;
  */
 @Repository
 public interface GaleryRepo extends ReactiveMongoRepository<Galery, String> {
+
     Mono<Galery> findFirstBySku(String sku);
+
     Mono<Boolean> deleteBySku(String sku);
+
 }

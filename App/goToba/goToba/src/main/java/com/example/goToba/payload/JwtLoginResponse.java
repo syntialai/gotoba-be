@@ -15,29 +15,20 @@ public class JwtLoginResponse {
     private String tokenType = "Bearer";
     private String role;
     private String skuLog;
-    private Integer status;
+//    private Integer status;
     private String nickName;
-    private String email;
+//    private String email;
+
+    public JwtLoginResponse(String nickName, String role, String skuLog, String accessToken) {
+        this.nickName = nickName;
+        this.role = role;
+        this.skuLog = skuLog;
+        this.accessToken = accessToken;
+    }
 
     public JwtLoginResponse(String accessToken , String role) {
         this.accessToken = accessToken;
         this.role = role;
-    }
-    public JwtLoginResponse(String accessToken,  String role, String skuLog, Integer status, String nickName, String email) {
-        this.accessToken = accessToken;
-        this.role = role;
-        this.skuLog = skuLog;
-        this.status = status;
-        this.nickName = nickName;
-        this.email = email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public String getAccessToken() {
@@ -72,13 +63,6 @@ public class JwtLoginResponse {
         this.skuLog = skuLog;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 
     public String getNickName() {
         return nickName;
