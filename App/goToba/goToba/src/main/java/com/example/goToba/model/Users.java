@@ -12,9 +12,9 @@ import java.util.Collection;
 /**
  * Created by Sogumontar Hendra Simangunsong on 11/04/2020.
  */
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
+@AllArgsConstructor
 public class Users  implements UserDetails {
 
     public String sku;
@@ -33,20 +33,27 @@ public class Users  implements UserDetails {
     public int status;
 
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
 
+    public RoleName getRoles() {
+        return roles;
+    }
+
+    public void setRoles(RoleName roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
     @Override

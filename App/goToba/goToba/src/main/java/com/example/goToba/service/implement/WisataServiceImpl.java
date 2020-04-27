@@ -1,12 +1,15 @@
 package com.example.goToba.service.implement;
 
+import com.example.goToba.model.SequenceWisata;
 import com.example.goToba.model.Wisata;
 import com.example.goToba.payload.request.WisataRequest;
+import com.example.goToba.repository.SequenceWisataRepo;
 import com.example.goToba.repository.WisataRepo;
 import com.example.goToba.service.WisataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 02/04/2020.
@@ -17,24 +20,66 @@ public class WisataServiceImpl implements WisataService {
     @Autowired
     WisataRepo wisataRepo;
 
+    @Autowired
+    SequenceWisataRepo sequenceWisataRepo;
+
     @Override
-    public void addWisata(WisataRequest wisataRequest) {
-        String sku="skuTest";
-        Wisata wisata=new Wisata(
-                sku,
-                wisataRequest.getName(),
-                wisataRequest.getTitle(),
-                wisataRequest.getDescription(),
-                wisataRequest.getImage(),
-                wisataRequest.getAddress(),
-                wisataRequest.getCreatedBy(),
-                wisataRequest.getPrice(),
-                wisataRequest.getHoursOpen());
-        wisataRepo.save(wisata).subscribe();
+    public Mono<Wisata> addWisata(WisataRequest wisataRequest) {
+        String awal ="000";
+        String key = substr(wisataRequest.getCreatedBy()) + "_" + substr(wisataRequest.getName());
+        Mono<Wisata> wisataMono = Mono.fromCallable(() -> wisataRequest)
+                .flatMap(dat -> sequenceWisataRepo.findFirstByKey(key))
+                .doOnNext(dat -> sequenceWisataRepo.deleteByKey(key).subscribe())
+                .doOnNext(dat -> sequenceWisataRepo.save(new SequenceWisata(key, awal + (Integer.parseInt(dat.getLast_seq()) + 1))).subscribe())
+                .switchIfEmpty(sequenceWisataRepo.save(new SequenceWisata(key, awal+"1")))
+                .flatMap(dat -> sequenceWisataRepo.findFirstByKey(key))
+                .flatMap(data -> {
+                    Wisata wisata = new Wisata(
+                            data.getKey() + "_000" + Integer.parseInt(data.getLast_seq()),
+                            wisataRequest.getName(),
+                            wisataRequest.getTitle(),
+                            wisataRequest.getDescription(),
+                            wisataRequest.getImage(),
+                            wisataRequest.getAddress(),
+                            wisataRequest.getCreatedBy(),
+                            wisataRequest.getPrice(),
+                            wisataRequest.getHoursOpen()
+                    );
+                    return wisataRepo.save(wisata);
+                });
+        return wisataMono;
     }
 
     @Override
     public Flux<Wisata> findAll() {
         return wisataRepo.findAll();
+    }
+
+
+    @Override
+    public String substr(String str) {
+        return str.substring(0, 4).toUpperCase();
+    }
+
+    @Override
+    public Mono<Wisata> updateWisata(String sku, WisataRequest wisataRequest) {
+        return Mono.fromCallable(() -> wisataRequest)
+                .doOnNext(i -> {
+                    wisataRepo.deleteBySkuWisata(sku).subscribe();
+                })
+                .flatMap(data ->{
+                    Wisata wisata=new Wisata(
+                            sku,
+                            wisataRequest.getName(),
+                            wisataRequest.getTitle(),
+                            wisataRequest.getDescription(),
+                            wisataRequest.getImage(),
+                            wisataRequest.getAddress(),
+                            wisataRequest.getCreatedBy(),
+                            wisataRequest.getPrice(),
+                            wisataRequest.getHoursOpen()
+                    );
+                    return wisataRepo.save(wisata);
+                });
     }
 }

@@ -20,12 +20,12 @@ public class Wisata {
     public String address;
     public String createdBy;
     public int price;
-    public List hoursOpen;
+    public WisataHoursOpen hoursOpen;
 
    public Wisata(){
 
    }
-    public Wisata(String skuWisata, String name, String title, String description, String image, String address, String createdBy, int price, List hoursOpen) {
+    public Wisata(String skuWisata, String name, String title, String description, String image, String address, String createdBy, int price, WisataHoursOpen hoursOpen) {
         this.skuWisata = skuWisata;
         this.name = name;
         this.title = title;
