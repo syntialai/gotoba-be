@@ -3,21 +3,29 @@ package com.example.goToba.config;
 import com.example.goToba.redis.MessagePublisher;
 import com.example.goToba.redis.MessagePublisherImpl;
 import com.example.goToba.redis.MessageSubscriber;
+
+
+
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
+
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 29/04/2020.
  */
 
 @Configuration
+@ComponentScan("com.example.goToba")
 public class RedisConfig {
+
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         return new JedisConnectionFactory();
@@ -27,7 +35,7 @@ public class RedisConfig {
     public RedisTemplate<String, Object> redisTemplate() {
         final RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
         template.setConnectionFactory(jedisConnectionFactory());
-        template.setValueSerializer(new GenericToStringSerializer<Object>(Object.class));
+        template.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());
         return template;
     }
 

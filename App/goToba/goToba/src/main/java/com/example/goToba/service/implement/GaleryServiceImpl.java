@@ -6,6 +6,7 @@ import com.example.goToba.payload.request.GaleryRequest;
 import com.example.goToba.repository.GaleryRepo;
 import com.example.goToba.repository.SequenceGaleryRepo;
 import com.example.goToba.service.GaleryService;
+import com.example.goToba.service.redisService.GaleryServiceRedis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -24,6 +25,9 @@ public class GaleryServiceImpl implements GaleryService {
 
     @Autowired
     SequenceGaleryRepo sequenceGaleryRepo;
+
+    @Autowired
+    GaleryServiceRedis galeryServiceRedis;
 
     @Override
     public Flux<Galery> findAllGalery() {
@@ -54,6 +58,7 @@ public class GaleryServiceImpl implements GaleryService {
                             request.getImage(),
                             Boolean.TRUE
                     );
+                    galeryServiceRedis.add(galery);
                     return galeryRepo.save(galery);
                 });
     }

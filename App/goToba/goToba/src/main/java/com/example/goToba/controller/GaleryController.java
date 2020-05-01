@@ -9,7 +9,9 @@ import com.example.goToba.payload.request.GaleryRequest;
 import com.example.goToba.repository.GaleryRepo;
 import com.example.goToba.service.GaleryService;
 import com.example.goToba.service.implement.GaleryServiceImpl;
+import com.example.goToba.service.redisService.GaleryServiceRedis;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -32,17 +34,25 @@ public class GaleryController {
     @Autowired
     GaleryRepo galeryRepo;
 
+    @Autowired
+    GaleryServiceRedis galeryServiceRedis;
+
+    private HashOperations hashOperations;
+
     @GetMapping(GaleryControllerRoute.ROUTE_GALERY_All)
     public ResponseEntity<?> findAll() {
+
+
         Flux<Galery> data = galeryService.findAllGalery();
 //        return ResponseEntity.ok(new GaleryResponse(200,"OK", data));
-        return ResponseEntity.ok(data);
+        return ResponseEntity.ok(galeryServiceRedis.findAll());
     }
 
     @GetMapping(GaleryControllerRoute.ROUTE_GALERY_FIND_BY_SKU)
-    public ResponseEntity<Mono<Galery>> findBySku(@PathVariable String sku) {
-        System.out.println(galeryRepo.findFirstBySku(sku));
-        return ResponseEntity.ok(galeryRepo.findFirstBySku(sku));
+    public ResponseEntity<?> findBySku(@PathVariable String sku) {
+        System.out.println(galeryServiceRedis.findById(sku));
+//        System.out.println(galeryRepo.findFirstBySku(sku));
+        return ResponseEntity.ok(galeryServiceRedis.findById(sku));
     }
 
     @PostMapping(GaleryControllerRoute.ROUTE_GALERY_ADD_NEW)
