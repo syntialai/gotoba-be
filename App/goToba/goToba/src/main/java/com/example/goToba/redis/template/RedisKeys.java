@@ -5,4 +5,5 @@ package com.example.goToba.redis.template;
  */
 public interface RedisKeys {
     public String REDIS_KEYS_FOR_GALERY="Galery";
+    public String REDIS_KEYS_FOR_WISATA="Wisata";
 }

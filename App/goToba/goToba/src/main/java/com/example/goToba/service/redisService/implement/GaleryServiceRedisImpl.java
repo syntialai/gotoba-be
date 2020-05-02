@@ -3,6 +3,7 @@ package com.example.goToba.service.redisService.implement;
 import com.example.goToba.model.Galery;
 import com.example.goToba.redis.template.RedisKeys;
 import com.example.goToba.service.redisService.GaleryServiceRedis;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
@@ -45,5 +46,15 @@ public class GaleryServiceRedisImpl implements GaleryServiceRedis {
     @Override
     public Map<Object, Object> findAll() {
         return  hashOperations.entries(key);
+    }
+
+    @Override
+    public Boolean hasKey(String id) {
+        return hashOperations.hasKey(key,id);
+    }
+
+    @Override
+    public void delete(String key) {
+        hashOperations.delete(this.key,key);
     }
 }

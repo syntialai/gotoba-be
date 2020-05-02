@@ -41,8 +41,6 @@ public class GaleryController {
 
     @GetMapping(GaleryControllerRoute.ROUTE_GALERY_All)
     public ResponseEntity<?> findAll() {
-
-
         Flux<Galery> data = galeryService.findAllGalery();
 //        return ResponseEntity.ok(new GaleryResponse(200,"OK", data));
         return ResponseEntity.ok(galeryServiceRedis.findAll());
@@ -51,8 +49,10 @@ public class GaleryController {
     @GetMapping(GaleryControllerRoute.ROUTE_GALERY_FIND_BY_SKU)
     public ResponseEntity<?> findBySku(@PathVariable String sku) {
         System.out.println(galeryServiceRedis.findById(sku));
-//        System.out.println(galeryRepo.findFirstBySku(sku));
-        return ResponseEntity.ok(galeryServiceRedis.findById(sku));
+        if(galeryServiceRedis.hasKey(sku)){
+            return ResponseEntity.ok(galeryServiceRedis.findById(sku));
+        }
+        return ResponseEntity.ok(galeryService.findGaleryBySku(sku));
     }
 
     @PostMapping(GaleryControllerRoute.ROUTE_GALERY_ADD_NEW)
