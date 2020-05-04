@@ -3,10 +3,13 @@ package com.example.goToba.service.implement;
 import com.example.goToba.model.Galery;
 import com.example.goToba.model.SequenceGalery;
 import com.example.goToba.payload.request.GaleryRequest;
+import com.example.goToba.redis.template.RedisKeys;
 import com.example.goToba.repository.GaleryRepo;
 import com.example.goToba.repository.SequenceGaleryRepo;
 import com.example.goToba.service.GaleryService;
+import com.example.goToba.service.redisService.GaleryServiceRedis;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -25,6 +28,11 @@ public class GaleryServiceImpl implements GaleryService {
     @Autowired
     SequenceGaleryRepo sequenceGaleryRepo;
 
+    @Autowired
+    GaleryServiceRedis galeryServiceRedis;
+
+    private HashOperations hashOperations;
+
     @Override
     public Flux<Galery> findAllGalery() {
         return galeryRepo.findAll();
@@ -32,8 +40,8 @@ public class GaleryServiceImpl implements GaleryService {
 
     @Override
     public Mono<Galery> findGaleryBySku(String sku) {
-//        return galeryRepo.findFirstBySku(sku);
-        return null;
+        hashOperations.put(RedisKeys.REDIS_KEYS_FOR_GALERY,sku,galeryRepo.findFirstBySku(sku));
+        return galeryRepo.findFirstBySku(sku);
     }
 
     @Override
@@ -54,6 +62,7 @@ public class GaleryServiceImpl implements GaleryService {
                             request.getImage(),
                             Boolean.TRUE
                     );
+                    galeryServiceRedis.add(galery);
                     return galeryRepo.save(galery);
                 });
     }
@@ -72,6 +81,8 @@ public class GaleryServiceImpl implements GaleryService {
                             request.getImage(),
                             Boolean.TRUE
                     );
+                    galeryServiceRedis.delete(sku);
+                    galeryServiceRedis.add(galery);
                     return galeryRepo.save(galery);
                 });
     }
