@@ -7,7 +7,9 @@ import com.example.goToba.payload.message.MessageResponse;
 import com.example.goToba.payload.request.WisataRequest;
 import com.example.goToba.repository.WisataRepo;
 import com.example.goToba.service.implement.WisataServiceImpl;
+import com.example.goToba.service.redisService.implement.WisataRedisServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,10 +30,14 @@ public class WisataController {
     @Autowired
     WisataRepo wisataRepo;
 
+    @Autowired
+    WisataRedisServiceImpl wisataRedisService;
+
 
     @GetMapping(WisataControllerRoute.ROUTE_WISATA_All)
     public ResponseEntity<?> findAll() {
-        return ResponseEntity.ok(wisataService.findAll());
+        return ResponseEntity.ok(wisataRedisService.findAll());
+//        return ResponseEntity.ok(wisataService.findAll());
     }
 
     @GetMapping(WisataControllerRoute.ROUTE_WISATA_FIND_BY_NAME)
@@ -41,6 +47,9 @@ public class WisataController {
 
     @GetMapping(WisataControllerRoute.ROUTE_WISATA_FIND_BY_SKU)
     public ResponseEntity<?> findBySku(@PathVariable String sku) {
+        if(wisataRedisService.hasKey(sku)){
+            return ResponseEntity.ok(wisataRedisService.findByKey(sku));
+        }
         return ResponseEntity.ok(wisataRepo.findFirstBySkuWisata(sku));
     }
 

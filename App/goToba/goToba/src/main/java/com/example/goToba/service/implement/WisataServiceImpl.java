@@ -3,9 +3,11 @@ package com.example.goToba.service.implement;
 import com.example.goToba.model.SequenceWisata;
 import com.example.goToba.model.Wisata;
 import com.example.goToba.payload.request.WisataRequest;
+import com.example.goToba.redis.template.RedisKeys;
 import com.example.goToba.repository.SequenceWisataRepo;
 import com.example.goToba.repository.WisataRepo;
 import com.example.goToba.service.WisataService;
+import com.example.goToba.service.redisService.WisataRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -22,6 +24,9 @@ public class WisataServiceImpl implements WisataService {
 
     @Autowired
     SequenceWisataRepo sequenceWisataRepo;
+
+    @Autowired
+    WisataRedisService wisataRedisService;
 
     @Override
     public Mono<Wisata> addWisata(WisataRequest wisataRequest) {
@@ -45,6 +50,7 @@ public class WisataServiceImpl implements WisataService {
                             wisataRequest.getPrice(),
                             wisataRequest.getHoursOpen()
                     );
+                    wisataRedisService.add(wisata);
                     return wisataRepo.save(wisata);
                 });
         return wisataMono;
@@ -79,6 +85,8 @@ public class WisataServiceImpl implements WisataService {
                             wisataRequest.getPrice(),
                             wisataRequest.getHoursOpen()
                     );
+                    wisataRedisService.deleteByKey(sku);
+                    wisataRedisService.add(wisata);
                     return wisataRepo.save(wisata);
                 });
     }
