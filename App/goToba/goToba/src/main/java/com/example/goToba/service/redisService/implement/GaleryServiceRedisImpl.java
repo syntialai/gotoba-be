@@ -3,12 +3,12 @@ package com.example.goToba.service.redisService.implement;
 import com.example.goToba.model.Galery;
 import com.example.goToba.redis.template.RedisKeys;
 import com.example.goToba.service.redisService.GaleryServiceRedis;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
@@ -39,8 +39,8 @@ public class GaleryServiceRedisImpl implements GaleryServiceRedis {
     }
 
     @Override
-    public Galery findById(String id) {
-        return (Galery) hashOperations.get(key,id);
+    public Mono<Galery> findById(String id) {
+        return (Mono<Galery>) hashOperations.get(key,id);
     }
 
     @Override
