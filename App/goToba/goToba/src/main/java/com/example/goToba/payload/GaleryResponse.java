@@ -17,6 +17,6 @@ import java.util.List;
 public class GaleryResponse {
     Integer code;
     String status;
-    List data;
+    Flux<Galery> galery;
 
 }
