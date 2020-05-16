@@ -10,7 +10,6 @@ import java.util.Optional;
  * Created by Sogumontar Hendra Simangunsong on 07/05/2020.
  */
 public interface WisataElasticRepo extends ElasticsearchRepository<Wisata,String> {
-
     Wisata findBySkuWisata(String sku);
     List findByName(String name);
 }

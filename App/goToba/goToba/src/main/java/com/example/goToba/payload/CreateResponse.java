@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateResponse {
-    String code;
+    Integer code;
     String status;
     GaleryRequest data;
 

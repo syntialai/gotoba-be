@@ -17,9 +17,6 @@ import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
@@ -40,16 +37,6 @@ public class UserController {
 
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-    @GetMapping("/test")
-    public String setCookie(HttpServletResponse response) {
-        // create a cookie
-        Cookie cookie = new Cookie("username", "Jovan");
-
-        //add cookie to response
-        response.addCookie(cookie);
-
-        return "Username is changed!";
-    }
     @GetMapping(UserControllerRoute.ROUTE_USER_FIND_ALL)
     public ResponseEntity<?> findAll() {
         return ResponseEntity.ok(usersRepo.findAll());

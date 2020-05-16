@@ -40,7 +40,8 @@ public class GaleryServiceImpl implements GaleryService {
     @Override
     public Mono<Galery> findGaleryBySku(String sku) {
 
-        hashOperations.put(RedisKeys.REDIS_KEYS_FOR_GALERY,sku,galeryRepo.findFirstBySku(sku));
+//        hashOperations.put(RedisKeys.REDIS_KEYS_FOR_GALERY,sku,galeryRepo.findFirstBySku(sku));
+        System.out.println(galeryRepo.findFirstBySku(sku));
         return galeryRepo.findFirstBySku(sku);
     }
 
