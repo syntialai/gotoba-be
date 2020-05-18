@@ -18,7 +18,9 @@ import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 11/04/2020.
@@ -26,7 +28,6 @@ import java.util.List;
 @RestController
 @RequestMapping(UserControllerRoute.ROUTE_AUTH)
 public class UserController {
-
     @Autowired
     UserServiceImpl userService;
     @Autowired
