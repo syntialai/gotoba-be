@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthenticationResponse(timestamp.toString(), "401", "UNAUTHORIZED", "username or password is wrong"));
             }
-        }).defaultIfEmpty(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+        }).defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
     @Override

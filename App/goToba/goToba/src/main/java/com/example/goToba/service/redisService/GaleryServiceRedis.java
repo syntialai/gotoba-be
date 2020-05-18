@@ -1,8 +1,8 @@
 package com.example.goToba.service.redisService;
 
 import com.example.goToba.model.Galery;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.util.Map;
 
@@ -12,7 +12,7 @@ import java.util.Map;
 @Service
 public interface GaleryServiceRedis {
     void add(Galery galery);
-    Galery findById(String id);
+    Mono<Galery> findById(String id);
     Map<Object, Object> findAll();
     Boolean hasKey(String key);
     void delete(String key);

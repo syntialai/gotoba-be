@@ -10,11 +10,10 @@ import com.example.goToba.service.GaleryService;
 import com.example.goToba.service.redisService.GaleryServiceRedis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.List;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 16/04/2020.
@@ -40,7 +39,9 @@ public class GaleryServiceImpl implements GaleryService {
 
     @Override
     public Mono<Galery> findGaleryBySku(String sku) {
-        hashOperations.put(RedisKeys.REDIS_KEYS_FOR_GALERY,sku,galeryRepo.findFirstBySku(sku));
+
+//        hashOperations.put(RedisKeys.REDIS_KEYS_FOR_GALERY,sku,galeryRepo.findFirstBySku(sku));
+        System.out.println(galeryRepo.findFirstBySku(sku));
         return galeryRepo.findFirstBySku(sku);
     }
 
