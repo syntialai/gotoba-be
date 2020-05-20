@@ -3,6 +3,7 @@ package com.example.goToba.controller;
 import com.example.goToba.controller.route.GaleryControllerRoute;
 import com.example.goToba.model.Galery;
 import com.example.goToba.payload.CreateResponse;
+import com.example.goToba.payload.DefaultResponse;
 import com.example.goToba.payload.GaleryResponse;
 import com.example.goToba.payload.helper.StaticResponse;
 import com.example.goToba.payload.request.GaleryRequest;
@@ -42,7 +43,8 @@ public class GaleryController {
     @GetMapping(GaleryControllerRoute.ROUTE_GALERY_All)
     public ResponseEntity<?> findAll() {
 
-        return ResponseEntity.ok(galeryService.findAllGalery());
+//        return ResponseEntity.ok(galeryService.findAllGalery());
+        return ResponseEntity.ok(galeryServiceRedis.findAll());
     }
 
     @GetMapping(GaleryControllerRoute.ROUTE_GALERY_FIND_BY_SKU)
@@ -51,15 +53,11 @@ public class GaleryController {
             return galeryServiceRedis.findById(sku)
                     .map(
                             response -> ResponseEntity.ok().body(new GaleryResponse(StaticResponse.RESPONSE_CODE_SUCCESS,StaticResponse.RESPONSE_STATUS_SUCCESS_OK,response))
-                    ).doOnNext(
-                            respose -> System.out.println(respose)
                     );
         }
         return galeryService.findGaleryBySku(sku)
                 .map(
                         response -> ResponseEntity.ok().body(new GaleryResponse(StaticResponse.RESPONSE_CODE_SUCCESS,StaticResponse.RESPONSE_STATUS_SUCCESS_OK,response))
-                ).doOnNext(
-                        respose -> System.out.println(respose)
                 );
 
     }
@@ -97,7 +95,7 @@ public class GaleryController {
     @DeleteMapping(GaleryControllerRoute.ROUTE_GALERY_DELETE_BY_SKU)
     public ResponseEntity<?> deleteBySku(@PathVariable String sku) {
         galeryRepo.deleteBySku(sku).subscribe();
-        return ResponseEntity.ok(new GaleryResponse(StaticResponse.RESPONSE_CODE_SUCCESS,StaticResponse.RESPONSE_STATUS_SUCCESS_OK));
+        return ResponseEntity.ok(new DefaultResponse(StaticResponse.RESPONSE_CODE_SUCCESS,StaticResponse.RESPONSE_STATUS_DELETE_SUCCESS));
     }
 
 
