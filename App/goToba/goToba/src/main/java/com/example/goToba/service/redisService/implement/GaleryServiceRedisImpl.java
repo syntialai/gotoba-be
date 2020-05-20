@@ -35,12 +35,14 @@ public class GaleryServiceRedisImpl implements GaleryServiceRedis {
 
     @Override
     public void add(Galery galery) {
+        System.out.println(galery);
         hashOperations.put(key,galery.getSku(),galery);
     }
 
     @Override
-    public Mono<Galery> findById(String id) {
-        return (Mono<Galery>) hashOperations.get(key,id);
+    public Mono<?> findById(String id) {
+        return Mono.fromCallable(() -> hashOperations.get(key,id));
+//        return  hashOperations.get(key,id);
     }
 
     @Override

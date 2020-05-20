@@ -10,9 +10,9 @@ import java.util.Map;
  * Created by Sogumontar Hendra Simangunsong on 01/05/2020.
  */
 @Service
-public interface GaleryServiceRedis {
+public interface GaleryServiceRedis<T> {
     void add(Galery galery);
-    Mono<Galery> findById(String id);
+    Mono<T> findById(String id);
     Map<Object, Object> findAll();
     Boolean hasKey(String key);
     void delete(String key);

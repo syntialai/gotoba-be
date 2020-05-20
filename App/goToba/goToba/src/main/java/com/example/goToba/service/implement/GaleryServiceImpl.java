@@ -41,8 +41,22 @@ public class GaleryServiceImpl implements GaleryService {
     public Mono<Galery> findGaleryBySku(String sku) {
 
 //        hashOperations.put(RedisKeys.REDIS_KEYS_FOR_GALERY,sku,galeryRepo.findFirstBySku(sku));
-        System.out.println(galeryRepo.findFirstBySku(sku));
-        return galeryRepo.findFirstBySku(sku);
+        return Mono.fromCallable(() -> galeryRepo.findFirstBySku(sku))
+                .flatMap(data -> galeryRepo.findFirstBySku(sku))
+                .doOnNext(data -> galeryServiceRedis.add(data))
+                .flatMap(req -> {
+                    Galery galery = new Galery(
+                            req.getSku(),
+                            req.getName(),
+                            req.getTitle(),
+                            req.getDescription(),
+                            req.getImage(),
+                            req.getShow());
+                    galeryServiceRedis.add(galery);
+                    return galeryRepo.findFirstBySku(sku);
+                });
+//        System.out.println(galeryRepo.findFirstBySku(sku));
+//        return galeryRepo.findFirstBySku(sku);
     }
 
     @Override

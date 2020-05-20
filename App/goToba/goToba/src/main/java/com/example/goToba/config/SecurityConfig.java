@@ -3,6 +3,7 @@ package com.example.goToba.config;
 
 import com.example.goToba.security.AuthenticationManager;
 import com.example.goToba.security.SecurityContextRepository;
+import io.netty.handler.codec.http.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
@@ -26,7 +27,7 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain securitygWebFilterChain(ServerHttpSecurity http) {
         return http
-                .exceptionHandling().and().csrf().disable().build();
+                .exceptionHandling().and().csrf().disable()
 //				.authenticationEntryPoint((swe, e) -> {
 //					return Mono.fromRunnable(() -> {
 //						swe.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
@@ -36,19 +37,16 @@ public class SecurityConfig {
 //						swe.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
 //					});
 //				}).and()
-//				.and()
-//				.csrf().disable()
-//				.formLogin().disable()
-//				.httpBasic().disable()
-//				.authenticationManager(authenticationManager)
-//				.securityContextRepository(securityContextRepository)
-//				.authorizeExchange()
+				.csrf().disable()
+				.formLogin().disable()
+				.httpBasic().disable()
+				.authenticationManager(authenticationManager)
+				.securityContextRepository(securityContextRepository)
+				.authorizeExchange()
 //				.pathMatchers(HttpMethod.OPTIONS).permitAll()
-//				.pathMatchers("/login").permitAll()
-//				.pathMatchers("/test/").permitAll()
-//				.pathMatchers("/signin").permitAll()
-//				.pathMatchers("/signup").permitAll()
-////				.anyExchange().authenticated()
-//				.and().build();
+				.pathMatchers("/auth/signin").permitAll()
+				.pathMatchers("/auth/signup").permitAll()
+				.anyExchange().authenticated()
+				.and().build();
     }
 }
