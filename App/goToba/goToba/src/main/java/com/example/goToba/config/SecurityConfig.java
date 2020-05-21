@@ -44,8 +44,10 @@ public class SecurityConfig {
 				.securityContextRepository(securityContextRepository)
 				.authorizeExchange()
 //				.pathMatchers(HttpMethod.OPTIONS).permitAll()
-				.pathMatchers("/auth/signin").permitAll()
+				.pathMatchers("/auth/login").permitAll()
 				.pathMatchers("/auth/signup").permitAll()
+				.pathMatchers("/wisata/**").permitAll()
+				.pathMatchers("/gallery/**").permitAll()
 				.anyExchange().authenticated()
 				.and().build();
     }
