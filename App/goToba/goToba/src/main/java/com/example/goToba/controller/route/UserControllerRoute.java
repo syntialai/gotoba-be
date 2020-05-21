@@ -6,7 +6,7 @@ package com.example.goToba.controller.route;
 public interface UserControllerRoute {
     public String ROUTE_AUTH= "/auth";
     public String ROUTE_SIGN_UP = "/signup";
-    public String ROUTE_SIGN_IN = "/signin";
+    public String ROUTE_SIGN_IN = "/login";
     public String ROUTE_USER_FIND_ALL = "/";
     public String ROUTE_USER_FIND_BY_NICKNAME = "/nickname/{nickname}";
     public String ROUTE_USER_FIND_BY_USERNAME = "/{username}";
