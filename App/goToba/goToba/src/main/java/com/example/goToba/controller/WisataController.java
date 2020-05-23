@@ -3,6 +3,7 @@ package com.example.goToba.controller;
 import com.example.goToba.controller.route.WisataControllerRoute;
 import com.example.goToba.model.Wisata;
 import com.example.goToba.payload.ApiResponse;
+import com.example.goToba.payload.Response;
 import com.example.goToba.payload.message.MessageResponse;
 import com.example.goToba.payload.request.WisataRequest;
 import com.example.goToba.repository.WisataRepo;
@@ -36,7 +37,7 @@ public class WisataController {
 
     @GetMapping(WisataControllerRoute.ROUTE_WISATA_All)
     public ResponseEntity<?> findAll() {
-        return ResponseEntity.ok(wisataRedisService.findAll());
+        return ResponseEntity.ok().body(new Response(200,"OK",wisataRedisService.findAll()));
 //        return ResponseEntity.ok(wisataService.findAll());
     }
 

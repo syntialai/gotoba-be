@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class WisataHoursOpen {
+public class HoursOpen {
         String monday;
         String tuesday;
         String wednesday;

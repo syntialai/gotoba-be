@@ -44,7 +44,7 @@ public class GaleryController {
     public ResponseEntity<?> findAll() {
 
 //        return ResponseEntity.ok(galeryService.findAllGalery());
-        return ResponseEntity.ok(galeryServiceRedis.findAll());
+        return ResponseEntity.ok(new GaleryResponse<>(200,"OK",galeryServiceRedis.findAll()));
     }
 
     @GetMapping(GaleryControllerRoute.ROUTE_GALERY_FIND_BY_SKU)
