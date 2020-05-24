@@ -1,29 +1,27 @@
 package com.example.goToba.service.redisService.implement;
 
-import com.example.goToba.model.Wisata;
+import com.example.goToba.model.Restaurant;
 import com.example.goToba.redis.template.RedisKeys;
-import com.example.goToba.service.redisService.WisataRedisService;
+import com.example.goToba.service.redisService.RestaurantRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
-import java.util.Map;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 02/05/2020.
+ * Created by Sogumontar Hendra Simangunsong on 23/05/2020.
  */
 @Service
-public class WisataRedisServiceImpl implements WisataRedisService {
-
-    String redisKey = RedisKeys.REDIS_KEYS_FOR_WISATA;
+public class RestaurantRedisServiceImpl implements RestaurantRedisService {
+    String redisKey = RedisKeys.REDIS_KEYS_FOR_RESTAURANTS;
     private RedisTemplate<String, Object> redisTemplate;
     private HashOperations hashOperations;
-
     @Autowired
-    public WisataRedisServiceImpl(RedisTemplate<String, Object> redisTemplate) {
+    public RestaurantRedisServiceImpl(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
     @PostConstruct
@@ -32,17 +30,17 @@ public class WisataRedisServiceImpl implements WisataRedisService {
     }
 
     @Override
-    public void add(Wisata wisata) {
-        hashOperations.put(redisKey,wisata.getSkuWisata(),wisata);
+    public void add(Restaurant restaurant) {
+        hashOperations.put(redisKey,restaurant.getSku(),restaurant);
     }
 
     @Override
-    public Wisata findByKey(String key) {
-        return (Wisata) hashOperations.get(redisKey,key);
+    public Mono<?> findById(String id) {
+        return Mono.fromCallable(() -> hashOperations.get(redisKey,id));
     }
 
     @Override
-    public List<?> findAll() {
+    public List<Restaurant> findAll() {
         return hashOperations.values(redisKey);
     }
 
@@ -52,7 +50,7 @@ public class WisataRedisServiceImpl implements WisataRedisService {
     }
 
     @Override
-    public void deleteByKey(String key) {
+    public void delete(String key) {
         hashOperations.delete(redisKey,key);
     }
 }
