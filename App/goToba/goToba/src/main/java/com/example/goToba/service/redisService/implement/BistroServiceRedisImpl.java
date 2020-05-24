@@ -1,8 +1,8 @@
 package com.example.goToba.service.redisService.implement;
 
-import com.example.goToba.model.Galery;
+import com.example.goToba.model.BistroTypes;
 import com.example.goToba.redis.template.RedisKeys;
-import com.example.goToba.service.redisService.GaleryServiceRedis;
+import com.example.goToba.service.redisService.BistroRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
@@ -15,17 +15,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 01/05/2020.
+ * Created by Sogumontar Hendra Simangunsong on 23/05/2020.
  */
 @Service
-public class GaleryServiceRedisImpl implements GaleryServiceRedis {
-    String key = RedisKeys.REDIS_KEYS_FOR_GALERY;
+public class BistroServiceRedisImpl  implements BistroRedisService {
+    String key = RedisKeys.REDIS_KEYS_FOR_BISTRO_TYPES;
     private RedisTemplate<String, Object> redisTemplate;
     private HashOperations hashOperations;
     private ListOperations listOperations;
 
     @Autowired
-    public GaleryServiceRedisImpl(RedisTemplate<String, Object> redisTemplate) {
+    public BistroServiceRedisImpl(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
@@ -35,29 +35,22 @@ public class GaleryServiceRedisImpl implements GaleryServiceRedis {
     }
 
     @Override
-    public void add(Galery galery) {
-        System.out.println(galery);
-        hashOperations.put(key,galery.getSku(),galery);
+    public void add(BistroTypes bistroTypes) {
+        hashOperations.put(key,bistroTypes.getName(),bistroTypes);
+    }
+    @Override
+    public Mono<?> findByName(String name) {
+        return Mono.fromCallable(() -> hashOperations.get(key,name));
     }
 
     @Override
-    public Mono<?> findById(String id) {
-        return Mono.fromCallable(() -> hashOperations.get(key,id));
-//        return  hashOperations.get(key,id);
-    }
-
-    @Override
-    public List< Object> findAll() {
+    public List< BistroTypes> findAll() {
         return  hashOperations.values(key);
     }
 
     @Override
-    public Boolean hasKey(String id) {
-        return hashOperations.hasKey(key,id);
+    public Boolean hasKey(String key) {
+        return hashOperations.hasKey(this.key,key);
     }
 
-    @Override
-    public void delete(String key) {
-        hashOperations.delete(this.key,key);
-    }
 }

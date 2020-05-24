@@ -6,19 +6,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 02/04/2020.
+ * Created by Sogumontar Hendra Simangunsong on 23/05/2020.
  */
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
-public class WisataRequest {
+public class RestaurantsRequest {
     public String name;
-    public String title;
-    public String description;
-    public String image;
+    public String bistroType;
+    public String location;
     public String address;
-    public String createdBy;
-    public int price;
     public HoursOpen hoursOpen;
-
+    public String phone;
 }

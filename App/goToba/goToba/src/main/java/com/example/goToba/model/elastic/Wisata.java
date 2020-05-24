@@ -1,6 +1,6 @@
 package com.example.goToba.model.elastic;
 
-import com.example.goToba.model.WisataHoursOpen;
+import com.example.goToba.model.HoursOpen;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,6 +33,6 @@ public class Wisata {
 
     public int price;
 
-    public WisataHoursOpen hoursOpen;
+    public HoursOpen hoursOpen;
 
 }

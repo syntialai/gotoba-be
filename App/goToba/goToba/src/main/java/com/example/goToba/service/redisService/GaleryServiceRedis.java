@@ -4,6 +4,7 @@ import com.example.goToba.model.Galery;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Map;
 public interface GaleryServiceRedis<T> {
     void add(Galery galery);
     Mono<T> findById(String id);
-    Map<Object, Object> findAll();
+    List< Object> findAll();
     Boolean hasKey(String key);
     void delete(String key);
 }
