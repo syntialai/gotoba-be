@@ -11,4 +11,7 @@ public interface RestaurantControllerRoute {
     public String ROUTE_ADD_RESTAURANT_BY_SKU = "/{sku}";
 
     public String ROUTE_RESTAURANT_BISTRO_TYPES = "/bistro/";
+
+    //Menu
+    public String ROUTEADD_MENU_RESTAURANTS  = "/addMenu";
 }

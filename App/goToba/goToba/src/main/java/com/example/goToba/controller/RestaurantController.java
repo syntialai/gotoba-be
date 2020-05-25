@@ -2,6 +2,7 @@ package com.example.goToba.controller;
 
 import com.example.goToba.controller.route.RestaurantControllerRoute;
 import com.example.goToba.payload.Response;
+import com.example.goToba.payload.request.MenuRestaurantsRequest;
 import com.example.goToba.payload.request.RestaurantsRequest;
 import com.example.goToba.service.RestaurantService;
 import com.example.goToba.service.redisService.BistroRedisService;
@@ -49,6 +50,12 @@ public class RestaurantController {
     @PostMapping(RestaurantControllerRoute.ROUTE_ADD_RESTAURANT_BY_SKU)
     public ResponseEntity<?> findRestaurantsBySku(@PathVariable String sku, @RequestBody RestaurantsRequest restaurantsRequest) {
         restaurantService.addRestaurant(restaurantsRequest, sku);
+        return ResponseEntity.ok().body(new Response(200, "OK", restaurantService.addRestaurant(restaurantsRequest, sku)));
+    }
+
+    @PostMapping(RestaurantControllerRoute.ROUTEADD_MENU_RESTAURANTS)
+    public ResponseEntity<?> addRestaurantsMenu( @RequestBody MenuRestaurantsRequest menuRestaurantsRequest) {
+        restaurantService.addRestaurantMenu(menuRestaurantsRequest);
         return ResponseEntity.ok().body(new Response(200, "OK", restaurantService.addRestaurant(restaurantsRequest, sku)));
     }
 
