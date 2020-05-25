@@ -56,7 +56,7 @@ public class RestaurantController {
     @PostMapping(RestaurantControllerRoute.ROUTEADD_MENU_RESTAURANTS)
     public ResponseEntity<?> addRestaurantsMenu( @RequestBody MenuRestaurantsRequest menuRestaurantsRequest) {
         restaurantService.addRestaurantMenu(menuRestaurantsRequest);
-        return ResponseEntity.ok().body(new Response(200, "OK", restaurantService.addRestaurant(restaurantsRequest, sku)));
+        return ResponseEntity.ok().body(new Response(200, "OK", restaurantService.addRestaurantMenu(menuRestaurantsRequest)));
     }
 
 }
