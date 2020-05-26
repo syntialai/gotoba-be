@@ -12,5 +12,6 @@ import reactor.core.publisher.Mono;
 public interface RestaurantService {
     Mono<Restaurant> findBySku(String sku);
     Mono<Restaurant> addRestaurant(RestaurantsRequest restaurantsRequest, String sku);
-    Mono<MenuRestaurantsRequest> addRestaurantMenu(MenuRestaurantsRequest menuRestaurantsRequest);
+    Mono<MenuRestaurants> addRestaurantMenu(MenuRestaurantsRequest menuRestaurantsRequest);
+    Mono<MenuRestaurants> editRestaurantMenu(Integer idMenu, MenuRestaurantsRequest menuRestaurantsRequest);
 }

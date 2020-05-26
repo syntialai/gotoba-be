@@ -18,4 +18,5 @@ public class MenuRestaurantsRequest {
     private String status;
     private String restoranSku;
     private String merchantSku;
+
 }

@@ -59,4 +59,10 @@ public class RestaurantController {
         return ResponseEntity.ok().body(new Response(200, "OK", restaurantService.addRestaurantMenu(menuRestaurantsRequest)));
     }
 
+    @PutMapping(RestaurantControllerRoute.ROUTE_EDIT_MENU_RESTAURANTS)
+    public ResponseEntity<?> editRestaurantsMenu(@PathVariable Integer id, @RequestBody MenuRestaurantsRequest menuRestaurantsRequest) {
+        restaurantService.editRestaurantMenu(id,menuRestaurantsRequest).subscribe();
+        return ResponseEntity.ok().body(new Response(200, "OK", restaurantService.addRestaurantMenu(menuRestaurantsRequest)));
+    }
+
 }

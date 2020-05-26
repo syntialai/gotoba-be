@@ -14,4 +14,5 @@ public interface RestaurantControllerRoute {
 
     //Menu
     public String ROUTEADD_MENU_RESTAURANTS  = "/addMenu";
+    public String ROUTE_EDIT_MENU_RESTAURANTS  = "/editMenu/{id}";
 }
