@@ -9,6 +9,7 @@ import com.example.goToba.repository.RestaurantRepo;
 import com.example.goToba.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
@@ -49,6 +50,11 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    public Mono<MenuRestaurants> findByIdMenu(Integer idMenu) {
+        return menuRestaurantsRepo.findById(idMenu);
+    }
+
+    @Override
     public Mono<MenuRestaurants> addRestaurantMenu(MenuRestaurantsRequest menuRestaurantsRequest) {
         MenuRestaurants menuRestaurants= new MenuRestaurants(
                 Integer.parseInt(UUID.randomUUID().toString()),
@@ -71,7 +77,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 })
                 .flatMap(data ->{
                     MenuRestaurants menuRestaurants= new MenuRestaurants(
-                            Integer.parseInt(UUID.randomUUID().toString()),
+                            idMenu,
                             menuRestaurantsRequest.getName(),
                             menuRestaurantsRequest.getPicture(),
                             menuRestaurantsRequest.getCategory(),
@@ -82,5 +88,33 @@ public class RestaurantServiceImpl implements RestaurantService {
                     );
                     return menuRestaurantsRepo.save(menuRestaurants);
                 });
+    }
+
+    @Override
+    public Mono<MenuRestaurants> deleteRestaurantMenu(Integer idMenu, MenuRestaurantsRequest menuRestaurantsRequest) {
+
+        return Mono.fromCallable(() -> menuRestaurantsRequest)
+                .flatMap(data -> menuRestaurantsRepo.findById(idMenu))
+                .doOnNext(i -> {
+                    menuRestaurantsRepo.deleteById(idMenu).subscribe();
+                })
+                .flatMap(data ->{
+                    MenuRestaurants menuRestaurants= new MenuRestaurants(
+                            idMenu,
+                            data.getName(),
+                            data.getPicture(),
+                            data.getCategory(),
+                            data.getHarga(),
+                            "2",
+                            data.getRestoranSku(),
+                            data.getMerchantSku()
+                    );
+                    return menuRestaurantsRepo.save(menuRestaurants);
+                });
+    }
+
+    @Override
+    public Flux<MenuRestaurants> findMenuBySkuRestaurants(String sku) {
+        return menuRestaurantsRepo.findAllByRestoranSku(sku);
     }
 }

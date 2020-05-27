@@ -2,6 +2,7 @@ package com.example.goToba.controller;
 
 import com.example.goToba.controller.route.RestaurantControllerRoute;
 import com.example.goToba.payload.Response;
+import com.example.goToba.payload.ResponseWithMessages;
 import com.example.goToba.payload.request.MenuRestaurantsRequest;
 import com.example.goToba.payload.request.RestaurantsRequest;
 import com.example.goToba.service.RestaurantService;
@@ -63,6 +64,18 @@ public class RestaurantController {
     public ResponseEntity<?> editRestaurantsMenu(@PathVariable Integer id, @RequestBody MenuRestaurantsRequest menuRestaurantsRequest) {
         restaurantService.editRestaurantMenu(id,menuRestaurantsRequest).subscribe();
         return ResponseEntity.ok().body(new Response(200, "OK", restaurantService.addRestaurantMenu(menuRestaurantsRequest)));
+    }
+
+    @PutMapping(RestaurantControllerRoute.ROUTE_DELETE_MENU_RESTAURANTS)
+    public ResponseEntity<?> deleteRestaurantsMenu(@PathVariable Integer id, @RequestBody MenuRestaurantsRequest menuRestaurantsRequest) {
+        restaurantService.deleteRestaurantMenu(id,menuRestaurantsRequest).subscribe();
+        return ResponseEntity.ok().body(new ResponseWithMessages(200, "OK", restaurantService.findByIdMenu(id),"Delete Sukses"));
+    }
+
+    @GetMapping(RestaurantControllerRoute.ROUTE_GET_ALL_MENU_BY_SKU_RESTAURANTS)
+    public ResponseEntity<?> findMenuRestaurantBySkuRestaurants(@PathVariable String skuRestaurants) {
+        restaurantService.findMenuBySkuRestaurants(skuRestaurants).subscribe();
+        return ResponseEntity.ok().body(restaurantService.findMenuBySkuRestaurants(skuRestaurants).subscribe());
     }
 
 }
