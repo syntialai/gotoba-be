@@ -78,4 +78,10 @@ public class RestaurantController {
         return ResponseEntity.ok().body(restaurantService.findMenuBySkuRestaurants(skuRestaurants).subscribe());
     }
 
+    @GetMapping(RestaurantControllerRoute.ROUTE_GET_MENU_BY_ID)
+    public ResponseEntity<?> findMenuRestaurantById(@PathVariable Integer id) {
+        restaurantService.findByIdMenu(id).subscribe();
+        return ResponseEntity.ok().body(restaurantService.findByIdMenu(id).subscribe());
+    }
+
 }
