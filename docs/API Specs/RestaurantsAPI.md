@@ -559,7 +559,7 @@
 ## Delete Restaurant Menu by Id and by Restaurant Sku
 
 + Endpoint : ``/restaurant/{sku}/menu/delete/{id}``
-+ HTTP Method : `PUT`
++ HTTP Method : `DELETE`
 + Path Variable :
   + sku
   + id
