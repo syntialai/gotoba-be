@@ -20,4 +20,5 @@ public class MenuRestaurants {
     private String restoranSku;
     private String merchantSku;
 
+
 }

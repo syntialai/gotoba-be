@@ -50,6 +50,30 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    public Mono<Restaurant> editRestaurant(RestaurantsRequest restaurantsRequest, String sku) {
+        return Mono.fromCallable(() -> restaurantsRequest)
+                .flatMap(data -> restaurantRepo.findBySku(sku))
+                .doOnNext(i -> {
+                    restaurantRepo.deleteBySku(sku).subscribe();
+                })
+                .flatMap(data ->{
+                    Restaurant restaurant= new Restaurant(
+                            sku,
+                            restaurantsRequest.getName(),
+                            restaurantsRequest.getBistroType(),
+                            restaurantsRequest.getLocation(),
+                            restaurantsRequest.getRating(),
+                            restaurantsRequest.getAddress(),
+                            restaurantsRequest.getHoursOpen(),
+                            restaurantsRequest.getPhone(),
+                            "active",
+                            data.getMerchantSku()
+                    );
+                    return menuRestaurantsRepo.save(menuRestaurants);
+                });
+    }
+
+    @Override
     public Mono<MenuRestaurants> findByIdMenu(Integer idMenu) {
         return menuRestaurantsRepo.findById(idMenu);
     }

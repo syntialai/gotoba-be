@@ -49,9 +49,13 @@ public class RestaurantController {
     }
 
     @PostMapping(RestaurantControllerRoute.ROUTE_ADD_RESTAURANT_BY_SKU)
-    public ResponseEntity<?> findRestaurantsBySku(@PathVariable String sku, @RequestBody RestaurantsRequest restaurantsRequest) {
-        restaurantService.addRestaurant(restaurantsRequest, sku);
-        return ResponseEntity.ok().body(new Response(200, "OK", restaurantService.addRestaurant(restaurantsRequest, sku)));
+    public ResponseEntity<?> addRestaurantsBySku(@PathVariable String sku, @RequestBody RestaurantsRequest restaurantsRequest) {
+        return ResponseEntity.ok().body(new Response(200, "OK", restaurantService.editRestaurant(restaurantsRequest, sku).subscribe()));
+    }
+
+    @PutMapping(RestaurantControllerRoute.ROUTE_EDIT_RESTAURANT_BY_SKU)
+    public ResponseEntity<?> editRestaurantsBySku(@PathVariable String sku, @RequestBody RestaurantsRequest restaurantsRequest) {
+        return ResponseEntity.ok().body(new Response(200, "OK", restaurantService.addRestaurant(restaurantsRequest, sku).subscribe()));
     }
 
     @PostMapping(RestaurantControllerRoute.ROUTEADD_MENU_RESTAURANTS)

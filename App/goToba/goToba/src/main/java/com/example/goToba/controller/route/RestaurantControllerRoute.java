@@ -9,6 +9,7 @@ public interface RestaurantControllerRoute {
     public String ROUTE_RESTAURANT_All = "/";
     public String ROUTE_GET_RESTAURANT_BY_SKU = "/{sku}";
     public String ROUTE_ADD_RESTAURANT_BY_SKU = "/{sku}";
+    public String ROUTE_EDIT_RESTAURANT_BY_SKU = "/{sku}";
 
     public String ROUTE_RESTAURANT_BISTRO_TYPES = "/bistro/";
 
