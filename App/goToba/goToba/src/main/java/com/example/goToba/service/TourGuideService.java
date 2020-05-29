@@ -15,7 +15,9 @@ public interface TourGuideService {
 
     Mono<TourGuide> findByName(String name);
 
-    Mono<TourGuide> addTourGuide(TourGuideRequest tourGuideRequestt);
+    Mono<TourGuide> addTourGuide(TourGuideRequest tourGuideRequest);
+
+    Mono<TourGuide> editTourGuide(TourGuideRequest tourGuideRequest, String sku);
 
     String substr(String str);
 }

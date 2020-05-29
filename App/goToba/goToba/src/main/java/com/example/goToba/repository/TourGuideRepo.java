@@ -13,6 +13,7 @@ public interface TourGuideRepo extends ReactiveMongoRepository<TourGuide,Integer
 
     Mono<TourGuide> findBySku(String sku);
 
-    Mono<TourGuide> findByName(String name);
+    Mono<TourGuide> findFirstByName(String name);
 
+    Mono<Boolean> deleteBySku(String sku);
 }

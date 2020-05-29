@@ -62,14 +62,14 @@ public class RestaurantServiceImpl implements RestaurantService {
                             restaurantsRequest.getName(),
                             restaurantsRequest.getBistroType(),
                             restaurantsRequest.getLocation(),
-                            restaurantsRequest.getRating(),
+                            data.getRating(),
                             restaurantsRequest.getAddress(),
                             restaurantsRequest.getHoursOpen(),
                             restaurantsRequest.getPhone(),
                             "active",
                             data.getMerchantSku()
                     );
-                    return menuRestaurantsRepo.save(menuRestaurants);
+                    return restaurantRepo.save(restaurant);
                 });
     }
 

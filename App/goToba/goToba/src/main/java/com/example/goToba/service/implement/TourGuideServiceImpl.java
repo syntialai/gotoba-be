@@ -37,13 +37,13 @@ public class TourGuideServiceImpl implements TourGuideService {
 
     @Override
     public Mono<TourGuide> findByName(String name) {
-        return tourGuideRepo.findByName(name);
+        return tourGuideRepo.findFirstByName(name);
     }
 
     @Override
     public Mono<TourGuide> addTourGuide(TourGuideRequest tourGuideRequest) {
         String awal = "000";
-        String key = substr("TG_" + substr(tourGuideRequest.getName());
+        String key = substr("TG_" + substr(tourGuideRequest.getName()));
         Mono<TourGuide> tourGuideMono = Mono.fromCallable(() -> tourGuideRequest)
                 .flatMap(dat -> sequenceTourGuideRepo.findFirstByKey(key))
                 .doOnNext(dat -> sequenceTourGuideRepo.deleteByKey(key).subscribe())
@@ -52,7 +52,7 @@ public class TourGuideServiceImpl implements TourGuideService {
                 .flatMap(dat -> sequenceTourGuideRepo.findFirstByKey(key))
                 .flatMap(data -> {
                     TourGuide tourGuide = new TourGuide(
-                            UUID.randomUUID(),
+                            (int)UUID.randomUUID().getMostSignificantBits(),
                             data.getKey() + "_000" + Integer.parseInt(data.getLast_seq()),
                             tourGuideRequest.getName(),
                             tourGuideRequest.getAge(),
@@ -71,6 +71,37 @@ public class TourGuideServiceImpl implements TourGuideService {
                     return tourGuideRepo.save(tourGuide);
                 });
         return tourGuideMono;
+    }
+
+    @Override
+    public Mono<TourGuide> editTourGuide(TourGuideRequest tourGuideRequest, String sku) {
+        return Mono.fromCallable(() -> tourGuideRequest)
+                .flatMap(data -> tourGuideRepo.findBySku(sku))
+                .doOnNext(i -> {
+                    tourGuideRepo.deleteBySku(sku).subscribe();
+                })
+                .flatMap(data ->{
+                    TourGuide tourGuide=new TourGuide(
+                            data.getId(),
+                            sku,
+                            tourGuideRequest.getName(),
+                            tourGuideRequest.getAge(),
+                            tourGuideRequest.getOccupation(),
+                            tourGuideRequest.getLocation(),
+                            tourGuideRequest.getRating(),
+                            tourGuideRequest.getLanguage(),
+                            tourGuideRequest.getAvailableLocation(),
+                            tourGuideRequest.getPhone(),
+                            tourGuideRequest.getEmail(),
+                            tourGuideRequest.getWhatsapp(),
+                            tourGuideRequest.getExperience(),
+                            tourGuideRequest.getDescription(),
+                            data.getStatus()
+                    );
+                    tourGuideRepo.save(tourGuide);
+                    return tourGuideRepo.findBySku(sku);
+                });
+
     }
 
     @Override
