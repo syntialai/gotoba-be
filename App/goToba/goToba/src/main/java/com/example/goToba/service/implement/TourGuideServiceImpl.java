@@ -98,7 +98,7 @@ public class TourGuideServiceImpl implements TourGuideService {
                             tourGuideRequest.getDescription(),
                             data.getStatus()
                     );
-                    tourGuideRepo.save(tourGuide);
+                    tourGuideRepo.save(tourGuide).subscribe();
                     return tourGuideRepo.findBySku(sku);
                 });
 

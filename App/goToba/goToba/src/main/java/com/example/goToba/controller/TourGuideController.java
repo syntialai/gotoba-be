@@ -55,17 +55,14 @@ public class TourGuideController {
 
     @PutMapping(TourGuideControllerRoute.ROUTE_TO_EDIT_TOUR_GUIDE)
     public Mono<ResponseEntity<?>> editTourGuide(@PathVariable String sku, @RequestBody TourGuideRequest tourGuideRequest) {
-        return Mono.fromCallable(() -> sku).
+        return Mono.fromCallable(() -> tourGuideService.editTourGuide(tourGuideRequest, sku).subscribe()).
                 flatMap(
-                        data -> tourGuideService.findBySku(data)
-                ).
-                doOnNext(data ->
-                        {
-                            tourGuideService.editTourGuide(tourGuideRequest, sku).subscribe();
-                        }
+                        data -> tourGuideService.findBySku(sku)
                 ).
                 map(
-                        data -> ResponseEntity.ok().body(new Response(200, "OK", data))
+                        data -> {
+                            return ResponseEntity.ok().body(new Response(200, "OK", data));
+                        }
                 );
     }
 }
