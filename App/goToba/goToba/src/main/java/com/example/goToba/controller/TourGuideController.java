@@ -1,6 +1,5 @@
 package com.example.goToba.controller;
 
-import com.example.goToba.controller.route.RestaurantControllerRoute;
 import com.example.goToba.controller.route.TourGuideControllerRoute;
 import com.example.goToba.payload.Response;
 import com.example.goToba.payload.request.TourGuideRequest;
@@ -22,8 +21,11 @@ public class TourGuideController {
     TourGuideService tourGuideService;
 
     @GetMapping(TourGuideControllerRoute.ROUTE_TO_TOUR_GUIDE_GET_ALL)
-    public ResponseEntity<?> findAllTourGuide() {
-        return ResponseEntity.ok().body(tourGuideService.findAll());
+    public Mono<ResponseEntity<?>> findAllTourGuide() {
+        return tourGuideService.findAll().collectList().
+                map(data ->{
+                    return  ResponseEntity.ok().body(new Response(200,"OK",data));
+                });
     }
 
     @GetMapping(TourGuideControllerRoute.ROUTE_TO_TOUR_GUIDE_GET_BY_SKU)
