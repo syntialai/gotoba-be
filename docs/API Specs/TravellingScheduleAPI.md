@@ -113,7 +113,7 @@
      "title": "Libur musim panas",
      "description": "Liburan musim panas di daerah danau toba",
      "date" : "13-Mar-2020",
-     "end date" : "14-Mar-2020",
+     "endDate" : "14-Mar-2020",
      "vacationDestination" : "hend-para-batu-001"
 }
 ```

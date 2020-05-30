@@ -20,7 +20,5 @@ public class Response<T> {
     private String status;
     private T data;
 
-    public Response(int i, String s, Object data) {
-    }
 
 }

@@ -5,6 +5,7 @@ package com.example.goToba.controller.route;
  */
 public interface TravellingScheduleControllerRoute {
     String ROUTE_TRAVELLING_SCEDULE = "/shcedule";
-    String ROUTE_TRAVELLING_SCEDULE_GET_ALL = "/shcedule/{sku}";
-    String ROUTE_TRAVELLING_SCEDULE_GET_DETAIL = "/shcedule/detail/{sku}";
+    String ROUTE_TRAVELLING_SCEDULE_GET_ALL = "/{sku}";
+    String ROUTE_TRAVELLING_SCEDULE_GET_DETAIL = "/detail/{scheduleId}";
+    String ROUTE_TRAVELLING_SCEDULE_UPDATE_DETAIL = "/update/{scheduleId}";
 }
