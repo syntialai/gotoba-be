@@ -50,7 +50,7 @@
 
 ## Add Admin
 
-+ Endpoint : ``/admin``
++ Endpoint : ``/admin/add``
 + HTTP Method : `POST`
 + Request Body :
 
@@ -92,7 +92,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/admin"
+    "path": "/admin/add"
 }
 ```
 
@@ -102,13 +102,13 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/admin"
+    "path": "/admin/add"
 }
 ```
 
 ## Edit Admin by Id
 
-+ Endpoint : ``/admin/{sku}``
++ Endpoint : ``/admin/edit/{sku}``
 + HTTP Method : `PUT`
 + Path Variable :
   + sku
@@ -150,7 +150,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/admin/{sku}"
+    "path": "/admin/edit/{sku}"
 }
 ```
 
@@ -160,7 +160,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/admin/{sku}"
+    "path": "/admin/edit/{sku}"
 }
 ```
 
@@ -170,6 +170,6 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find merchant with id ABC.",
-    "path": "/admin/{sku}"
+    "path": "/admin/edit/{sku}"
 }
 ```

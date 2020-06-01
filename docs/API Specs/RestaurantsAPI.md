@@ -268,7 +268,7 @@
             "Saturday": ["8AM", "10PM"],
             "Sunday": ["8AM", "10PM"]
         },
-        "phone": "+62813 9791 4229",
+        "phone": "+6281397914229",
         "status": "active",
         "merchantSku": "josh_merc_001"
     }
@@ -325,20 +325,20 @@
     "data": [{
         "id":1,
         "name": "Cumi Goreng",
-        "picture": "asduqwyieuhxmz.png",
+        "image": "asduqwyieuhxmz.png",
         "category" : "Food",
-        "harga": "50000",
+        "price": "50000",
         "status": "1",
-        "restoranSku": "jenn_rest_001_001",
+        "restaurantSku": "jenn_rest_001_001",
         "merchantSku": "josh_merc_001"
     }, {
        "id":2,
        "name": "Air Kelapa",
-       "picture": "caxjkhsiayieuhxmz.png",
+       "image": "caxjkhsiayieuhxmz.png",
        "category" : "Drinks",
-       "harga": "10000",
+       "price": "10000",
        "status": "1",
-       "restoranSku": "josh_rest_001_001",
+       "restaurantSku": "josh_rest_001_001",
        "merchantSku": "josh_merc_001"
     }]
 }
@@ -388,7 +388,7 @@
         "category" : "Food",
         "harga": "50000",
         "status": "1",
-        "restoranSku": "jenn_rest_001_001",
+        "restaurantSku": "jenn_rest_001_001",
         "merchantSku": "josh_merc_001"
     }
 }
@@ -431,7 +431,7 @@
     "category" : "Food",
     "harga": "50000",
     "status": "1",
-    "restoranSku": "jenn_rest_001_001",
+    "restaurantSku": "jenn_rest_001_001",
     "merchantSku": "josh_merc_001"
 }
 ```
@@ -452,7 +452,7 @@
         "category" : "Food",
         "harga": "50000",
         "status": "1",
-        "restoranSku": "jenn_rest_001_001",
+        "restaurantSku": "jenn_rest_001_001",
         "merchantSku": "josh_merc_001"
     }
 }
@@ -492,11 +492,11 @@
 ```json
 {
     "name": "Cumi Goreng",
-    "picture": "asduqwyieuhxmz.png",
+    "image": "asduqwyieuhxmz.png",
     "category" : "Food",
-    "harga": "45000",
+    "price": "45000",
     "status": "1",
-    "restoranSku": "jenn_rest_001_001",
+    "restaurantSku": "jenn_rest_001_001",
     "merchantSku": "josh_merc_001"
 }
 ```
@@ -513,11 +513,11 @@
     "data": {
         "id": 1,
         "name": "Cumi Goreng",
-        "picture": "asduqwyieuhxmz.png",
+        "image": "asduqwyieuhxmz.png",
         "category" : "Food",
-        "harga": "45000",
+        "price": "45000",
         "status": "1",
-        "restoranSku": "jenn_rest_001_001",
+        "restaurantSku": "jenn_rest_001_001",
         "merchantSku": "josh_merc_001"
     },
     "message" :  "Update Sukses"
@@ -575,11 +575,11 @@
     "data": {
         "id": 1,
         "name": "Cumi Goreng",
-        "picture": "asduqwyieuhxmz.png",
+        "image": "asduqwyieuhxmz.png",
         "category" : "Food",
-        "harga": "45000",
+        "price": "45000",
         "status": "2",
-        "restoranSku": "jenn_rest_001_001",
+        "restaurantSku": "jenn_rest_001_001",
         "merchantSku": "josh_merc_001"
     },
     "message" :  "Delete Sukses"

@@ -22,53 +22,53 @@
         "createdBy" : "admi-josh-001",
         "price" : "15000",
         "hoursOpen": {
-                    "Monday": ["8AM", "10PM"],
-                    "Tuesday": ["8AM", "10PM"],
-                    "Wednesday": ["8AM", "10PM"],
-                    "Thursday": ["8AM", "10PM"],
-                    "Friday": ["8AM", "10PM"],
-                    "Saturday": ["8AM", "10PM"],
-                    "Sunday": ["8AM", "10PM"]
-                },
+            "Monday": ["8AM", "10PM"],
+            "Tuesday": ["8AM", "10PM"],
+            "Wednesday": ["8AM", "10PM"],
+            "Thursday": ["8AM", "10PM"],
+            "Friday": ["8AM", "10PM"],
+            "Saturday": ["8AM", "10PM"],
+            "Sunday": ["8AM", "10PM"]
+        },
         "status": "active"
     }, {
-     "sku": "hend-bali-lumb-001",
-     "name": "Lumban bulbul pantai 1",
-     "title": "Tempat wisata pantai 1 lumban bulbul",
-     "description": "Tempat wisata ini sangat bagus, berlokasi di balige",
-     "image": "vjdkdfwwdzxcasdassadzxcd.png",
-     "address": "jl.baige",
-     "createdBy" : "admi-hend-001",
-     "price" : "20000",
-     "hoursOpen": {
-                     "Monday": ["8AM", "10PM"],
-                     "Tuesday": ["8AM", "10PM"],
-                     "Wednesday": ["8AM", "10PM"],
-                     "Thursday": ["8AM", "10PM"],
-                     "Friday": ["8AM", "10PM"],
-                     "Saturday": ["8AM", "10PM"],
-                     "Sunday": ["8AM", "10PM"]
-                  },
-     "status": "active"
+        "sku": "hend-bali-lumb-001",
+        "name": "Lumban bulbul pantai 1",
+        "title": "Tempat wisata pantai 1 lumban bulbul",
+        "description": "Tempat wisata ini sangat bagus, berlokasi di balige",
+        "image": "vjdkdfwwdzxcasdassadzxcd.png",
+        "address": "jl.baige",
+        "createdBy" : "admi-hend-001",
+        "price" : "20000",
+        "hoursOpen": {
+            "Monday": ["8AM", "10PM"],
+            "Tuesday": ["8AM", "10PM"],
+            "Wednesday": ["8AM", "10PM"],
+            "Thursday": ["8AM", "10PM"],
+            "Friday": ["8AM", "10PM"],
+            "Saturday": ["8AM", "10PM"],
+            "Sunday": ["8AM", "10PM"]
+        },
+        "status": "active"
     }, {
         "sku": "hend-bali-lumb-002",
-         "name": "Lumban bulbul pantai 2",
-         "title": "Tempat wisata pantai 2 lumban bulbul",
-         "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
-         "image": "cvdafzxsqzxcasdasd.png",
-         "address": "jl.balige",
-         "createdBy" : "admi-josh-001",
-         "price" : "10000",
-         "hoursOpen": {
-                      "Monday": ["8AM", "10PM"],
-                      "Tuesday": ["8AM", "10PM"],
-                      "Wednesday": ["8AM", "10PM"],
-                      "Thursday": ["8AM", "10PM"],
-                      "Friday": ["8AM", "10PM"],
-                      "Saturday": ["8AM", "10PM"],
-                      "Sunday": ["8AM", "10PM"]
-                      },
-         "status": "active"
+        "name": "Lumban bulbul pantai 2",
+        "title": "Tempat wisata pantai 2 lumban bulbul",
+        "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
+        "image": "cvdafzxsqzxcasdasd.png",
+        "address": "jl.balige",
+        "createdBy" : "admi-josh-001",
+        "price" : "10000",
+        "hoursOpen": {
+            "Monday": ["8AM", "10PM"],
+            "Tuesday": ["8AM", "10PM"],
+            "Wednesday": ["8AM", "10PM"],
+            "Thursday": ["8AM", "10PM"],
+            "Friday": ["8AM", "10PM"],
+            "Saturday": ["8AM", "10PM"],
+            "Sunday": ["8AM", "10PM"]
+        },
+        "status": "active"
     }]
 }
 ```
@@ -109,14 +109,14 @@
         "createdBy" : "admi-josh-001",
         "price" : "10000",
         "hoursOpen": {
-                     "Monday": ["8AM", "10PM"],
-                     "Tuesday": ["8AM", "10PM"],
-                     "Wednesday": ["8AM", "10PM"],
-                     "Thursday": ["8AM", "10PM"],
-                     "Friday": ["8AM", "10PM"],
-                     "Saturday": ["8AM", "10PM"],
-                     "Sunday": ["8AM", "10PM"]
-                     },
+            "Monday": ["8AM", "10PM"],
+            "Tuesday": ["8AM", "10PM"],
+            "Wednesday": ["8AM", "10PM"],
+            "Thursday": ["8AM", "10PM"],
+            "Friday": ["8AM", "10PM"],
+            "Saturday": ["8AM", "10PM"],
+            "Sunday": ["8AM", "10PM"]
+        },
         "status": "active"
     }
 }
@@ -150,14 +150,14 @@
     "createdBy" : "admi-josh-001",
     "price" : 10000,
     "hoursOpen": {
-                 "Monday": ["8AM", "10PM"],
-                 "Tuesday": ["8AM", "10PM"],
-                 "Wednesday": ["8AM", "10PM"],
-                 "Thursday": ["8AM", "10PM"],
-                 "Friday": ["8AM", "10PM"],
-                 "Saturday": ["8AM", "10PM"],
-                 "Sunday": ["8AM", "10PM"]
-                 }  
+        "Monday": ["8AM", "10PM"],
+        "Tuesday": ["8AM", "10PM"],
+        "Wednesday": ["8AM", "10PM"],
+        "Thursday": ["8AM", "10PM"],
+        "Friday": ["8AM", "10PM"],
+        "Saturday": ["8AM", "10PM"],
+        "Sunday": ["8AM", "10PM"]
+    }  
 }
 ```
 
@@ -214,14 +214,14 @@
     "createdBy" : "admi-josh-001",
     "price" : "10000",
     "hoursOpen": {
-                 "Monday": ["8AM", "10PM"],
-                 "Tuesday": ["8AM", "10PM"],
-                 "Wednesday": ["8AM", "10PM"],
-                 "Thursday": ["8AM", "10PM"],
-                 "Friday": ["8AM", "10PM"],
-                 "Saturday": ["8AM", "10PM"],
-                 "Sunday": ["8AM", "10PM"]
-                 }  
+        "Monday": ["8AM", "10PM"],
+        "Tuesday": ["8AM", "10PM"],
+        "Wednesday": ["8AM", "10PM"],
+        "Thursday": ["8AM", "10PM"],
+        "Friday": ["8AM", "10PM"],
+        "Saturday": ["8AM", "10PM"],
+        "Sunday": ["8AM", "10PM"]
+    }
 }
 ```
 
@@ -240,14 +240,14 @@
     "createdBy" : "admi-josh-001",
     "price" : "10000",
     "hoursOpen": {
-                 "Monday": ["8AM", "10PM"],
-                 "Tuesday": ["8AM", "10PM"],
-                 "Wednesday": ["8AM", "10PM"],
-                 "Thursday": ["8AM", "10PM"],
-                 "Friday": ["8AM", "10PM"],
-                 "Saturday": ["8AM", "10PM"],
-                 "Sunday": ["8AM", "10PM"]
-                 }  
+        "Monday": ["8AM", "10PM"],
+        "Tuesday": ["8AM", "10PM"],
+        "Wednesday": ["8AM", "10PM"],
+        "Thursday": ["8AM", "10PM"],
+        "Friday": ["8AM", "10PM"],
+        "Saturday": ["8AM", "10PM"],
+        "Sunday": ["8AM", "10PM"]
+    }  
 }
 ```
 
