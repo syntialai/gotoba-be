@@ -23,4 +23,5 @@ public class Restaurant {
     private String status;
     private String merchantSku;
 
+
 }

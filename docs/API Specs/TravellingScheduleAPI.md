@@ -21,14 +21,14 @@
         "title": "Libur musim panas",
         "description": "Liburan musim panas di daerah danau toba",
         "date" : "12-Mar-2020",
-        "vacation destination" : "hend-para-batu-001",
+        "vacationDestination" : "hend-para-batu-001",
         "skuCustomer" : "Josh-Cust-001"
     },{
         "id": 2,
         "title": "Libur musim dingin",
         "description": "Liburan musim dingin di daerah danau toba",
         "date" : "12-Mar-2020",
-        "vacation destination" : "beny-lumb-pant-002",
+        "vacationDestination" : "beny-lumb-pant-002",
         "skuCustomer" : "Josh-Cust-001"
     }]
 }
@@ -56,7 +56,7 @@
 
 ## Get detail schedule (By schedule Id)
 
-+ Endpoint : ``/shcedule/{scheduleId}``
++ Endpoint : ``/shcedule/detail/{scheduleId}``
 + HTTP Method : `GET`
 + Path Variable :
   + scheduleId
@@ -74,7 +74,7 @@
           "title": "Libur musim panas",
           "description": "Liburan musim panas di daerah danau toba",
           "date" : "12-Mar-2020",
-          "vacation destination" : "hend-para-batu-001",
+          "vacationDestination" : "hend-para-batu-001",
           "skuCustomer" : "Josh-Cust-001"
       }
 }
@@ -114,7 +114,7 @@
      "description": "Liburan musim panas di daerah danau toba",
      "date" : "13-Mar-2020",
      "end date" : "14-Mar-2020",
-     "vacation destination" : "hend-para-batu-001"
+     "vacationDestination" : "hend-para-batu-001"
 }
 ```
 

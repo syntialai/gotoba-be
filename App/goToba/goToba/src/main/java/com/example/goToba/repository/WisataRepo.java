@@ -9,8 +9,10 @@ import reactor.core.publisher.Mono;
  * Created by Sogumontar Hendra Simangunsong on 02/04/2020.
  */
 @Repository
-public interface WisataRepo extends ReactiveMongoRepository<Wisata,String> {
+public interface WisataRepo extends ReactiveMongoRepository<Wisata, String> {
     public Mono<Wisata> findFirstByName(String name);
+
     public Mono<Wisata> findFirstBySkuWisata(String sku);
+
     public Mono<Boolean> deleteBySkuWisata(String sku);
 }

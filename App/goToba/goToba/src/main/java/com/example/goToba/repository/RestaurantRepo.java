@@ -11,4 +11,5 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface RestaurantRepo extends ReactiveMongoRepository<Restaurant,String> {
     Mono<Restaurant> findBySku(String sku);
+    Mono<Boolean> deleteBySku(String sku);
 }
