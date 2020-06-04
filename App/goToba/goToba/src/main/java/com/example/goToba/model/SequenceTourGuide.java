@@ -5,12 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 22/04/2020.
+ * Created by Sogumontar Hendra Simangunsong on 29/05/2020.
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SequenceGalery {
+public class SequenceTourGuide {
     private String key;
     private String last_seq;
+
 }
