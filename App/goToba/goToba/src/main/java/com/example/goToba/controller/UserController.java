@@ -2,8 +2,11 @@ package com.example.goToba.controller;
 
 
 import com.example.goToba.controller.route.UserControllerRoute;
-import com.example.goToba.model.Users;
 import com.example.goToba.payload.AuthenticationResponse;
+import com.example.goToba.payload.Response;
+import com.example.goToba.payload.helper.StaticResponseCode;
+import com.example.goToba.payload.helper.StaticResponseMessages;
+import com.example.goToba.payload.helper.StaticResponseStatus;
 import com.example.goToba.payload.request.LoginRequest;
 import com.example.goToba.payload.request.RegisterRequest;
 import com.example.goToba.repository.SequenceUsersRepo;
@@ -11,16 +14,10 @@ import com.example.goToba.repository.UsersRepo;
 import com.example.goToba.service.implement.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Scheduler;
-import reactor.core.scheduler.Schedulers;
 
 import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 11/04/2020.
@@ -38,34 +35,58 @@ public class UserController {
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
     @GetMapping(UserControllerRoute.ROUTE_USER_FIND_ALL)
-    public ResponseEntity<?> findAll() {
-        return ResponseEntity.ok(usersRepo.findAll());
+    public Mono<ResponseEntity<?>> findAll() {
+        return usersRepo.findAll().collectList()
+                .map(data -> {
+                    return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+                });
     }
 
-    @PostMapping(UserControllerRoute.ROUTE_SIGN_UP)
-    public ResponseEntity<?> signup(@RequestBody RegisterRequest registerRequest) {
-        userService.save(registerRequest).subscribe();
-        return ResponseEntity.ok(new AuthenticationResponse(timestamp.toString(),"200","OK","User registered successfully"));
-    }
-
-    @PostMapping(UserControllerRoute.ROUTE_SIGN_IN)
-    public Mono<ResponseEntity<?>> signin(@RequestBody LoginRequest request) {
-
-        return userService.signin(request);
-    }
 
     @GetMapping(UserControllerRoute.ROUTE_USER_FIND_BY_USERNAME)
-    public ResponseEntity<?> findByUsername(@PathVariable String username) {
-        return ResponseEntity.ok(usersRepo.findFirstByUsername(username));
+    public Mono<ResponseEntity<?>> findByUsername(@PathVariable String username) {
+        return usersRepo.findFirstByUsername(username)
+                .map(data -> {
+                    return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+                });
     }
 
     @GetMapping(UserControllerRoute.ROUTE_USER_FIND_BY_SKU)
-    public ResponseEntity<?> findBySku(@PathVariable String sku){
-        return ResponseEntity.ok(usersRepo.findFirstBySku(sku));
+    public Mono<ResponseEntity<?>> findBySku(@PathVariable String sku) {
+        return usersRepo.findFirstBySku(sku)
+                .map(data -> {
+                    return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+                });
     }
 
-    @GetMapping(UserControllerRoute.ROUTE_USER_FIND_BY_NICKNAME)
-    public ResponseEntity<?> findByNickName(@PathVariable String nickname) {
-        return ResponseEntity.ok(userService.findByNickname(nickname));
+    @GetMapping(UserControllerRoute.ROUTE_USER_FIND_BY_STATUS_ACTIVE)
+    public Mono<ResponseEntity<?>> findByStatusActive() {
+        return usersRepo.findAllByStatus("active").collectList()
+                .map(data -> {
+                    return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+                });
     }
+
+    @GetMapping(UserControllerRoute.ROUTE_USER_FIND_BY_STATUS_BLOCKED)
+    public Mono<ResponseEntity<?>> findByStatusBlocked() {
+        return usersRepo.findAllByStatus("blocked").collectList()
+                .map(data -> {
+                    return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+                });
+    }
+
+    @PutMapping(UserControllerRoute.ROUTE_USER_EDIT_BY_SKU)
+    public Mono<ResponseEntity<?>> editBySku(@PathVariable String sku, @RequestBody RegisterRequest registerRequest) {
+        return Mono.fromCallable(() ->registerRequest).
+                doOnNext(data ->userService.editBySku(sku,registerRequest).subscribe()).
+                flatMap(
+                        data -> usersRepo.findFirstBySku(sku)
+                ).
+                map(
+                        data -> {
+                            return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+                        }
+                );
+    }
+
 }

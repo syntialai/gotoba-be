@@ -57,7 +57,7 @@
 
 ## Get User by Sku
 
-+ Endpoint : ``/user/{sku}``
++ Endpoint : ``/user/sku/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
   + sku

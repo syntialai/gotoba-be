@@ -5,6 +5,9 @@ import com.example.goToba.model.SequenceUsers;
 import com.example.goToba.model.Users;
 import com.example.goToba.payload.AuthenticationResponse;
 import com.example.goToba.payload.JwtLoginResponse;
+import com.example.goToba.payload.helper.StaticResponseCode;
+import com.example.goToba.payload.helper.StaticResponseMessages;
+import com.example.goToba.payload.helper.StaticResponseStatus;
 import com.example.goToba.payload.request.LoginRequest;
 import com.example.goToba.payload.request.RegisterRequest;
 import com.example.goToba.repository.SequenceUsersRepo;
@@ -70,16 +73,12 @@ public class UserServiceImpl implements UserService {
                             request.getEmail(),
                             passwordEncoder.encode(request.getPassword()),
                             checkRole(request.getRole().toString()),
-                            1
+                            "active"
                     );
                     return usersRepo.save(users);
                 });
     }
 
-    @Override
-    public Mono<Users> findByNickname(String nickname) {
-        return usersRepo.findFirstByNickname(nickname);
-    }
 
     @Override
     public Mono<ResponseEntity<?>> signin(LoginRequest request) {
@@ -87,7 +86,7 @@ public class UserServiceImpl implements UserService {
             if (passwordEncoder.encode(request.getPassword()).equals(userDetails.getPassword())) {
                 return ResponseEntity.ok(new JwtLoginResponse(userDetails.getNickname(), userDetails.getRoles().toString(), userDetails.getSku(), jwtTokenProvider.generateToken(userDetails)));
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthenticationResponse(timestamp.toString(), "401", "UNAUTHORIZED", "username or password is wrong"));
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthenticationResponse(timestamp.toString(), StaticResponseCode.RESPONSE_CODE_BAD_UNAUTHORIZED, StaticResponseStatus.RESPONSE_STATUS_ERROR_UNAUTHORIZED, StaticResponseMessages.RESPONSE_MESSAGE_USER_UNAUTHORIZED));
             }
         }).defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
@@ -100,6 +99,28 @@ public class UserServiceImpl implements UserService {
             return RoleName.ROLE_ADMIN;
         }
         return RoleName.ROLE_USER;
+    }
+
+    @Override
+    public Mono<Users> editBySku(String sku, RegisterRequest request) {
+        return Mono.fromCallable(() -> request)
+                .flatMap(data -> usersRepo.findFirstBySku(sku))
+                .doOnNext(id -> usersRepo.deleteBySku(sku).subscribe())
+                .doOnNext(req -> {
+                    Users users = new Users(
+                            sku,
+                            request.getNickname(),
+                            request.getUsername(),
+                            request.getEmail(),
+                            passwordEncoder.encode(request.getPassword()),
+                            req.getRoles(),
+                            "active"
+                    );
+                    usersRepo.save(users).subscribe();
+                })
+                .flatMap(data -> {
+                    return usersRepo.findFirstBySku(sku);
+                });
     }
 
 }

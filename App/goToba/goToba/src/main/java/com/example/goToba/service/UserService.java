@@ -15,8 +15,8 @@ public interface UserService {
     public String skuGenerator(String key, Integer seq);
     public String sub_str(String str);
     public Mono<Users> save(RegisterRequest registerRequest);
-    public Mono<Users> findByNickname(String nickname);
     public Mono<ResponseEntity<?>> signin(LoginRequest request);
     public RoleName checkRole(String role);
+    public Mono<Users> editBySku(String sku, RegisterRequest request);
 
 }

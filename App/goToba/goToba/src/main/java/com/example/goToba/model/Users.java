@@ -30,7 +30,7 @@ public class Users  implements UserDetails {
 
     private RoleName roles ;
 
-    public int status;
+    public String status;
 
 
     @Override
@@ -38,13 +38,6 @@ public class Users  implements UserDetails {
         return null;
     }
 
-    public RoleName getRoles() {
-        return roles;
-    }
-
-    public void setRoles(RoleName roles) {
-        this.roles = roles;
-    }
 
     @Override
     public String getPassword() {
