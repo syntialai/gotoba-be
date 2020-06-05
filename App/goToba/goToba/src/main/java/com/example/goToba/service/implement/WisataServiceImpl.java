@@ -30,13 +30,13 @@ public class WisataServiceImpl implements WisataService {
 
     @Override
     public Mono<Wisata> addWisata(WisataRequest wisataRequest) {
-        String awal ="000";
+        String awal = "000";
         String key = substr(wisataRequest.getCreatedBy()) + "_" + substr(wisataRequest.getName());
         Mono<Wisata> wisataMono = Mono.fromCallable(() -> wisataRequest)
                 .flatMap(dat -> sequenceWisataRepo.findFirstByKey(key))
                 .doOnNext(dat -> sequenceWisataRepo.deleteByKey(key).subscribe())
                 .doOnNext(dat -> sequenceWisataRepo.save(new SequenceWisata(key, awal + (Integer.parseInt(dat.getLast_seq()) + 1))).subscribe())
-                .switchIfEmpty(sequenceWisataRepo.save(new SequenceWisata(key, awal+"1")))
+                .switchIfEmpty(sequenceWisataRepo.save(new SequenceWisata(key, awal + "1")))
                 .flatMap(dat -> sequenceWisataRepo.findFirstByKey(key))
                 .flatMap(data -> {
                     Wisata wisata = new Wisata(
@@ -48,7 +48,8 @@ public class WisataServiceImpl implements WisataService {
                             wisataRequest.getAddress(),
                             wisataRequest.getCreatedBy(),
                             wisataRequest.getPrice(),
-                            wisataRequest.getHoursOpen()
+                            wisataRequest.getHoursOpen(),
+                            "active"
                     );
                     wisataRedisService.add(wisata);
                     return wisataRepo.save(wisata);
@@ -70,11 +71,12 @@ public class WisataServiceImpl implements WisataService {
     @Override
     public Mono<Wisata> updateWisata(String sku, WisataRequest wisataRequest) {
         return Mono.fromCallable(() -> wisataRequest)
+                .flatMap(data -> wisataRepo.findFirstBySkuWisata(sku))
                 .doOnNext(i -> {
                     wisataRepo.deleteBySkuWisata(sku).subscribe();
                 })
-                .flatMap(data ->{
-                    Wisata wisata=new Wisata(
+                .flatMap(data -> {
+                    Wisata wisata = new Wisata(
                             sku,
                             wisataRequest.getName(),
                             wisataRequest.getTitle(),
@@ -83,11 +85,55 @@ public class WisataServiceImpl implements WisataService {
                             wisataRequest.getAddress(),
                             wisataRequest.getCreatedBy(),
                             wisataRequest.getPrice(),
-                            wisataRequest.getHoursOpen()
+                            wisataRequest.getHoursOpen(),
+                            data.getStatus()
                     );
                     wisataRedisService.deleteByKey(sku);
                     wisataRedisService.add(wisata);
                     return wisataRepo.save(wisata);
+                });
+    }
+
+    @Override
+    public Mono<Wisata> deleteBySku(String sku) {
+        return wisataRepo.findFirstBySkuWisata(sku)
+                .doOnNext(i -> {
+                    wisataRepo.deleteBySkuWisata(sku).subscribe();
+                })
+                .flatMap(data -> {
+                    Wisata wisata = new Wisata(
+                            sku,
+                            data.getName(),
+                            data.getTitle(),
+                            data.getDescription(),
+                            data.getImage(),
+                            data.getAddress(),
+                            data.getCreatedBy(),
+                            data.getPrice(),
+                            data.getHoursOpen(),
+                            "blocked"
+                    );
+                    return wisataRepo.save(wisata);
+                });
+    }
+
+    @Override
+    public Mono<Wisata> findBySku(String sku) {
+        return wisataRepo.findFirstBySkuWisata(sku)
+                .flatMap(req -> {
+                    Wisata wisata = new Wisata(
+                            sku,
+                            req.getName(),
+                            req.getTitle(),
+                            req.getDescription(),
+                            req.getImage(),
+                            req.getAddress(),
+                            req.getCreatedBy(),
+                            req.getPrice(),
+                            req.getHoursOpen(),
+                            "active"
+                    );
+                    return wisataRepo.findFirstBySkuWisata(sku);
                 });
     }
 }

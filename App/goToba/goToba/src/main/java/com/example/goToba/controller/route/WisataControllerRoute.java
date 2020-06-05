@@ -10,6 +10,7 @@ public interface WisataControllerRoute {
     public String ROUTE_WISATA_FIND_BY_NAME = "/find/{name}";
     public String ROUTE_WISATA_FIND_BY_SKU = "/{sku}";
     public String ROUTE_WISATA_EDIT_BY_SKU = "/edit/{sku}";
+    public String ROUTE_WISATA_DETELE_BY_SKU = "/delete/{sku}";
 
 
 }

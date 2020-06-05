@@ -18,5 +18,4 @@ public class HoursOpen {
         String[] friday;
         String[] saturday;
         String[] sunday;
-
 }
