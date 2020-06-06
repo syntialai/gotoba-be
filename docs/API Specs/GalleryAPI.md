@@ -233,7 +233,7 @@
 ## Delete Photo by Sku
 
 + Endpoint : ``/gallery/delete/{sku}``
-+ HTTP Method : `DELETE`
++ HTTP Method : `PUT`
 + Path Variable :
   + sku
 + Request Header :

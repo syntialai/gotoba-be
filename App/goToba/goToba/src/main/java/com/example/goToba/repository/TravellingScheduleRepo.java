@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
  */
 @Repository
 public interface TravellingScheduleRepo extends ReactiveMongoRepository<TravellingSchedule,Integer> {
-    Flux<TravellingSchedule> findAllBySkuCustomer(String sku);
+    Flux<TravellingSchedule> findAll();
 
     Mono<TravellingSchedule> findById(String id);
 

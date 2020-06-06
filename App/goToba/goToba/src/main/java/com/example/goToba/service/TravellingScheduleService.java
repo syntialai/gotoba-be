@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
  * Created by Sogumontar Hendra Simangunsong on 30/05/2020.
  */
 public interface TravellingScheduleService {
-    Flux<TravellingSchedule> findAllBySku(String sku);
+    Flux<TravellingSchedule> findAll();
     Mono<TravellingSchedule> findByScheduleId(String id);
     Mono<TravellingSchedule> updateById(String id);
 }

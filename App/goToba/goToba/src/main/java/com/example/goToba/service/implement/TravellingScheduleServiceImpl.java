@@ -18,8 +18,8 @@ public class TravellingScheduleServiceImpl implements TravellingScheduleService 
     TravellingScheduleRepo travellingScheduleRepo;
 
     @Override
-    public Flux<TravellingSchedule> findAllBySku(String sku) {
-        return travellingScheduleRepo.findAllBySkuCustomer(sku);
+    public Flux<TravellingSchedule> findAll() {
+        return travellingScheduleRepo.findAll();
     }
 
     @Override

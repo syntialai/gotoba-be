@@ -19,9 +19,20 @@ public class TravellingScheduleController {
     @Autowired
     TravellingScheduleService travellingScheduleService;
 
+    @GetMapping(TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_ALL)
+    public Mono<ResponseEntity<?>> findAll(){
+        return travellingScheduleService.findAll().
+                collectList().
+                map(data -> {
+                    return ResponseEntity.ok().body(new Response(200,"OK",data));
+                });
+    }
+
     @GetMapping(TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_GET_ALL)
     public Mono<ResponseEntity<?>> findAllBySku(@PathVariable String sku){
-        return travellingScheduleService.findAllBySku(sku).collectList().
+        return travellingScheduleService.findAll().
+                filter(data -> data.getSkuCustomer().equals(sku)).
+                collectList().
                 map(data -> {
                     return ResponseEntity.ok().body(new Response(200,"OK",data));
                 });
