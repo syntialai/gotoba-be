@@ -28,6 +28,11 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
     @Override
+    public Flux<Restaurant> findAll() {
+        return restaurantRepo.findAll();
+    }
+
+    @Override
     public Mono<Restaurant> findBySku(String sku) {
         return restaurantRepo.findBySku(sku);
     }

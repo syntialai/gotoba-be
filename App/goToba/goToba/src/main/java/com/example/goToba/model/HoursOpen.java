@@ -11,12 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HoursOpen {
-        String monday;
-        String tuesday;
-        String wednesday;
-        String thursday;
-        String friday;
-        String saturday;
-        String sunday;
-
+        String[] monday;
+        String[] tuesday;
+        String[] wednesday;
+        String[] thursday;
+        String[] friday;
+        String[] saturday;
+        String[] sunday;
 }

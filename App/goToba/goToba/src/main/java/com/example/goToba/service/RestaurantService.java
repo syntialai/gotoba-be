@@ -11,6 +11,7 @@ import reactor.core.publisher.Mono;
  * Created by Sogumontar Hendra Simangunsong on 23/05/2020.
  */
 public interface RestaurantService {
+    Flux<Restaurant> findAll();
     Mono<Restaurant> findBySku(String sku);
     Mono<Restaurant> addRestaurant(RestaurantsRequest restaurantsRequest, String sku);
     Mono<Restaurant> editRestaurant(RestaurantsRequest restaurantsRequest, String sku);

@@ -2,6 +2,8 @@ package com.example.goToba.controller;
 
 import com.example.goToba.controller.route.TourGuideControllerRoute;
 import com.example.goToba.payload.Response;
+import com.example.goToba.payload.helper.StaticResponseCode;
+import com.example.goToba.payload.helper.StaticResponseStatus;
 import com.example.goToba.payload.request.TourGuideRequest;
 import com.example.goToba.service.TourGuideService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ public class TourGuideController {
     public Mono<ResponseEntity<?>> findAllTourGuide() {
         return tourGuideService.findAll().collectList().
                 map(data ->{
-                    return  ResponseEntity.ok().body(new Response(200,"OK",data));
+                    return  ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK,data));
                 });
     }
 
@@ -32,7 +34,7 @@ public class TourGuideController {
     public Mono<ResponseEntity<?>> findTourGuideBySku(@PathVariable String sku) {
         return tourGuideService.findBySku(sku).
                 map(
-                        data -> ResponseEntity.ok().body(new Response(200, "OK", data))
+                        data -> ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data))
                 );
     }
 
@@ -40,7 +42,7 @@ public class TourGuideController {
     public Mono<ResponseEntity<?>> findTourGuideByName(@PathVariable String sku) {
         return tourGuideService.findByName(sku).
                 map(
-                        data -> ResponseEntity.ok().body(new Response(200, "OK", data))
+                        data -> ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data))
                 );
     }
 
@@ -51,7 +53,7 @@ public class TourGuideController {
                 flatMap(
                         data -> tourGuideService.findByName(tourGuideRequest.getName())
                 ).map(data -> {
-                    return ResponseEntity.ok().body(new Response(200, "OK", data));
+                    return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS,StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
                 });
     }
 
@@ -63,7 +65,7 @@ public class TourGuideController {
                 ).
                 map(
                         data -> {
-                            return ResponseEntity.ok().body(new Response(200, "OK", data));
+                            return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
                         }
                 );
     }

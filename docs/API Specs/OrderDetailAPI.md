@@ -53,7 +53,7 @@
 
 ## Get Order Detail by Merchant Sku
 
-+ Endpoint : ``/order?m={merchantSku}``
++ Endpoint : ``/order/{merchantSku}``
 + HTTP Method : `GET`
 + Path Variable :
   + merchantSku
@@ -88,7 +88,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/order?m={merchantSku}"
+    "path": "/order/{merchantSku}"
 }
 ```
 
@@ -97,14 +97,14 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find merchant with sku {merchantSku}.",
-    "path": "/order?m={merchantSku}"
+    "message": "Invalid Request: Cannot find merchant with sku abc.",
+    "path": "/order/{merchantSku}"
 }
 ```
 
 ## Get Order Detail by User Sku
 
-+ Endpoint : ``/order?u={userSku}``
++ Endpoint : ``/order/{userSku}``
 + HTTP Method : `GET`
 + Path Variable :
   + userSku
@@ -139,7 +139,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/order?u={userSku}"
+    "path": "/order/{userSku}"
 }
 ```
 
@@ -149,13 +149,13 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find user with sku {sku}.",
-    "path": "/order?u={userSku}"
+    "path": "/order/{userSku}"
 }
 ```
 
-## Add Order Detail
+## Add Order Detail by User Sku
 
-+ Endpoint : ``/order?u={userSku}``
++ Endpoint : ``/order/add/{userSku}``
 + HTTP Method : `POST`
 + Path Variable :
   + userSku
@@ -200,7 +200,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/order?u={userSku}"
+    "path": "/order/add/{userSku}"
 }
 ```
 
@@ -210,13 +210,13 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find user with sku {sku}.",
-    "path": "/order?u={userSku}"
+    "path": "/order/add/{userSku}"
 }
 ```
 
 ## Edit Order Detail by Sku
 
-+ Endpoint : ``/order/{sku}``
++ Endpoint : ``/order/edit/{sku}``
 + HTTP Method : `PUT`
 + Path Variable :
   + sku
@@ -261,7 +261,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/order/{sku}"
+    "path": "/order/edit/{sku}"
 }
 ```
 
@@ -270,7 +270,7 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find user with sku {sku}.",
-    "path": "/order/{sku}"
+    "message": "Invalid Request: Cannot find order with sku ABC.",
+    "path": "/order/edit/{sku}"
 }
 ```

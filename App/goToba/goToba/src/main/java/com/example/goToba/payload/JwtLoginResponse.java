@@ -1,6 +1,7 @@
 package com.example.goToba.payload;
 
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -10,65 +11,27 @@ import java.util.Collection;
  * Created by Sogumontar Hendra Simangunsong on 28/03/2020.
  */
 @NoArgsConstructor
+@Data
 public class JwtLoginResponse {
-    private String accessToken;
-    private String tokenType = "Bearer";
+    private String token;
+//    private String tokenType = "Bearer";
     private String role;
-    private String skuLog;
+    private String sku_user;
 //    private Integer status;
-    private String nickName;
+    private String name;
 //    private String email;
 
-    public JwtLoginResponse(String nickName, String role, String skuLog, String accessToken) {
-        this.nickName = nickName;
+    public JwtLoginResponse(String nickName, String role, String sku_user, String token) {
+        this.name = nickName;
         this.role = role;
-        this.skuLog = skuLog;
-        this.accessToken = accessToken;
+        this.sku_user = sku_user;
+        this.token = token;
     }
 
     public JwtLoginResponse(String accessToken , String role) {
-        this.accessToken = accessToken;
+        this.token = accessToken;
         this.role = role;
     }
 
-    public String getAccessToken() {
-        return accessToken;
-    }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    public String getTokenType() {
-        return tokenType;
-    }
-
-    public void setTokenType(String tokenType) {
-        this.tokenType = tokenType;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getSkuLog() {
-        return skuLog;
-    }
-
-    public void setSkuLog(String skuLog) {
-        this.skuLog = skuLog;
-    }
-
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
 }

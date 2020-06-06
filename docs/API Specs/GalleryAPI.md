@@ -145,7 +145,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/gallery"
+    "path": "/gallery/add"
 }
 ```
 
@@ -155,13 +155,13 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/gallery"
+    "path": "/gallery/add"
 }
 ```
 
-## Edit Photo by Id
+## Edit Photo by Sku
 
-+ Endpoint : ``/gallery/update/{sku}``
++ Endpoint : ``/gallery/edit/{sku}``
 + HTTP Method : `PUT`
 + Path Variable :
   + sku
@@ -206,7 +206,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/gallery/{sku}"
+    "path": "/gallery/edit/{sku}"
 }
 ```
 
@@ -216,7 +216,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/gallery/{sku}"
+    "path": "/gallery/edit/{sku}"
 }
 ```
 
@@ -226,6 +226,47 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find photo with id 10.",
-    "path": "/gallery/{sku}"
+    "path": "/gallery/edit/{sku}"
+}
+```
+
+## Delete Photo by Sku
+
++ Endpoint : ``/gallery/delete/{sku}``
++ HTTP Method : `PUT`
++ Path Variable :
+  + sku
++ Request Header :
+  + Accept : `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
+    "code": 200,
+    "status": "OK",
+    "message" : "Delete success!"
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2020-11-15T22:55:40.110Z",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/gallery/delete/{sku}"
+}
+```
+
+```json
+{
+    "timestamp": "2020-11-15T22:55:40.110Z",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Invalid Request: Cannot delete wisata with that sku.",
+    "path": "/gallery/delete/{sku}"
 }
 ```

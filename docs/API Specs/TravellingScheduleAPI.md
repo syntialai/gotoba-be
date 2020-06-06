@@ -1,8 +1,8 @@
-# Wisata API
+# Travelling Schedule API
 
-## Get All My Schedule (By SKU)
+## Get All My Schedule by Sku
 
-+ Endpoint : ``/shcedule/{sku}``
++ Endpoint : ``/schedule/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
   + sku
@@ -20,16 +20,18 @@
         "id": 1,
         "title": "Libur musim panas",
         "description": "Liburan musim panas di daerah danau toba",
-        "date" : "12-Mar-2020",
-        "vacationDestination" : "hend-para-batu-001",
-        "skuCustomer" : "Josh-Cust-001"
-    },{
+        "date": "2015-11-13 13:30:21",
+        "endDate": "2015-11-14 13:30:21",
+        "vacationDestination": "hend-para-batu-001",
+        "userSku": "Josh-Cust-001"
+    }, {
         "id": 2,
         "title": "Libur musim dingin",
         "description": "Liburan musim dingin di daerah danau toba",
-        "date" : "12-Mar-2020",
-        "vacationDestination" : "beny-lumb-pant-002",
-        "skuCustomer" : "Josh-Cust-001"
+        "date": "2015-11-13 13:30:21",
+        "endDate": "2015-11-14 13:30:21",
+        "vacationDestination": "beny-lumb-pant-002",
+        "userSku": "Josh-Cust-001"
     }]
 }
 ```
@@ -41,7 +43,8 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Data not found",
-    "message": "Message: There is no schedule found in that sku"
+    "message": "Message: There is no schedule found in that sku",
+    "path": "/schedule/{sku}"
 }
 ```
 
@@ -50,71 +53,26 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 401,
     "error": "Unauthorized",
-    "message": "Invalid Request: You are not allowed to access."
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/schedule/{sku}"
 }
 ```
 
-## Get detail schedule (By schedule Id)
+## Add Schedule by Sku
 
-+ Endpoint : ``/shcedule/detail/{scheduleId}``
-+ HTTP Method : `GET`
++ Endpoint : ``/schedule/add/{sku}``
++ HTTP Method : `POST`
 + Path Variable :
-  + scheduleId
-+ Request Header :
-  + Accept : `application/json`
-  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
-+ Response Body (Success) :
-
-```json
-{
-      "code": 200,
-      "status": "OK",
-      "data": {
-          "id": 1,
-          "title": "Libur musim panas",
-          "description": "Liburan musim panas di daerah danau toba",
-          "date" : "12-Mar-2020",
-          "vacationDestination" : "hend-para-batu-001",
-          "skuCustomer" : "Josh-Cust-001"
-      }
-}
-```
-
-+ Response Body (Fail) :
-
-```json
-{
-    "timestamp": "2019-08-23T04:22:26.690+0000",
-    "status": 401,
-    "error": "Unauthorized",
-    "message": "Login required"
-}
-```
-
-```json
-{
-    "timestamp": "2019-08-23T04:22:26.690+0000",
-    "status": 404,
-    "error": "Not Found",
-    "message": "Invalid Request: Cannot find Schedule with that id."
-}
-```
-
-## Update schedule (By schedule Id)
-
-+ Endpoint : ``/shcedule/update/{scheduleId}``
-+ HTTP Method : `PUT`
-+ Path Variable :
-  + scheduleId
+  + id
 + Request Body :
 
 ```json
 {
-     "title": "Libur musim panas",
-     "description": "Liburan musim panas di daerah danau toba",
-     "date" : "13-Mar-2020",
-     "end date" : "14-Mar-2020",
-     "vacationDestination" : "hend-para-batu-001"
+    "title": "Libur musim panas",
+    "description": "Liburan musim panas di daerah danau toba",
+    "date" : "2015-11-13 13:30:21",
+    "endDate" : "2015-11-14 13:30:21",
+    "vacationDestination" : "hend-para-batu-001"
 }
 ```
 
@@ -125,9 +83,9 @@
 
 ```json
 {
-      "code": 200,
-      "status": "OK",
-      "message": "Update Success"
+    "code": 200,
+    "status": "OK",
+    "message": "Tambah schedule sukses"
 }
 ```
 
@@ -138,7 +96,8 @@
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 401,
     "error": "Unauthorized",
-    "message": "Login required"
+    "message": "Login required",
+    "path": "/schedule/add/{id}"
 }
 ```
 
@@ -147,6 +106,160 @@
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find Schedule with that id."
+    "message": "Invalid Request: Cannot find User with that sku.",
+    "path": "/schedule/add/{id}"
+}
+```
+
+
+
+## Get Schedule by Id
+
++ Endpoint : ``/schedule/detail{id}``
++ HTTP Method : `GET`
++ Path Variable :
+  + id
++ Request Header :
+  + Accept : `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
+    "code": 200,
+    "status": "OK",
+    "data": {
+        "id": 1,
+        "title": "Libur musim panas",
+        "description": "Liburan musim panas di daerah danau toba",
+        "date": "2015-11-13 13:30:21",
+        "endDate": "2015-11-14 13:30:21",
+        "vacationDestination": "hend-para-batu-001",
+        "userSku": "Josh-Cust-001"
+    }
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2019-08-23T04:22:26.690+0000",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Login required",
+    "path": "/schedule/{id}"
+}
+```
+
+```json
+{
+    "timestamp": "2019-08-23T04:22:26.690+0000",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Invalid Request: Cannot find Schedule with that id.",
+    "path": "/schedule/{id}"
+}
+```
+
+## Edit Schedule by Id
+
++ Endpoint : ``/schedule/edit/{id}``
++ HTTP Method : `PUT`
++ Path Variable :
+  + id
++ Request Body :
+
+```json
+{
+    "title": "Libur musim panas",
+    "description": "Liburan musim panas di daerah danau toba",
+    "date" : "2015-11-13 13:30:21",
+    "endDate" : "2015-11-14 13:30:21",
+    "vacationDestination" : "hend-para-batu-001"
+}
+```
+
++ Request Header :
+  + Accept : `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
+    "code": 200,
+    "status": "OK",
+    "data": {
+        "id": 1,
+        "title": "Libur musim panas",
+        "description": "Liburan musim panas di daerah danau toba",
+        "date": "2015-11-13 13:30:21",
+        "endDate": "2015-11-14 13:30:21",
+        "vacationDestination": "hend-para-batu-001",
+        "userSku": "Josh-Cust-001"
+    }
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2019-08-23T04:22:26.690+0000",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Login required",
+    "path": "/schedule/add/{id}"
+}
+```
+
+```json
+{
+    "timestamp": "2019-08-23T04:22:26.690+0000",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Invalid Request: Cannot find Schedule with that id.",
+    "path": "/schedule/add/{id}"
+}
+```
+
+## Delete Schedule by Id
+
++ Endpoint : ``/schedule/delete/{id}``
++ HTTP Method : `DELETE`
++ Path Variable :
+  + id
++ Request Header :
+  + Accept : `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
+      "code": 200,
+      "status": "OK",
+      "message": "Schedule deleted with id 1."
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2019-08-23T04:22:26.690+0000",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Login required",
+    "path": "/schedule/delete/{id}"
+}
+```
+
+```json
+{
+    "timestamp": "2019-08-23T04:22:26.690+0000",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Invalid Request: Cannot find Schedule with that id.",
+    "path": "/schedule/delete/{id}"
 }
 ```

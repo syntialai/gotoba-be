@@ -22,53 +22,53 @@
         "createdBy" : "admi-josh-001",
         "price" : "15000",
         "hoursOpen": {
-                    "Monday": ["8AM", "10PM"],
-                    "Tuesday": ["8AM", "10PM"],
-                    "Wednesday": ["8AM", "10PM"],
-                    "Thursday": ["8AM", "10PM"],
-                    "Friday": ["8AM", "10PM"],
-                    "Saturday": ["8AM", "10PM"],
-                    "Sunday": ["8AM", "10PM"]
-                },
+            "Monday": ["8AM", "10PM"],
+            "Tuesday": ["8AM", "10PM"],
+            "Wednesday": ["8AM", "10PM"],
+            "Thursday": ["8AM", "10PM"],
+            "Friday": ["8AM", "10PM"],
+            "Saturday": ["8AM", "10PM"],
+            "Sunday": ["8AM", "10PM"]
+        },
         "status": "active"
     }, {
-     "sku": "hend-bali-lumb-001",
-     "name": "Lumban bulbul pantai 1",
-     "title": "Tempat wisata pantai 1 lumban bulbul",
-     "description": "Tempat wisata ini sangat bagus, berlokasi di balige",
-     "image": "vjdkdfwwdzxcasdassadzxcd.png",
-     "address": "jl.baige",
-     "createdBy" : "admi-hend-001",
-     "price" : "20000",
-     "hoursOpen": {
-                     "Monday": ["8AM", "10PM"],
-                     "Tuesday": ["8AM", "10PM"],
-                     "Wednesday": ["8AM", "10PM"],
-                     "Thursday": ["8AM", "10PM"],
-                     "Friday": ["8AM", "10PM"],
-                     "Saturday": ["8AM", "10PM"],
-                     "Sunday": ["8AM", "10PM"]
-                  },
-     "status": "active"
+        "sku": "hend-bali-lumb-001",
+        "name": "Lumban bulbul pantai 1",
+        "title": "Tempat wisata pantai 1 lumban bulbul",
+        "description": "Tempat wisata ini sangat bagus, berlokasi di balige",
+        "image": "vjdkdfwwdzxcasdassadzxcd.png",
+        "address": "jl.baige",
+        "createdBy" : "admi-hend-001",
+        "price" : "20000",
+        "hoursOpen": {
+            "Monday": ["8AM", "10PM"],
+            "Tuesday": ["8AM", "10PM"],
+            "Wednesday": ["8AM", "10PM"],
+            "Thursday": ["8AM", "10PM"],
+            "Friday": ["8AM", "10PM"],
+            "Saturday": ["8AM", "10PM"],
+            "Sunday": ["8AM", "10PM"]
+        },
+        "status": "active"
     }, {
         "sku": "hend-bali-lumb-002",
-         "name": "Lumban bulbul pantai 2",
-         "title": "Tempat wisata pantai 2 lumban bulbul",
-         "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
-         "image": "cvdafzxsqzxcasdasd.png",
-         "address": "jl.balige",
-         "createdBy" : "admi-josh-001",
-         "price" : "10000",
-         "hoursOpen": {
-                      "Monday": ["8AM", "10PM"],
-                      "Tuesday": ["8AM", "10PM"],
-                      "Wednesday": ["8AM", "10PM"],
-                      "Thursday": ["8AM", "10PM"],
-                      "Friday": ["8AM", "10PM"],
-                      "Saturday": ["8AM", "10PM"],
-                      "Sunday": ["8AM", "10PM"]
-                      },
-         "status": "active"
+        "name": "Lumban bulbul pantai 2",
+        "title": "Tempat wisata pantai 2 lumban bulbul",
+        "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
+        "image": "cvdafzxsqzxcasdasd.png",
+        "address": "jl.balige",
+        "createdBy" : "admi-josh-001",
+        "price" : "10000",
+        "hoursOpen": {
+            "Monday": ["8AM", "10PM"],
+            "Tuesday": ["8AM", "10PM"],
+            "Wednesday": ["8AM", "10PM"],
+            "Thursday": ["8AM", "10PM"],
+            "Friday": ["8AM", "10PM"],
+            "Saturday": ["8AM", "10PM"],
+            "Sunday": ["8AM", "10PM"]
+        },
+        "status": "active"
     }]
 }
 ```
@@ -80,11 +80,12 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Data not found",
-    "message": "Message: There is no data wisata"
+    "message": "Message: There is no data wisata",
+    "path": "/wisata"
 }
 ```
 
-## Get Wisata By sku
+## Get Wisata by Sku
 
 + Endpoint : ``/wisata/{sku}``
 + HTTP Method : `GET`
@@ -108,14 +109,14 @@
         "createdBy" : "admi-josh-001",
         "price" : "10000",
         "hoursOpen": {
-                     "Monday": ["8AM", "10PM"],
-                     "Tuesday": ["8AM", "10PM"],
-                     "Wednesday": ["8AM", "10PM"],
-                     "Thursday": ["8AM", "10PM"],
-                     "Friday": ["8AM", "10PM"],
-                     "Saturday": ["8AM", "10PM"],
-                     "Sunday": ["8AM", "10PM"]
-                     },
+            "Monday": ["8AM", "10PM"],
+            "Tuesday": ["8AM", "10PM"],
+            "Wednesday": ["8AM", "10PM"],
+            "Thursday": ["8AM", "10PM"],
+            "Friday": ["8AM", "10PM"],
+            "Saturday": ["8AM", "10PM"],
+            "Sunday": ["8AM", "10PM"]
+        },
         "status": "active"
     }
 }
@@ -128,11 +129,12 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find wisata with that sku."
+    "message": "Invalid Request: Cannot find wisata with that sku.",
+    "path": "/wisata/{sku}"
 }
 ```
 
-## Add new wisata
+## Add new Wisata
 
 + Endpoint : ``/wisata/add``
 + HTTP Method : `POST`
@@ -148,14 +150,14 @@
     "createdBy" : "admi-josh-001",
     "price" : 10000,
     "hoursOpen": {
-                 "Monday": ["8AM", "10PM"],
-                 "Tuesday": ["8AM", "10PM"],
-                 "Wednesday": ["8AM", "10PM"],
-                 "Thursday": ["8AM", "10PM"],
-                 "Friday": ["8AM", "10PM"],
-                 "Saturday": ["8AM", "10PM"],
-                 "Sunday": ["8AM", "10PM"]
-                 }  
+        "Monday": ["8AM", "10PM"],
+        "Tuesday": ["8AM", "10PM"],
+        "Wednesday": ["8AM", "10PM"],
+        "Thursday": ["8AM", "10PM"],
+        "Friday": ["8AM", "10PM"],
+        "Saturday": ["8AM", "10PM"],
+        "Sunday": ["8AM", "10PM"]
+    }  
 }
 ```
 
@@ -179,7 +181,8 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 400,
     "error": "Bad Request",
-    "message": "Invalid Request: Invalid image format. Image must be .PNG/.JPG/.JPEG "
+    "message": "Invalid Request: Invalid image format. Image must be .PNG/.JPG/.JPEG",
+    "path": "/wisata/add"
 }
 ```
 
@@ -188,7 +191,8 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 401,
     "error": "Unauthorized",
-    "message": "Invalid Request: You are not allowed to access."
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/wisata/add"
 }
 ```
 
@@ -210,14 +214,14 @@
     "createdBy" : "admi-josh-001",
     "price" : "10000",
     "hoursOpen": {
-                 "Monday": ["8AM", "10PM"],
-                 "Tuesday": ["8AM", "10PM"],
-                 "Wednesday": ["8AM", "10PM"],
-                 "Thursday": ["8AM", "10PM"],
-                 "Friday": ["8AM", "10PM"],
-                 "Saturday": ["8AM", "10PM"],
-                 "Sunday": ["8AM", "10PM"]
-                 }  
+        "Monday": ["8AM", "10PM"],
+        "Tuesday": ["8AM", "10PM"],
+        "Wednesday": ["8AM", "10PM"],
+        "Thursday": ["8AM", "10PM"],
+        "Friday": ["8AM", "10PM"],
+        "Saturday": ["8AM", "10PM"],
+        "Sunday": ["8AM", "10PM"]
+    }
 }
 ```
 
@@ -236,14 +240,14 @@
     "createdBy" : "admi-josh-001",
     "price" : "10000",
     "hoursOpen": {
-                 "Monday": ["8AM", "10PM"],
-                 "Tuesday": ["8AM", "10PM"],
-                 "Wednesday": ["8AM", "10PM"],
-                 "Thursday": ["8AM", "10PM"],
-                 "Friday": ["8AM", "10PM"],
-                 "Saturday": ["8AM", "10PM"],
-                 "Sunday": ["8AM", "10PM"]
-                 }  
+        "Monday": ["8AM", "10PM"],
+        "Tuesday": ["8AM", "10PM"],
+        "Wednesday": ["8AM", "10PM"],
+        "Thursday": ["8AM", "10PM"],
+        "Friday": ["8AM", "10PM"],
+        "Saturday": ["8AM", "10PM"],
+        "Sunday": ["8AM", "10PM"]
+    }  
 }
 ```
 
@@ -254,7 +258,8 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 400,
     "error": "Bad Request",
-    "message": "Invalid Request: Invalid image format. Image must be .PNG/.JPG/.JPEG "
+    "message": "Invalid Request: Invalid image format. Image must be .PNG/.JPG/.JPEG",
+    "path": "/wisata/edit/{sku}"
 }
 ```
 
@@ -263,7 +268,8 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 401,
     "error": "Unauthorized",
-    "message": "Invalid Request: You are not allowed to access."
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/wisata/edit/{sku}"
 }
 ```
 
@@ -272,7 +278,8 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find wisata with that sku."
+    "message": "Invalid Request: Cannot find wisata with that sku.",
+    "path": "/wisata/edit/{sku}"
 }
 ```
 
@@ -302,7 +309,8 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 401,
     "error": "Unauthorized",
-    "message": "Invalid Request: You are not allowed to access."
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/wisata/delete/{sku}"
 }
 ```
 
@@ -311,6 +319,7 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot delete wisata with that sku."
+    "message": "Invalid Request: Cannot delete wisata with that sku.",
+    "path": "/wisata/delete/{sku}"
 }
 ```

@@ -15,5 +15,9 @@ public interface WisataService {
 
     public String substr(String str);
 
-    public Mono<Wisata> updateWisata(String sku,WisataRequest wisataRequest);
+    public Mono<Wisata> updateWisata(String sku, WisataRequest wisataRequest);
+
+    public Mono<Wisata> deleteBySku(String sku);
+
+    public Mono<Wisata> findBySku(String sku);
 }
