@@ -2,7 +2,7 @@
 
 ## Get All Users
 
-+ Endpoint : ``/users/``
++ Endpoint : ``/user/``
 + HTTP Method : `GET`
 + Request Header :
   + Accept: `application/json`
@@ -50,16 +50,17 @@
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 401,
     "error": "Unauthorized",
-    "message": "Login required"
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/user"
 }
 ```
 
-## Get Users (by sku)
+## Get User by Sku
 
-+ Endpoint : ``/users/{user-sku}``
++ Endpoint : ``/user/sku/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
-  + user-sku
+  + sku
 + Request Header :
   + Accept: `application/json`
   + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
@@ -88,7 +89,8 @@
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 401,
     "error": "Unauthorized",
-    "message": "Login required"
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/user/{sku}"
 }
 ```
 
@@ -97,13 +99,14 @@
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find User with that sku."
+    "message": "Invalid Request: Cannot find User with that sku.",
+    "path": "/user/{sku}"
 }
 ```
 
-## Get Users Active (by status)
+## Get Users Active (by Status)
 
-+ Endpoint : ``/users/active``
++ Endpoint : ``/user/active``
 + HTTP Method : `GET`
 + Request Header :
   + Accept: `application/json`
@@ -133,13 +136,14 @@
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 401,
     "error": "Unauthorized",
-    "message": "Login required"
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/user/active"
 }
 ```
 
-## Get Users Blocked (by status)
+## Get Users Blocked (by Status)
 
-+ Endpoint : ``/users/active``
++ Endpoint : ``/users/blocked``
 + HTTP Method : `GET`
 + Request Header :
   + Accept: `application/json`
@@ -169,27 +173,17 @@
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 401,
     "error": "Unauthorized",
-    "message": "Login required"
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/user/active"
 }
 ```
 
-## Get Users (by username)
+## Get User by Username
 
-+ Endpoint : ``/users/update/{sku}``
++ Endpoint : ``/user/{username}``
 + HTTP Method : `GET`
-+ Request Body :
-
-```json
-{
-    "nickname" : "joshua",
-    "username" : "joshua",
-    "email" : "joshua@gmail.com",
-    "password" : "joshua",
-    "role" : "Merchant",
-    "status" : "blocked"
-}
-```
-
++ Path Variable :
+  + username
 + Request Header :
   + Accept: `application/json`
   + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
@@ -218,7 +212,8 @@
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 401,
     "error": "Unauthorized",
-    "message": "Login required"
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/user/{username}"
 }
 ```
 
@@ -227,13 +222,14 @@
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find User with that username."
+    "message": "Invalid Request: Cannot find User with that username.",
+    "path": "/user/{username}"
 }
 ```
 
-## Edit Users (by sku)
+## Edit User by Sku
 
-+ Endpoint : ``/users/{sku}``
++ Endpoint : ``/user/edit/{sku}``
 + HTTP Method : `PUT`
 + Path Variable :
   + sku
@@ -274,35 +270,19 @@
 ```json
 {
     "timestamp": "2019-08-23T04:22:26.690+0000",
+    "status": 400,
+    "error": "Bad Request",
+    "message": "Email Address already in use!",
+    "path": "/user/{sku}"
+}
+```
+
+```json
+{
+    "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 401,
     "error": "Unauthorized",
-    "message": "Login required"
-}
-```
-
-```json
-{
-    "timestamp": "2019-08-23T04:22:26.690+0000",
-    "status": 404,
-    "error": "Not Found",
-    "message": "Invalid Request: Cannot find User with that username."
-}
-```
-
-```json
-{
-    "timestamp": "2019-08-23T04:22:26.690+0000",
-    "status": 400,
-    "error": "Bad Request",
-    "message": "Email Address already in use!"
-}
-```
-
-```json
-{
-    "timestamp": "2019-08-23T04:22:26.690+0000",
-    "status": 400,
-    "error": "Bad Request",
-    "message": "Username Address already in use!"
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/user/{sku}"
 }
 ```

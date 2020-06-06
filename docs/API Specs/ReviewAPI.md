@@ -1,11 +1,11 @@
 # Review API
 
-## Get Review By Category
+## Get Review by Wisata / Restaurant Sku
 
-+ Endpoint : ``/review?category={categoryName}``
++ Endpoint : ``/review/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
-  + categoryName
+  + sku
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
@@ -17,8 +17,6 @@
     "status": "OK",
     "data": [{
         "id": 1,
-        "sku": "REV_rest_0001_0001",
-        "category": "rest",
         "rating": 5.0,
         "comment": null,
         "merchantId": 1,
@@ -27,8 +25,6 @@
         "userSku": "sima_cust_001"
     }, {
         "id": 2,
-        "sku": "REV_rest_0001_0002",
-        "category": "rest",
         "rating": 4.7,
         "comment": null,
         "merchantId": 1,
@@ -47,7 +43,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/review?category={category-name}"
+    "path": "/review/{sku}"
 }
 ```
 
@@ -56,17 +52,17 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find category with category-name {category-name}.",
-    "path": "/review?category={category-name}"
+    "message": "Invalid Request: Cannot find review with wisata/restaurant sku {sku}.",
+    "path": "/review/{sku}"
 }
 ```
 
-## Get Review by Category and by Rating
+## Get Review by Wisata / Restaurant Sku and by Rating
 
-+ Endpoint : ``/review?category={category-name}&rate={rating}``
++ Endpoint : ``/review/{sku}/{rating}``
 + HTTP Method : `GET`
 + Path Variable :
-  + category-name
+  + sku
   + rating
 + Request Header :
   + Accept : `application/json`
@@ -79,8 +75,6 @@
     "status": "OK",
     "data": [{
         "id": 1,
-        "sku": "REV_rest_0001_0001",
-        "category": "rest",
         "rating": 5.0,
         "comment": null,
         "merchantId": 1,
@@ -89,8 +83,6 @@
         "userSku": "sima_cust_001"
     }, {
         "id": 2,
-        "sku": "REV_rest_0001_0002",
-        "category": "rest",
         "rating": 5.0,
         "comment": null,
         "merchantId": 1,
@@ -109,7 +101,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/review?category={category-name}&rate={rating}"
+    "path": "/review?category={categoryName}&rate={rating}"
 }
 ```
 
@@ -118,17 +110,17 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find category with category-name {category-name}.",
-    "path": "/review?category={category-name}&rate={rating}"
+    "message": "Invalid Request: Cannot find category with categoryName {categoryName}.",
+    "path": "/review?category={categoryName}&rate={rating}"
 }
 ```
 
-## Get Review by Sku
+## Get Review by Id
 
-+ Endpoint : ``/review/{sku}``
++ Endpoint : ``/review/{id}``
 + HTTP Method : `GET`
 + Path Variable :
-  + sku
+  + id
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
@@ -140,7 +132,6 @@
     "status": "OK",
     "data": {
         "id": 2,
-        "sku": "REV_rest_0001_0002",
         "category": "rest",
         "rating": 5.0,
         "comment": null,
@@ -160,7 +151,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/review/{sku}"
+    "path": "/review/{id}"
 }
 ```
 
@@ -169,17 +160,17 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find review with sku {sku}.",
-    "path": "/review/{sku}"
+    "message": "Invalid Request: Cannot find review with id 2.",
+    "path": "/review/{id}"
 }
 ```
 
-## Add Review by Category
+## Add Review by Wisata / Restaurant Sku
 
-+ Endpoint : ``/review?category={category-name}``
++ Endpoint : ``/review/{sku}/add``
 + HTTP Method : `GET`
 + Path Variable :
-  + category-name
+  + sku
 + Request Body :
 
 ```json
@@ -200,8 +191,6 @@
     "status": "OK",
     "data": {
         "id": 1,
-        "sku": "REV_rest_0001_0001",
-        "category": "rest",
         "rating": 5.0,
         "comment": "OK",
         "merchantId": 1,
@@ -220,7 +209,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/review?category={category-name}"
+    "path": "/review/{sku}/add"
 }
 
 ```json
@@ -229,7 +218,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/review?category={category-name}"
+    "path": "/review/{sku}/add"
 }
 ```
 
@@ -238,7 +227,7 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find category with category-name {category-name}.",
-    "path": "/review?category={category-name}"
+    "message": "Invalid Request: Cannot find wisata/restaurant with sku ABC.",
+    "path": "/review/{sku}/add"
 }
 ```

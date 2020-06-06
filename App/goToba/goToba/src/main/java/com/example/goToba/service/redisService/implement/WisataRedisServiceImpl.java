@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -37,8 +38,8 @@ public class WisataRedisServiceImpl implements WisataRedisService {
     }
 
     @Override
-    public Wisata findByKey(String key) {
-        return (Wisata) hashOperations.get(redisKey,key);
+    public Mono<Wisata> findByKey(String key) {
+        return (Mono<Wisata>) hashOperations.get(redisKey,key);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.goToba.model;
+package com.example.goToba.payload.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,15 +7,14 @@ import lombok.NoArgsConstructor;
 /**
  * Created by Sogumontar Hendra Simangunsong on 30/05/2020.
  */
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class TravellingSchedule {
-    Integer id;
+@AllArgsConstructor
+@Data
+public class ScheduleRequest {
     String title;
     String description;
     String date;
     String endDate;
     String vacationDestination;
-    String userSku;
+
 }

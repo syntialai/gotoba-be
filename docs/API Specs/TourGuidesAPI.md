@@ -111,14 +111,14 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find tour guide with id ABC.",
+    "message": "Invalid Request: Cannot find tour guide with sku ABC.",
     "path": "/tour-guide/{sku}"
 }
 ```
 
 ## Add new Tour Guide
 
-+ Endpoint : ``/tour-guide``
++ Endpoint : ``/tour-guide/add``
 + HTTP Method : `POST`
 + Request Body :
 
@@ -176,7 +176,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/tour-guide"
+    "path": "/tour-guide/add"
 }
 ```
 
@@ -186,14 +186,14 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/tour-guide"
+    "path": "/tour-guide/add"
 }
 ```
 
 ## Edit Tour Guide by Sku
 
-+ Endpoint : ``/tour-guide/{sku}``
-+ HTTP Method : `POST`
++ Endpoint : ``/tour-guide/edit/{sku}``
++ HTTP Method : `PUT`
 + Path Variable :
   + sku
 + Request Body :
@@ -252,7 +252,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/tour-guide/{sku}"
+    "path": "/tour-guide/edit/{sku}"
 }
 ```
 
@@ -262,7 +262,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/tour-guide/{sku}"
+    "path": "/tour-guide/edit/{sku}"
 }
 ```
 
@@ -271,7 +271,7 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find tour guide with id ABC.",
-    "path": "/tour-guide/{sku}"
+    "message": "Invalid Request: Cannot find tour guide with sku ABC.",
+    "path": "/tour-guide/edit/{sku}"
 }
 ```

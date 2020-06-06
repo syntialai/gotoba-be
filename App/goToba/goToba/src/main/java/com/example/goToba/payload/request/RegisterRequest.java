@@ -24,5 +24,4 @@ public class RegisterRequest {
     private String confirmPassword;
     private String role;
 
-
 }

@@ -100,7 +100,7 @@
 
 ## Add New Merchant
 
-+ Endpoint : ``/merchant``
++ Endpoint : ``/merchant/add``
 + HTTP Method : `POST`
 + Request Body :
 
@@ -110,7 +110,7 @@
     "username": "syntialaii",
     "email": "syntialaii407@gmail.com",
     "password": "abcdefgh",
-    "rePassword": "abcdefgh"
+    "confirmPassword": "abcdefgh"
 }
 ```
 
@@ -142,7 +142,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/merchant"
+    "path": "/merchant/add"
 }
 ```
 
@@ -152,13 +152,13 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: Invalid erchant authentication or Unauthorized.",
-    "path": "/merchant"
+    "path": "/merchant/add"
 }
 ```
 
-## Edit Merchant by Id
+## Edit Merchant by Sku
 
-+ Endpoint : ``/merchant/{sku}``
++ Endpoint : ``/merchant/edit/{sku}``
 + HTTP Method : `PUT`
 + Path Variable :
   + sku
@@ -201,7 +201,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/merchant/{sku}"
+    "path": "/merchant/edit/{sku}"
 }
 ```
 
@@ -211,7 +211,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: Invalid merchant authentication or Unauthorized.",
-    "path": "/merchant/{sku}"
+    "path": "/merchant/edit/{sku}"
 }
 ```
 
@@ -220,7 +220,7 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find merchant with id ABC.",
-    "path": "/merchant/{sku}"
+    "message": "Invalid Request: Cannot find merchant with sku ABC.",
+    "path": "/merchant/edit/{sku}"
 }
 ```
