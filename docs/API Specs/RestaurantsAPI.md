@@ -129,7 +129,7 @@
 
 ## Add new Restaurant
 
-+ Endpoint : ``/restaurant/add``
++ Endpoint : ``/restaurant/add/{sku}``
 + HTTP Method : `POST`
 + Request Body :
 

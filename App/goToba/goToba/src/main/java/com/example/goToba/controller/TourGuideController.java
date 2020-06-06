@@ -34,7 +34,7 @@ public class TourGuideController {
     public Mono<ResponseEntity<?>> findTourGuideBySku(@PathVariable String sku) {
         return tourGuideService.findBySku(sku).
                 map(
-                        data -> ResponseEntity.ok().body(new Response(200, "OK", data))
+                        data -> ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data))
                 );
     }
 
@@ -42,7 +42,7 @@ public class TourGuideController {
     public Mono<ResponseEntity<?>> findTourGuideByName(@PathVariable String sku) {
         return tourGuideService.findByName(sku).
                 map(
-                        data -> ResponseEntity.ok().body(new Response(200, "OK", data))
+                        data -> ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data))
                 );
     }
 
