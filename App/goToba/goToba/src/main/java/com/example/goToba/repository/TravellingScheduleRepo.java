@@ -15,5 +15,6 @@ public interface TravellingScheduleRepo extends ReactiveMongoRepository<Travelli
 
     Mono<TravellingSchedule> findById(String id);
 
-    Mono<Boolean> deleteById(String id);
+    Mono<Void> deleteById(Integer id);
+
 }

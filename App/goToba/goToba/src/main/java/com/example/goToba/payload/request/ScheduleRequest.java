@@ -16,4 +16,5 @@ public class ScheduleRequest {
     String date;
     String endDate;
     String vacationDestination;
+
 }
