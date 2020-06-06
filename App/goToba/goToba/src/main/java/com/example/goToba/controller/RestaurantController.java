@@ -63,13 +63,13 @@ public class RestaurantController {
 
     }
 
-    @PostMapping(RestaurantControllerRoute.ROUTE_ADD_RESTAURANT)
+    @PutMapping(RestaurantControllerRoute.ROUTE_EDIT_RESTAURANT_BY_SKU)
     public ResponseEntity<?> editRestaurantsBySku(@PathVariable String sku, @RequestBody RestaurantsRequest restaurantsRequest) {
         restaurantService.editRestaurant(restaurantsRequest, sku).subscribe();
-        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, restaurantService.editRestaurant(restaurantsRequest, sku).subscribe()));
+        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, restaurantsRequest));
     }
 
-    @PutMapping(RestaurantControllerRoute.ROUTE_EDIT_RESTAURANT_BY_SKU)
+    @PostMapping(RestaurantControllerRoute.ROUTE_ADD_RESTAURANT_BY_SKU)
     public ResponseEntity<?> addRestaurantsBySku(@PathVariable String sku, @RequestBody RestaurantsRequest restaurantsRequest) {
         restaurantService.addRestaurant(restaurantsRequest, sku).subscribe();
         return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, restaurantsRequest));
