@@ -15,9 +15,4 @@ public interface RestaurantService {
     Mono<Restaurant> findBySku(String sku);
     Mono<Restaurant> addRestaurant(RestaurantsRequest restaurantsRequest, String sku);
     Mono<Restaurant> editRestaurant(RestaurantsRequest restaurantsRequest, String sku);
-    Mono<MenuRestaurants> findByIdMenu(Integer idMenu);
-    Mono<MenuRestaurants> addRestaurantMenu(MenuRestaurantsRequest menuRestaurantsRequest);
-    Mono<MenuRestaurants> editRestaurantMenu(Integer idMenu, MenuRestaurantsRequest menuRestaurantsRequest);
-    Mono<MenuRestaurants> deleteRestaurantMenu(Integer idMenu, MenuRestaurantsRequest menuRestaurantsRequest);
-    Flux<MenuRestaurants> findMenuBySkuRestaurants(String sku);
 }
