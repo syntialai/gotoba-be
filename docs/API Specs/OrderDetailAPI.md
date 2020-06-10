@@ -2,7 +2,7 @@
 
 ## Get Order Detail by Sku
 
-+ Endpoint : ``/order/{sku}``
++ Endpoint : ``/order/sku/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
   + sku
@@ -53,7 +53,7 @@
 
 ## Get Order Detail by Merchant Sku
 
-+ Endpoint : ``/order/{merchantSku}``
++ Endpoint : ``/order/merchant/{merchantSku}``
 + HTTP Method : `GET`
 + Path Variable :
   + merchantSku
