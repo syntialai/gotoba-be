@@ -111,11 +111,9 @@
 }
 ```
 
-
-
 ## Get Schedule by Id
 
-+ Endpoint : ``/schedule/detail{id}``
++ Endpoint : ``/schedule/detail/{id}``
 + HTTP Method : `GET`
 + Path Variable :
   + id

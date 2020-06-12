@@ -2,7 +2,7 @@
 
 ## Get Payment by Merchant Sku
 
-+ Endpoint : ``/pay/{merchantSku}``
++ Endpoint : ``/pay/merchant/{merchantSku}``
 + HTTP Method : `GET`
 + Path Variable :
   + merchantSku
@@ -54,7 +54,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/pay/{merchantSku}"
+    "path": "/pay/merchant/{merchantSku}"
 }
 ```
 
@@ -64,13 +64,13 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find merchant with sku ABC.",
-    "path": "/pay/{merchantSku}"
+    "path": "/pay/merchant/{merchantSku}"
 }
 ```
 
 ## Get Payment by Merchant Sku and by Category
 
-+ Endpoint : ``/pay/{merchantSku}/{category}``
++ Endpoint : ``/pay/merchant/{merchantSku}/{category}``
 + HTTP Method : `GET`
 + Path Variable :
   + merchantSku
@@ -123,7 +123,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/pay/{merchantSku}/{category}"
+    "path": "/pay/merchant/{merchantSku}/{category}"
 }
 ```
 
@@ -133,13 +133,13 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find payment with category ABC.",
-    "path": "/pay/{merchantSku}/{category}"
+    "path": "/pay/merchant/{merchantSku}/{category}"
 }
 ```
 
 ## Get Payment by User Sku and by Status
 
-+ Endpoint : ``/pay/{userSku}/status/{status}``
++ Endpoint : ``/pay/user/{userSku}/status/{status}``
 + HTTP Method : `GET`
 + Path Variable :
   + userSku
@@ -174,7 +174,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/pay/{userSku}/{status}"
+    "path": "/pay/user/{userSku}/status/{status}"
 }
 ```
 
@@ -184,13 +184,13 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find user with sku ABC.",
-    "path": "/pay/{userSku}/{status}"
+    "path": "/pay/user/{userSku}/status/{status}"
 }
 ```
 
 ## Get Payment by Sku
 
-+ Endpoint : ``/pay/sku/{sku}``
++ Endpoint : ``/pay/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
   + sku

@@ -48,7 +48,7 @@
     "status": 500,
     "error": "Internal Server Error",
     "message": "Server Error: Error while getting and/or parsing the data.",
-    "path": "/gallery"
+    "path": "/gallery/"
 }
 ```
 
@@ -233,7 +233,7 @@
 ## Delete Photo by Sku
 
 + Endpoint : ``/gallery/delete/{sku}``
-+ HTTP Method : `PUT`
++ HTTP Method : `DELETE`
 + Path Variable :
   + sku
 + Request Header :
