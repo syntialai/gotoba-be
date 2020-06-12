@@ -21,13 +21,13 @@
         "rating": 5.0,
         "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
         "hoursOpen": {
-            "Monday": ["8AM", "10PM"],
-            "Tuesday": ["8AM", "10PM"],
-            "Wednesday": ["8AM", "10PM"],
-            "Thursday": ["8AM", "10PM"],
-            "Friday": ["8AM", "10PM"],
-            "Saturday": ["8AM", "10PM"],
-            "Sunday": ["8AM", "10PM"]
+           "monday": ["8AM", "10PM"],
+           "tuesday": ["8AM", "10PM"],
+           "wednesday": ["8AM", "10PM"],
+           "thursday": ["8AM", "10PM"],
+           "friday": ["8AM", "10PM"],
+           "saturday": ["8AM", "10PM"],
+           "sunday": ["8AM", "10PM"]
         },
         "phone": "+62813 9791 4229",
         "status": "active",
@@ -40,13 +40,13 @@
         "rating": 5.0,
         "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
         "hoursOpen": {
-            "Monday": ["8AM", "10PM"],
-            "Tuesday": ["8AM", "10PM"],
-            "Wednesday": ["8AM", "10PM"],
-            "Thursday": ["8AM", "10PM"],
-            "Friday": ["8AM", "10PM"],
-            "Saturday": ["8AM", "10PM"],
-            "Sunday": ["8AM", "10PM"]
+             "monday": ["8AM", "10PM"],
+             "tuesday": ["8AM", "10PM"],
+             "wednesday": ["8AM", "10PM"],
+             "thursday": ["8AM", "10PM"],
+             "friday": ["8AM", "10PM"],
+             "saturday": ["8AM", "10PM"],
+             "sunday": ["8AM", "10PM"]
         },
         "phone": "+62813 9791 4229",
         "status": "active",
@@ -90,13 +90,13 @@
         "rating": 5.0,
         "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
         "hoursOpen": {
-            "Monday": ["8AM", "10PM"],
-            "Tuesday": ["8AM", "10PM"],
-            "Wednesday": ["8AM", "10PM"],
-            "Thursday": ["8AM", "10PM"],
-            "Friday": ["8AM", "10PM"],
-            "Saturday": ["8AM", "10PM"],
-            "Sunday": ["8AM", "10PM"]
+             "monday": ["8AM", "10PM"],
+             "tuesday": ["8AM", "10PM"],
+             "wednesday": ["8AM", "10PM"],
+             "thursday": ["8AM", "10PM"],
+             "friday": ["8AM", "10PM"],
+             "saturday": ["8AM", "10PM"],
+             "sunday": ["8AM", "10PM"]
         },
         "phone": "+62813 9791 4229",
         "status": "active",
@@ -129,7 +129,7 @@
 
 ## Add new Restaurant
 
-+ Endpoint : ``/restaurant/add/{sku}``
++ Endpoint : ``/restaurant/add/{skuMerchant}``
 + HTTP Method : `POST`
 + Request Body :
 
@@ -140,13 +140,13 @@
     "location": "Samosir Regency, North Sumatra",
     "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
     "hoursOpen": {
-        "Monday": ["8AM", "10PM"],
-        "Tuesday": ["8AM", "10PM"],
-        "Wednesday": ["8AM", "10PM"],
-        "Thursday": ["8AM", "10PM"],
-        "Friday": ["8AM", "10PM"],
-        "Saturday": ["8AM", "10PM"],
-        "Sunday": ["8AM", "10PM"]
+        "monday": ["8AM", "10PM"],
+        "tuesday": ["8AM", "10PM"],
+        "wednesday": ["8AM", "10PM"],
+        "thursday": ["8AM", "10PM"],
+        "friday": ["8AM", "10PM"],
+        "saturday": ["8AM", "10PM"],
+        "sunday": ["8AM", "10PM"]
     },
     "phone": "+62813 9791 4229"
 }
@@ -169,13 +169,13 @@
         "rating": 5.0,
         "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
         "hoursOpen": {
-            "Monday": ["8AM", "10PM"],
-            "Tuesday": ["8AM", "10PM"],
-            "Wednesday": ["8AM", "10PM"],
-            "Thursday": ["8AM", "10PM"],
-            "Friday": ["8AM", "10PM"],
-            "Saturday": ["8AM", "10PM"],
-            "Sunday": ["8AM", "10PM"]
+            "monday": ["8AM", "10PM"],
+            "tuesday": ["8AM", "10PM"],
+            "wednesday": ["8AM", "10PM"],
+            "thursday": ["8AM", "10PM"],
+            "friday": ["8AM", "10PM"],
+            "saturday": ["8AM", "10PM"],
+            "sunday": ["8AM", "10PM"]
         },
         "phone": "+62813 9791 4229",
         "status": "active",
@@ -231,13 +231,13 @@
     "location": "Samosir Regency, North Sumatra",
     "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
     "hoursOpen": {
-        "Monday": ["8AM", "10PM"],
-        "Tuesday": ["8AM", "10PM"],
-        "Wednesday": ["8AM", "10PM"],
-        "Thursday": ["8AM", "10PM"],
-        "Friday": ["8AM", "10PM"],
-        "Saturday": ["8AM", "10PM"],
-        "Sunday": ["8AM", "10PM"]
+        "monday": ["8AM", "10PM"],
+        "tuesday": ["8AM", "10PM"],
+        "wednesday": ["8AM", "10PM"],
+        "thursday": ["8AM", "10PM"],
+        "friday": ["8AM", "10PM"],
+        "saturday": ["8AM", "10PM"],
+        "sunday": ["8AM", "10PM"]       
     },
     "phone": "+62813 9791 4229"
 }
@@ -260,13 +260,13 @@
         "rating": 5.0,
         "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
         "hoursOpen": {
-            "Monday": ["8AM", "10PM"],
-            "Tuesday": ["8AM", "10PM"],
-            "Wednesday": ["8AM", "10PM"],
-            "Thursday": ["8AM", "10PM"],
-            "Friday": ["8AM", "10PM"],
-            "Saturday": ["8AM", "10PM"],
-            "Sunday": ["8AM", "10PM"]
+           "monday": ["8AM", "10PM"],
+           "tuesday": ["8AM", "10PM"],
+           "wednesday": ["8AM", "10PM"],
+           "thursday": ["8AM", "10PM"],
+           "friday": ["8AM", "10PM"],
+           "saturday": ["8AM", "10PM"],
+           "sunday": ["8AM", "10PM"]
         },
         "phone": "+6281397914229",
         "status": "active",
