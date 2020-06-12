@@ -6,4 +6,9 @@ package com.example.goToba.controller.route;
 public interface PaymentControllerRoute {
     public String ROUTE_PAYMENT = "/pay";
     public String ROUTE_PAYMENT_BY_MERCHANT_SKU = "/{merchantSku}";
+    public String ROUTE_PAYMENT_BY_SKU = "/sku/{sku}";
+    public String ROUTE_PAYMENT_BY_MERCHANT_SKU_AND_CATEGORY = "/{merchantSku}/{category}";
+    public String ROUTE_PAYMENT_BY_USER_SKU_AND_CATEGORY = "/{userSku}/status/{status}";
+    public String ROUTE_ADD_PAYMENT_BY_USER_SKU = "/add/{userSku}";
+    public String ROUTE_EDIT_PAYMENT_BY_SKU = "/edit/{sku}";
 }

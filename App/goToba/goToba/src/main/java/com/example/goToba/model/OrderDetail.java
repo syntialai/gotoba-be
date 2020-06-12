@@ -16,18 +16,8 @@ public class OrderDetail {
     Integer quantity;
     Integer price;
     Integer ticketId;
-    Integer merchantId;
     String merchantSku;
-    Integer userId;
     String userSku;
 
-    public OrderDetail(Integer id, String sku, Integer quantity, Integer price, Integer ticketId, String userSku) {
-        this.id = id;
-        this.sku = sku;
-        this.quantity = quantity;
-        this.price = price;
-        this.ticketId = ticketId;
-        this.userSku = userSku;
-    }
 
 }

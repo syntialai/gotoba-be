@@ -17,10 +17,9 @@ public class Payment {
     Integer total;
     String status;
     Integer orderId;
-    Integer merchantId;
     String merchantSku;
-    Integer userId;
     String userSku;
+
 
     public Integer getId() {
         return id;
@@ -70,28 +69,12 @@ public class Payment {
         this.orderId = orderId;
     }
 
-    public Integer getMerchantId() {
-        return merchantId;
-    }
-
-    public void setMerchantId(Integer merchantId) {
-        this.merchantId = merchantId;
-    }
-
     public String getMerchantSku() {
         return merchantSku;
     }
 
     public void setMerchantSku(String merchantSku) {
         this.merchantSku = merchantSku;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public String getUserSku() {

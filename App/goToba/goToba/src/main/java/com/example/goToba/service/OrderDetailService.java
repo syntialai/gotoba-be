@@ -13,4 +13,5 @@ public interface OrderDetailService {
     Mono<OrderDetail> findFirstBySkuUser(String skuUser);
     Flux<OrderDetail> findAll();
     Mono<OrderDetail> addBySkuUser(String skuUser, OrderDetailRequest orderDetailRequest);
+    Mono<OrderDetail> editBySkuUser(String sku, OrderDetailRequest orderDetailRequest);
 }

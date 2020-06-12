@@ -51,8 +51,14 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                 orderDetailRequest.getQuantity(),
                 orderDetailRequest.getPrice(),
                 orderDetailRequest.getTicketId(),
+                orderDetailRequest.getMerchantSku(),
                 skuUser
         );
         return orderDetailRepo.save(orderDetail);
+    }
+
+    @Override
+    public Mono<OrderDetail> editBySkuUser(String sku, OrderDetailRequest orderDetailRequest) {
+        return null;
     }
 }

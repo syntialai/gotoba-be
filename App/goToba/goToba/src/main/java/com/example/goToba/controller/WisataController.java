@@ -7,13 +7,18 @@ import com.example.goToba.payload.helper.StaticResponseMessages;
 import com.example.goToba.payload.helper.StaticResponseStatus;
 import com.example.goToba.payload.request.WisataRequest;
 import com.example.goToba.repository.WisataRepo;
+import com.example.goToba.service.ImageService;
 import com.example.goToba.service.WisataService;
 import com.example.goToba.service.redisService.implement.WisataRedisServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+
+import java.io.IOException;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 02/04/2020.
@@ -33,6 +38,8 @@ public class WisataController {
     @Autowired
     WisataRedisServiceImpl wisataRedisService;
 
+    @Autowired
+    ImageService imageService;
 
     @GetMapping(WisataControllerRoute.ROUTE_WISATA_All)
     public Mono<ResponseEntity<?>> findAll() {
@@ -81,6 +88,14 @@ public class WisataController {
     public ResponseEntity<?> updateBySku(@RequestBody WisataRequest request, @PathVariable String sku) {
         wisataService.updateWisata(sku, request).subscribe();
         return ResponseEntity.ok(request);
+    }
+
+    @GetMapping(WisataControllerRoute.ROUTE_WISATA_GET_IMAGE)
+    public ResponseEntity<byte[]> getImage(@PathVariable String filePath) throws IOException {
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setContentType(MediaType.IMAGE_PNG);
+        return new ResponseEntity<byte[]>(imageService.loadImage("Wisata", filePath), headers, HttpStatus.OK);
     }
 
 

@@ -49,7 +49,7 @@ public class TourGuideController {
     @PostMapping(TourGuideControllerRoute.ROUTE_TO_ADD_TOUR_GUIDE)
     public Mono<ResponseEntity<?>> addTourGuide(@RequestBody TourGuideRequest tourGuideRequest) {
 
-        return tourGuideService.addTourGuide(tourGuideRequest).
+        return Mono.fromCallable(() ->tourGuideService.addTourGuide(tourGuideRequest).subscribe()).
                 flatMap(
                         data -> tourGuideService.findByName(tourGuideRequest.getName())
                 ).map(data -> {
