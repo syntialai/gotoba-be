@@ -22,9 +22,7 @@
         "total": 50000,
         "status": "ACCEPTED",
         "orderId": 1,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }, {
         "id": 2,
@@ -33,9 +31,7 @@
         "total": 100000,
         "status": "WAITING",
         "orderId": 1,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }, {
         "id": 3,
@@ -44,9 +40,7 @@
         "total": 100000,
         "status": "CANCELLED",
         "orderId": 1,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }]
 }
@@ -97,9 +91,7 @@
         "total": 50000,
         "status": "ACCEPTED",
         "orderId": 1,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }, {
         "id": 2,
@@ -108,9 +100,7 @@
         "total": 100000,
         "status": "WAITING",
         "orderId": 1,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }, {
         "id": 3,
@@ -119,9 +109,7 @@
         "total": 100000,
         "status": "CANCELLED",
         "orderId": 1,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }]
 }
@@ -151,7 +139,7 @@
 
 ## Get Payment by User Sku and by Status
 
-+ Endpoint : ``/pay/{userSku}/{status}``
++ Endpoint : ``/pay/{userSku}/status/{status}``
 + HTTP Method : `GET`
 + Path Variable :
   + userSku
@@ -172,9 +160,7 @@
         "total": 50000,
         "status": "ACCEPTED",
         "orderId": 1,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }]
 }
@@ -204,7 +190,7 @@
 
 ## Get Payment by Sku
 
-+ Endpoint : ``/pay/{sku}``
++ Endpoint : ``/pay/sku/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
   + sku
@@ -224,9 +210,7 @@
         "total": 50000,
         "status": "ACCEPTED",
         "orderId": 1,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }
 }
@@ -266,6 +250,8 @@
 {
     "total": 50000,
     "status": "WAITING",
+    "category": "rest",
+    "merchantSku": "synt_merc_0001",
     "orderId": 2
 }
 ```
@@ -286,9 +272,7 @@
         "total": 50000,
         "status": "WAITING",
         "orderId": 2,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }
 }
@@ -358,9 +342,7 @@
         "total": 50000,
         "status": "ACCEPTED",
         "orderId": 2,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }
 }

@@ -16,7 +16,7 @@ public class MenuRestaurantsRequest {
     private String category;
     private String harga;
     private String status;
-    private String restoranSku;
+    private String restaurantSku;
     private String merchantSku;
 
 }

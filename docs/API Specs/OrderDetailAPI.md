@@ -2,7 +2,7 @@
 
 ## Get Order Detail by Sku
 
-+ Endpoint : ``/order/{sku}``
++ Endpoint : ``/order/sku/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
   + sku
@@ -21,9 +21,7 @@
         "quantity": 1,
         "price": 1000,
         "ticketId": 1,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }
 }
@@ -53,7 +51,7 @@
 
 ## Get Order Detail by Merchant Sku
 
-+ Endpoint : ``/order/{merchantSku}``
++ Endpoint : ``/order/merchant/{merchantSku}``
 + HTTP Method : `GET`
 + Path Variable :
   + merchantSku
@@ -72,9 +70,7 @@
         "quantity": 1,
         "price": 1000,
         "ticketId": 1,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }]
 }
@@ -123,9 +119,7 @@
         "quantity": 1,
         "price": 1000,
         "ticketId": 1,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }]
 }
@@ -165,7 +159,8 @@
 {
     "quantity": 1,
     "price": 1000,
-    "ticketId": 2
+    "ticketId": 2,
+    "merchantSku": "synt_merc_0001"
 }
 ```
 
@@ -184,9 +179,7 @@
         "quantity": 1,
         "price": 1000,
         "ticketId": 1,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }]
 }
@@ -245,9 +238,7 @@
         "quantity": 1,
         "price": 1000,
         "ticketId": 1,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }]
 }

@@ -11,6 +11,7 @@ import reactor.core.publisher.Mono;
  */
 @Repository
 public interface MenuRestaurantsRepo extends ReactiveMongoRepository<MenuRestaurants,Integer> {
-    public Mono<Void> deleteById(Integer id);
-    public Flux<MenuRestaurants> findAllByRestoranSku(String skuRestaurants);
+    public Mono<Void> deleteByIdAndRestaurantSku(Integer id,String sku);
+    public Flux<MenuRestaurants> findAllByRestaurantSku(String skuRestaurants);
+    public Mono<MenuRestaurants> findFirstByName(String name);
 }
