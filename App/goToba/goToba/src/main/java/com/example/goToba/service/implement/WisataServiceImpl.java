@@ -45,19 +45,19 @@ public class WisataServiceImpl implements WisataService {
                 .doOnNext(data -> {
                     File currentDirFile = new File("");
                     String helper = currentDirFile.getAbsolutePath();
-                    String currentDir = helper+"/src/main/resources/static/images/Wisata/";
-                    String pict ="/get/"+data.getKey() + "_000" + Integer.parseInt(data.getLast_seq())+".png";
+                    String currentDir = helper + "/src/main/resources/static/images/Wisata/";
+                    String pict = "/get/" + data.getKey() + "_000" + Integer.parseInt(data.getLast_seq()) + ".png";
                     String partSeparator = ",";
-                    String encodedImg ="";
+                    String encodedImg = "";
                     if (wisataRequest.getImage().contains(partSeparator)) {
                         encodedImg = wisataRequest.getImage().split(partSeparator)[1];
                     }
-                    File file =new File(currentDir+"/"+pict);
-                    try(FileOutputStream fos = new FileOutputStream(file)){
-                        byte[] dataBytes =  Base64.getMimeDecoder().decode(encodedImg);
+                    File file = new File(currentDir + "/" + pict);
+                    try (FileOutputStream fos = new FileOutputStream(file)) {
+                        byte[] dataBytes = Base64.getMimeDecoder().decode(encodedImg);
                         fos.write(dataBytes);
                         System.out.println("Image file saved " + wisataRequest.getImage());
-                    }catch(Exception e){
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                 })
@@ -67,7 +67,7 @@ public class WisataServiceImpl implements WisataService {
                             wisataRequest.getName(),
                             wisataRequest.getTitle(),
                             wisataRequest.getDescription(),
-                            "/get/"+data.getKey() + "_000" + Integer.parseInt(data.getLast_seq())+".png",
+                            "/get/" + data.getKey() + "_000" + Integer.parseInt(data.getLast_seq()) + ".png",
                             wisataRequest.getAddress(),
                             wisataRequest.getCreatedBy(),
                             wisataRequest.getPrice(),
