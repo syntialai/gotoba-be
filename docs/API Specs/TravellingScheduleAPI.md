@@ -1,11 +1,11 @@
 # Travelling Schedule API
 
-## Get All My Schedule by Sku
+## Get All My Schedule by User Sku
 
-+ Endpoint : ``/schedule/{sku}``
++ Endpoint : ``/schedule/{userSku}``
 + HTTP Method : `GET`
 + Path Variable :
-  + sku
+  + userSku
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
@@ -43,8 +43,8 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Data not found",
-    "message": "Message: There is no schedule found in that sku",
-    "path": "/schedule/{sku}"
+    "message": "Message: There is no schedule found in that user sku",
+    "path": "/schedule/{userSku}"
 }
 ```
 
@@ -54,16 +54,16 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/schedule/{sku}"
+    "path": "/schedule/{userSku}"
 }
 ```
 
 ## Add Schedule by Sku
 
-+ Endpoint : ``/schedule/add/{sku}``
++ Endpoint : ``/schedule/{userSku}/add``
 + HTTP Method : `POST`
 + Path Variable :
-  + id
+  + sku
 + Request Body :
 
 ```json
@@ -97,7 +97,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Login required",
-    "path": "/schedule/add/{id}"
+    "path": "/schedule/{userSku}/add"
 }
 ```
 
@@ -107,7 +107,7 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find User with that sku.",
-    "path": "/schedule/add/{id}"
+    "path": "/schedule/{userSku}/add"
 }
 ```
 
@@ -207,7 +207,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Login required",
-    "path": "/schedule/add/{id}"
+    "path": "/schedule/edit/{id}"
 }
 ```
 
@@ -217,7 +217,7 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find Schedule with that id.",
-    "path": "/schedule/add/{id}"
+    "path": "/schedule/edit/{id}"
 }
 ```
 

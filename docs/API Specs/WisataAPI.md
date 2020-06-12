@@ -168,8 +168,8 @@
 
 ```json
 {
-    "code": 200,
-    "status": "OK",
+    "code": 201,
+    "status": "Created",
     "message" : "Tambah data wisata sukses"
 }
 ```

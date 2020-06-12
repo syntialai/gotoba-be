@@ -18,9 +18,17 @@
     "data": {
         "id": 1,
         "sku": "ORD_0001_0001_0001",
-        "quantity": 1,
-        "price": 1000,
-        "merchantSku": "synt_merc_0001",
+        "ticket": [{
+            "ticketSku": "TICK_REST_0001_0001",
+            "quantity": 1,
+            "price": 100000,
+            "merchantSku": "synt_merc_0001"
+        }, {
+            "ticketSku": "TICK_JOUR_0001_0002",
+            "quantity": 1,
+            "price": 100000,
+            "merchantSku": "synt_merc_0001"
+        }],
         "userSku": "sima_cust_001"
     }
 }
@@ -66,9 +74,17 @@
     "data": [{
         "id": 1,
         "sku": "ORD_0001_0001_0001",
-        "quantity": 1,
-        "price": 1000,
-        "merchantSku": "synt_merc_0001",
+        "ticket": [{
+            "ticketSku": "TICK_REST_0001_0001",
+            "quantity": 1,
+            "price": 100000,
+            "merchantSku": "synt_merc_0001"
+        }, {
+            "ticketSku": "TICK_JOUR_0001_0002",
+            "quantity": 1,
+            "price": 100000,
+            "merchantSku": "synt_merc_0001"
+        }],
         "userSku": "sima_cust_001"
     }]
 }
@@ -114,9 +130,17 @@
     "data": [{
         "id": 1,
         "sku": "ORD_0001_0001_0001",
-        "quantity": 1,
-        "price": 1000,
-        "merchantSku": "synt_merc_0001",
+        "ticket": [{
+            "ticketSku": "TICK_REST_0001_0001",
+            "quantity": 1,
+            "price": 100000,
+            "merchantSku": "synt_merc_0001"
+        }, {
+            "ticketSku": "TICK_JOUR_0001_0002",
+            "quantity": 1,
+            "price": 100000,
+            "merchantSku": "synt_merc_0001"
+        }],
         "userSku": "sima_cust_001"
     }]
 }
@@ -146,7 +170,7 @@
 
 ## Add Order Detail by User Sku
 
-+ Endpoint : ``/order/add/{userSku}``
++ Endpoint : ``/order/user/{userSku}/add``
 + HTTP Method : `POST`
 + Path Variable :
   + userSku
@@ -154,9 +178,13 @@
 
 ```json
 {
-    "quantity": 1,
-    "price": 1000,
-    "merchantSku": "synt_merc_0001"
+    "ticket": [{
+        "ticketSku": "TICK_JOUR_0001_0002",
+        "quantity": 1,
+        "price": 100000,
+        "merchantSku": "synt_merc_0001"
+    }],
+    "userSku": "sima_cust_001"
 }
 ```
 
@@ -167,15 +195,22 @@
 
 ```json
 {
-    "code": 200,
-    "status": "OK",
+    "code": 201,
+    "status": "Created",
     "data": [{
         "id": 1,
         "sku": "ORD_0001_0001_0001",
-        "quantity": 1,
-        "price": 1000,
-        "ticketId": 1,
-        "merchantSku": "synt_merc_0001",
+        "ticket": [{
+            "ticketSku": "TICK_REST_0001_0001",
+            "quantity": 1,
+            "price": 100000,
+            "merchantSku": "synt_merc_0001"
+        }, {
+            "ticketSku": "TICK_JOUR_0001_0002",
+            "quantity": 1,
+            "price": 100000,
+            "merchantSku": "synt_merc_0001"
+        }],
         "userSku": "sima_cust_001"
     }]
 }
@@ -189,7 +224,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/order/add/{userSku}"
+    "path": "/order/user/{userSku}/add"
 }
 ```
 
@@ -198,8 +233,8 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find user with sku {sku}.",
-    "path": "/order/add/{userSku}"
+    "message": "Invalid Request: Cannot find user with sku BAC.",
+    "path": "/order/user/{userSku}/add"
 }
 ```
 
@@ -213,8 +248,13 @@
 
 ```json
 {
-    "quantity": 1,
-    "price": 1000
+    "ticket": [{
+        "ticketSku": "TICK_JOUR_0001_0002",
+        "quantity": 1,
+        "price": 100000,
+        "merchantSku": "synt_merc_0001"
+    }],
+    "userSku": "sima_cust_001"
 }
 ```
 
@@ -230,9 +270,12 @@
     "data": [{
         "id": 1,
         "sku": "ORD_0001_0001_0001",
-        "quantity": 1,
-        "price": 1000,
-        "merchantSku": "synt_merc_0001",
+        "ticket": [{
+            "ticketSku": "TICK_JOUR_0001_0002",
+            "quantity": 1,
+            "price": 100000,
+            "merchantSku": "synt_merc_0001"
+        }],
         "userSku": "sima_cust_001"
     }]
 }

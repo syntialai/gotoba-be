@@ -18,7 +18,6 @@
     "data": [{
         "id": 1,
         "sku": "REV_rest_0001_0001",
-        "category": "rest",
         "total": 50000,
         "status": "ACCEPTED",
         "orderId": 1,
@@ -27,7 +26,6 @@
     }, {
         "id": 2,
         "sku": "REV_rest_0001_0002",
-        "category": "rest",
         "total": 100000,
         "status": "WAITING",
         "orderId": 1,
@@ -36,7 +34,6 @@
     }, {
         "id": 3,
         "sku": "REV_rest_0001_0002",
-        "category": "rest",
         "total": 100000,
         "status": "CANCELLED",
         "orderId": 1,
@@ -70,7 +67,7 @@
 
 ## Get Payment by Merchant Sku and by Category
 
-+ Endpoint : ``/pay/merchant/{merchantSku}/{category}``
++ Endpoint : ``/pay/merchant/{merchantSku}/category/{category}``
 + HTTP Method : `GET`
 + Path Variable :
   + merchantSku
@@ -87,7 +84,6 @@
     "data": [{
         "id": 1,
         "sku": "REV_rest_0001_0001",
-        "category": "rest",
         "total": 50000,
         "status": "ACCEPTED",
         "orderId": 1,
@@ -96,7 +92,6 @@
     }, {
         "id": 2,
         "sku": "REV_rest_0001_0002",
-        "category": "rest",
         "total": 100000,
         "status": "WAITING",
         "orderId": 1,
@@ -105,7 +100,6 @@
     }, {
         "id": 3,
         "sku": "REV_rest_0001_0002",
-        "category": "rest",
         "total": 100000,
         "status": "CANCELLED",
         "orderId": 1,
@@ -123,7 +117,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/pay/merchant/{merchantSku}/{category}"
+    "path": "/pay/merchant/{merchantSku}/category/{category}"
 }
 ```
 
@@ -133,7 +127,7 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find payment with category ABC.",
-    "path": "/pay/merchant/{merchantSku}/{category}"
+    "path": "/pay/merchant/{merchantSku}/category/{category}"
 }
 ```
 
@@ -156,7 +150,6 @@
     "data": [{
         "id": 1,
         "sku": "REV_rest_0001_0001",
-        "category": "rest",
         "total": 50000,
         "status": "ACCEPTED",
         "orderId": 1,
@@ -206,7 +199,6 @@
     "data": {
         "id": 1,
         "sku": "REV_rest_0001_0001",
-        "category": "rest",
         "total": 50000,
         "status": "ACCEPTED",
         "orderId": 1,
@@ -250,7 +242,6 @@
 {
     "total": 50000,
     "status": "WAITING",
-    "category": "rest",
     "merchantSku": "synt_merc_0001",
     "orderId": 2
 }
@@ -263,8 +254,8 @@
 
 ```json
 {
-    "code": 200,
-    "status": "OK",
+    "code": 201,
+    "status": "Created",
     "data": {
         "id": 4,
         "sku": "REV_rest_0001_0004",

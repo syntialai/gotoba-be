@@ -85,7 +85,7 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find photo with id 10.",
+    "message": "Invalid Request: Cannot find photo with sku 10.",
     "path": "/gallery/{sku}"
 }
 ```
@@ -123,8 +123,8 @@
 
 ```json
 {
-    "code": 200,
-    "status": "OK",
+    "code": 201,
+    "status": "Created",
     "data": {
         "id": 1,
         "sku": "PHOTO_0000_0001",
@@ -225,7 +225,7 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find photo with id 10.",
+    "message": "Invalid Request: Cannot find photo with sku 10.",
     "path": "/gallery/edit/{sku}"
 }
 ```
@@ -266,7 +266,7 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot delete wisata with that sku.",
+    "message": "Invalid Request: Cannot find photo with sku ABC.",
     "path": "/gallery/delete/{sku}"
 }
 ```

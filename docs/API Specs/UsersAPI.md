@@ -51,13 +51,13 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/user"
+    "path": "/user/"
 }
 ```
 
 ## Get User by Sku
 
-+ Endpoint : ``/user/sku/{sku}``
++ Endpoint : ``/user/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
   + sku
@@ -104,7 +104,7 @@
 }
 ```
 
-## Get Users Active (by Status)
+## Get Users Active by Status
 
 + Endpoint : ``/user/active``
 + HTTP Method : `GET`
@@ -141,7 +141,7 @@
 }
 ```
 
-## Get Users Blocked (by Status)
+## Get User Blocked by Status
 
 + Endpoint : ``/users/blocked``
 + HTTP Method : `GET`
@@ -180,7 +180,7 @@
 
 ## Get User by Username
 
-+ Endpoint : ``/user/{username}``
++ Endpoint : ``/user/username/{username}``
 + HTTP Method : `GET`
 + Path Variable :
   + username
@@ -213,7 +213,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/user/{username}"
+    "path": "/user/username/{username}"
 }
 ```
 
@@ -223,7 +223,7 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find User with that username.",
-    "path": "/user/{username}"
+    "path": "/user/username/{username}"
 }
 ```
 
@@ -273,7 +273,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Email Address already in use!",
-    "path": "/user/{sku}"
+    "path": "/user/edit/{sku}"
 }
 ```
 
@@ -283,6 +283,6 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/user/{sku}"
+    "path": "/user/edit/{sku}"
 }
 ```

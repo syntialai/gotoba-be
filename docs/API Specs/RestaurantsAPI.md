@@ -75,7 +75,6 @@
   + merchantSku
 + Request Header :
   + Accept : `application/json`
-  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
 + Response Body (Success) :
 
 ```json
@@ -127,7 +126,7 @@
 }
 ```
 
-## Add new Restaurant
+## Add new Restaurant by Merchant Sku
 
 + Endpoint : ``/restaurant/add/{merchantSku}``
 + HTTP Method : `POST`
@@ -317,7 +316,6 @@
   + merchantSku
 + Request Header :
   + Accept : `application/json`
-  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
 + Response Body (Success) :
 
 ```json
@@ -363,7 +361,7 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find menu with that restaurant sku. ",
+    "message": "Invalid Request: Cannot find menu with that merchant sku. ",
     "path": "/restaurant/{merchantSku}/menu/"
 }
 ```
@@ -377,7 +375,6 @@
   + id
 + Request Header :
   + Accept : `application/json`
-  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
 + Response Body (Success) :
 
 ```json
@@ -446,7 +443,7 @@
 
 ```json
 {
-    "code": 200,
+    "code": 201,
     "status": "OK",
         "data": {
         "id":1,
@@ -554,7 +551,7 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find menu with taht id. ",
+    "message": "Invalid Request: Cannot find menu with id 1.",
     "path": "/restaurant/{merchantSku}/menu/edit/{id}"
 }
 ```

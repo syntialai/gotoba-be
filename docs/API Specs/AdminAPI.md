@@ -43,7 +43,7 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find merchant with id ABC.",
+    "message": "Invalid Request: Cannot find admin with sku ABC.",
     "path": "/admin/{sku}"
 }
 ```
@@ -71,8 +71,8 @@
 
 ```json
 {
-    "code": 200,
-    "status": "OK",
+    "code": 201,
+    "status": "Created",
     "data": {
         "id": 2,
         "sku": "Adm-0002",
@@ -106,7 +106,7 @@
 }
 ```
 
-## Edit Admin by Id
+## Edit Admin by Sku
 
 + Endpoint : ``/admin/edit/{sku}``
 + HTTP Method : `PUT`
@@ -169,7 +169,7 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find merchant with id ABC.",
+    "message": "Invalid Request: Cannot find admin with sku ABC.",
     "path": "/admin/edit/{sku}"
 }
 ```
