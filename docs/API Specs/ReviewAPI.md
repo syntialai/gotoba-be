@@ -101,7 +101,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/review?category={categoryName}&rate={rating}"
+    "path": "/review/{sku}/{rating}"
 }
 ```
 
@@ -110,16 +110,17 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find category with categoryName {categoryName}.",
-    "path": "/review?category={categoryName}&rate={rating}"
+    "message": "Invalid Request: Cannot find review with rating 1.",
+    "path": "/review/{sku}/{rating}"
 }
 ```
 
 ## Get Review by Id
 
-+ Endpoint : ``/review/{id}``
++ Endpoint : ``/review/{sku}/{id}``
 + HTTP Method : `GET`
 + Path Variable :
+  + sku
   + id
 + Request Header :
   + Accept : `application/json`
@@ -151,7 +152,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/review/{id}"
+    "path": "/review/{sku}/{id}"
 }
 ```
 
@@ -161,7 +162,7 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find review with id 2.",
-    "path": "/review/{id}"
+    "path": "/review/{sku}/{id}"
 }
 ```
 
@@ -187,8 +188,8 @@
 
 ```json
 {
-    "code": 200,
-    "status": "OK",
+    "code": 201,
+    "status": "Created",
     "data": {
         "id": 1,
         "rating": 5.0,
