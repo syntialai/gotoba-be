@@ -67,15 +67,14 @@
 }
 ```
 
-## Get Restaurant by Sku
+## Get Restaurant by Merchant Sku
 
-+ Endpoint : ``/restaurant/{sku}``
++ Endpoint : ``/restaurant/{merchantSku}``
 + HTTP Method : `GET`
 + Path Variable :
-  + sku
+  + merchantSku
 + Request Header :
   + Accept : `application/json`
-  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
 + Response Body (Success) :
 
 ```json
@@ -113,7 +112,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/restaurant/{sku}"
+    "path": "/restaurant/{merchantSku}"
 }
 ```
 
@@ -123,14 +122,16 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find restaurant with sku MER-123.",
-    "path": "/restaurant/{sku}"
+    "path": "/restaurant/{merchantSku}"
 }
 ```
 
-## Add new Restaurant
+## Add new Restaurant by Merchant Sku
 
-+ Endpoint : ``/restaurant/add/{skuMerchant}``
++ Endpoint : ``/restaurant/add/{merchantSku}``
 + HTTP Method : `POST`
++ Path Variable :
+  + merchantSku
 + Request Body :
 
 ```json
@@ -192,7 +193,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/restaurant/add"
+    "path": "/restaurant/add/{merchantSku}"
 }
 ```
 
@@ -202,7 +203,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/restaurant/add"
+    "path": "/restaurant/add/{merchantSku}"
 }
 ```
 
@@ -212,16 +213,16 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find restaurant with sku {sku}.",
-    "path": "/restaurant/add"
+    "path": "/restaurant/add/{merchantSku}"
 }
 ```
 
-## Edit Restaurant by Sku
+## Edit Restaurant by Merchant Sku
 
-+ Endpoint : ``/restaurant/edit/{sku}``
++ Endpoint : ``/restaurant/edit/{merchantSku}``
 + HTTP Method : `PUT`
 + Path Variable :
-  + sku
+  + merchantSku
 + Request Body :
 
 ```json
@@ -237,7 +238,7 @@
         "thursday": ["8AM", "10PM"],
         "friday": ["8AM", "10PM"],
         "saturday": ["8AM", "10PM"],
-        "sunday": ["8AM", "10PM"]       
+        "sunday": ["8AM", "10PM"]
     },
     "phone": "+62813 9791 4229"
 }
@@ -283,7 +284,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/restaurant/edit/{sku}"
+    "path": "/restaurant/edit/{merchantSku}"
 }
 ```
 
@@ -293,7 +294,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/restaurant/edit/{sku}"
+    "path": "/restaurant/edit/{merchantSku}"
 }
 ```
 
@@ -302,20 +303,19 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find restaurant with sku {sku}.",
-    "path": "/restaurant/edit/{sku}"
+    "message": "Invalid Request: Cannot find restaurant with merchant sku ABC.",
+    "path": "/restaurant/edit/{merchantSku}"
 }
 ```
 
-## Get All Menus by Restaurant Sku
+## Get All Menus by Merchant Sku
 
-+ Endpoint : ``/restaurant/{sku}/menu/``
++ Endpoint : ``/restaurant/{merchantSku}/menu/``
 + HTTP Method : `GET`
 + Path Variable :
-  + sku
+  + merchantSku
 + Request Header :
   + Accept : `application/json`
-  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
 + Response Body (Success) :
 
 ```json
@@ -352,7 +352,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/restaurant/{sku}/menu/"
+    "path": "/restaurant/{merchantSku}/menu/"
 }
 ```
 
@@ -361,20 +361,20 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find menu with that restaurant sku. ",
-    "path": "/restaurant/{sku}/menu/"
+    "message": "Invalid Request: Cannot find menu with that merchant sku. ",
+    "path": "/restaurant/{merchantSku}/menu/"
 }
 ```
 
-## Get Restaurant Menu by Id
+## Get Restaurant Menu by Merchant Sku and by Id
 
-+ Endpoint : ``/restaurant/menu/{id}``
++ Endpoint : ``/restaurant/{merchantSku}/menu/{id}``
 + HTTP Method : `GET`
 + Path Variable :
+  + merchantSku
   + id
 + Request Header :
   + Accept : `application/json`
-  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
 + Response Body (Success) :
 
 ```json
@@ -402,7 +402,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/restaurant/menu/{id}"
+    "path": "/restaurant/{merchantSku}/menu/{id}"
 }
 ```
 
@@ -411,17 +411,17 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find menu with that skuRestaurant. ",
-    "path": "/restaurant/menu/{id}"
+    "message": "Invalid Request: Cannot find menu with merchantSku MER-123.",
+    "path": "/restaurant/{merchantSku}/menu/{id}"
 }
 ```
 
-## Add new Restaurant Menu by Restaurant Sku
+## Add new Restaurant Menu by Merchant Sku
 
-+ Endpoint : ``/restaurant/{sku}/menu/add``
++ Endpoint : ``/restaurant/{merchantSku}/menu/add``
 + HTTP Method : `POST`
 + Path Variable :
-  + sku
+  + merchantSku
 + Request Body :
 
 ```json
@@ -443,7 +443,7 @@
 
 ```json
 {
-    "code": 200,
+    "code": 201,
     "status": "OK",
         "data": {
         "id":1,
@@ -466,7 +466,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid picture format, picture must be .png/.jpg/,.jpeg !",
-    "path": "/restaurant/{sku}/menu/add"
+    "path": "/restaurant/{merchantSku}/menu/add"
 }
 ```
 
@@ -476,16 +476,16 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/restaurant/{sku}/menu/add"
+    "path": "/restaurant/{merchantSku}/menu/add"
 }
 ```
 
-## Edit Restaurant Menu by Id and by Restaurant Sku
+## Edit Restaurant Menu by Id and by Merchant Sku
 
-+ Endpoint : `/restaurant/{sku}/menu/edit/{id}`
++ Endpoint : `/restaurant/{merchantSku}/menu/edit/{id}`
 + HTTP Method : `PUT`
 + Path Variable :
-  + sku
+  + merchantSku
   + id
 + Request Body :
 
@@ -532,7 +532,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid picture format, picture must be .png/.jpg/,.jpeg !",
-    "path": "/restaurant/{sku}/menu/edit/{id}"
+    "path": "/restaurant/{merchantSku}/menu/edit/{id}"
 }
 ```
 
@@ -542,7 +542,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/restaurant/{sku}/menu/edit/{id}"
+    "path": "/restaurant/{merchantSku}/menu/edit/{id}"
 }
 ```
 
@@ -551,17 +551,17 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find menu with taht id. ",
-    "path": "/restaurant/{sku}/menu/edit/{id}"
+    "message": "Invalid Request: Cannot find menu with id 1.",
+    "path": "/restaurant/{merchantSku}/menu/edit/{id}"
 }
 ```
 
 ## Delete Restaurant Menu by Id and by Restaurant Sku
 
-+ Endpoint : ``/restaurant/{sku}/menu/delete/{id}``
++ Endpoint : ``/restaurant/{merchantSku}/menu/delete/{id}``
 + HTTP Method : `DELETE`
 + Path Variable :
-  + sku
+  + merchantSku
   + id
 + Request Header :
   + Accept : `application/json`
@@ -594,7 +594,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/restaurant/menu/delete/{id}"
+    "path": "/restaurant/{merchantSku}/menu/delete/{id}"
 }
 ```
 
@@ -604,6 +604,6 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find menu with that id. ",
-    "path": "/restaurant/menu/delete/{id}"
+    "path": "/restaurant/{merchantSku}/menu/delete/{id}"
 }
 ```
