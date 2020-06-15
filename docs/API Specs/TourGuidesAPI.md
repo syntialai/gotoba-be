@@ -146,8 +146,8 @@
 
 ```json
 {
-    "code": 200,
-    "status": "OK",
+    "code": 201,
+    "status": "Created",
     "data": {
         "id": 1,
         "sku": "TG_ANAS_0001",

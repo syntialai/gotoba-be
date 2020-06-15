@@ -24,9 +24,10 @@
 ```json
 {
     "timestamp": "2019-08-23T04:22:26.690+0000",
-    "code" : 200,
-    "status" : "OK",
-    "message" : "User registered successfully"
+    "code": 200,
+    "status": "OK",
+    "message": "User registered successfully",
+    "path": "/auth/signup"
 }
 ```
 
@@ -37,7 +38,8 @@
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 400,
     "error": "Bad Request",
-    "message": "Email Address already in use!"
+    "message": "Email Address already in use!",
+    "path": "/auth/signup"
 }
 ```
 
@@ -46,7 +48,8 @@
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "status": 400,
     "error": "Bad Request",
-    "message": "Username already in use!"
+    "message": "Username already in use!",
+    "path": "/auth/signup"
 }
 ```
 
@@ -83,7 +86,8 @@
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "code": 400,
     "status": "Bad Request",
-    "message": "Invalid Request: Invalid user authentication or invalid request format"
+    "message": "Invalid Request: Invalid user authentication or invalid request format",
+    "path": "/auth/login"
 }
 ```
 
@@ -92,6 +96,7 @@
     "timestamp": "2019-08-23T04:22:26.690+0000",
     "code": 401,
     "status": "Unauthorized",
-    "message": "username or password is wrong"
+    "message": "username or password is wrong",
+    "path": "/auth/login"
 }
 ```
