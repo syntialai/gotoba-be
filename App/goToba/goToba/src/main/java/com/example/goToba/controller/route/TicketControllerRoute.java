@@ -8,6 +8,6 @@ public interface TicketControllerRoute {
     String ROUTE_TICKET_ALL = "/ticket/";
     String ROUTE_TICKET_ALL_BY_MERCHANT_SKU = "/merchant/{merchantSku}";
     String ROUTE_TICKET_ALL_BY_CATEGORY = "/category/{category}";
-    String ROUTE_TICKET_ALL_BY_SKU = "/{sku}";
+    String ROUTE_TICKET_BY_SKU = "/{sku}";
     String ROUTE_TICKET_ALL_BY_SKU_USER = "/user/{userSku}";
 }

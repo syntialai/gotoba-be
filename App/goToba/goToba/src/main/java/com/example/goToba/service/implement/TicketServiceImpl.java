@@ -1,12 +1,16 @@
 package com.example.goToba.service.implement;
 
 import com.example.goToba.model.Ticket;
+import com.example.goToba.repository.OrderDetailRepo;
 import com.example.goToba.repository.TicketRepo;
 import com.example.goToba.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 13/06/2020.
@@ -16,6 +20,9 @@ import reactor.core.publisher.Mono;
 public class TicketServiceImpl implements TicketService {
     @Autowired
     TicketRepo ticketRepo;
+
+    @Autowired
+    OrderDetailRepo orderDetailRepo;
 
     @Override
     public Flux<Ticket> findAllByMerchantSku(String sku) {
@@ -39,6 +46,20 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Flux<Ticket> findBySkuUser(String skuUser) {
-        return ticketRepo.findAll().filter(data -> data.);
+        return null;
+//        List<Ticket> list = new ArrayList<>();
+//        return orderDetailRepo.findAllByUserSku(skuUser).collectList().
+//                flatMapIterable(data -> {
+//                    for(int i=0 ; i<data.size() ; i++){
+//                        Ticket ticket= new Ticket(
+//                                data.get(i).getId(),
+//                                data.get(i).getSku(),
+//                                data.get(i).ge(),
+//
+//                        );
+//                        list.add(ticket);
+//                    }
+//                    return list;
+//                });
     }
 }

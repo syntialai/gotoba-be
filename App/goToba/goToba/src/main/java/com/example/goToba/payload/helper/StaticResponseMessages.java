@@ -12,4 +12,5 @@ public interface StaticResponseMessages {
     public String  RESPONSE_MESSAGES_FOR_DELETE_SCHEDULE = "Schedule deleted with id ";
     public String  RESPONSE_MESSAGES_FOR_UPDATE_SUKSES = "Update Sukses";
     public String  RESPONSE_MESSAGES_FOR_DELETE_SUKSES = "Delete Sukses";
+    public String  RESPONSE_MESSAGES_FOR_NOT_FOUND = "Invalid Request: Cannot find ";
 }

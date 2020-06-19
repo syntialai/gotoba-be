@@ -3,6 +3,7 @@ package com.example.goToba.repository;
 import com.example.goToba.model.OrderDetail;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -13,4 +14,7 @@ public interface OrderDetailRepo extends ReactiveMongoRepository<OrderDetail,Int
 
     Mono<OrderDetail> findFirstBySku(String sku);
     Mono<OrderDetail> findFirstByUserSku(String skUser);
+    Boolean  existsBySku(String sku);
+    Boolean existsByUserSku(String userSku);
+    Flux<OrderDetail> findAllByUserSku(String userSku);
 }

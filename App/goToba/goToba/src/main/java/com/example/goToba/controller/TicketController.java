@@ -38,13 +38,13 @@ public class TicketController {
         });
     }
 
-    @GetMapping(TicketControllerRoute.ROUTE_TICKET_ALL_BY_SKU)
+    @GetMapping(TicketControllerRoute.ROUTE_TICKET_BY_SKU)
     public ResponseEntity<?> findBySku(@PathVariable String sku){
         return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS,StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK,ticketService.findBySku(sku)));
     }
 
     @GetMapping(TicketControllerRoute.ROUTE_TICKET_ALL_BY_SKU_USER)
     public ResponseEntity<?> findBySkuUser(@PathVariable String userSku){
-        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS,StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK,ticketService.findBySku(sku)));
+        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS,StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK,ticketService.findBySku(userSku)));
     }
 }

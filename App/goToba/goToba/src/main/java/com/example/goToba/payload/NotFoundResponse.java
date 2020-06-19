@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 /**
  * Created by Sogumontar Hendra Simangunsong on 05/06/2020.
  */
-@AllArgsConstructor
 @Data
 @NoArgsConstructor
 public class NotFoundResponse {
@@ -17,6 +16,11 @@ public class NotFoundResponse {
     String message;
     String path;
 
-    public NotFoundResponse(String asd, int i, String not_found, String s, String s1) {
+    public NotFoundResponse(String timestamp, Integer status, String error, String message, String path) {
+        this.timestamp = timestamp;
+        this.status = status;
+        this.error = error;
+        this.message = message;
+        this.path = path;
     }
 }
