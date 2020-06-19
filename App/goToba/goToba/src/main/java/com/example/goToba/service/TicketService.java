@@ -1,6 +1,7 @@
 package com.example.goToba.service;
 
 import com.example.goToba.model.Ticket;
+import com.example.goToba.payload.request.TicketRequest;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -13,4 +14,7 @@ public interface TicketService {
     Flux<Ticket> findAllByCategory(String category);
     Mono<Ticket> findBySku(String sku);
     Flux<Ticket> findBySkuUser(String skuUser);
+    Mono<Ticket> addByMerchantSku(String merchantSku, TicketRequest ticketRequest);
+    Mono<Ticket> editBySku(String sku, TicketRequest ticketRequest);
+    Mono<Ticket> deleteBySku(String sku);
 }
