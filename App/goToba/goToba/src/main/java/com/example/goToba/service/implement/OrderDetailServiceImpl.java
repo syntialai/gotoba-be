@@ -2,6 +2,7 @@ package com.example.goToba.service.implement;
 
 import com.example.goToba.controller.route.OrderDetailControllerRoute;
 import com.example.goToba.model.OrderDetail;
+import com.example.goToba.model.Restaurant;
 import com.example.goToba.payload.AuthenticationResponse;
 import com.example.goToba.payload.JwtLoginResponse;
 import com.example.goToba.payload.NotFoundResponse;
@@ -14,6 +15,7 @@ import com.example.goToba.payload.request.OrderDetailTicket;
 import com.example.goToba.repository.OrderDetailRepo;
 import com.example.goToba.service.OrderDetailService;
 import com.example.goToba.service.redisService.OrderDetailRedisService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,6 +76,26 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
     @Override
     public Mono<OrderDetail> editBySkuUser(String sku, OrderDetailRequest orderDetailRequest) {
-        return null;
+        return Mono.fromCallable(() -> orderDetailRequest)
+                .flatMap(data -> orderDetailRepo.findFirstBySku(sku))
+                .doOnNext(i -> {
+                    orderDetailRepo.deleteBySku(sku).subscribe();
+                    orderDetailRedisService.delete(sku);
+                })
+                .flatMap(data -> {
+                    OrderDetail orderDetail =new OrderDetail(
+                            sku,
+                            orderDetailRequest.getTicket(),
+                            data.getUserSku()
+                    );
+                    orderDetailRedisService.add(orderDetail);
+                    return orderDetailRepo.save(orderDetail);
+                });
+
+    }
+
+    @Override
+    public Mono<Boolean> deleteBySku(String sku){
+        return  orderDetailRepo.deleteBySku(sku);
     }
 }

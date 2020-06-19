@@ -14,6 +14,7 @@ public interface OrderDetailRepo extends ReactiveMongoRepository<OrderDetail,Int
 
     Mono<OrderDetail> findFirstBySku(String sku);
     Mono<OrderDetail> findFirstByUserSku(String skUser);
+    Mono<Boolean> deleteBySku(String sku);
     Boolean  existsBySku(String sku);
     Boolean existsByUserSku(String userSku);
     Flux<OrderDetail> findAllByUserSku(String userSku);
