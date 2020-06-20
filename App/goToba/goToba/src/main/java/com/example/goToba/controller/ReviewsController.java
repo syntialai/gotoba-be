@@ -7,6 +7,7 @@ import com.example.goToba.payload.helper.StaticResponseCode;
 import com.example.goToba.payload.helper.StaticResponseMessages;
 import com.example.goToba.payload.helper.StaticResponseStatus;
 import com.example.goToba.payload.request.ReviewRequest;
+import com.example.goToba.repository.RestaurantRepo;
 import com.example.goToba.service.ReviewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,9 @@ import java.sql.Timestamp;
 public class ReviewsController {
     @Autowired
     ReviewsService reviewsService;
+
+    @Autowired
+    RestaurantRepo restaurantRepo;
 
     @GetMapping(ReviewsControllerRoute.ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA)
     public Mono<ResponseEntity<?>> findAllBySkuWisataOrRestaurants(@PathVariable String sku) {
@@ -64,7 +68,11 @@ public class ReviewsController {
 
     @PostMapping(ReviewsControllerRoute.ROUTE_ADD_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA)
     public ResponseEntity<?> addReview(@PathVariable String sku, @PathVariable String userSku, @RequestBody ReviewRequest reviewRequest){
-        reviewsService.addReviewBySku(sku,userSku,reviewRequest);
+        if(restaurantRepo.findBySku(sku).map(data -> data.getMerchantSku()!=null)){
+            reviewsService.addReviewRestaurants(sku,userSku,reviewRequest).subscribe();
+        }else{
+            reviewsService.addReviewWisata(sku,userSku,reviewRequest).subscribe();
+        }
         return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS_CREATED,StaticResponseStatus.RESPONSE_STATUS_CREATED,reviewRequest));
     }
 }

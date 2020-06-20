@@ -1,8 +1,12 @@
 package com.example.goToba.payload.request;
 
+import lombok.NoArgsConstructor;
+
 /**
  * Created by Sogumontar Hendra Simangunsong on 20/06/2020.
  */
+
+@NoArgsConstructor
 public class ReviewRequest {
     Double rating;
     String comment;

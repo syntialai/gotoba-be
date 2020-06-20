@@ -32,27 +32,40 @@ public class ReviewsServiceImpl implements ReviewsService {
     @Override
     public Flux<Reviews> findAllBySkuWisataOrRestaurants(String sku) {
         String skuMerchant;
-        if(reviewsRepo.existsByMerchantSku(findSkuMerchantByRestaurant(sku).toString())){
+        if (reviewsRepo.existsByMerchantSku(findSkuMerchantByRestaurant(sku).toString())) {
             return reviewsRepo.findAllByMerchantSku(findSkuMerchantByRestaurant(sku).toString());
         }
         return reviewsRepo.findAllByMerchantSku(findSkuMerchantByWisata(sku).toString());
     }
 
     @Override
-    public void addReviewBySku(String sku, String userSku, ReviewRequest reviewRequest) {
-        if(findSkuMerchantByRestaurant(sku).toString().equals("")){
-            restaurantRepo.findBySku(sku).map(data -> {
-                Reviews reviews = new Reviews(
-                        (int) UUID.randomUUID().getMostSignificantBits(),
-                        reviewRequest.getRating(),
-                        reviewRequest.getComment(),
-                        data.getMerchantSku(),
-                        userSku
-                        );
-                return reviewsRepo.save(reviews);
-            });
-        }
-        restaurantRepo.findBySku(sku).map(data -> {
+    public Mono<Reviews> addReviewBySku(String sku, String userSku, ReviewRequest reviewRequest) {
+        return null;
+//        return restaurantRepo.findBySku(sku).map(data -> {
+//            if (data.getMerchantSku() != null) {
+//                return addReviewRestaurants(sku, userSku, reviewRequest).subscribe();
+//            }
+//            return addReviewWisata(sku, userSku, reviewRequest).subscribe();
+//        });
+    }
+
+    @Override
+    public Mono<Reviews> addReviewWisata(String sku, String userSku, ReviewRequest reviewRequest) {
+        return wisataRepo.findFirstBySkuWisata(sku).flatMap(data -> {
+            Reviews reviews = new Reviews(
+                    (int) UUID.randomUUID().getMostSignificantBits(),
+                    reviewRequest.getRating(),
+                    reviewRequest.getComment(),
+                    data.getCreatedBy(),
+                    userSku
+            );
+            return reviewsRepo.save(reviews);
+        });
+    }
+
+    @Override
+    public Mono<Reviews> addReviewRestaurants(String sku, String userSku, ReviewRequest reviewRequest) {
+        return restaurantRepo.findBySku(sku).flatMap(data -> {
             Reviews reviews = new Reviews(
                     (int) UUID.randomUUID().getMostSignificantBits(),
                     reviewRequest.getRating(),
@@ -64,13 +77,13 @@ public class ReviewsServiceImpl implements ReviewsService {
         });
     }
 
-    public Mono<String> findSkuMerchantByWisata(String sku){
-            return wisataRepo.findFirstBySkuWisata(sku).map(data -> {
-                return data.getCreatedBy().toString();
-            });
+    public Mono<String> findSkuMerchantByWisata(String sku) {
+        return wisataRepo.findFirstBySkuWisata(sku).map(data -> {
+            return data.getCreatedBy().toString();
+        });
     }
 
-    public Mono<String> findSkuMerchantByRestaurant(String sku){
+    public Mono<String> findSkuMerchantByRestaurant(String sku) {
         return restaurantRepo.findBySku(sku).map(data -> {
             return data.getMerchantSku().toString();
         });
