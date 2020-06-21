@@ -33,8 +33,7 @@ public class AdminController {
                 return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, admin));
             }
             return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "review with sku " + sku, AdminControllerRoute.ROUTE_FOR_ADMIN + AdminControllerRoute.ROUTE_FOR_ADMIN_BY_SKU));
-        }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "review with sku " + sku, AdminControllerRoute.ROUTE_FOR_ADMIN + AdminControllerRoute.ROUTE_FOR_ADMIN_BY_SKU))););
+        }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "review with sku " + sku, AdminControllerRoute.ROUTE_FOR_ADMIN + AdminControllerRoute.ROUTE_FOR_ADMIN_BY_SKU)));
     }
 
-    @GetMapping
 }

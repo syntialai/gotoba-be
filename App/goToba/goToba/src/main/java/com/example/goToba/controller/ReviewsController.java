@@ -68,11 +68,7 @@ public class ReviewsController {
 
     @PostMapping(ReviewsControllerRoute.ROUTE_ADD_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA)
     public ResponseEntity<?> addReview(@PathVariable String sku, @PathVariable String userSku, @RequestBody ReviewRequest reviewRequest){
-        if(restaurantRepo.findBySku(sku).map(data -> data.getMerchantSku()!=null)){
             reviewsService.addReviewRestaurants(sku,userSku,reviewRequest).subscribe();
-        }else{
-            reviewsService.addReviewWisata(sku,userSku,reviewRequest).subscribe();
-        }
         return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS_CREATED,StaticResponseStatus.RESPONSE_STATUS_CREATED,reviewRequest));
     }
 }

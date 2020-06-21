@@ -16,12 +16,13 @@
     "code": 200,
     "status": "OK",
     "data": {
-        "id": 1,
-        "sku": "Adm-0001",
-        "name": "Hendra Simangunsong",
-        "username": "Admin1",
-        "email": "hendra@gmail.com",
-        "status": 1
+       "sku" : "josh_merc_001",
+       "nickname" : "joshua",
+       "username" : "joshua",
+       "email" : "joshua@gmail.com",
+       "password" : "joshua",
+       "role" : "Merchant",
+       "status" : "active"
     }
 }
 ```
