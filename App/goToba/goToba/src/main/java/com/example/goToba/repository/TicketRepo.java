@@ -11,4 +11,5 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface TicketRepo extends ReactiveMongoRepository<Ticket,Integer> {
     Mono<Ticket> findFirstBySku(String sku);
+    Mono<Boolean> deleteBySku(String sku);
 }

@@ -10,10 +10,16 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class AuthenticationResponse {
     String timestamp;
     Integer code;
     String status;
     String message;
+
+    public AuthenticationResponse(String timestamp, Integer code, String status, String message) {
+        this.timestamp = timestamp;
+        this.code = code;
+        this.status = status;
+        this.message = message;
+    }
 }

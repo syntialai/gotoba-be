@@ -19,17 +19,13 @@
         "id": 1,
         "rating": 5.0,
         "comment": null,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }, {
         "id": 2,
         "rating": 4.7,
         "comment": null,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }]
 }
@@ -77,17 +73,13 @@
         "id": 1,
         "rating": 5.0,
         "comment": null,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }, {
         "id": 2,
         "rating": 5.0,
         "comment": null,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }]
 }
@@ -117,7 +109,7 @@
 
 ## Get Review by Id
 
-+ Endpoint : ``/review/{sku}/{id}``
++ Endpoint : ``/review/{sku}/id/{id}``
 + HTTP Method : `GET`
 + Path Variable :
   + sku
@@ -136,9 +128,7 @@
         "category": "rest",
         "rating": 5.0,
         "comment": null,
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }
 }
@@ -168,7 +158,7 @@
 
 ## Add Review by Wisata / Restaurant Sku
 
-+ Endpoint : ``/review/{sku}/add``
++ Endpoint : ``/review/{sku}/user/{userSku}/add``
 + HTTP Method : `GET`
 + Path Variable :
   + sku
@@ -194,9 +184,7 @@
         "id": 1,
         "rating": 5.0,
         "comment": "OK",
-        "merchantId": 1,
         "merchantSku": "synt_merc_0001",
-        "userId": 1,
         "userSku": "sima_cust_001"
     }
 }
@@ -212,7 +200,7 @@
     "message": "Invalid Request: Invalid request format.",
     "path": "/review/{sku}/add"
 }
-
+```
 ```json
 {
     "timestamp": "2016-11-15T22:55:40.110Z",

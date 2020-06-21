@@ -1,23 +1,20 @@
-package com.example.goToba.model;
+package com.example.goToba.payload.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 12/06/2020.
+ * Created by Sogumontar Hendra Simangunsong on 19/06/2020.
  */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Ticket {
-    Integer id;
-    String sku;
+public class TicketRequest {
     String category;
     Integer price;
     String expiredDate;
     String merchantSku;
-    String createdAt;
-    String status;
+
 
 }
