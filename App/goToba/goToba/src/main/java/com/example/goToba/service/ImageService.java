@@ -8,4 +8,5 @@ import java.io.IOException;
 public interface ImageService {
 
     byte[] loadImage(String path,String fileName) throws IOException;
+    void addPicture(String base64, String sku, String path) throws IOException;
 }

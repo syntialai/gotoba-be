@@ -7,20 +7,26 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.io.IOException;
+
 /**
  * Created by Sogumontar Hendra Simangunsong on 16/04/2020.
  */
 @Service
 public interface GaleryService {
-    public Flux<Galery> findAllGalery();
+    Flux<Galery> findAllGalery();
 
-    public Mono<Galery> findGaleryBySku(String sku);
+    Mono<Galery> findGaleryBySku(String sku);
 
-    public Mono<Galery> addNewFoto(GaleryRequest galeryRequest);
+    Mono<Galery> addNewFoto(GaleryRequest galeryRequest) throws IOException;
 
+    Mono<Galery> updateBySku(String sku, GaleryRequest request);
 
-    public Mono<Galery> updateBySku(String sku, GaleryRequest request);
-    public Mono<Galery> suspendBySku(String sku);
-    public Mono<Galery> activateBySku(String sku);
-    public String substring(String str);
+    Mono<Galery> suspendBySku(String sku);
+
+    Mono<Galery> activateBySku(String sku);
+
+    String substring(String str);
+
+    byte[] loadImage(String path,String fileName) throws IOException;
 }

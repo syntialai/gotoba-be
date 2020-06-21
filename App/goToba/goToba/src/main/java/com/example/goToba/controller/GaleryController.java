@@ -13,10 +13,15 @@ import com.example.goToba.service.implement.GaleryServiceImpl;
 import com.example.goToba.service.redisService.GaleryServiceRedis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+
+import java.io.IOException;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 16/04/2020.
@@ -61,7 +66,7 @@ public class GaleryController {
     }
 
     @PostMapping(GaleryControllerRoute.ROUTE_GALERY_ADD_NEW)
-    public ResponseEntity<?> addGalery(@RequestBody GaleryRequest request) {
+    public ResponseEntity<?> addGalery(@RequestBody GaleryRequest request) throws IOException {
         galeryService.addNewFoto(request).subscribe();
         return ResponseEntity.ok(new GaleryResponse(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, request));
     }
@@ -95,6 +100,13 @@ public class GaleryController {
     public ResponseEntity<?> deleteBySku(@PathVariable String sku) {
         galeryService.suspendBySku(sku).subscribe();
         return ResponseEntity.ok(new DeleteResponse(StaticResponseCode.RESPONSE_CODE_SUCCESS,StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, StaticResponseStatus.RESPONSE_STATUS_DELETE_SUCCESS_WISATA));
+    }
+
+    @GetMapping(GaleryControllerRoute.ROUTE_GALERY_GET_IMAGE)
+    public ResponseEntity<byte[]> getImage(@PathVariable String filePath) throws IOException{
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+        return new ResponseEntity<byte[]>(galeryService.loadImage("Gallery",filePath), headers, HttpStatus.OK);
     }
 
 }

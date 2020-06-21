@@ -7,13 +7,19 @@ import com.example.goToba.redis.template.RedisKeys;
 import com.example.goToba.repository.GaleryRepo;
 import com.example.goToba.repository.SequenceGaleryRepo;
 import com.example.goToba.service.GaleryService;
+import com.example.goToba.service.ImageService;
 import com.example.goToba.service.redisService.GaleryServiceRedis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.io.IOException;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 16/04/2020.
@@ -29,6 +35,9 @@ public class GaleryServiceImpl implements GaleryService {
 
     @Autowired
     GaleryServiceRedis galeryServiceRedis;
+
+    @Autowired
+    ImageService imageService;
 
     private HashOperations hashOperations;
 
@@ -60,7 +69,7 @@ public class GaleryServiceImpl implements GaleryService {
     }
 
     @Override
-    public Mono<Galery> addNewFoto(GaleryRequest request) {
+    public Mono<Galery> addNewFoto(GaleryRequest request) throws IOException {
         String key = substring(request.getName());
         return Mono.fromCallable(() -> sequenceGaleryRepo.findFirstByKey(key))
                 .flatMap(i -> sequenceGaleryRepo.findFirstByKey(key))
@@ -77,6 +86,13 @@ public class GaleryServiceImpl implements GaleryService {
                             request.getImage(),
                             Boolean.TRUE
                     );
+                    if (galery.getImage()!=""){
+                        try {
+                            imageService.addPicture( request.getImage(),galery.getSku(),"Gallery");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     galeryServiceRedis.add(galery);
                     return galeryRepo.save(galery);
                 });
@@ -142,5 +158,12 @@ public class GaleryServiceImpl implements GaleryService {
     @Override
     public String substring(String str) {
         return str.substring(0, 4).toUpperCase();
+    }
+
+    @Override
+    public byte[] loadImage(String path, String fileName) throws IOException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+        return imageService.loadImage("Gallery",fileName);
     }
 }
