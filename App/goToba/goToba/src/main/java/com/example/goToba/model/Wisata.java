@@ -17,6 +17,8 @@ public class Wisata {
     public String title;
     public String description;
     public String image;
+    public String longitude;
+    public String latitude;
     public String address;
     public String createdBy;
     public int price;
