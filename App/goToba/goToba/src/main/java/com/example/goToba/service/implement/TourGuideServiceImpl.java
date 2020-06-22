@@ -105,6 +105,35 @@ public class TourGuideServiceImpl implements TourGuideService {
     }
 
     @Override
+    public Mono<TourGuide> deleteTourGuide(String sku) {
+        return tourGuideRepo.findBySku(sku)
+                .flatMap(data -> tourGuideRepo.findBySku(sku))
+                .doOnNext(i -> tourGuideRepo.deleteBySku(sku).subscribe())
+                .flatMap(data ->{
+                    TourGuide tourGuide=new TourGuide(
+                            data.getId(),
+                            sku,
+                            data.getName(),
+                            data.getAge(),
+                            data.getOccupation(),
+                            data.getLocation(),
+                            data.getRating(),
+                            data.getLanguage(),
+                            data.getAvailableLocation(),
+                            data.getPhone(),
+                            data.getEmail(),
+                            data.getWhatsapp(),
+                            data.getExperience(),
+                            data.getDescription(),
+                            "deleted"
+                    );
+                    tourGuideRepo.save(tourGuide).subscribe();
+                    return tourGuideRepo.findBySku(sku);
+                });
+
+    }
+
+    @Override
     public String substr(String str) {
         return str.substring(0, 4).toUpperCase();
     }
