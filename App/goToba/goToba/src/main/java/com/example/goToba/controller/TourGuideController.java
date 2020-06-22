@@ -1,6 +1,7 @@
 package com.example.goToba.controller;
 
 import com.example.goToba.controller.route.TourGuideControllerRoute;
+import com.example.goToba.payload.DeleteResponse;
 import com.example.goToba.payload.NotFoundResponse;
 import com.example.goToba.payload.Response;
 import com.example.goToba.payload.helper.StaticResponseCode;
@@ -53,23 +54,28 @@ public class TourGuideController {
 
     @PostMapping(TourGuideControllerRoute.ROUTE_TO_ADD_TOUR_GUIDE)
     public Mono<ResponseEntity<?>> addTourGuide(@RequestBody TourGuideRequest tourGuideRequest) {
-
-        return Mono.fromCallable(() -> tourGuideService.addTourGuide(tourGuideRequest).subscribe())
-                .flatMap(
-                        data -> tourGuideService.findByName(tourGuideRequest.getName())
-                ).map(data -> {
-                    return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+        return Mono.fromCallable(() -> tourGuideRequest)
+                .doOnNext(data -> tourGuideService.addTourGuide(data).subscribe())
+                .doOnSuccess(data -> tourGuideService.findByName(tourGuideRequest.getName()))
+                .map(data -> {
+                    System.out.println(data);
+                    return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS_CREATED, StaticResponseStatus.RESPONSE_STATUS_CREATED, data));
                 });
     }
 
     @PutMapping(TourGuideControllerRoute.ROUTE_TO_EDIT_TOUR_GUIDE)
     public Mono<ResponseEntity<?>> editTourGuide(@PathVariable String sku, @RequestBody TourGuideRequest tourGuideRequest) {
         return Mono.fromCallable(() -> tourGuideService.editTourGuide(tourGuideRequest, sku).subscribe())
+                .doOnNext(data -> tourGuideService.editTourGuide(tourGuideRequest, sku).subscribe())
                 .flatMap(data -> tourGuideService.findBySku(sku))
                 .map(data -> {
-                            return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
-                        }
-                );
+                    if (data.getSku() != null) {
+                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+                    }
+                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "tour guide with sku " + sku, TourGuideControllerRoute.ROUTE_TO_TOUR_GUIDE + TourGuideControllerRoute.ROUTE_TO_DELETE_TOUR_GUIDE));
+                })
+                .defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "tour guide with sku " + sku, TourGuideControllerRoute.ROUTE_TO_TOUR_GUIDE + TourGuideControllerRoute.ROUTE_TO_DELETE_TOUR_GUIDE)));
+
     }
 
     @DeleteMapping(TourGuideControllerRoute.ROUTE_TO_DELETE_TOUR_GUIDE)
@@ -78,8 +84,8 @@ public class TourGuideController {
                 .doOnNext(data -> tourGuideService.deleteTourGuide(sku).subscribe())
                 .flatMap(data -> tourGuideService.findBySku(sku))
                 .map(data -> {
-                    if (data.getSku() != null) {
-                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+                    if (data != null) {
+                        return ResponseEntity.ok(new DeleteResponse(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, StaticResponseStatus.RESPONSE_STATUS_DELETE_SUCCESS));
                     }
                     return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "tour guide with sku " + sku, TourGuideControllerRoute.ROUTE_TO_TOUR_GUIDE + TourGuideControllerRoute.ROUTE_TO_DELETE_TOUR_GUIDE));
                 })

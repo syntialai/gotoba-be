@@ -75,7 +75,7 @@ public class GaleryController {
                         e.printStackTrace();
                     }
                 })
-                .flatMap(data -> galeryService.findFirstByTitle(request.getTitle()))
+                .doOnSuccess(data -> galeryService.findFirstByTitle(request.getTitle()))
                 .map(data -> {
                     System.out.println(data);
                     return ResponseEntity.ok(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));

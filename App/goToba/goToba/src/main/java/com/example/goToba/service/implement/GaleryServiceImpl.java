@@ -10,6 +10,7 @@ import com.example.goToba.repository.GaleryRepo;
 import com.example.goToba.repository.SequenceGaleryRepo;
 import com.example.goToba.service.GaleryService;
 import com.example.goToba.service.ImageService;
+import com.example.goToba.service.SkuGenerator;
 import com.example.goToba.service.redisService.GaleryServiceRedis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
@@ -42,6 +43,9 @@ public class GaleryServiceImpl implements GaleryService {
     @Autowired
     ImageService imageService;
 
+    @Autowired
+    SkuGenerator skuGenerator;
+
     private HashOperations hashOperations;
 
     @Override
@@ -70,8 +74,8 @@ public class GaleryServiceImpl implements GaleryService {
 
     @Override
     public Mono<Galery> addNewFoto(GaleryRequest request) throws IOException {
-        String key = substring(request.getName());
-        return Mono.fromCallable(() -> sequenceGaleryRepo.findFirstByKey(key))
+        String key = skuGenerator.substring(request.getName());
+        return Mono.fromCallable(() -> request)
                 .flatMap(i -> sequenceGaleryRepo.findFirstByKey(key))
                 .doOnNext(i -> sequenceGaleryRepo.deleteByKey(key).subscribe())
                 .doOnNext(i -> sequenceGaleryRepo.save(new SequenceGalery(key, StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(i.getLast_seq()) + 1))).subscribe())
@@ -168,14 +172,6 @@ public class GaleryServiceImpl implements GaleryService {
                 });
     }
 
-
-    @Override
-    public String substring(String str) {
-        if (str.length() >= 4) {
-            return str.substring(0, 4).toUpperCase();
-        }
-        return str.toUpperCase();
-    }
 
     @Override
     public Mono<Galery> findFirstByTitle(String title) {

@@ -26,8 +26,6 @@ public interface GaleryService {
 
     Mono<Galery> activateBySku(String sku);
 
-    String substring(String str);
-
     Mono<Galery> findFirstByTitle(String title);
 
 }
