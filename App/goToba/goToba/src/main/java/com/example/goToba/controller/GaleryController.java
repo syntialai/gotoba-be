@@ -102,11 +102,5 @@ public class GaleryController {
         return ResponseEntity.ok(new DeleteResponse(StaticResponseCode.RESPONSE_CODE_SUCCESS,StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, StaticResponseStatus.RESPONSE_STATUS_DELETE_SUCCESS_WISATA));
     }
 
-    @GetMapping(GaleryControllerRoute.ROUTE_GALERY_GET_IMAGE)
-    public ResponseEntity<byte[]> getImage(@PathVariable String filePath) throws IOException{
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_PNG);
-        return new ResponseEntity<byte[]>(galeryService.loadImage("Gallery",filePath), headers, HttpStatus.OK);
-    }
 
 }

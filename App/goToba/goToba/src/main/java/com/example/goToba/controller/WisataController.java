@@ -90,13 +90,5 @@ public class WisataController {
         return ResponseEntity.ok(request);
     }
 
-    @GetMapping(WisataControllerRoute.ROUTE_WISATA_GET_IMAGE)
-    public ResponseEntity<byte[]> getImage(@PathVariable String filePath) throws IOException {
-        HttpHeaders headers = new HttpHeaders();
-
-        headers.setContentType(MediaType.IMAGE_PNG);
-        return new ResponseEntity<byte[]>(imageService.loadImage("Wisata", filePath), headers, HttpStatus.OK);
-    }
-
 
 }

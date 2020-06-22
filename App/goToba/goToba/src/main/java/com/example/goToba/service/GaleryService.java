@@ -28,5 +28,4 @@ public interface GaleryService {
 
     String substring(String str);
 
-    byte[] loadImage(String path,String fileName) throws IOException;
 }

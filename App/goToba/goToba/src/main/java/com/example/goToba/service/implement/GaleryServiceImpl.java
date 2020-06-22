@@ -2,6 +2,8 @@ package com.example.goToba.service.implement;
 
 import com.example.goToba.model.Galery;
 import com.example.goToba.model.SequenceGalery;
+import com.example.goToba.payload.helper.StockKeepingUnit;
+import com.example.goToba.payload.imagePath.ImagePath;
 import com.example.goToba.payload.request.GaleryRequest;
 import com.example.goToba.redis.template.RedisKeys;
 import com.example.goToba.repository.GaleryRepo;
@@ -48,8 +50,6 @@ public class GaleryServiceImpl implements GaleryService {
 
     @Override
     public Mono<Galery> findGaleryBySku(String sku) {
-
-//        hashOperations.put(RedisKeys.REDIS_KEYS_FOR_GALERY,sku,galeryRepo.findFirstBySku(sku));
         return Mono.fromCallable(() -> galeryRepo.findFirstBySku(sku))
                 .flatMap(data -> galeryRepo.findFirstBySku(sku))
                 .doOnNext(data -> galeryServiceRedis.add(data))
@@ -64,8 +64,6 @@ public class GaleryServiceImpl implements GaleryService {
                     galeryServiceRedis.add(galery);
                     return galeryRepo.findFirstBySku(sku);
                 });
-//        System.out.println(galeryRepo.findFirstBySku(sku));
-//        return galeryRepo.findFirstBySku(sku);
     }
 
     @Override
@@ -74,21 +72,21 @@ public class GaleryServiceImpl implements GaleryService {
         return Mono.fromCallable(() -> sequenceGaleryRepo.findFirstByKey(key))
                 .flatMap(i -> sequenceGaleryRepo.findFirstByKey(key))
                 .doOnNext(i -> sequenceGaleryRepo.deleteByKey(key).subscribe())
-                .doOnNext(i -> sequenceGaleryRepo.save(new SequenceGalery(key, "000" + (Integer.parseInt(i.getLast_seq()) + 1))).subscribe())
-                .switchIfEmpty(sequenceGaleryRepo.save(new SequenceGalery(key, "0001")))
+                .doOnNext(i -> sequenceGaleryRepo.save(new SequenceGalery(key, StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(i.getLast_seq()) + 1))).subscribe())
+                .switchIfEmpty(sequenceGaleryRepo.save(new SequenceGalery(key, StockKeepingUnit.SKU_FIRST_DATA)))
                 .flatMap(i -> sequenceGaleryRepo.findFirstByKey(key))
                 .flatMap(req -> {
                     Galery galery = new Galery(
-                            req.getKey() + "_" + "000" + (Integer.parseInt(req.getLast_seq())),
+                            req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
                             request.getName(),
                             request.getTitle(),
                             request.getDescription(),
-                            request.getImage(),
+                            ImagePath.IMAGE_PATH_GALLERY + ImagePath.IMAGE_CONNECTOR + req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())) + ImagePath.IMAGE_EXTENSION,
                             Boolean.TRUE
                     );
-                    if (galery.getImage()!=""){
+                    if (galery.getImage() != "") {
                         try {
-                            imageService.addPicture( request.getImage(),galery.getSku(),"Gallery");
+                            imageService.addPicture(request.getImage(), galery.getSku(), ImagePath.IMAGE_PATH_GALLERY);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -157,13 +155,11 @@ public class GaleryServiceImpl implements GaleryService {
 
     @Override
     public String substring(String str) {
-        return str.substring(0, 4).toUpperCase();
+        if (str.length() >= 4) {
+            return str.substring(0, 4).toUpperCase();
+        }
+        return str.toUpperCase();
     }
 
-    @Override
-    public byte[] loadImage(String path, String fileName) throws IOException {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_PNG);
-        return imageService.loadImage("Gallery",fileName);
-    }
+
 }
