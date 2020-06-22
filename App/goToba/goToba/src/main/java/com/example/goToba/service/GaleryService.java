@@ -28,4 +28,6 @@ public interface GaleryService {
 
     String substring(String str);
 
+    Mono<Galery> findFirstByTitle(String title);
+
 }

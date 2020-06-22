@@ -1,11 +1,9 @@
 package com.example.goToba.controller;
 
 import com.example.goToba.controller.route.GaleryControllerRoute;
-import com.example.goToba.payload.DefaultResponse;
-import com.example.goToba.payload.DeleteResponse;
-import com.example.goToba.payload.GaleryResponse;
-import com.example.goToba.payload.Response;
+import com.example.goToba.payload.*;
 import com.example.goToba.payload.helper.StaticResponseCode;
+import com.example.goToba.payload.helper.StaticResponseMessages;
 import com.example.goToba.payload.helper.StaticResponseStatus;
 import com.example.goToba.payload.request.GaleryRequest;
 import com.example.goToba.repository.GaleryRepo;
@@ -22,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 16/04/2020.
@@ -51,33 +50,54 @@ public class GaleryController {
     }
 
     @GetMapping(GaleryControllerRoute.ROUTE_GALERY_FIND_BY_SKU)
-    public Mono<ResponseEntity<GaleryResponse>> findBySku(@PathVariable String sku) {
+    public Mono<ResponseEntity<?>> findBySku(@PathVariable String sku) {
         if (galeryServiceRedis.hasKey(sku)) {
             return galeryServiceRedis.findById(sku)
-                    .map(
-                            response -> ResponseEntity.ok().body(new GaleryResponse(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, response))
-                    );
+                    .map(response -> ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, response)));
         }
         return galeryService.findGaleryBySku(sku)
-                .map(
-                        response -> ResponseEntity.ok().body(new GaleryResponse(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, response))
-                );
+                .map(response -> {
+                    if(response.getSku()!=null) {
+                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, response));
+                    }
+                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "photo with sku " + sku, GaleryControllerRoute.ROUTE_GALERY + GaleryControllerRoute.ROUTE_GALERY_FIND_BY_SKU));
+                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "photo with sku " + sku, GaleryControllerRoute.ROUTE_GALERY + GaleryControllerRoute.ROUTE_GALERY_FIND_BY_SKU)));
 
     }
 
     @PostMapping(GaleryControllerRoute.ROUTE_GALERY_ADD_NEW)
-    public ResponseEntity<?> addGalery(@RequestBody GaleryRequest request) throws IOException {
-        galeryService.addNewFoto(request).subscribe();
-        return ResponseEntity.ok(new GaleryResponse(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, request));
+    public Mono<ResponseEntity<?>> addGalery(@RequestBody GaleryRequest request) throws IOException {
+        return Mono.fromCallable(() -> request)
+                .doOnNext(req -> {
+                    try {
+                        galeryService.addNewFoto(req).subscribe();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                })
+                .flatMap(data -> galeryService.findFirstByTitle(request.getTitle()))
+                .map(data -> {
+                    System.out.println(data);
+                    return ResponseEntity.ok(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+                });
+
+
     }
 
     @PutMapping(GaleryControllerRoute.ROUTE_GALERY_UPDATE_BY_SKU)
     public Mono<ResponseEntity<?>> updateBySku(@RequestBody GaleryRequest request, @PathVariable String sku) {
-        galeryService.updateBySku(sku, request).subscribe();
-        return galeryRepo.findFirstBySku(sku).
-                map(data -> {
-                    return ResponseEntity.ok(new GaleryResponse(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
-                });
+
+        return Mono.fromCallable(() -> request)
+                .doOnNext(req -> galeryService.updateBySku(sku, request).subscribe())
+                .flatMap(data -> galeryService.findGaleryBySku(sku))
+                .map(data -> {
+                    System.out.println(data);
+                    if(data.getSku()!=null) {
+                        return ResponseEntity.ok(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+                    }
+                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "photo with sku " + sku, GaleryControllerRoute.ROUTE_GALERY + GaleryControllerRoute.ROUTE_GALERY_UPDATE_BY_SKU));
+                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "photo with sku " + sku, GaleryControllerRoute.ROUTE_GALERY + GaleryControllerRoute.ROUTE_GALERY_UPDATE_BY_SKU)));
+
     }
 
     @PutMapping(GaleryControllerRoute.ROUTE_GALERY_SUSPEND_BY_SKU)
@@ -97,9 +117,18 @@ public class GaleryController {
     }
 
     @DeleteMapping(GaleryControllerRoute.ROUTE_GALERY_DELETE_BY_SKU)
-    public ResponseEntity<?> deleteBySku(@PathVariable String sku) {
-        galeryService.suspendBySku(sku).subscribe();
-        return ResponseEntity.ok(new DeleteResponse(StaticResponseCode.RESPONSE_CODE_SUCCESS,StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, StaticResponseStatus.RESPONSE_STATUS_DELETE_SUCCESS_WISATA));
+    public Mono<ResponseEntity<?>> deleteBySku(@PathVariable String sku) {
+        return Mono.fromCallable(() -> sku)
+                .doOnNext(data -> galeryService.suspendBySku(sku).subscribe())
+                .flatMap(data -> galeryService.findGaleryBySku(sku))
+                .map(data -> {
+                    if(data.getSku()!=null){
+                        return ResponseEntity.ok(new DeleteResponse(StaticResponseCode.RESPONSE_CODE_SUCCESS,StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, StaticResponseStatus.RESPONSE_STATUS_DELETE_SUCCESS_WISATA));
+                    }
+                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "photo with sku " + sku, GaleryControllerRoute.ROUTE_GALERY + GaleryControllerRoute.ROUTE_GALERY_DELETE_BY_SKU));
+                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "photo with sku " + sku, GaleryControllerRoute.ROUTE_GALERY + GaleryControllerRoute.ROUTE_GALERY_DELETE_BY_SKU)));
+
+
     }
 
 

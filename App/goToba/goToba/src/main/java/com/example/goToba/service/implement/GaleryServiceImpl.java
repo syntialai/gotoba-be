@@ -22,6 +22,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 16/04/2020.
@@ -45,7 +46,7 @@ public class GaleryServiceImpl implements GaleryService {
 
     @Override
     public Flux<Galery> findAllGalery() {
-        return galeryRepo.findAll();
+        return galeryRepo.findAll().filter(data -> data.show==true);
     }
 
     @Override
@@ -55,6 +56,7 @@ public class GaleryServiceImpl implements GaleryService {
                 .doOnNext(data -> galeryServiceRedis.add(data))
                 .flatMap(req -> {
                     Galery galery = new Galery(
+                            req.getId(),
                             req.getSku(),
                             req.getName(),
                             req.getTitle(),
@@ -77,6 +79,7 @@ public class GaleryServiceImpl implements GaleryService {
                 .flatMap(i -> sequenceGaleryRepo.findFirstByKey(key))
                 .flatMap(req -> {
                     Galery galery = new Galery(
+                            (int) UUID.randomUUID().getLeastSignificantBits(),
                             req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
                             request.getName(),
                             request.getTitle(),
@@ -100,18 +103,29 @@ public class GaleryServiceImpl implements GaleryService {
     @Override
     public Mono<Galery> updateBySku(String sku, GaleryRequest request) {
         return Mono.fromCallable(() -> request)
+                .flatMap(data -> galeryRepo.findFirstBySku(sku))
                 .doOnNext(id -> galeryRepo.deleteBySku(sku).subscribe())
                 .flatMap(req -> {
                     Galery galery = new Galery(
+                            req.getId(),
                             sku,
                             request.getName(),
                             request.getTitle(),
                             request.getDescription(),
-                            request.getImage(),
+                            req.getImage(),
                             Boolean.TRUE
                     );
-                    galeryServiceRedis.delete(sku);
-                    galeryServiceRedis.add(galery);
+                    if (request.getImage() != "") {
+                        try {
+                            imageService.addPicture(request.getImage(), sku, ImagePath.IMAGE_PATH_GALLERY);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if(galeryServiceRedis.hasKey(sku)) {
+                        galeryServiceRedis.delete(sku);
+                        galeryServiceRedis.add(galery);
+                    }
                     return galeryRepo.save(galery);
                 });
     }
@@ -123,6 +137,7 @@ public class GaleryServiceImpl implements GaleryService {
                 .doOnNext(id -> galeryRepo.deleteBySku(sku).subscribe())
                 .doOnNext(request -> {
                     Galery galery = new Galery(
+                            request.getId(),
                             sku,
                             request.getName(),
                             request.getTitle(),
@@ -141,6 +156,7 @@ public class GaleryServiceImpl implements GaleryService {
                 .doOnNext(id -> galeryRepo.deleteBySku(sku).subscribe())
                 .doOnNext(request -> {
                     Galery galery = new Galery(
+                            request.getId(),
                             sku,
                             request.getName(),
                             request.getTitle(),
@@ -159,6 +175,11 @@ public class GaleryServiceImpl implements GaleryService {
             return str.substring(0, 4).toUpperCase();
         }
         return str.toUpperCase();
+    }
+
+    @Override
+    public Mono<Galery> findFirstByTitle(String title) {
+        return galeryRepo.findFirstByTitle(title);
     }
 
 

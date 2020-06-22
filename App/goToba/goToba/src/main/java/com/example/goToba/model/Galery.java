@@ -16,6 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Data
 public class Galery {
+    public Integer id;
     public String sku;
     public String name;
     public String title;
