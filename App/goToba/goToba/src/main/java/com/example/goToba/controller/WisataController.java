@@ -88,9 +88,19 @@ public class WisataController {
     }
 
     @DeleteMapping(WisataControllerRoute.ROUTE_WISATA_DETELE_BY_SKU)
-    public ResponseEntity<?> deleteBySku(@PathVariable String sku) {
-        wisataService.deleteBySku(sku).subscribe();
-        return ResponseEntity.ok().body(new DeleteResponse(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, StaticResponseMessages.RESPONSE_MESSAGES_FOR_DELETE_WISATA));
+    public Mono<ResponseEntity<?>> deleteBySku(@PathVariable String sku) {
+        return Mono.fromCallable(() -> wisataService.deleteBySku(sku).subscribe())
+                .flatMap(data -> wisataService.findBySku(sku))
+                .map(data -> {
+                    if (data.getSkuWisata() != null) {
+                        return ResponseEntity.ok().body(new DeleteResponse(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, StaticResponseMessages.RESPONSE_MESSAGES_FOR_DELETE_WISATA));
+                    }
+                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND_DELETE + "wisata with that sku " + sku, WisataControllerRoute.ROUTE_WISATA + WisataControllerRoute.ROUTE_WISATA_DETELE_BY_SKU));
+                })
+                .defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND_DELETE + "wisata with that sku " + sku, WisataControllerRoute.ROUTE_WISATA + WisataControllerRoute.ROUTE_WISATA_DETELE_BY_SKU)));
+
+
+
     }
 
     @PutMapping(WisataControllerRoute.ROUTE_WISATA_EDIT_BY_SKU)

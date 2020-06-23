@@ -60,7 +60,8 @@
 + Path Variable :
   + sku
 + Request Header :
-  + Accept : `application/json`
+   + Accept : `application/json`
+   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
 + Response Body (Success) :
 
 ```json

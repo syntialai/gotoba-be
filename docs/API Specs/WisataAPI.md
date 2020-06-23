@@ -236,7 +236,8 @@
             "friday": ["8AM", "10PM"],
             "saturday": ["8AM", "10PM"],
             "sunday": ["8AM", "10PM"]
-        }
+        },
+        "status": "active"
     }
 }
 ```
@@ -265,7 +266,8 @@
         "friday": ["8AM", "10PM"],
         "saturday": ["8AM", "10PM"],
         "sunday": ["8AM", "10PM"]
-    }  
+    },
+    "status": "active"
 }
 ```
 
