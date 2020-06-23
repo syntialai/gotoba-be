@@ -9,7 +9,7 @@
 + Request Header :
   + Accept : `application/json`
   + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
-
+    
 + Response Body (Success) :
 
 ```json
@@ -158,7 +158,7 @@
     "message": "Invalid Request: Cannot find Schedule with that id.",
     "path": "/schedule/{id}"
 }
-```
+``` 
 
 ## Edit Schedule by Id
 
