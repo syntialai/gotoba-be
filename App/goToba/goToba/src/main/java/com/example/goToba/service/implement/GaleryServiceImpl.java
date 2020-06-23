@@ -55,7 +55,7 @@ public class GaleryServiceImpl implements GaleryService {
 
     @Override
     public Mono<Galery> findGaleryBySku(String sku) {
-        return Mono.fromCallable(() -> galeryRepo.findFirstBySku(sku))
+        return Mono.fromCallable(() -> sku)
                 .flatMap(data -> galeryRepo.findFirstBySku(sku))
                 .doOnNext(data -> galeryServiceRedis.add(data))
                 .flatMap(req -> {

@@ -15,5 +15,6 @@ public interface StaticResponseMessages {
     public String RESPONSE_MESSAGES_FOR_NOT_FOUND = "Invalid Request: Cannot find ";
     public String RESPONSE_MESSAGES_FOR_NOT_FOUND_DELETE = "Invalid Request: Cannot delete ";
     public String RESPONSE_MESSAGES_FOR_EMPTY = "Message: There is no data ";
+    public String RESPONSE_MESSAGES_FOR_EMPTY_SCHEDULE = "Message: There is no schedule found in that user sku";
     public String RESPONSE_MESSAGES_FOR_SUCCESS_DELETE_TICKET = "Successfully delete ticket with sku ";
 }

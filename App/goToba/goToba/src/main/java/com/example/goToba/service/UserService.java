@@ -12,6 +12,7 @@ import reactor.core.publisher.Mono;
  * Created by Sogumontar Hendra Simangunsong on 11/04/2020.
  */
 public interface UserService {
+    public Mono<Users> findFirstBySku(String sku);
     public String skuGenerator(String key, Integer seq);
     public String sub_str(String str);
     public Mono<Users> save(RegisterRequest registerRequest);

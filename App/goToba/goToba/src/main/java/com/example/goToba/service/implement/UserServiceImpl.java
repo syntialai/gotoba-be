@@ -46,6 +46,11 @@ public class UserServiceImpl implements UserService {
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
     @Override
+    public Mono<Users> findFirstBySku(String sku) {
+        return usersRepo.findFirstBySku(sku);
+    }
+
+    @Override
     public String skuGenerator(String key, Integer seq) {
         String counter = "_000";
         return key + counter + seq;

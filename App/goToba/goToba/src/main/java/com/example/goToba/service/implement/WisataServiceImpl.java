@@ -46,7 +46,7 @@ public class WisataServiceImpl implements WisataService {
 
     @Override
     public Mono<Wisata> addWisata(WisataRequest wisataRequest) {
-        String key = skuGenerator.substring(wisataRequest.getCreatedBy()) + "_" + skuGenerator.substring(wisataRequest.getName());
+        String key = skuGenerator.substring(wisataRequest.getCreatedBy()) + StockKeepingUnit.SKU_CONNECTOR + skuGenerator.substring(wisataRequest.getName());
         Mono<Wisata> wisataMono = Mono.fromCallable(() -> wisataRequest)
                 .flatMap(dat -> sequenceWisataRepo.findFirstByKey(key))
                 .doOnNext(dat -> sequenceWisataRepo.deleteByKey(key).subscribe())
@@ -54,7 +54,7 @@ public class WisataServiceImpl implements WisataService {
                 .switchIfEmpty(sequenceWisataRepo.save(new SequenceWisata(key, StockKeepingUnit.SKU_DATA_BEGINNING + "1")))
                 .flatMap(data -> {
                     Wisata wisata = new Wisata(
-                            data.getKey() + "_000" + Integer.parseInt(data.getLast_seq()),
+                            data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()),
                             wisataRequest.getName(),
                             wisataRequest.getTitle(),
                             wisataRequest.getDescription(),
