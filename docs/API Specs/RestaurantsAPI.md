@@ -67,9 +67,9 @@
 }
 ```
 
-## Get Restaurant by Merchant Sku
+## Get Restaurant by Sku
 
-+ Endpoint : ``/restaurant/{merchantSku}``
++ Endpoint : ``/restaurant/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
   + merchantSku
@@ -112,7 +112,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/restaurant/{merchantSku}"
+    "path": "/restaurant/{sku}"
 }
 ```
 
@@ -122,7 +122,7 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find restaurant with sku MER-123.",
-    "path": "/restaurant/{merchantSku}"
+    "path": "/restaurant/{sku}"
 }
 ```
 
