@@ -212,14 +212,14 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find restaurant with sku {sku}.",
+    "message": "Invalid Request: Cannot find merchant with sku {merchantSku}.",
     "path": "/restaurant/add/{merchantSku}"
 }
 ```
 
-## Edit Restaurant by Merchant Sku
+## Edit Restaurant by Sku
 
-+ Endpoint : ``/restaurant/edit/{merchantSku}``
++ Endpoint : ``/restaurant/edit/{sku}``
 + HTTP Method : `PUT`
 + Path Variable :
   + merchantSku
@@ -284,7 +284,7 @@
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/restaurant/edit/{merchantSku}"
+    "path": "/restaurant/edit/{sku}"
 }
 ```
 
@@ -294,7 +294,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/restaurant/edit/{merchantSku}"
+    "path": "/restaurant/edit/{sku}"
 }
 ```
 
@@ -304,7 +304,7 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find restaurant with merchant sku ABC.",
-    "path": "/restaurant/edit/{merchantSku}"
+    "path": "/restaurant/edit/{sku}"
 }
 ```
 

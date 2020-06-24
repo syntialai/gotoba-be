@@ -2,6 +2,7 @@ package com.example.goToba.controller;
 
 import com.example.goToba.controller.route.RestaurantControllerRoute;
 import com.example.goToba.payload.MenuRestaurantsResponse;
+import com.example.goToba.payload.NotFoundResponse;
 import com.example.goToba.payload.Response;
 import com.example.goToba.payload.ResponseWithMessages;
 import com.example.goToba.payload.helper.StaticResponseCode;
@@ -9,6 +10,7 @@ import com.example.goToba.payload.helper.StaticResponseMessages;
 import com.example.goToba.payload.helper.StaticResponseStatus;
 import com.example.goToba.payload.request.MenuRestaurantsRequest;
 import com.example.goToba.payload.request.RestaurantsRequest;
+import com.example.goToba.repository.UsersRepo;
 import com.example.goToba.service.MenuRestaurantsService;
 import com.example.goToba.service.RestaurantService;
 import com.example.goToba.service.redisService.BistroRedisService;
@@ -17,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+
+import java.sql.Timestamp;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 23/05/2020.
@@ -38,6 +42,9 @@ public class RestaurantController {
     @Autowired
     BistroRedisService bistroRedisService;
 
+    @Autowired
+    UsersRepo usersRepo;
+
     @GetMapping(RestaurantControllerRoute.ROUTE_RESTAURANT_BISTRO_TYPES)
     public Mono<ResponseEntity<?>> findAllBistroTypes() {
         return restaurantService.findAll().collectList().
@@ -55,35 +62,49 @@ public class RestaurantController {
     }
 
     @GetMapping(RestaurantControllerRoute.ROUTE_GET_RESTAURANT_BY_SKU)
-    public Mono<ResponseEntity<?>> findRestaurantsBySku(@PathVariable String sku) {
-        if (restaurantRedisService.hasKey(sku)) {
-            return restaurantRedisService.findById(sku).
+    public Mono<ResponseEntity<?>> findRestaurantsBySku(@PathVariable String merchantSku) {
+        if (restaurantRedisService.hasKey(merchantSku)) {
+            return restaurantRedisService.findById(merchantSku).
                     map(data -> {
                         return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
                     });
         }
-        return restaurantService.findBySku(sku).
+        return restaurantService.findBySku(merchantSku).
                 map(data -> {
-                    return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
-                });
-
+                    if(data.getMerchantSku()!=null) {
+                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+                    }
+                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "restaurant with sku " + merchantSku, RestaurantControllerRoute.ROUTE_RESTAURANT + RestaurantControllerRoute.ROUTE_GET_RESTAURANT_BY_SKU));
+                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "restaurant with sku " + merchantSku, RestaurantControllerRoute.ROUTE_RESTAURANT + RestaurantControllerRoute.ROUTE_GET_RESTAURANT_BY_SKU)));
     }
 
     @PutMapping(RestaurantControllerRoute.ROUTE_EDIT_RESTAURANT_BY_SKU)
-    public ResponseEntity<?> editRestaurantsBySku(@PathVariable String sku, @RequestBody RestaurantsRequest restaurantsRequest) {
-        restaurantService.editRestaurant(restaurantsRequest, sku).subscribe();
-        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, restaurantsRequest));
+    public Mono<ResponseEntity<?>> editRestaurantsBySku(@PathVariable String sku, @RequestBody RestaurantsRequest restaurantsRequest) {
+        return restaurantService.findBySku(sku)
+                .map(data -> {
+                    if(data.getMerchantSku()!=null){
+                        restaurantService.editRestaurant(restaurantsRequest, sku).subscribe();
+                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, restaurantsRequest));
+                    }
+                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "restaurant with sku " + sku, RestaurantControllerRoute.ROUTE_RESTAURANT + RestaurantControllerRoute.ROUTE_EDIT_RESTAURANT_BY_SKU));
+                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "restaurant with sku " + sku, RestaurantControllerRoute.ROUTE_RESTAURANT + RestaurantControllerRoute.ROUTE_ADD_RESTAURANT_BY_SKU)));
     }
 
     @PostMapping(RestaurantControllerRoute.ROUTE_ADD_RESTAURANT_BY_SKU)
-    public ResponseEntity<?> addRestaurantsBySku(@PathVariable String skuMerchant, @RequestBody RestaurantsRequest restaurantsRequest) {
-        restaurantService.addRestaurant(restaurantsRequest, skuMerchant).subscribe();
-        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, restaurantsRequest));
+    public Mono<ResponseEntity<?>> addRestaurantsBySku(@PathVariable String merchantSku, @RequestBody RestaurantsRequest restaurantsRequest) {
+        return usersRepo.findFirstBySku(merchantSku)
+                .map(data -> {
+                    if (data.getRoles() != null) {
+                        restaurantService.addRestaurant(restaurantsRequest, merchantSku).subscribe();
+                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, restaurantsRequest));
+                    }
+                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "merchant with sku " + merchantSku, RestaurantControllerRoute.ROUTE_RESTAURANT + RestaurantControllerRoute.ROUTE_ADD_RESTAURANT_BY_SKU));
+                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "merchant with sku " + merchantSku, RestaurantControllerRoute.ROUTE_RESTAURANT + RestaurantControllerRoute.ROUTE_ADD_RESTAURANT_BY_SKU)));
     }
 
     @PostMapping(RestaurantControllerRoute.ROUTEADD_MENU_RESTAURANTS)
-    public Mono<ResponseEntity<?>> addRestaurantsMenu(@PathVariable String sku,@RequestBody MenuRestaurantsRequest menuRestaurantsRequest) {
-        return menuRestaurantsService.addRestaurantMenu(sku,menuRestaurantsRequest).
+    public Mono<ResponseEntity<?>> addRestaurantsMenu(@PathVariable String sku, @RequestBody MenuRestaurantsRequest menuRestaurantsRequest) {
+        return menuRestaurantsService.addRestaurantMenu(sku, menuRestaurantsRequest).
                 flatMap(
                         data -> menuRestaurantsService.findByNama(menuRestaurantsRequest.getName())
                 ).map(data -> {
@@ -93,8 +114,8 @@ public class RestaurantController {
 
     @PutMapping(RestaurantControllerRoute.ROUTE_EDIT_MENU_RESTAURANTS)
     public Mono<ResponseEntity<?>> editRestaurantsMenu(@PathVariable String sku, @PathVariable Integer id, @RequestBody MenuRestaurantsRequest menuRestaurantsRequest) {
-        menuRestaurantsService.editRestaurantMenu(sku,id, menuRestaurantsRequest).subscribe();
-        return menuRestaurantsService.editRestaurantMenu(sku,id, menuRestaurantsRequest).
+        menuRestaurantsService.editRestaurantMenu(sku, id, menuRestaurantsRequest).subscribe();
+        return menuRestaurantsService.editRestaurantMenu(sku, id, menuRestaurantsRequest).
                 flatMap(
                         data -> menuRestaurantsService.findByIdMenu(id)
                 ).map(data -> {
