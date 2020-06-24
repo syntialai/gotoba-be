@@ -303,7 +303,7 @@
     "timestamp": "2020-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find restaurant with merchant sku ABC.",
+    "message": "Invalid Request: Cannot find restaurant with restaurant sku ABC.",
     "path": "/restaurant/edit/{sku}"
 }
 ```
@@ -328,7 +328,7 @@
         "image": "asduqwyieuhxmz.png",
         "category" : "Food",
         "price": "50000",
-        "status": "1",
+        "status": "active",
         "restaurantSku": "jenn_rest_001_001",
         "merchantSku": "josh_merc_001"
     }, {
@@ -337,7 +337,7 @@
        "image": "caxjkhsiayieuhxmz.png",
        "category" : "Drinks",
        "price": "10000",
-       "status": "1",
+       "status": "active",
        "restaurantSku": "josh_rest_001_001",
        "merchantSku": "josh_merc_001"
     }]
@@ -444,7 +444,7 @@
 ```json
 {
     "code": 201,
-    "status": "OK",
+    "status": "Created",
         "data": {
         "id":1,
         "name": "Cumi Goreng",
