@@ -1,6 +1,7 @@
 package com.example.goToba.controller;
 
 import com.example.goToba.controller.route.OrderDetailControllerRoute;
+import com.example.goToba.model.Ticket;
 import com.example.goToba.payload.NotFoundResponse;
 import com.example.goToba.payload.Response;
 import com.example.goToba.payload.helper.StaticResponseCode;
@@ -100,7 +101,7 @@ public class OrderDetailController {
     @PutMapping(OrderDetailControllerRoute.ROUTE_EDIT_ORDER_DETAIL_BY_SKU)
     public Mono<ResponseEntity<?>> editOrderDetailBySku(@PathVariable String sku, @RequestBody OrderDetailRequest orderDetailRequest) {
         return Mono.fromCallable(() -> orderDetailRequest)
-                .doOnNext(data -> orderDetailService.editBySkuUser(sku, orderDetailRequest).subscribe())
+                .doOnNext(data -> orderDetailService.editBySku(sku, orderDetailRequest).subscribe())
                 .flatMap(data -> orderDetailRepo.findFirstBySku(sku))
                 .map(result -> {
                     if (result.getUserSku() != null) {

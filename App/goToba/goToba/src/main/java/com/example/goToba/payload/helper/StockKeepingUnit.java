@@ -7,4 +7,6 @@ public interface StockKeepingUnit {
     String SKU_DATA_BEGINNING = "000";
     String SKU_FIRST_DATA = "0001";
     String SKU_CONNECTOR = "_";
+    String PAYMENT = "PAY";
+    String ORDER = "ORD";
 }

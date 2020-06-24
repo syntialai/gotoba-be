@@ -183,7 +183,7 @@
 
 ## Get Payment by Sku
 
-+ Endpoint : ``/pay/{sku}``
++ Endpoint : ``/pay/sku/{sku}``
 + HTTP Method : `GET`
 + Path Variable :
   + sku
@@ -216,7 +216,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/pay/{sku}"
+    "path": "/pay/sku/{sku}"
 }
 ```
 
@@ -226,7 +226,7 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find payment with sku ABC.",
-    "path": "/pay/{sku}"
+    "path": "/pay/sku/{sku}"
 }
 ```
 
@@ -259,7 +259,6 @@
     "data": {
         "id": 4,
         "sku": "REV_rest_0001_0004",
-        "category": "rest",
         "total": 50000,
         "status": "WAITING",
         "orderId": 2,
@@ -329,7 +328,6 @@
     "data": {
         "id": 4,
         "sku": "REV_rest_0001_0004",
-        "category": "rest",
         "total": 50000,
         "status": "ACCEPTED",
         "orderId": 2,
