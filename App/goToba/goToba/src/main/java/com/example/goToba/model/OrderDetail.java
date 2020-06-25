@@ -20,4 +20,6 @@ public class OrderDetail {
     List<OrderDetailTicket> ticket;
     String userSku;
     String status;
+
+
 }

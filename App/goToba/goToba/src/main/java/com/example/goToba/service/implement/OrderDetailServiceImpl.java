@@ -109,7 +109,9 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                                 dayat.toString(),
                                 orderDetailRequest.getTicket().get(i).getMerchantSku(),
                                 dtf.format(now).toString(),
-                                Strings.STATUS_ACTIVE
+                                Strings.STATUS_ACTIVE,
+                                orderDetailRequest.getTicket().get(i).getWisataSku(),
+                                orderDetail.getId()
                                 );
                         ticketRepo.save(ticket);
                     }

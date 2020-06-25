@@ -3,6 +3,7 @@ package com.example.goToba.service.implement;
 import com.example.goToba.model.SequenceTourGuide;
 import com.example.goToba.model.TourGuide;
 import com.example.goToba.payload.helper.StockKeepingUnit;
+import com.example.goToba.payload.helper.Strings;
 import com.example.goToba.payload.request.TourGuideRequest;
 import com.example.goToba.repository.SequenceTourGuideRepo;
 import com.example.goToba.repository.TourGuideRepo;
@@ -48,7 +49,7 @@ public class TourGuideServiceImpl implements TourGuideService {
 
     @Override
     public Mono<TourGuide> addTourGuide(TourGuideRequest tourGuideRequest) {
-        String key = skuGenerator.substring("TG_" + skuGenerator.substring(tourGuideRequest.getName()));
+        String key = skuGenerator.substring(StockKeepingUnit.TOUD_GUIDE + StockKeepingUnit.SKU_CONNECTOR + skuGenerator.substring(tourGuideRequest.getName()));
         return Mono.fromCallable(() -> tourGuideRequest)
                 .flatMap(dat -> sequenceTourGuideRepo.findFirstByKey(key))
                 .doOnNext(dat -> sequenceTourGuideRepo.deleteByKey(key).subscribe())
@@ -71,7 +72,7 @@ public class TourGuideServiceImpl implements TourGuideService {
                             tourGuideRequest.getWhatsapp(),
                             tourGuideRequest.getExperience(),
                             tourGuideRequest.getDescription(),
-                            "active"
+                            Strings.STATUS_ACTIVE
                     );
                     return tourGuideRepo.save(tourGuide);
                 });
@@ -129,7 +130,7 @@ public class TourGuideServiceImpl implements TourGuideService {
                             data.getWhatsapp(),
                             data.getExperience(),
                             data.getDescription(),
-                            "deleted"
+                            Strings.STATUS_DELETE
                     );
                     tourGuideRepo.save(tourGuide).subscribe();
                     return tourGuideRepo.findBySku(sku);

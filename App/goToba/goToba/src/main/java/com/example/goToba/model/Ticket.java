@@ -19,5 +19,7 @@ public class Ticket {
     String merchantSku;
     String createdAt;
     String status;
+    String wisataSku;
+    Integer orderId;
 
 }

@@ -17,4 +17,6 @@ public class OrderDetailTicket {
     Integer price;
     String merchantSku;
     String category;
+    String wisataSku;
+
 }

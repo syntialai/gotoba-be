@@ -16,4 +16,5 @@ public class OrderDetailRequest {
     List<OrderDetailTicket> ticket;
     String userSku;
 
+
 }

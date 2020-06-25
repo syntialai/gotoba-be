@@ -9,4 +9,6 @@ public interface StockKeepingUnit {
     String SKU_CONNECTOR = "_";
     String PAYMENT = "PAY";
     String ORDER = "ORD";
+    String TICKET = "TIC";
+    String TOUD_GUIDE = "TG";
 }

@@ -15,6 +15,8 @@ public class TicketRequest {
     Integer price;
     String expiredDate;
     String merchantSku;
+    String wisataSku;
+    Integer orderId;
 
 
 }
