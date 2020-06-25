@@ -22,12 +22,16 @@
             "ticketSku": "TICK_REST_0001_0001",
             "quantity": 1,
             "price": 100000,
-            "merchantSku": "synt_merc_0001"
+            "merchantSku": "synt_merc_0001",
+            "category": "wahana air",
+            "wisataSku" : "WAH_BAL_0003"
         }, {
             "ticketSku": "TICK_JOUR_0001_0002",
             "quantity": 1,
             "price": 100000,
-            "merchantSku": "synt_merc_0001"
+            "merchantSku": "synt_merc_0001",
+            "category": "wahana air",
+            "wisataSku" : "WAH_BAL_0003"
         }],
         "userSku": "sima_cust_001"
     }
@@ -78,12 +82,16 @@
             "ticketSku": "TICK_REST_0001_0001",
             "quantity": 1,
             "price": 100000,
-            "merchantSku": "synt_merc_0001"
+            "merchantSku": "synt_merc_0001",
+            "category": "wahana air",
+            "wisataSku" : "WAH_BAL_0003"
         }, {
             "ticketSku": "TICK_JOUR_0001_0002",
             "quantity": 1,
             "price": 100000,
-            "merchantSku": "synt_merc_0001"
+            "merchantSku": "synt_merc_0001",
+            "category": "wahana air",
+            "wisataSku" : "WAH_BAL_0003"
         }],
         "userSku": "sima_cust_001"
     }]
@@ -134,12 +142,16 @@
             "ticketSku": "TICK_REST_0001_0001",
             "quantity": 1,
             "price": 100000,
-            "merchantSku": "synt_merc_0001"
+            "merchantSku": "synt_merc_0001",
+            "category": "wahana air",
+            "wisataSku" : "WAH_BAL_0003"            
         }, {
             "ticketSku": "TICK_JOUR_0001_0002",
             "quantity": 1,
             "price": 100000,
-            "merchantSku": "synt_merc_0001"
+            "merchantSku": "synt_merc_0001",
+            "category": "wahana air",
+            "wisataSku" : "WAH_BAL_0003"
         }],
         "userSku": "sima_cust_001"
     }]
@@ -182,7 +194,9 @@
         "ticketSku": "TICK_JOUR_0001_0002",
         "quantity": 1,
         "price": 100000,
-        "merchantSku": "synt_merc_0001"
+        "merchantSku": "synt_merc_0001",
+        "category": "wahana air",
+        "wisataSku" : "WAH_BAL_0003"
     }],
     "userSku": "sima_cust_001"
 }
@@ -204,12 +218,16 @@
             "ticketSku": "TICK_REST_0001_0001",
             "quantity": 1,
             "price": 100000,
-            "merchantSku": "synt_merc_0001"
+            "merchantSku": "synt_merc_0001",
+            "category": "wahana air",
+            "wisataSku" : "WAH_BAL_0003"
         }, {
             "ticketSku": "TICK_JOUR_0001_0002",
             "quantity": 1,
             "price": 100000,
-            "merchantSku": "synt_merc_0001"
+            "merchantSku": "synt_merc_0001",
+            "category": "wahana air",
+            "wisataSku" : "WAH_BAL_0003"
         }],
         "userSku": "sima_cust_001"
     }]
@@ -252,7 +270,9 @@
         "ticketSku": "TICK_JOUR_0001_0002",
         "quantity": 1,
         "price": 100000,
-        "merchantSku": "synt_merc_0001"
+        "merchantSku": "synt_merc_0001",
+        "category": "wahana air",
+        "wisataSku" : "WAH_BAL_0003"
     }],
     "userSku": "sima_cust_001"
 }
@@ -274,7 +294,9 @@
             "ticketSku": "TICK_JOUR_0001_0002",
             "quantity": 1,
             "price": 100000,
-            "merchantSku": "synt_merc_0001"
+            "merchantSku": "synt_merc_0001",
+            "category": "wahana air",
+            "wisataSku" : "WAH_BAL_0003"
         }],
         "userSku": "sima_cust_001"
     }]
@@ -302,3 +324,45 @@
     "path": "/order/edit/{sku}"
 }
 ```
+
+## Delete Order by Sku
+
++ Endpoint : ``/order/delete/{sku}``
++ HTTP Method : `DELETE`
++ Path Variable :
+  + sku
++ Request Header :
+  + Accept : `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
+    "code": 200,
+    "status": "OK",
+    "message" : "Delete success!"
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2020-11-15T22:55:40.110Z",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/order/delete/{sku}"
+}
+```
+
+```json
+{
+    "timestamp": "2020-11-15T22:55:40.110Z",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Invalid Request: Cannot find order with sku ABC.",
+    "path": "/order/delete/{sku}"
+}
+```
+

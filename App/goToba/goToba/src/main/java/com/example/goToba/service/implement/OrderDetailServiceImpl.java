@@ -2,24 +2,18 @@ package com.example.goToba.service.implement;
 
 import com.example.goToba.controller.route.OrderDetailControllerRoute;
 import com.example.goToba.model.OrderDetail;
-import com.example.goToba.model.Restaurant;
 import com.example.goToba.model.SequenceOrder;
 import com.example.goToba.model.Ticket;
-import com.example.goToba.payload.AuthenticationResponse;
-import com.example.goToba.payload.JwtLoginResponse;
 import com.example.goToba.payload.NotFoundResponse;
 import com.example.goToba.payload.Response;
 import com.example.goToba.payload.helper.*;
 import com.example.goToba.payload.request.OrderDetailRequest;
-import com.example.goToba.payload.request.OrderDetailTicket;
 import com.example.goToba.repository.OrderDetailRepo;
 import com.example.goToba.repository.SequenceOrderRepo;
 import com.example.goToba.repository.TicketRepo;
 import com.example.goToba.service.OrderDetailService;
 import com.example.goToba.service.SkuGenerator;
-import com.example.goToba.service.TicketService;
 import com.example.goToba.service.redisService.OrderDetailRedisService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,18 +53,43 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     @Override
     public Mono<ResponseEntity<?>> findBySku(String sku) {
         return orderDetailRepo.findFirstBySku(sku).map((data) -> {
-            if (orderDetailRepo.existsBySku(sku)) {
+            if (data.getUserSku() != null) {
                 orderDetailRedisService.add(data);
                 return ResponseEntity.status(HttpStatus.OK).body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
-            } else {
-                return ResponseEntity.status(HttpStatus.OK).body(new NotFoundResponse(timestamp.toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_UNAUTHORIZED, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "order with sku " + sku + ".", OrderDetailControllerRoute.ROUTE_ORDER + OrderDetailControllerRoute.ROUTE_ORDER_DETAIL_BY_SKU));
             }
+            return ResponseEntity.status(HttpStatus.OK).body(new NotFoundResponse(timestamp.toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_UNAUTHORIZED, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "order with sku " + sku + ".", OrderDetailControllerRoute.ROUTE_ORDER + OrderDetailControllerRoute.ROUTE_ORDER_DETAIL_BY_SKU));
         }).defaultIfEmpty(ResponseEntity.status(HttpStatus.OK).body(new NotFoundResponse(timestamp.toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "order with sku " + sku + ".", OrderDetailControllerRoute.ROUTE_ORDER + OrderDetailControllerRoute.ROUTE_ORDER_DETAIL_BY_SKU)));
+    }
+
+    @Override
+    public Mono<OrderDetail> findFirstBySku(String sku) {
+        return orderDetailRepo.findFirstBySku(sku);
     }
 
     @Override
     public Mono<OrderDetail> findFirstBySkuUser(String skuUser) {
         return orderDetailRepo.findFirstByUserSku(skuUser);
+    }
+
+    @Override
+    public Mono<List<OrderDetail>> findAllBySkuMerchant(String skuMerchant) {
+        return ticketRepo.findAll()
+                .filter(data -> data.getMerchantSku().equals(skuMerchant))
+                .collectList()
+                .map(data -> {
+                    System.out.println(data.size());
+                    List<OrderDetail> orderList = new ArrayList<>();
+                    for (int i = 0; i < data.size(); i++) {
+                        int finalI = i;
+                        System.out.println("test");
+                        orderDetailRepo.findAll()
+                                .filter(dataTicket -> dataTicket.getId().equals(data.get(finalI).getOrderId()))
+                                .collectList()
+                                .map(result ->orderList.add((OrderDetail) result));
+                    }
+                    System.out.println(orderList);
+                    return orderList;
+                });
     }
 
     @Override
@@ -112,8 +131,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                                 Strings.STATUS_ACTIVE,
                                 orderDetailRequest.getTicket().get(i).getWisataSku(),
                                 orderDetail.getId()
-                                );
-                        ticketRepo.save(ticket);
+                        );
+                        ticketRepo.save(ticket).subscribe();
                     }
                     return orderDetailRepo.save(orderDetail);
                 });

@@ -38,6 +38,7 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     SequenceTicketRepo sequenceTicketRepo;
 
+
     @Override
     public Flux<Ticket> findAllByMerchantSku(String sku) {
         return ticketRepo.findAll().filter(data -> data.getMerchantSku().equals(sku));
@@ -59,22 +60,23 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Flux<Ticket> findBySkuUser(String skuUser) {
-        return null;
-//        List<Ticket> list = new ArrayList<>();
-//        return orderDetailRepo.findAllByUserSku(skuUser).collectList().
-//                flatMapIterable(data -> {
-//                    for(int i=0 ; i<data.size() ; i++){
-//                        Ticket ticket= new Ticket(
-//                                data.get(i).getId(),
-//                                data.get(i).getSku(),
-//                                data.get(i).ge(),
-//
-//                        );
-//                        list.add(ticket);
-//                    }
-//                    return list;
-//                });
+    public Mono<List<Ticket>> findBySkuUser(String skuUser) {
+        return orderDetailRepo.findAll()
+                .filter(data -> data.getUserSku().equals(skuUser))
+                .collectList()
+                .map(data -> {
+                    List<Ticket> ticketList = new ArrayList<>();
+                    for (int i = 0; i < data.size(); i++) {
+                        System.out.println("test");
+                        int finalI = i;
+                        ticketRepo.findAll()
+                                .filter(dataTicket -> dataTicket.getOrderId().equals(data.get(finalI).getId()))
+                                .collectList()
+                                .doOnNext(datas -> System.out.println(datas))
+                                .map(result ->ticketList.add((Ticket) result));
+                    }
+                    return ticketList;
+                });
     }
 
     @Override

@@ -8,5 +8,6 @@ public interface ReviewsControllerRoute {
     String ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA = "/{sku}";
     String ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA_AND_RATING = "/{sku}/{rating}";
     String ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA_AND_ID = "/{sku}/id/{id}";
-    String ROUTE_ADD_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA = "/{sku}/user/{userSku}/add";
+    String ROUTE_ADD_REVIEWS_BY_SKU_WISATA = "/{sku}/user/{userSku}/add/wisata";
+    String ROUTE_ADD_REVIEWS_BY_SKU_RESTAURANTS = "/{sku}/user/{userSku}/add/restaurant";
 }

@@ -67,7 +67,7 @@ public class TicketController {
 
     @GetMapping(TicketControllerRoute.ROUTE_TICKET_ALL_BY_SKU_USER)
     public Mono<ResponseEntity<?>> findBySkuUser(@PathVariable String userSku) {
-        return ticketService.findBySkuUser(userSku).collectList()
+        return ticketService.findBySkuUser(userSku)
                 .map(data -> {
                     if (data.size() != 0) {
                         return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
