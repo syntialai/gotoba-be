@@ -80,7 +80,7 @@ public class ReviewsController {
         }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "review with sku " + sku, ReviewsControllerRoute.ROUTE_FOR_REVIEWS + ReviewsControllerRoute.ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA)));
     }
 
-    @PostMapping(ReviewsControllerRoute.ROUTE_ADD_REVIEWS_BY_SKU_WISATA)
+    @PostMapping(ReviewsControllerRoute.ROUTE_ADD_REVIEWS_BY_SKU_RESTAURANTS)
     public Mono<ResponseEntity<?>> addReviewRestaurants(@PathVariable String sku, @PathVariable String userSku, @RequestBody ReviewRequest reviewRequest){
         return restaurantRepo.findBySku(sku).map(data -> {
             if(data.getMerchantSku()!=null) {

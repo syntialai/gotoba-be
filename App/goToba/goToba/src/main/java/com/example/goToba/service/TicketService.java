@@ -12,10 +12,9 @@ import java.util.List;
  */
 public interface TicketService {
     Flux<Ticket> findAllByMerchantSku(String sku);
-    Flux<Ticket> findALl(String sku);
+    Flux<Ticket> findALl();
     Flux<Ticket> findAllByCategory(String category);
     Mono<Ticket> findBySku(String sku);
-    Mono<List<Ticket>> findBySkuUser(String skuUser);
     Mono<Ticket> addByMerchantSku(String merchantSku, TicketRequest ticketRequest);
     Mono<Ticket> editBySku(String sku, TicketRequest ticketRequest);
     Mono<Ticket> deleteBySku(String sku);

@@ -21,6 +21,7 @@ public class Ticket {
     String status;
     String wisataSku;
     Integer orderId;
+    String skuUser;
 
     public Integer getId() {
         return id;
@@ -100,5 +101,13 @@ public class Ticket {
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
+    }
+
+    public String getSkuUser() {
+        return skuUser;
+    }
+
+    public void setSkuUser(String skuUser) {
+        this.skuUser = skuUser;
     }
 }

@@ -17,6 +17,7 @@ public class TicketRequest {
     String merchantSku;
     String wisataSku;
     Integer orderId;
+    String skuUser;
 
 
 }

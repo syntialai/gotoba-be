@@ -15,7 +15,6 @@ public interface OrderDetailService {
     Mono<ResponseEntity<?>> findBySku(String sku);
     Mono<OrderDetail> findFirstBySku(String sku);
     Mono<OrderDetail> findFirstBySkuUser(String skuUser);
-    Mono<List<OrderDetail>> findAllBySkuMerchant(String skuMerchant);
     Flux<OrderDetail> findAll();
     Mono<OrderDetail> addBySkuUser(String skuUser, OrderDetailRequest orderDetailRequest);
     Mono<OrderDetail> editBySku(String sku, OrderDetailRequest orderDetailRequest);

@@ -45,7 +45,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Flux<Ticket> findALl(String sku) {
+    public Flux<Ticket> findALl() {
         return ticketRepo.findAll();
     }
 
@@ -59,25 +59,6 @@ public class TicketServiceImpl implements TicketService {
         return ticketRepo.findFirstBySku(sku);
     }
 
-    @Override
-    public Mono<List<Ticket>> findBySkuUser(String skuUser) {
-        return orderDetailRepo.findAll()
-                .filter(data -> data.getUserSku().equals(skuUser))
-                .collectList()
-                .map(data -> {
-                    List<Ticket> ticketList = new ArrayList<>();
-                    for (int i = 0; i < data.size(); i++) {
-                        System.out.println("test");
-                        int finalI = i;
-                        ticketRepo.findAll()
-                                .filter(dataTicket -> dataTicket.getOrderId().equals(data.get(finalI).getId()))
-                                .collectList()
-                                .doOnNext(datas -> System.out.println(datas))
-                                .map(result ->ticketList.add((Ticket) result));
-                    }
-                    return ticketList;
-                });
-    }
 
     @Override
     public Mono<Ticket> addByMerchantSku(String merchantSku, TicketRequest ticketRequest) {
@@ -99,7 +80,8 @@ public class TicketServiceImpl implements TicketService {
                             new Timestamp(System.currentTimeMillis()).toString(),
                             Strings.STATUS_ACTIVE,
                             ticketRequest.getWisataSku(),
-                            ticketRequest.getOrderId()
+                            ticketRequest.getOrderId(),
+                            ticketRequest.getSkuUser()
                     );
                     return ticketRepo.save(ticket);
                 });
@@ -124,7 +106,8 @@ public class TicketServiceImpl implements TicketService {
                             new Timestamp(System.currentTimeMillis()).toString(),
                             data.getStatus(),
                             ticketRequest.getWisataSku(),
-                            ticketRequest.getOrderId()
+                            ticketRequest.getOrderId(),
+                            ticketRequest.getSkuUser()
                     );
                     return ticketRepo.save(ticket);
                 });
@@ -149,7 +132,8 @@ public class TicketServiceImpl implements TicketService {
                             new Timestamp(System.currentTimeMillis()).toString(),
                             Strings.STATUS_DELETE,
                             data.getWisataSku(),
-                            data.getOrderId()
+                            data.getOrderId(),
+                            data.getSkuUser()
                     );
                     return ticketRepo.save(ticket);
                 });

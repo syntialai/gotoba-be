@@ -71,26 +71,6 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         return orderDetailRepo.findFirstByUserSku(skuUser);
     }
 
-    @Override
-    public Mono<List<OrderDetail>> findAllBySkuMerchant(String skuMerchant) {
-        return ticketRepo.findAll()
-                .filter(data -> data.getMerchantSku().equals(skuMerchant))
-                .collectList()
-                .map(data -> {
-                    System.out.println(data.size());
-                    List<OrderDetail> orderList = new ArrayList<>();
-                    for (int i = 0; i < data.size(); i++) {
-                        int finalI = i;
-                        System.out.println("test");
-                        orderDetailRepo.findAll()
-                                .filter(dataTicket -> dataTicket.getId().equals(data.get(finalI).getOrderId()))
-                                .collectList()
-                                .map(result ->orderList.add((OrderDetail) result));
-                    }
-                    System.out.println(orderList);
-                    return orderList;
-                });
-    }
 
     @Override
     public Flux<OrderDetail> findAll() {
@@ -130,7 +110,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                                 dtf.format(now).toString(),
                                 Strings.STATUS_ACTIVE,
                                 orderDetailRequest.getTicket().get(i).getWisataSku(),
-                                orderDetail.getId()
+                                orderDetail.getId(),
+                                skuUser
                         );
                         ticketRepo.save(ticket).subscribe();
                     }
