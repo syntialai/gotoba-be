@@ -63,9 +63,7 @@ public class OrderDetailController {
 
     @GetMapping(OrderDetailControllerRoute.ROUTE_ORDER_DETAIL_BY_SKU_MERCHANT)
     public Mono<ResponseEntity<?>> findAllBySkuMerchant(@PathVariable String merchantSku) {
-        List<Ticket> ticketList = new ArrayList<>();
-        ticketRepo.findAll().filter(data -> data.getMerchantSku().equals(merchantSku));
-        return orderDetailService.findAll().filter(data -> data.getTicket().get(0).getMerchantSku().equals(merchantSku))
+        return orderDetailService.findAll().filter(data -> orderDetailService.checkTicket(data.getTicket(),merchantSku)==true)
                 .collectList().map(data -> {
                     if (data.size() != 0) {
                         return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));

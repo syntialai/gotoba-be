@@ -6,7 +6,6 @@ import com.example.goToba.payload.helper.StockKeepingUnit;
 import com.example.goToba.payload.helper.Strings;
 import com.example.goToba.payload.imagePath.ImagePath;
 import com.example.goToba.payload.request.WisataRequest;
-import com.example.goToba.redis.template.RedisKeys;
 import com.example.goToba.repository.SequenceWisataRepo;
 import com.example.goToba.repository.WisataRepo;
 import com.example.goToba.service.ImageService;
@@ -65,7 +64,7 @@ public class WisataServiceImpl implements WisataService {
                             wisataRequest.getCreatedBy(),
                             wisataRequest.getPrice(),
                             wisataRequest.getHoursOpen(),
-                            "active"
+                            Strings.STATUS_ACTIVE
                     );
                     if (wisataRequest.getImage() != "") {
                         try {

@@ -25,13 +25,12 @@ public class NearByLocationController {
     NearByLocationServiceImpl nearByLocationService;
 
     @GetMapping(NearByLocationControllerRoute.ROUTE_TO_NEAR_BY_LOCATION_WISATA)
-    public Mono<ResponseEntity<?>> findNear(@PathVariable Double longitude, @PathVariable Double lat) {
+    public Mono<ResponseEntity<?>> findNearWisata(@PathVariable Double longitude, @PathVariable Double lat) {
         return wisataRepo.findAll()
                 .filter(data -> nearByLocationService.distance(lat, Double.parseDouble(data.getLatitude()), longitude, Double.parseDouble(data.getLongitude())) <= 500000)
                 .collectList()
                 .map(data -> {
                     return ResponseEntity.ok(data);
                 });
-
     }
 }

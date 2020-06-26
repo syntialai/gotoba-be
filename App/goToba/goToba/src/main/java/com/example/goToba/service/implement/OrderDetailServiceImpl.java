@@ -8,6 +8,7 @@ import com.example.goToba.payload.NotFoundResponse;
 import com.example.goToba.payload.Response;
 import com.example.goToba.payload.helper.*;
 import com.example.goToba.payload.request.OrderDetailRequest;
+import com.example.goToba.payload.request.OrderDetailTicket;
 import com.example.goToba.repository.OrderDetailRepo;
 import com.example.goToba.repository.SequenceOrderRepo;
 import com.example.goToba.repository.TicketRepo;
@@ -75,6 +76,16 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     @Override
     public Flux<OrderDetail> findAll() {
         return orderDetailRepo.findAll();
+    }
+
+    @Override
+    public Boolean checkTicket(List<OrderDetailTicket> orderDetailTickets, String merchantSku) {
+        for (int i=0 ; i<orderDetailTickets.size() ; i++ ){
+            if(orderDetailTickets.get(i).getMerchantSku().equals(merchantSku)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
