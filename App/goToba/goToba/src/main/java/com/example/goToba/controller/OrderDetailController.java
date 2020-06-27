@@ -92,7 +92,7 @@ public class OrderDetailController {
                 .map(data -> {
                     if (data.getUsername() != null) {
                         orderDetailService.addBySkuUser(userSku, orderDetailRequest).subscribe();
-                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS_CREATED, StaticResponseStatus.RESPONSE_STATUS_CREATED, orderDetailRequest));
                     }
                     return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "user with sku " + userSku, OrderDetailControllerRoute.ROUTE_ORDER + OrderDetailControllerRoute.ROUTE_ORDER_DETAIL_BY_SKU_USER));
                 })

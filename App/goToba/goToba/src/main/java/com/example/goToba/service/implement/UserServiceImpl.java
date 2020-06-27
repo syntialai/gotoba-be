@@ -22,6 +22,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.Disposable;
 import reactor.core.publisher.Mono;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -86,9 +88,15 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Mono<ResponseEntity<?>> signin(LoginRequest request) {
+    public Mono<ResponseEntity<?>> signin(HttpServletResponse response, LoginRequest request) {
         return usersRepo.findFirstByUsername(request.getUsername()).map((userDetails) -> {
             if (passwordEncoder.encode(request.getPassword()).equals(userDetails.getPassword())) {
+                Cookie cookie = new Cookie("username", "Jovan");
+                //add cookie to response
+                cookie.setSecure(true);
+//                cookie.setHttpOnly(true);
+                cookie.setMaxAge( 30 * 60);
+                response.addCookie(cookie);
                 return ResponseEntity.ok(new JwtLoginResponse(userDetails.getNickname(), userDetails.getRoles().toString(), userDetails.getSku(), jwtTokenProvider.generateToken(userDetails)));
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthenticationResponse(timestamp.toString(), StaticResponseCode.RESPONSE_CODE_BAD_UNAUTHORIZED, StaticResponseStatus.RESPONSE_STATUS_ERROR_UNAUTHORIZED, StaticResponseMessages.RESPONSE_MESSAGE_USER_UNAUTHORIZED));
