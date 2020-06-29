@@ -1,14 +1,19 @@
 package com.example.goToba.service.implement;
 
 import com.example.goToba.model.MenuRestaurants;
+import com.example.goToba.payload.helper.StockKeepingUnit;
+import com.example.goToba.payload.helper.Strings;
+import com.example.goToba.payload.imagePath.ImagePath;
 import com.example.goToba.payload.request.MenuRestaurantsRequest;
 import com.example.goToba.repository.MenuRestaurantsRepo;
+import com.example.goToba.service.ImageService;
 import com.example.goToba.service.MenuRestaurantsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.io.IOException;
 import java.util.UUID;
 
 /**
@@ -19,6 +24,9 @@ public class MenuRestaurantsServiceImpl implements MenuRestaurantsService {
 
     @Autowired
     MenuRestaurantsRepo menuRestaurantsRepo;
+
+    @Autowired
+    ImageService imageService;
 
     @Override
     public Mono<MenuRestaurants> findByIdMenu(Integer idMenu) {
@@ -32,36 +40,50 @@ public class MenuRestaurantsServiceImpl implements MenuRestaurantsService {
 
     @Override
     public Mono<MenuRestaurants> addRestaurantMenu(String sku, MenuRestaurantsRequest menuRestaurantsRequest) {
+        int id= (int) UUID.randomUUID().getLeastSignificantBits();
         MenuRestaurants menuRestaurants = new MenuRestaurants(
-                (int) UUID.randomUUID().getLeastSignificantBits(),
+                id,
                 menuRestaurantsRequest.getName(),
-                menuRestaurantsRequest.getPicture(),
+                ImagePath.IMAGE_PATH_MENU_RESTAURANTS + ImagePath.IMAGE_CONNECTOR + id + ImagePath.IMAGE_EXTENSION,
                 menuRestaurantsRequest.getCategory(),
                 menuRestaurantsRequest.getHarga(),
-                "1",
-                sku,
+                Strings.STATUS_ACTIVE,
+                menuRestaurantsRequest.getRestaurantSku(),
                 menuRestaurantsRequest.getMerchantSku()
         );
+        if (menuRestaurantsRequest.getPicture() != "") {
+            try {
+                imageService.addPicture(menuRestaurantsRequest.getPicture(), menuRestaurants.getId().toString(), ImagePath.IMAGE_PATH_MENU_RESTAURANTS);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return menuRestaurantsRepo.save(menuRestaurants);
     }
 
     @Override
     public Mono<MenuRestaurants> editRestaurantMenu(String sku, Integer idMenu, MenuRestaurantsRequest menuRestaurantsRequest) {
         return Mono.fromCallable(() -> menuRestaurantsRequest)
-                .doOnNext(i -> {
-                    menuRestaurantsRepo.deleteById(idMenu).subscribe();
-                })
+                .flatMap(datas -> menuRestaurantsRepo.findById(idMenu))
+                .doOnNext(i -> menuRestaurantsRepo.deleteById(idMenu).subscribe())
                 .flatMap(data -> {
                     MenuRestaurants menuRestaurants = new MenuRestaurants(
                             idMenu,
                             menuRestaurantsRequest.getName(),
-                            menuRestaurantsRequest.getPicture(),
+                            data.getPicture(),
                             menuRestaurantsRequest.getCategory(),
                             menuRestaurantsRequest.getHarga(),
-                            "1",
-                            sku,
+                            data.getStatus(),
+                            menuRestaurantsRequest.getRestaurantSku(),
                             menuRestaurantsRequest.getMerchantSku()
                     );
+                    if (menuRestaurantsRequest.getPicture() != "") {
+                        try {
+                            imageService.addPicture(menuRestaurantsRequest.getPicture(), menuRestaurants.getId().toString(), ImagePath.IMAGE_PATH_MENU_RESTAURANTS);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     return menuRestaurantsRepo.save(menuRestaurants);
                 });
     }
@@ -81,7 +103,7 @@ public class MenuRestaurantsServiceImpl implements MenuRestaurantsService {
                             data.getPicture(),
                             data.getCategory(),
                             data.getHarga(),
-                            "2",
+                            Strings.STATUS_DELETE,
                             data.getRestaurantSku(),
                             data.getMerchantSku()
                     );

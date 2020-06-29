@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 public class PaymentRequest {
     Integer total;
     String status;
-    String category;
     String merchantSku;
     Integer orderId;
 
@@ -31,14 +30,6 @@ public class PaymentRequest {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public String getMerchantSku() {

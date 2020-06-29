@@ -11,19 +11,23 @@ import java.util.UUID;
 /**
  * Created by Sogumontar Hendra Simangunsong on 10/06/2020.
  */
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class OrderDetail {
+    Integer id;
     String sku ;
     List<OrderDetailTicket> ticket;
     String userSku;
+    String status;
 
-    public OrderDetail(String sku, List<OrderDetailTicket> ticket, String userSku) {
-        this.sku = sku;
-        this.ticket = ticket;
-        this.userSku = userSku;
+    public Integer getId() {
+        return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getSku() {
         return sku;
@@ -31,6 +35,14 @@ public class OrderDetail {
 
     public void setSku(String sku) {
         this.sku = sku;
+    }
+
+    public List<OrderDetailTicket> getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(List<OrderDetailTicket> ticket) {
+        this.ticket = ticket;
     }
 
     public String getUserSku() {
@@ -41,11 +53,11 @@ public class OrderDetail {
         this.userSku = userSku;
     }
 
-    public List<OrderDetailTicket> getTicket() {
-        return ticket;
+    public String getStatus() {
+        return status;
     }
 
-    public void setTicket(List<OrderDetailTicket> ticket) {
-        this.ticket = ticket;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

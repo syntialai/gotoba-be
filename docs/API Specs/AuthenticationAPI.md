@@ -13,7 +13,7 @@
     "email" : "hendra@gmail.com",
     "password" : "hendra77",
     "confirmPassword" : "hendra77",
-    "role" : "Merchant"
+    "role" : "ROLE_MERCHANT"
 }
 ```
 

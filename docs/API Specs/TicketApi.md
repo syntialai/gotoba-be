@@ -21,7 +21,11 @@
         "price": 50000,
         "expiredDate": "2020-09-03",
         "merchantSku": "synt_merc_0001",
-        "createdAt": "2016-11-15T22:55:40.110Z"
+        "createdAt": "2016-11-15T22:55:40.110Z",
+        "wisataSku": "asd_132",
+        "status": "active", 
+        "orderId": 123456,
+        "skuUser" :  "HEND_0001"
     }, {
         "id": 2,
         "sku": "TICK_JOUR_0001_0002",
@@ -29,7 +33,11 @@
         "price": 100000,
         "expiredDate": "2020-09-03",
         "merchantSku": "synt_merc_0001",
-        "createdAt": "2016-11-15T22:55:40.110Z"
+        "createdAt": "2016-11-15T22:55:40.110Z",
+        "wisataSku": "asd_132",
+        "status": "active", 
+        "orderId": 123456,
+        "skuUser" :  "HEND_0001"
     }, {
         "id": 3,
         "sku": "TICK_HOTEL_0001_0002",
@@ -37,7 +45,11 @@
         "price": 50000,
         "expiredDate": "2020-09-03",
         "merchantSku": "synt_merc_0001",
-        "createdAt": "2016-11-15T22:55:40.110Z"
+        "createdAt": "2016-11-15T22:55:40.110Z",
+        "wisataSku": "asd_132",
+        "status": "active", 
+        "orderId": 123456,
+        "skuUser" :  "HEND_0001"
     }]
 }
 ```
@@ -85,7 +97,11 @@
         "price": 50000,
         "expiredDate": "2020-09-03",
         "merchantSku": "synt_merc_0001",
-        "createdAt": "2016-11-15T22:55:40.110Z"
+        "createdAt": "2016-11-15T22:55:40.110Z",
+        "wisataSku": "asd_132",
+        "status": "active", 
+        "orderId": 123456,
+        "skuUser" :  "HEND_0001"
     }]
 }
 ```
@@ -133,7 +149,11 @@
         "price": 50000,
         "expiredDate": "2020-09-03",
         "merchantSku": "synt_merc_0001",
-        "createdAt": "2016-11-15T22:55:40.110Z"
+        "createdAt": "2016-11-15T22:55:40.110Z",
+        "status": "active", 
+        "wisataSku": "asd_132",
+        "orderId": 123456,
+        "skuUser" :  "HEND_0001"
     }
 }
 ```
@@ -175,15 +195,31 @@
 {
     "code": 200,
     "status": "OK",
-    "data": {
-        "id": 1,
-        "sku": "TICK_REST_0001_0001",
-        "category": "restaurant",
-        "price": 50000,
-        "expiredDate": "2020-09-03",
-        "merchantSku": "synt_merc_0001",
-        "createdAt": "2016-11-15T22:55:40.110Z"
-    }
+    "data": [{
+            "id": 1,
+            "sku": "TICK_REST_0001_0001",
+            "category": "restaurant",
+            "price": 50000,
+            "expiredDate": "2020-09-03",
+            "merchantSku": "synt_merc_0001",
+            "createdAt": "2016-11-15T22:55:40.110Z",
+            "status": "active", 
+            "wisataSku": "asd_132",
+            "orderId": 123456,
+            "skuUser" :  "HEND_0001"
+    },{
+         "id": 1,
+         "sku": "TICK_REST_0001_0001",
+         "category": "restaurant",
+         "price": 50000,
+         "expiredDate": "2020-09-03",
+         "merchantSku": "synt_merc_0001",
+         "createdAt": "2016-11-15T22:55:40.110Z",
+         "status": "active", 
+         "wisataSku": "asd_132",
+         "orderId": 123456,
+         "skuUser" :  "HEND_0001"
+    }]
 }
 ```
 
@@ -222,7 +258,10 @@
     "category": "restaurant",
     "price": 50000,
     "expiredDate": "2020-09-03",
-    "merchantSku": "synt_merc_0001"
+    "merchantSku": "synt_merc_0001",
+    "wisataSku": "WAT_0001",
+    "orderId": "synt_merc_0001",
+    "skuUser": "HEND_0001"
 }
 ```
 
@@ -242,7 +281,11 @@
         "price": 50000,
         "expiredDate": "2020-09-03",
         "merchantSku": "synt_merc_0001",
-        "createdAt": "2016-11-15T22:55:40.110Z"
+        "createdAt": "2016-11-15T22:55:40.110Z",
+        "status": "active",
+        "wisataSku": "asd_132",
+        "orderId": 123456,
+        "skuUser" :  "HEND_0001"
     }
 }
 ```
@@ -292,7 +335,10 @@
     "category": "restaurant",
     "price": 50000,
     "expiredDate": "2020-09-03",
-    "merchantSku": "synt_merc_0001"
+    "merchantSku": "synt_merc_0001",
+    "wisataSku": "asd_132",
+    "orderId": 123456,
+    "skuUser" :  "HEND_0001"
 }
 ```
 
@@ -312,7 +358,11 @@
         "price": 50000,
         "expiredDate": "2020-09-03",
         "merchantSku": "synt_merc_0001",
-        "createdAt": "2016-11-15T22:55:40.110Z"
+        "createdAt": "2016-11-15T22:55:40.110Z",
+        "status": "active",
+        "wisataSku": "asd_132",
+        "orderId": 123456,
+        "skuUser" :  "HEND_0001"
     }
 }
 ```

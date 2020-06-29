@@ -47,8 +47,11 @@ public class SecurityConfig {
 				.pathMatchers("/auth/login").permitAll()
 				.pathMatchers("/auth/signup").permitAll()
 				.pathMatchers("/wisata/**").permitAll()
-				.pathMatchers("/gallery/**").permitAll()
+				.pathMatchers("/gallery/").permitAll()
+				.pathMatchers("/gallery/{sku}").permitAll()
 				.pathMatchers("/restaurant/**").permitAll()
+				.pathMatchers("/tour-guide").permitAll()
+				.pathMatchers("/tour-guide/{sku}").permitAll()
 //				.anyExchange().authenticated()
 				.anyExchange().permitAll()
 				.and().build();

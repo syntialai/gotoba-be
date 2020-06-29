@@ -13,8 +13,6 @@ public interface WisataService {
 
     public Flux<Wisata> findAll();
 
-    public String substr(String str);
-
     public Mono<Wisata> updateWisata(String sku, WisataRequest wisataRequest);
 
     public Mono<Wisata> deleteBySku(String sku);

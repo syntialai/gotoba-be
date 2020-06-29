@@ -38,8 +38,8 @@ public class WisataRedisServiceImpl implements WisataRedisService {
     }
 
     @Override
-    public Mono<Wisata> findByKey(String key) {
-        return (Mono<Wisata>) hashOperations.get(redisKey,key);
+    public Mono<?> findByKey(String key) {
+        return Mono.fromCallable(() -> hashOperations.get(redisKey,key));
     }
 
     @Override

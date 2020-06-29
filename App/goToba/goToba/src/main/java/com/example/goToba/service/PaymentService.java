@@ -1,6 +1,7 @@
 package com.example.goToba.service;
 
 import com.example.goToba.model.Payment;
+import com.example.goToba.payload.PaymentUpdateRequest;
 import com.example.goToba.payload.request.PaymentRequest;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -13,5 +14,5 @@ public interface PaymentService {
     Mono<Payment> findBySku(String sku);
     Mono<Payment> addByUserSku(String sku, PaymentRequest  paymentRequest);
     Mono<Payment> findFirstBySkuUser(String sku);
-    Mono<Payment> editBySku(String sku, PaymentRequest  paymentRequest);
+    Mono<Payment> editBySku(String sku, PaymentUpdateRequest paymentUpdateRequest);
 }

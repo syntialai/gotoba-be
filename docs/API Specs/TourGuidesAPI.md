@@ -275,3 +275,55 @@
     "path": "/tour-guide/edit/{sku}"
 }
 ```
+
+
+## DELETE Tour Guide by Sku
+
++ Endpoint : ``/tour-guide/delete/{sku}``
++ HTTP Method : `DELETE`
++ Path Variable :
+  + sku
++ Request Header :
+  + Accept : `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
+    "code": 200,
+    "status": "OK",
+    "message" : "Delete success!"
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 400,
+    "error": "Bad Request",
+    "message": "Invalid Request: Invalid request format.",
+    "path": "/tour-guide/edit/{sku}"
+}
+```
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/tour-guide/edit/{sku}"
+}
+```
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Invalid Request: Cannot find tour guide with sku ABC.",
+    "path": "/tour-guide/delete/{sku}"
+}
+```

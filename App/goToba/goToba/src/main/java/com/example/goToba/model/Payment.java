@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 public class Payment {
     Integer id;
     String sku;
-    String category;
     Integer total;
     String status;
     Integer orderId;
@@ -35,14 +34,6 @@ public class Payment {
 
     public void setSku(String sku) {
         this.sku = sku;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public Integer getTotal() {
