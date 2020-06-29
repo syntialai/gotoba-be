@@ -8,9 +8,11 @@ import com.example.goToba.payload.imagePath.ImagePath;
 import com.example.goToba.payload.request.WisataRequest;
 import com.example.goToba.repository.SequenceWisataRepo;
 import com.example.goToba.repository.WisataRepo;
+import com.example.goToba.repository.elasticSearch.WisataElasticRepo;
 import com.example.goToba.service.ImageService;
 import com.example.goToba.service.SkuGenerator;
 import com.example.goToba.service.WisataService;
+import com.example.goToba.service.elasticService.WisataElasticService;
 import com.example.goToba.service.redisService.WisataRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +45,9 @@ public class WisataServiceImpl implements WisataService {
     @Autowired
     SkuGenerator skuGenerator;
 
+    @Autowired
+    WisataElasticService wisataElasticService;
+
     @Override
     public Mono<Wisata> addWisata(WisataRequest wisataRequest) {
         String key = skuGenerator.substring(wisataRequest.getCreatedBy()) + StockKeepingUnit.SKU_CONNECTOR + skuGenerator.substring(wisataRequest.getName());
@@ -73,7 +78,7 @@ public class WisataServiceImpl implements WisataService {
                             e.printStackTrace();
                         }
                     }
-                    wisataRedisService.add(wisata);
+                    wisataElasticService.save(wisata.toWisata(wisata));
                     return wisataRepo.save(wisata);
                 });
         return wisataMono;

@@ -8,6 +8,7 @@ import java.util.List;
  * Created by Sogumontar Hendra Simangunsong on 07/05/2020.
  */
 public interface WisataElasticService {
-    List findOne(String nama);
-    List findAll();
+    List<Wisata> findOne(String nama);
+    List<Wisata> findAll();
+    Wisata save(Wisata wisata);
 }

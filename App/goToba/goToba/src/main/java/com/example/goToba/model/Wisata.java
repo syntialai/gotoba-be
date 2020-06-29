@@ -25,4 +25,23 @@ public class Wisata {
     public HoursOpen hoursOpen;
     public String status;
 
+
+    public com.example.goToba.model.elastic.Wisata toWisata(Wisata wisata){
+        com.example.goToba.model.elastic.Wisata wisata1 = new com.example.goToba.model.elastic.Wisata(
+                wisata.getSkuWisata(),
+                wisata.getName(),
+                wisata.getTitle(),
+                wisata.getDescription(),
+                wisata.getImage(),
+                wisata.getLongitude(),
+                wisata.getLatitude(),
+                wisata.getAddress(),
+                wisata.getCreatedBy(),
+                wisata.getPrice(),
+                wisata.getHoursOpen(),
+                wisata.getStatus()
+        );
+        return wisata1;
+    }
+
 }

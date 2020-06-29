@@ -14,25 +14,20 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(indexName = "gotoba", type = "wisata")
+@Document(indexName = "gotoba", type = "wisata", shards = 3)
 public class Wisata {
     @Id
     public String skuWisata;
-
     public String name;
-
     public String title;
-
     public String description;
-
     public String image;
-
+    public String longitude;
+    public String latitude;
     public String address;
-
     public String createdBy;
-
     public int price;
-
     public HoursOpen hoursOpen;
+    public String status;
 
 }

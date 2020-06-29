@@ -27,4 +27,9 @@ public class WisataElasticServiceImpl implements WisataElasticService {
         return null;
     }
 
+    @Override
+    public Wisata save(Wisata wisata) {
+        return wisataElasticRepo.save(wisata);
+    }
+
 }
