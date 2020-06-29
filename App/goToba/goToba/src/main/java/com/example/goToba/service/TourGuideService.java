@@ -19,5 +19,6 @@ public interface TourGuideService {
 
     Mono<TourGuide> editTourGuide(TourGuideRequest tourGuideRequest, String sku);
 
-    String substr(String str);
+    Mono<TourGuide> deleteTourGuide(String sku);
+
 }

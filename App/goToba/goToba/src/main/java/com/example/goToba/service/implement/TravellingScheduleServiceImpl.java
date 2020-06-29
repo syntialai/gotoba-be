@@ -1,6 +1,7 @@
 package com.example.goToba.service.implement;
 
 import com.example.goToba.model.TravellingSchedule;
+import com.example.goToba.payload.helper.Strings;
 import com.example.goToba.payload.request.ScheduleRequest;
 import com.example.goToba.repository.TravellingScheduleRepo;
 import com.example.goToba.service.TravellingScheduleService;
@@ -37,7 +38,6 @@ public class TravellingScheduleServiceImpl implements TravellingScheduleService 
 
     @Override
     public Mono<TravellingSchedule> addBySku(String sku, ScheduleRequest scheduleRequest) {
-        UUID myuuid = UUID.randomUUID();
         Mono<TravellingSchedule> schedule = Mono.fromCallable(() -> scheduleRequest)
                 .flatMap(data -> {
                     TravellingSchedule schedule1 = new TravellingSchedule(
@@ -47,7 +47,8 @@ public class TravellingScheduleServiceImpl implements TravellingScheduleService 
                             scheduleRequest.getDate(),
                             scheduleRequest.getEndDate(),
                             scheduleRequest.getVacationDestination(),
-                            sku
+                            sku,
+                            Strings.STATUS_ACTIVE
                     );
                     return travellingScheduleRepo.save(schedule1);
                 });
@@ -69,15 +70,32 @@ public class TravellingScheduleServiceImpl implements TravellingScheduleService 
                             scheduleRequest.getDate(),
                             scheduleRequest.getEndDate(),
                             scheduleRequest.getVacationDestination(),
-                            data.getUserSku()
+                            data.getUserSku(),
+                            data.getStatus()
                     );
                     return travellingScheduleRepo.save(schedule);
                 });
     }
 
     @Override
-    public Mono<Void> deleteById(Integer sku) {
-
-        return travellingScheduleRepo.deleteById(sku);
+    public Mono<TravellingSchedule> deleteById(Integer id) {
+        return Mono.fromCallable(() -> id)
+                .flatMap(data -> travellingScheduleRepo.findById(id))
+                .doOnNext(i -> {
+                    travellingScheduleRepo.deleteById(id).subscribe();
+                })
+                .flatMap(data -> {
+                    TravellingSchedule schedule = new TravellingSchedule(
+                            id,
+                            data.getTitle(),
+                            data.getDescription(),
+                            data.getDate(),
+                            data.getEndDate(),
+                            data.getVacationDestination(),
+                            data.getUserSku(),
+                            Strings.STATUS_DELETE
+                    );
+                    return travellingScheduleRepo.save(schedule);
+                });
     }
 }

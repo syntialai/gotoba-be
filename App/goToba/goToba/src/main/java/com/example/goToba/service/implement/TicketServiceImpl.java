@@ -1,9 +1,14 @@
 package com.example.goToba.service.implement;
 
+import com.example.goToba.model.SequenceTicket;
 import com.example.goToba.model.Ticket;
+import com.example.goToba.payload.helper.StockKeepingUnit;
+import com.example.goToba.payload.helper.Strings;
 import com.example.goToba.payload.request.TicketRequest;
 import com.example.goToba.repository.OrderDetailRepo;
+import com.example.goToba.repository.SequenceTicketRepo;
 import com.example.goToba.repository.TicketRepo;
+import com.example.goToba.service.SkuGenerator;
 import com.example.goToba.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,13 +32,20 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     OrderDetailRepo orderDetailRepo;
 
+    @Autowired
+    SkuGenerator skuGenerator;
+
+    @Autowired
+    SequenceTicketRepo sequenceTicketRepo;
+
+
     @Override
     public Flux<Ticket> findAllByMerchantSku(String sku) {
         return ticketRepo.findAll().filter(data -> data.getMerchantSku().equals(sku));
     }
 
     @Override
-    public Flux<Ticket> findALl(String sku) {
+    public Flux<Ticket> findALl() {
         return ticketRepo.findAll();
     }
 
@@ -47,38 +59,33 @@ public class TicketServiceImpl implements TicketService {
         return ticketRepo.findFirstBySku(sku);
     }
 
-    @Override
-    public Flux<Ticket> findBySkuUser(String skuUser) {
-        return null;
-//        List<Ticket> list = new ArrayList<>();
-//        return orderDetailRepo.findAllByUserSku(skuUser).collectList().
-//                flatMapIterable(data -> {
-//                    for(int i=0 ; i<data.size() ; i++){
-//                        Ticket ticket= new Ticket(
-//                                data.get(i).getId(),
-//                                data.get(i).getSku(),
-//                                data.get(i).ge(),
-//
-//                        );
-//                        list.add(ticket);
-//                    }
-//                    return list;
-//                });
-    }
 
     @Override
     public Mono<Ticket> addByMerchantSku(String merchantSku, TicketRequest ticketRequest) {
-        Ticket ticket = new Ticket(
-                (int) UUID.randomUUID().getLeastSignificantBits(),
-                UUID.randomUUID().toString(),
-                ticketRequest.getCategory(),
-                ticketRequest.getPrice(),
-                ticketRequest.getExpiredDate(),
-                ticketRequest.getMerchantSku(),
-                new Timestamp(System.currentTimeMillis()).toString(),
-                "active"
-        );
-        return ticketRepo.save(ticket);
+        String key = skuGenerator.substring(StockKeepingUnit.TICKET + StockKeepingUnit.SKU_CONNECTOR + skuGenerator.substring(ticketRequest.getCategory()));
+        return Mono.fromCallable(() -> ticketRequest)
+                .flatMap(dat -> sequenceTicketRepo.findFirstByKey(key))
+                .doOnNext(dat -> sequenceTicketRepo.deleteByKey(key).subscribe())
+                .doOnNext(dat -> sequenceTicketRepo.save(new SequenceTicket(key, StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(dat.getLast_seq()) + 1))).subscribe())
+                .switchIfEmpty(sequenceTicketRepo.save(new SequenceTicket(key, StockKeepingUnit.SKU_DATA_BEGINNING + "1")))
+                .flatMap(dat -> sequenceTicketRepo.findFirstByKey(key))
+                .flatMap(data -> {
+                    Ticket ticket = new Ticket(
+                            (int) UUID.randomUUID().getLeastSignificantBits(),
+                            data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()),
+                            ticketRequest.getCategory(),
+                            ticketRequest.getPrice(),
+                            ticketRequest.getExpiredDate(),
+                            ticketRequest.getMerchantSku(),
+                            new Timestamp(System.currentTimeMillis()).toString(),
+                            Strings.STATUS_ACTIVE,
+                            ticketRequest.getWisataSku(),
+                            ticketRequest.getOrderId(),
+                            ticketRequest.getSkuUser()
+                    );
+                    return ticketRepo.save(ticket);
+                });
+
     }
 
     @Override
@@ -97,7 +104,10 @@ public class TicketServiceImpl implements TicketService {
                             ticketRequest.getExpiredDate(),
                             ticketRequest.getMerchantSku(),
                             new Timestamp(System.currentTimeMillis()).toString(),
-                            data.getStatus()
+                            data.getStatus(),
+                            ticketRequest.getWisataSku(),
+                            ticketRequest.getOrderId(),
+                            ticketRequest.getSkuUser()
                     );
                     return ticketRepo.save(ticket);
                 });
@@ -120,7 +130,10 @@ public class TicketServiceImpl implements TicketService {
                             data.getExpiredDate(),
                             data.getMerchantSku(),
                             new Timestamp(System.currentTimeMillis()).toString(),
-                            "deleted"
+                            Strings.STATUS_DELETE,
+                            data.getWisataSku(),
+                            data.getOrderId(),
+                            data.getSkuUser()
                     );
                     return ticketRepo.save(ticket);
                 });

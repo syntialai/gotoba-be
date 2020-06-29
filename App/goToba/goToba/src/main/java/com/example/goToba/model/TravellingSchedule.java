@@ -18,4 +18,5 @@ public class TravellingSchedule {
     String endDate;
     String vacationDestination;
     String userSku;
+    String status;
 }

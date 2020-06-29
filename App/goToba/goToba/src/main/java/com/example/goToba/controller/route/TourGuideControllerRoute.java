@@ -8,6 +8,7 @@ public interface TourGuideControllerRoute {
     public String ROUTE_TO_TOUR_GUIDE_GET_ALL = "";
     public String ROUTE_TO_ADD_TOUR_GUIDE = "/add";
     public String ROUTE_TO_EDIT_TOUR_GUIDE = "/edit/{sku}";
+    public String ROUTE_TO_DELETE_TOUR_GUIDE = "/delete/{sku}";
     public String ROUTE_TO_TOUR_GUIDE_GET_BY_SKU = "/{sku}";
     public String ROUTE_TO_TOUR_GUIDE_GET_BY_Name = "/name/{sku}";
 }

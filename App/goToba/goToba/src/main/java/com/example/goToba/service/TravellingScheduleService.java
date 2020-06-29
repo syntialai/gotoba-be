@@ -14,5 +14,5 @@ public interface TravellingScheduleService {
     Mono<TravellingSchedule> updateById(String id);
     Mono<TravellingSchedule> addBySku(String sku, ScheduleRequest scheduleRequest);
     Mono<TravellingSchedule> editById(Integer sku, ScheduleRequest scheduleRequest);
-    Mono<Void> deleteById(Integer sku);
+    Mono<TravellingSchedule> deleteById(Integer id);
 }

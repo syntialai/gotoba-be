@@ -16,6 +16,8 @@ public class OrderDetailTicket {
     Integer quantity;
     Integer price;
     String merchantSku;
+    String category;
+    String wisataSku;
 
     public String getTicketSku() {
         return ticketSku;
@@ -47,5 +49,21 @@ public class OrderDetailTicket {
 
     public void setMerchantSku(String merchantSku) {
         this.merchantSku = merchantSku;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getWisataSku() {
+        return wisataSku;
+    }
+
+    public void setWisataSku(String wisataSku) {
+        this.wisataSku = wisataSku;
     }
 }

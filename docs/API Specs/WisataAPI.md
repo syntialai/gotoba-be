@@ -18,17 +18,19 @@
         "title": "Tempat wisata batu gantung",
         "description": "Tempat wisata ini sangat bagus, berlokasi di parapat",
         "image": "asdadzxcasdasd.png",
+        "longitude" : "25.905354",
+        "latitude" : "45.191548",
         "address": "jl.parapat",
         "createdBy" : "admi-josh-001",
         "price" : "15000",
         "hoursOpen": {
-            "Monday": ["8AM", "10PM"],
-            "Tuesday": ["8AM", "10PM"],
-            "Wednesday": ["8AM", "10PM"],
-            "Thursday": ["8AM", "10PM"],
-            "Friday": ["8AM", "10PM"],
-            "Saturday": ["8AM", "10PM"],
-            "Sunday": ["8AM", "10PM"]
+            "monday": ["8AM", "10PM"],
+            "tuesday": ["8AM", "10PM"],
+            "wednesday": ["8AM", "10PM"],
+            "thursday": ["8AM", "10PM"],
+            "friday": ["8AM", "10PM"],
+            "saturday": ["8AM", "10PM"],
+            "sunday": ["8AM", "10PM"]
         },
         "status": "active"
     }, {
@@ -37,17 +39,19 @@
         "title": "Tempat wisata pantai 1 lumban bulbul",
         "description": "Tempat wisata ini sangat bagus, berlokasi di balige",
         "image": "vjdkdfwwdzxcasdassadzxcd.png",
+        "longitude" : "25.905354",
+        "latitude" : "45.191548",
         "address": "jl.baige",
         "createdBy" : "admi-hend-001",
         "price" : "20000",
         "hoursOpen": {
-            "Monday": ["8AM", "10PM"],
-            "Tuesday": ["8AM", "10PM"],
-            "Wednesday": ["8AM", "10PM"],
-            "Thursday": ["8AM", "10PM"],
-            "Friday": ["8AM", "10PM"],
-            "Saturday": ["8AM", "10PM"],
-            "Sunday": ["8AM", "10PM"]
+            "monday": ["8AM", "10PM"],
+            "tuesday": ["8AM", "10PM"],
+            "wednesday": ["8AM", "10PM"],
+            "thursday": ["8AM", "10PM"],
+            "friday": ["8AM", "10PM"],
+            "saturday": ["8AM", "10PM"],
+            "sunday": ["8AM", "10PM"]
         },
         "status": "active"
     }, {
@@ -56,17 +60,19 @@
         "title": "Tempat wisata pantai 2 lumban bulbul",
         "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
         "image": "cvdafzxsqzxcasdasd.png",
+        "longitude" : "25.905354",
+        "latitude" : "45.191548",
         "address": "jl.balige",
         "createdBy" : "admi-josh-001",
         "price" : "10000",
         "hoursOpen": {
-            "Monday": ["8AM", "10PM"],
-            "Tuesday": ["8AM", "10PM"],
-            "Wednesday": ["8AM", "10PM"],
-            "Thursday": ["8AM", "10PM"],
-            "Friday": ["8AM", "10PM"],
-            "Saturday": ["8AM", "10PM"],
-            "Sunday": ["8AM", "10PM"]
+            "monday": ["8AM", "10PM"],
+            "tuesday": ["8AM", "10PM"],
+            "wednesday": ["8AM", "10PM"],
+            "thursday": ["8AM", "10PM"],
+            "friday": ["8AM", "10PM"],
+            "saturday": ["8AM", "10PM"],
+            "sunday": ["8AM", "10PM"]
         },
         "status": "active"
     }]
@@ -105,17 +111,19 @@
         "title": "Tempat wisata pantai 2 lumban bulbul",
         "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
         "image": "cvdafzxsqzxcasdasd.png",
+        "longitude" : "25.905354",
+        "latitude" : "45.191548",
         "address": "jl.balige",
         "createdBy" : "admi-josh-001",
         "price" : "10000",
         "hoursOpen": {
-            "Monday": ["8AM", "10PM"],
-            "Tuesday": ["8AM", "10PM"],
-            "Wednesday": ["8AM", "10PM"],
-            "Thursday": ["8AM", "10PM"],
-            "Friday": ["8AM", "10PM"],
-            "Saturday": ["8AM", "10PM"],
-            "Sunday": ["8AM", "10PM"]
+            "monday": ["8AM", "10PM"],
+            "tuesday": ["8AM", "10PM"],
+            "wednesday": ["8AM", "10PM"],
+            "thursday": ["8AM", "10PM"],
+            "friday": ["8AM", "10PM"],
+            "saturday": ["8AM", "10PM"],
+            "sunday": ["8AM", "10PM"]
         },
         "status": "active"
     }
@@ -146,17 +154,19 @@
     "title": "Tempat wisata pantai 2 lumban bulbul",
     "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
     "image": "cvdafzxsqzxcasdasd.png",
+    "longitude" : "25.905354",
+    "latitude" : "45.191548",
     "address": "jl.balige",
     "createdBy" : "admi-josh-001",
     "price" : 10000,
     "hoursOpen": {
-        "Monday": ["8AM", "10PM"],
-        "Tuesday": ["8AM", "10PM"],
-        "Wednesday": ["8AM", "10PM"],
-        "Thursday": ["8AM", "10PM"],
-        "Friday": ["8AM", "10PM"],
-        "Saturday": ["8AM", "10PM"],
-        "Sunday": ["8AM", "10PM"]
+        "monday": ["8AM", "10PM"],
+        "tuesday": ["8AM", "10PM"],
+        "wednesday": ["8AM", "10PM"],
+        "thursday": ["8AM", "10PM"],
+        "friday": ["8AM", "10PM"],
+        "saturday": ["8AM", "10PM"],
+        "sunday": ["8AM", "10PM"]
     }  
 }
 ```
@@ -206,21 +216,28 @@
 
 ```json
 {
-    "name": "Lumban bulbul pantai 3",
-    "title": "Tempat wisata pantai 3 lumban bulbul",
-    "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
-    "image": "cvdafzxsqzxcasdasd.png",
-    "address": "jl.balige",
-    "createdBy" : "admi-josh-001",
-    "price" : "10000",
-    "hoursOpen": {
-        "Monday": ["8AM", "10PM"],
-        "Tuesday": ["8AM", "10PM"],
-        "Wednesday": ["8AM", "10PM"],
-        "Thursday": ["8AM", "10PM"],
-        "Friday": ["8AM", "10PM"],
-        "Saturday": ["8AM", "10PM"],
-        "Sunday": ["8AM", "10PM"]
+    "code": 200,
+    "status": "OK",
+    "data": {
+        "name": "Lumban bulbul pantai 3",
+        "title": "Tempat wisata pantai 3 lumban bulbul",
+        "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
+        "image": "cvdafzxsqzxcasdasd.png",
+        "longitude" : "25.905354",
+        "latitude" : "45.191548",
+        "address": "jl.balige",
+        "createdBy" : "admi-josh-001",
+        "price" : "10000",
+        "hoursOpen": {
+            "monday": ["8AM", "10PM"],
+            "tuesday": ["8AM", "10PM"],
+            "wednesday": ["8AM", "10PM"],
+            "thursday": ["8AM", "10PM"],
+            "friday": ["8AM", "10PM"],
+            "saturday": ["8AM", "10PM"],
+            "sunday": ["8AM", "10PM"]
+        },
+        "status": "active"
     }
 }
 ```
@@ -236,18 +253,21 @@
     "title": "Tempat wisata pantai 3 lumban bulbul",
     "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
     "image": "cvdafzxsqzxcasdasd.png",
+    "longitude" : "25.905354",
+    "latitude" : "45.191548",
     "address": "jl.balige",
     "createdBy" : "admi-josh-001",
     "price" : "10000",
     "hoursOpen": {
-        "Monday": ["8AM", "10PM"],
-        "Tuesday": ["8AM", "10PM"],
-        "Wednesday": ["8AM", "10PM"],
-        "Thursday": ["8AM", "10PM"],
-        "Friday": ["8AM", "10PM"],
-        "Saturday": ["8AM", "10PM"],
-        "Sunday": ["8AM", "10PM"]
-    }  
+         "monday": ["8AM", "10PM"],
+        "tuesday": ["8AM", "10PM"],
+        "wednesday": ["8AM", "10PM"],
+        "thursday": ["8AM", "10PM"],
+        "friday": ["8AM", "10PM"],
+        "saturday": ["8AM", "10PM"],
+        "sunday": ["8AM", "10PM"]
+    },
+    "status": "active"
 }
 ```
 
