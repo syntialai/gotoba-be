@@ -70,24 +70,24 @@ public class ReviewsController {
     }
 
     @PostMapping(ReviewsControllerRoute.ROUTE_ADD_REVIEWS_BY_SKU_WISATA)
-    public Mono<ResponseEntity<?>> addReviewWisata(@PathVariable String sku, @PathVariable String userSku, @RequestBody ReviewRequest reviewRequest){
-        return wisataService.findBySku(sku).map(data -> {
+    public Mono<ResponseEntity<?>> addReviewWisata(@PathVariable String skuWisata, @PathVariable String userSku, @RequestBody ReviewRequest reviewRequest){
+        return wisataService.findBySku(skuWisata).map(data -> {
             if(data.getSkuWisata()!=null){
-                reviewsService.addReviewWisata(sku,userSku,reviewRequest).subscribe();
+                reviewsService.addReviewWisata(skuWisata,userSku,reviewRequest).subscribe();
                 return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS_CREATED,StaticResponseStatus.RESPONSE_STATUS_CREATED,reviewRequest));
             }
-            return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "review with sku " + sku, ReviewsControllerRoute.ROUTE_FOR_REVIEWS + ReviewsControllerRoute.ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA));
-        }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "review with sku " + sku, ReviewsControllerRoute.ROUTE_FOR_REVIEWS + ReviewsControllerRoute.ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA)));
+            return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "review with sku " + skuWisata, ReviewsControllerRoute.ROUTE_FOR_REVIEWS + ReviewsControllerRoute.ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA));
+        }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "review with sku " + skuWisata, ReviewsControllerRoute.ROUTE_FOR_REVIEWS + ReviewsControllerRoute.ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA)));
     }
 
     @PostMapping(ReviewsControllerRoute.ROUTE_ADD_REVIEWS_BY_SKU_RESTAURANTS)
-    public Mono<ResponseEntity<?>> addReviewRestaurants(@PathVariable String sku, @PathVariable String userSku, @RequestBody ReviewRequest reviewRequest){
-        return restaurantRepo.findBySku(sku).map(data -> {
+    public Mono<ResponseEntity<?>> addReviewRestaurants(@PathVariable String skuRestaurant, @PathVariable String userSku, @RequestBody ReviewRequest reviewRequest){
+        return restaurantRepo.findBySku(skuRestaurant).map(data -> {
             if(data.getMerchantSku()!=null) {
-                reviewsService.addReviewRestaurants(sku, userSku, reviewRequest).subscribe();
+                reviewsService.addReviewRestaurants(skuRestaurant, userSku, reviewRequest).subscribe();
                 return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS_CREATED, StaticResponseStatus.RESPONSE_STATUS_CREATED, reviewRequest));
             }
-            return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "review with sku " + sku, ReviewsControllerRoute.ROUTE_FOR_REVIEWS + ReviewsControllerRoute.ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA));
-        }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "review with sku " + sku, ReviewsControllerRoute.ROUTE_FOR_REVIEWS + ReviewsControllerRoute.ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA)));
+            return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "review with sku " + skuRestaurant, ReviewsControllerRoute.ROUTE_FOR_REVIEWS + ReviewsControllerRoute.ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA));
+        }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "review with sku " + skuRestaurant, ReviewsControllerRoute.ROUTE_FOR_REVIEWS + ReviewsControllerRoute.ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA)));
     }
 }

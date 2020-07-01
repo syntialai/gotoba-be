@@ -13,5 +13,4 @@ public interface WisataControllerRoute {
     public String ROUTE_WISATA_DETELE_BY_SKU = "/delete/{sku}";
     public String ROUTE_WISATA_GET_IMAGE = "/get/{filePath}";
 
-
 }
