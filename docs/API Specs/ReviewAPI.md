@@ -17,6 +17,7 @@
     "status": "OK",
     "data": [{
         "id": 1,
+        "sku": "WIS_",
         "rating": 5.0,
         "comment": null,
         "merchantSku": "synt_merc_0001",

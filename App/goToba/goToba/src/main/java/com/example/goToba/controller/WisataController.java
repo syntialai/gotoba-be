@@ -6,6 +6,7 @@ import com.example.goToba.payload.*;
 import com.example.goToba.payload.helper.StaticResponseCode;
 import com.example.goToba.payload.helper.StaticResponseMessages;
 import com.example.goToba.payload.helper.StaticResponseStatus;
+import com.example.goToba.payload.helper.Strings;
 import com.example.goToba.payload.request.WisataRequest;
 import com.example.goToba.repository.WisataRepo;
 import com.example.goToba.service.ImageService;
@@ -46,7 +47,7 @@ public class WisataController {
     @GetMapping(WisataControllerRoute.ROUTE_WISATA_All)
     public Mono<ResponseEntity<?>> findAll() {
         return wisataService.findAll()
-                .filter(data -> data.status.equals("active"))
+                .filter(data -> data.status.equals(Strings.STATUS_ACTIVE))
                 .collectList().
                         map(data -> {
                             if (data.size() != 0) {

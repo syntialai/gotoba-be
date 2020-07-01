@@ -58,7 +58,7 @@ public class WisataServiceImpl implements WisataService {
                 .switchIfEmpty(sequenceWisataRepo.save(new SequenceWisata(key, StockKeepingUnit.SKU_DATA_BEGINNING + "1")))
                 .flatMap(data -> {
                     Wisata wisata = new Wisata(
-                            data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()),
+                            StockKeepingUnit.WISATA + StockKeepingUnit.SKU_CONNECTOR + data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()),
                             wisataRequest.getName(),
                             wisataRequest.getTitle(),
                             wisataRequest.getDescription(),

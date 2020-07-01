@@ -63,7 +63,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 .flatMap(i -> sequenceRestaurantsRepo.findFirstByKey(key))
                 .flatMap(req -> {
                     Restaurant restaurant = new Restaurant(
-                            req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
+                            StockKeepingUnit.RESTAURANTS + StockKeepingUnit.SKU_CONNECTOR + req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
                             restaurantsRequest.getName(),
                             restaurantsRequest.getBistroType(),
                             restaurantsRequest.getLocation(),
