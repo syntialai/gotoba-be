@@ -8,6 +8,7 @@ import com.example.goToba.payload.helper.StaticResponseMessages;
 import com.example.goToba.payload.helper.StaticResponseStatus;
 import com.example.goToba.payload.request.ReviewRequest;
 import com.example.goToba.repository.RestaurantRepo;
+import com.example.goToba.repository.ReviewsRepo;
 import com.example.goToba.service.ReviewsService;
 import com.example.goToba.service.WisataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class ReviewsController {
 
     @Autowired
     WisataService wisataService;
+
+    @Autowired
+    ReviewsRepo reviewsRepo;
 
     @GetMapping(ReviewsControllerRoute.ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA)
     public Mono<ResponseEntity<?>> findAllBySkuWisataOrRestaurants(@PathVariable String sku) {
@@ -57,7 +61,7 @@ public class ReviewsController {
     }
 
     @GetMapping(ReviewsControllerRoute.ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA_AND_ID)
-    public Mono<ResponseEntity<?>> findByReviewsById(@PathVariable String sku, Integer id){
+    public Mono<ResponseEntity<?>> findByReviewsById(@PathVariable String sku, Integer id) {
         return reviewsService.findAllBySkuWisataOrRestaurants(sku)
                 .filter(data -> data.getId() == id)
                 .collectList()
@@ -70,20 +74,20 @@ public class ReviewsController {
     }
 
     @PostMapping(ReviewsControllerRoute.ROUTE_ADD_REVIEWS_BY_SKU_WISATA)
-    public Mono<ResponseEntity<?>> addReviewWisata(@PathVariable String skuWisata, @PathVariable String userSku, @RequestBody ReviewRequest reviewRequest){
+    public Mono<ResponseEntity<?>> addReviewWisata(@PathVariable String skuWisata, @PathVariable String userSku, @RequestBody ReviewRequest reviewRequest) {
         return wisataService.findBySku(skuWisata).map(data -> {
-            if(data.getSku()!=null){
-                reviewsService.addReviewWisata(skuWisata,userSku,reviewRequest).subscribe();
-                return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS_CREATED,StaticResponseStatus.RESPONSE_STATUS_CREATED,reviewRequest));
+            if (data.getSku() != null) {
+                reviewsService.addReviewWisata(skuWisata, userSku, reviewRequest).subscribe();
+                return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS_CREATED, StaticResponseStatus.RESPONSE_STATUS_CREATED, reviewRequest));
             }
             return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "review with sku " + skuWisata, ReviewsControllerRoute.ROUTE_FOR_REVIEWS + ReviewsControllerRoute.ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA));
         }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "review with sku " + skuWisata, ReviewsControllerRoute.ROUTE_FOR_REVIEWS + ReviewsControllerRoute.ROUTE_GET_ALL_FOR_REVIEWS_BY_SKU_RESTAURANTS_OR_WISATA)));
     }
 
     @PostMapping(ReviewsControllerRoute.ROUTE_ADD_REVIEWS_BY_SKU_RESTAURANTS)
-    public Mono<ResponseEntity<?>> addReviewRestaurants(@PathVariable String skuRestaurant, @PathVariable String userSku, @RequestBody ReviewRequest reviewRequest){
+    public Mono<ResponseEntity<?>> addReviewRestaurants(@PathVariable String skuRestaurant, @PathVariable String userSku, @RequestBody ReviewRequest reviewRequest) {
         return restaurantRepo.findBySku(skuRestaurant).map(data -> {
-            if(data.getMerchantSku()!=null) {
+            if (data.getMerchantSku() != null) {
                 reviewsService.addReviewRestaurants(skuRestaurant, userSku, reviewRequest).subscribe();
                 return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS_CREATED, StaticResponseStatus.RESPONSE_STATUS_CREATED, reviewRequest));
             }

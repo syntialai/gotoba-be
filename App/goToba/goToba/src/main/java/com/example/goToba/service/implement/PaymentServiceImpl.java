@@ -8,7 +8,7 @@ import com.example.goToba.payload.request.PaymentRequest;
 import com.example.goToba.repository.PaymentRepo;
 import com.example.goToba.repository.SequencePaymentRepo;
 import com.example.goToba.service.PaymentService;
-import com.example.goToba.service.SkuGenerator;
+import com.example.goToba.service.utils.SkuGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

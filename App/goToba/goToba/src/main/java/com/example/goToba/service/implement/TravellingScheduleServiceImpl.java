@@ -5,6 +5,7 @@ import com.example.goToba.payload.helper.Strings;
 import com.example.goToba.payload.request.ScheduleRequest;
 import com.example.goToba.repository.TravellingScheduleRepo;
 import com.example.goToba.service.TravellingScheduleService;
+import com.example.goToba.service.redisService.TravellingScheduleRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -21,6 +22,9 @@ public class TravellingScheduleServiceImpl implements TravellingScheduleService 
     @Autowired
     TravellingScheduleRepo travellingScheduleRepo;
 
+    @Autowired
+    TravellingScheduleRedisService travellingScheduleRedisService;
+
     @Override
     public Flux<TravellingSchedule> findAll() {
         return travellingScheduleRepo.findAll();
@@ -28,7 +32,13 @@ public class TravellingScheduleServiceImpl implements TravellingScheduleService 
 
     @Override
     public Mono<TravellingSchedule> findByScheduleId(Integer id) {
-        return travellingScheduleRepo.findById(id);
+        if (travellingScheduleRedisService.hasKey(id)) {
+            return travellingScheduleRedisService.findById(id);
+        }
+        return travellingScheduleRepo.findById(id).map(data -> {
+            travellingScheduleRedisService.add(data);
+            return data;
+        });
     }
 
     @Override
@@ -73,6 +83,8 @@ public class TravellingScheduleServiceImpl implements TravellingScheduleService 
                             data.getUserSku(),
                             data.getStatus()
                     );
+                    travellingScheduleRedisService.deleteByKey(id);
+                    travellingScheduleRedisService.add(schedule);
                     return travellingScheduleRepo.save(schedule);
                 });
     }
@@ -95,6 +107,7 @@ public class TravellingScheduleServiceImpl implements TravellingScheduleService 
                             data.getUserSku(),
                             Strings.STATUS_DELETE
                     );
+                    travellingScheduleRedisService.deleteByKey(id);
                     return travellingScheduleRepo.save(schedule);
                 });
     }

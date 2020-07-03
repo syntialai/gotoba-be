@@ -11,17 +11,27 @@ import lombok.NoArgsConstructor;
 @Data
 public class Reviews {
     Integer id;
+    String targetSku;
     Double rating;
     String comment;
     String merchantSku;
     String userSku;
 
-    public Reviews(Integer id, Double rating, String comment, String merchantSku, String userSku) {
+    public Reviews(Integer id, String targetSku, Double rating, String comment, String merchantSku, String userSku) {
         this.id = id;
+        this.targetSku = targetSku;
         this.rating = rating;
         this.comment = comment;
         this.merchantSku = merchantSku;
         this.userSku = userSku;
+    }
+
+    public String getTargetSku() {
+        return targetSku;
+    }
+
+    public void setTargetSku(String targetSku) {
+        this.targetSku = targetSku;
     }
 
     public Integer getId() {
@@ -56,7 +66,6 @@ public class Reviews {
     public void setMerchantSku(String merchantSku) {
         this.merchantSku = merchantSku;
     }
-
 
 
     public String getUserSku() {

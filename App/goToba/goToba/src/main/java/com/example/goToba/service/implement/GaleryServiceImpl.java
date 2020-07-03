@@ -5,19 +5,15 @@ import com.example.goToba.model.SequenceGalery;
 import com.example.goToba.payload.helper.StockKeepingUnit;
 import com.example.goToba.payload.imagePath.ImagePath;
 import com.example.goToba.payload.request.GaleryRequest;
-import com.example.goToba.redis.template.RedisKeys;
 import com.example.goToba.repository.GaleryRepo;
 import com.example.goToba.repository.SequenceGaleryRepo;
 import com.example.goToba.service.GaleryService;
 import com.example.goToba.service.ImageService;
-import com.example.goToba.service.SkuGenerator;
+import com.example.goToba.service.utils.RandomGenerator;
+import com.example.goToba.service.utils.SkuGenerator;
 import com.example.goToba.service.redisService.GaleryServiceRedis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -45,6 +41,9 @@ public class GaleryServiceImpl implements GaleryService {
 
     @Autowired
     SkuGenerator skuGenerator;
+
+    @Autowired
+    RandomGenerator randomGenerator;
 
     private HashOperations hashOperations;
 
@@ -83,7 +82,7 @@ public class GaleryServiceImpl implements GaleryService {
                 .flatMap(i -> sequenceGaleryRepo.findFirstByKey(key))
                 .flatMap(req -> {
                     Galery galery = new Galery(
-                            (int) UUID.randomUUID().getLeastSignificantBits(),
+                            randomGenerator.randInt(),
                             req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
                             request.getName(),
                             request.getTitle(),

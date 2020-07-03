@@ -8,9 +8,8 @@ import com.example.goToba.payload.imagePath.ImagePath;
 import com.example.goToba.payload.request.WisataRequest;
 import com.example.goToba.repository.SequenceWisataRepo;
 import com.example.goToba.repository.WisataRepo;
-import com.example.goToba.repository.elasticSearch.WisataElasticRepo;
 import com.example.goToba.service.ImageService;
-import com.example.goToba.service.SkuGenerator;
+import com.example.goToba.service.utils.SkuGenerator;
 import com.example.goToba.service.WisataService;
 import com.example.goToba.service.elasticService.WisataElasticService;
 import com.example.goToba.service.redisService.WisataRedisService;
@@ -19,10 +18,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Base64;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 02/04/2020.

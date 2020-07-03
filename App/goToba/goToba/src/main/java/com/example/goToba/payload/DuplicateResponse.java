@@ -5,16 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 05/06/2020.
+ * Created by Sogumontar Hendra Simangunsong on 03/07/2020.
  */
+@NoArgsConstructor
 @AllArgsConstructor
 @Data
-@NoArgsConstructor
-public class NotFoundResponse {
+public class DuplicateResponse {
     String timestamp;
     Integer status;
     String error;
     String message;
     String path;
-
 }

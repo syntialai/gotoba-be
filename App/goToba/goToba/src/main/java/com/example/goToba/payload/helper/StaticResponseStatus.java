@@ -12,5 +12,6 @@ public interface StaticResponseStatus {
     public String RESPONSE_STATUS_ERROR_SERVE = "Internal Server Error";
     public String RESPONSE_STATUS_ERROR_UNAUTHORIZED = "Unauthorized";
     public String RESPONSE_STATUS_ERROR_NOT_FOUND = "Not Found";
+    public String RESPONSE_STATUS_ERROR_DUPLICATE_SOURCE = "Duplicate";
     public String RESPONSE_STATUS_CREATED = "Created";
 }

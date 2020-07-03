@@ -7,6 +7,7 @@ import com.example.goToba.repository.RestaurantRepo;
 import com.example.goToba.repository.ReviewsRepo;
 import com.example.goToba.repository.WisataRepo;
 import com.example.goToba.service.ReviewsService;
+import com.example.goToba.service.utils.RandomGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -28,6 +29,9 @@ public class ReviewsServiceImpl implements ReviewsService {
 
     @Autowired
     WisataRepo wisataRepo;
+
+    @Autowired
+    RandomGenerator randomGenerator;
 
     @Override
     public Flux<Reviews> findAllBySkuWisataOrRestaurants(String sku) {
@@ -53,7 +57,8 @@ public class ReviewsServiceImpl implements ReviewsService {
     public Mono<Reviews> addReviewWisata(String sku, String userSku, ReviewRequest reviewRequest) {
         return wisataRepo.findFirstBySku(sku).flatMap(data -> {
             Reviews reviews = new Reviews(
-                    (int) UUID.randomUUID().getMostSignificantBits(),
+                    randomGenerator.randInt(),
+                    sku,
                     reviewRequest.getRating(),
                     reviewRequest.getComment(),
                     data.getCreatedBy(),
@@ -67,7 +72,8 @@ public class ReviewsServiceImpl implements ReviewsService {
     public Mono<Reviews> addReviewRestaurants(String sku, String userSku, ReviewRequest reviewRequest) {
         return restaurantRepo.findBySku(sku).flatMap(data -> {
             Reviews reviews = new Reviews(
-                    (int) UUID.randomUUID().getMostSignificantBits(),
+                    randomGenerator.randInt(),
+                    sku,
                     reviewRequest.getRating(),
                     reviewRequest.getComment(),
                     data.getMerchantSku(),
@@ -88,4 +94,5 @@ public class ReviewsServiceImpl implements ReviewsService {
             return data.getMerchantSku().toString();
         });
     }
+
 }

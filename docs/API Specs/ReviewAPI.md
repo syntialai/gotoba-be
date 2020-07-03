@@ -17,13 +17,14 @@
     "status": "OK",
     "data": [{
         "id": 1,
-        "sku": "WIS_",
+        "targetSku": "WIS_TOBA_0001",
         "rating": 5.0,
         "comment": null,
         "merchantSku": "synt_merc_0001",
         "userSku": "sima_cust_001"
     }, {
         "id": 2,
+        "targetSku": "WIS_TOBA_0001",
         "rating": 4.7,
         "comment": null,
         "merchantSku": "synt_merc_0001",
@@ -72,6 +73,7 @@
     "status": "OK",
     "data": [{
         "id": 1,
+        "targetSku": "WIS_TOBA_0001",
         "rating": 5.0,
         "comment": null,
         "merchantSku": "synt_merc_0001",
@@ -126,6 +128,7 @@
     "status": "OK",
     "data": {
         "id": 2,
+        "targetSku": "WIS_TOBA_0001",
         "category": "rest",
         "rating": 5.0,
         "comment": null,
@@ -183,6 +186,7 @@
     "status": "Created",
     "data": {
         "id": 1,
+        "targetSku": "WIS_TOBA_0001",
         "rating": 5.0,
         "comment": "OK",
         "merchantSku": "synt_merc_0001",
@@ -249,6 +253,7 @@
     "status": "Created",
     "data": {
         "id": 1,
+        "targetSku": "WIS_TOBA_0001",
         "rating": 5.0,
         "comment": "OK",
         "merchantSku": "synt_merc_0001",
@@ -262,10 +267,20 @@
 ```json
 {
     "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 409,
+    "error": "Duplicate",
+    "message": "The request could not be completed due to a conflict with the current state of the target resource",
+    "path": "/review/wisata/{skuWisata}/user/{userSku}/add"
+}
+```
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 400,
     "error": "Bad Request",
     "message": "Invalid Request: Invalid request format.",
-    "path": "/review/{sku}/add"
+    "path": "/review/wisata/{skuWisata}/user/{userSku}/add"
 }
 ```
 ```json
@@ -274,7 +289,7 @@
     "status": 401,
     "error": "Unauthorized",
     "message": "Invalid Request: You are not allowed to access.",
-    "path": "/review/{sku}/add"
+    "path": "/review/wisata/{skuWisata}/user/{userSku}/add"
 }
 ```
 
@@ -284,6 +299,6 @@
     "status": 404,
     "error": "Not Found",
     "message": "Invalid Request: Cannot find restaurant with sku ABC.",
-    "path": "/review/{sku}/add"
+    "path": "/review/wisata/{skuWisata}/user/{userSku}/add"
 }
 ```

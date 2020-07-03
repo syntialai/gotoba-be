@@ -18,12 +18,16 @@ import java.util.List;
 @Service
 public class RestaurantRedisServiceImpl implements RestaurantRedisService {
     String redisKey = RedisKeys.REDIS_KEYS_FOR_RESTAURANTS;
+
     private RedisTemplate<String, Object> redisTemplate;
+
     private HashOperations hashOperations;
+
     @Autowired
     public RestaurantRedisServiceImpl(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
+
     @PostConstruct
     private void init() {
         hashOperations = redisTemplate.opsForHash();
@@ -31,12 +35,12 @@ public class RestaurantRedisServiceImpl implements RestaurantRedisService {
 
     @Override
     public void add(Restaurant restaurant) {
-        hashOperations.put(redisKey,restaurant.getSku(),restaurant);
+        hashOperations.put(redisKey, restaurant.getSku(), restaurant);
     }
 
     @Override
     public Mono<?> findById(String id) {
-        return Mono.fromCallable(() -> hashOperations.get(redisKey,id));
+        return Mono.fromCallable(() -> hashOperations.get(redisKey, id));
     }
 
     @Override
@@ -46,11 +50,11 @@ public class RestaurantRedisServiceImpl implements RestaurantRedisService {
 
     @Override
     public Boolean hasKey(String key) {
-        return hashOperations.hasKey(redisKey,key);
+        return hashOperations.hasKey(redisKey, key);
     }
 
     @Override
     public void delete(String key) {
-        hashOperations.delete(redisKey,key);
+        hashOperations.delete(redisKey, key);
     }
 }
