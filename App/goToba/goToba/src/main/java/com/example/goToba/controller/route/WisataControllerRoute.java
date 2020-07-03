@@ -7,6 +7,7 @@ public interface WisataControllerRoute {
     public String ROUTE_WISATA = "/wisata";
     public String ROUTE_WISATA_ADD_NEW = "/add";
     public String ROUTE_WISATA_All = "/";
+    public String ROUTE_WISATA_AllBY_MERCHANT = "/merchant/{merchantSku}";
     public String ROUTE_WISATA_FIND_BY_NAME = "/find/{name}";
     public String ROUTE_WISATA_FIND_BY_SKU = "/{sku}";
     public String ROUTE_WISATA_EDIT_BY_SKU = "/edit/{sku}";

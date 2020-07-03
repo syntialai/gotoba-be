@@ -17,7 +17,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @Document(indexName = "gotoba", type = "wisata", shards = 3)
 public class Wisata {
     @Id
-    public String skuWisata;
+    public String sku;
     public String name;
     public String title;
     public String description;

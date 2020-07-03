@@ -7,7 +7,8 @@ public interface RestaurantControllerRoute {
     public String ROUTE_RESTAURANT = "/restaurant";
 
     public String ROUTE_RESTAURANT_All = "";
-    public String ROUTE_GET_RESTAURANT_BY_SKU = "/{merchantSku}";
+    public String ROUTE_GET_RESTAURANT_BY_SKU = "/{sku}";
+    public String ROUTE_GET_RESTAURANT_BY_MERCHANT_SKU = "/merchant/{merchantSku}";
     public String ROUTE_ADD_RESTAURANT_BY_SKU = "/add/{merchantSku}";
     public String ROUTE_EDIT_RESTAURANT_BY_SKU = "/edit/{sku}";
 

@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Sogumontar Hendra Simangunsong on 07/05/2020.
  */
 public interface WisataElasticRepo extends ElasticsearchRepository<Wisata,String> {
-    Wisata findBySkuWisata(String sku);
+    Wisata findBySku(String sku);
     List findByName(String name);
 
     Page<Wisata> search(SearchQuery searchQuery);

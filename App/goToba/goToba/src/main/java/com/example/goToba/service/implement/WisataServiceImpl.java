@@ -73,7 +73,7 @@ public class WisataServiceImpl implements WisataService {
                     );
                     if (wisataRequest.getImage() != "") {
                         try {
-                            imageService.addPicture(wisataRequest.getImage(), wisata.getSkuWisata(), ImagePath.IMAGE_PATH_WISATA);
+                            imageService.addPicture(wisataRequest.getImage(), wisata.getSku(), ImagePath.IMAGE_PATH_WISATA);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -93,9 +93,9 @@ public class WisataServiceImpl implements WisataService {
     @Override
     public Mono<Wisata> updateWisata(String sku, WisataRequest wisataRequest) {
         return Mono.fromCallable(() -> wisataRequest)
-                .flatMap(data -> wisataRepo.findFirstBySkuWisata(sku))
+                .flatMap(data -> wisataRepo.findFirstBySku(sku))
                 .doOnNext(i -> {
-                    wisataRepo.deleteBySkuWisata(sku).subscribe();
+                    wisataRepo.deleteBySku(sku).subscribe();
                 })
                 .flatMap(data -> {
                     Wisata wisata = new Wisata(
@@ -118,7 +118,7 @@ public class WisataServiceImpl implements WisataService {
                     }
                     if (wisataRequest.getImage() != "") {
                         try {
-                            imageService.addPicture(wisataRequest.getImage(), wisata.getSkuWisata(), ImagePath.IMAGE_PATH_WISATA);
+                            imageService.addPicture(wisataRequest.getImage(), wisata.getSku(), ImagePath.IMAGE_PATH_WISATA);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -129,9 +129,9 @@ public class WisataServiceImpl implements WisataService {
 
     @Override
     public Mono<Wisata> deleteBySku(String sku) {
-        return wisataRepo.findFirstBySkuWisata(sku)
+        return wisataRepo.findFirstBySku(sku)
                 .doOnNext(i -> {
-                    wisataRepo.deleteBySkuWisata(sku).subscribe();
+                    wisataRepo.deleteBySku(sku).subscribe();
                 })
                 .flatMap(data -> {
                     Wisata wisata = new Wisata(
@@ -154,6 +154,6 @@ public class WisataServiceImpl implements WisataService {
 
     @Override
     public Mono<Wisata> findBySku(String sku) {
-        return wisataRepo.findFirstBySkuWisata(sku);
+        return wisataRepo.findFirstBySku(sku);
     }
 }

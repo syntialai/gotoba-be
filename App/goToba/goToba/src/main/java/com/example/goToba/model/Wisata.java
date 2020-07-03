@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Wisata {
-    public String skuWisata;
+    public String sku;
     public String name;
     public String title;
     public String description;
@@ -28,7 +28,7 @@ public class Wisata {
 
     public com.example.goToba.model.elastic.Wisata toWisata(Wisata wisata){
         com.example.goToba.model.elastic.Wisata wisata1 = new com.example.goToba.model.elastic.Wisata(
-                wisata.getSkuWisata(),
+                wisata.getSku(),
                 wisata.getName(),
                 wisata.getTitle(),
                 wisata.getDescription(),

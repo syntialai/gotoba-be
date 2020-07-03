@@ -51,7 +51,7 @@ public class ReviewsServiceImpl implements ReviewsService {
 
     @Override
     public Mono<Reviews> addReviewWisata(String sku, String userSku, ReviewRequest reviewRequest) {
-        return wisataRepo.findFirstBySkuWisata(sku).flatMap(data -> {
+        return wisataRepo.findFirstBySku(sku).flatMap(data -> {
             Reviews reviews = new Reviews(
                     (int) UUID.randomUUID().getMostSignificantBits(),
                     reviewRequest.getRating(),
@@ -78,7 +78,7 @@ public class ReviewsServiceImpl implements ReviewsService {
     }
 
     public Mono<String> findSkuMerchantByWisata(String sku) {
-        return wisataRepo.findFirstBySkuWisata(sku).map(data -> {
+        return wisataRepo.findFirstBySku(sku).map(data -> {
             return data.getCreatedBy().toString();
         });
     }

@@ -34,7 +34,7 @@ public class WisataRedisServiceImpl implements WisataRedisService {
 
     @Override
     public void add(Wisata wisata) {
-        hashOperations.put(redisKey,wisata.getSkuWisata(),wisata);
+        hashOperations.put(redisKey,wisata.getSku(),wisata);
     }
 
     @Override

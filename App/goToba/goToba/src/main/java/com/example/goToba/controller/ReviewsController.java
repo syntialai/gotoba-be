@@ -72,7 +72,7 @@ public class ReviewsController {
     @PostMapping(ReviewsControllerRoute.ROUTE_ADD_REVIEWS_BY_SKU_WISATA)
     public Mono<ResponseEntity<?>> addReviewWisata(@PathVariable String skuWisata, @PathVariable String userSku, @RequestBody ReviewRequest reviewRequest){
         return wisataService.findBySku(skuWisata).map(data -> {
-            if(data.getSkuWisata()!=null){
+            if(data.getSku()!=null){
                 reviewsService.addReviewWisata(skuWisata,userSku,reviewRequest).subscribe();
                 return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS_CREATED,StaticResponseStatus.RESPONSE_STATUS_CREATED,reviewRequest));
             }
