@@ -22,15 +22,17 @@
             "ticketSku": "TICK_REST_0001_0001",
             "quantity": 1,
             "price": 100000,
+            "discount": 0,
             "merchantSku": "synt_merc_0001",
-            "category": "wahana air",
+            "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
         }, {
             "ticketSku": "TICK_JOUR_0001_0002",
             "quantity": 1,
             "price": 100000,
+            "discount": 0,
             "merchantSku": "synt_merc_0001",
-            "category": "wahana air",
+            "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
         }],
         "userSku": "sima_cust_001"
@@ -82,15 +84,17 @@
             "ticketSku": "TICK_REST_0001_0001",
             "quantity": 1,
             "price": 100000,
+            "discount": 0,
             "merchantSku": "synt_merc_0001",
-            "category": "wahana air",
+            "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
         }, {
             "ticketSku": "TICK_JOUR_0001_0002",
             "quantity": 1,
             "price": 100000,
+            "discount": 0,
             "merchantSku": "synt_merc_0001",
-            "category": "wahana air",
+            "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
         }],
         "userSku": "sima_cust_001"
@@ -142,15 +146,16 @@
             "ticketSku": "TICK_REST_0001_0001",
             "quantity": 1,
             "price": 100000,
+            "discount": 0,
             "merchantSku": "synt_merc_0001",
-            "category": "wahana air",
-            "wisataSku" : "WAH_BAL_0003"            
+            "category": "wisata",
+            "wisataSku" : "WAH_BAL_0003"
         }, {
             "ticketSku": "TICK_JOUR_0001_0002",
             "quantity": 1,
             "price": 100000,
             "merchantSku": "synt_merc_0001",
-            "category": "wahana air",
+            "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
         }],
         "userSku": "sima_cust_001"
@@ -194,8 +199,9 @@
         "ticketSku": "TICK_JOUR_0001_0002",
         "quantity": 1,
         "price": 100000,
+        "discount": 0,
         "merchantSku": "synt_merc_0001",
-        "category": "wahana air",
+        "category": "wisata",
         "wisataSku" : "WAH_BAL_0003"
     }],
     "userSku": "sima_cust_001"
@@ -218,15 +224,17 @@
             "ticketSku": "TICK_REST_0001_0001",
             "quantity": 1,
             "price": 100000,
+            "discount": 0,
             "merchantSku": "synt_merc_0001",
-            "category": "wahana air",
+            "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
         }, {
             "ticketSku": "TICK_JOUR_0001_0002",
             "quantity": 1,
             "price": 100000,
+            "discount": 0,
             "merchantSku": "synt_merc_0001",
-            "category": "wahana air",
+            "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
         }],
         "userSku": "sima_cust_001"
@@ -270,8 +278,9 @@
         "ticketSku": "TICK_JOUR_0001_0002",
         "quantity": 1,
         "price": 100000,
+        "discount": 0,
         "merchantSku": "synt_merc_0001",
-        "category": "wahana air",
+        "category": "wisata",
         "wisataSku" : "WAH_BAL_0003"
     }],
     "userSku": "sima_cust_001"
@@ -294,8 +303,9 @@
             "ticketSku": "TICK_JOUR_0001_0002",
             "quantity": 1,
             "price": 100000,
+            "discount": 0,
             "merchantSku": "synt_merc_0001",
-            "category": "wahana air",
+            "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
         }],
         "userSku": "sima_cust_001"
@@ -365,4 +375,3 @@
     "path": "/order/delete/{sku}"
 }
 ```
-
