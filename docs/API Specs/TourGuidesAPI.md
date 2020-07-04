@@ -16,6 +16,7 @@
     "id": 1,
     "sku": "TG_ANAS_0001",
     "name": "Anastasya",
+    "image": "",
     "age": 20,
     "occupation": "Tour Guide",
     "location": "Balige",
@@ -32,6 +33,7 @@
     "id": 2,
     "sku": "TG_ANAB_0002",
     "name": "Anabelle",
+    "image": "",
     "age": 25,
     "occupation": "Translator",
     "location": "Parapat",
@@ -78,6 +80,7 @@
         "id": 1,
         "sku": "TG_ANAS_0001",
         "name": "Anastasya",
+        "image": "",
         "age": 20,
         "occupation": "Tour Guide",
         "location": "Balige",
@@ -125,6 +128,7 @@
 ```json
 {
     "name": "Anastasya",
+    "image": "",
     "age": 20,
     "occupation": "Tour Guide",
     "location": "Balige",
@@ -152,6 +156,7 @@
         "id": 1,
         "sku": "TG_ANAS_0001",
         "name": "Anastasya",
+        "image": "",
         "age": 20,
         "occupation": "Tour Guide",
         "location": "Balige",
@@ -201,6 +206,7 @@
 ```json
 {
     "name": "Anastasya",
+    "image": "",
     "age": 20,
     "occupation": "Tour Guide",
     "location": "Balige",
@@ -228,6 +234,7 @@
         "id": 1,
         "sku": "TG_ANAS_0001",
         "name": "Anastasya",
+        "image": "",
         "age": 20,
         "occupation": "Tour Guide",
         "location": "Balige",
@@ -276,8 +283,7 @@
 }
 ```
 
-
-## DELETE Tour Guide by Sku
+## Delete Tour Guide by Sku
 
 + Endpoint : ``/tour-guide/delete/{sku}``
 + HTTP Method : `DELETE`

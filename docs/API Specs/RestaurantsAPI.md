@@ -16,6 +16,7 @@
     "data": [{
         "sku": "jenn_rest_001_001",
         "name": "Jenny's Restaurant",
+        "image": "asduqwyieuhxmz.png",
         "bistroType": "Salad Shop",
         "location": "Samosir Regency, North Sumatra",
         "rating": 5.0,
@@ -35,6 +36,7 @@
     }, {
         "sku": "jenn_rest_002_002",
         "name": "Jenny's Restaurant",
+        "image": "asduqwyieuhxmz.png",
         "bistroType": "Salad Shop",
         "location": "Samosir Regency, North Sumatra",
         "rating": 5.0,
@@ -84,6 +86,7 @@
     "data": {
         "sku": "jenn_rest_001_001",
         "name": "Jenny's Restaurant",
+        "image": "asduqwyieuhxmz.png",
         "bistroType": "Salad Shop",
         "location": "Samosir Regency, North Sumatra",
         "rating": 5.0,
@@ -137,6 +140,7 @@
 ```json
 {
     "name": "Jenny's Restaurant",
+    "image": "asduqwyieuhxmz.png",
     "bistroType": "Salad Shop",
     "location": "Samosir Regency, North Sumatra",
     "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
@@ -165,6 +169,7 @@
     "data": {
         "sku": "jenn_rest_001_001",
         "name": "Jenny's Restaurant",
+        "image": "asduqwyieuhxmz.png",
         "bistroType": "Salad Shop",
         "location": "Samosir Regency, North Sumatra",
         "rating": 5.0,
@@ -228,6 +233,7 @@
 ```json
 {
     "name": "Jenny's Restaurant",
+    "image": "asduqwyieuhxmz.png",
     "bistroType": "Salad Shop",
     "location": "Samosir Regency, North Sumatra",
     "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
@@ -256,6 +262,7 @@
     "data": {
         "sku": "jenn_rest_001_001",
         "name": "Jenny's Restaurant",
+        "image": "asduqwyieuhxmz.png",
         "bistroType": "Salad Shop",
         "location": "Samosir Regency, North Sumatra",
         "rating": 5.0,
@@ -384,7 +391,7 @@
     "data": {
         "id":1,
         "name": "Cumi Goreng",
-        "picture": "asduqwyieuhxmz.png",
+        "image": "asduqwyieuhxmz.png",
         "category" : "Food",
         "harga": "50000",
         "status": "1",
@@ -427,7 +434,7 @@
 ```json
 {
     "name": "Cumi Goreng",
-    "picture": "asduqwyieuhxmz.png",
+    "image": "asduqwyieuhxmz.png",
     "category" : "Food",
     "harga": "50000",
     "status": "1",
@@ -445,10 +452,10 @@
 {
     "code": 201,
     "status": "Created",
-        "data": {
-        "id":1,
+    "data": {
+        "id": 1,
         "name": "Cumi Goreng",
-        "picture": "asduqwyieuhxmz.png",
+        "image": "asduqwyieuhxmz.png",
         "category" : "Food",
         "harga": "50000",
         "status": "1",

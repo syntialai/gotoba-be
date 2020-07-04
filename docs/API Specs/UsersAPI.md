@@ -18,7 +18,7 @@
         "nickname" : "hendra",
         "username" : "hendra",
         "email" : "hendra@gmail.com",
-        "password" : "hendra77",
+        "image": "",
         "role" : "Merchant",
         "status" : "active"
     },
@@ -27,7 +27,7 @@
         "nickname" : "simangunsong",
         "username" : "simangunsong",
         "email" : "simangunsong@gmail.com",
-        "password" : "simangunsong12",
+        "image": "",
         "role" : "Customer",
         "status" : "active"
     },
@@ -36,7 +36,7 @@
         "nickname" : "joshua",
         "username" : "joshua",
         "email" : "joshua@gmail.com",
-        "password" : "joshua",
+        "image": "",
         "role" : "Merchant",
         "status" : "active"
     }]
@@ -76,6 +76,7 @@
          "username" : "joshua",
          "email" : "joshua@gmail.com",
          "password" : "joshua",
+         "image": "",
          "role" : "Merchant",
          "status" : "active"
     }
@@ -122,7 +123,7 @@
          "nickname" : "joshua",
          "username" : "joshua",
          "email" : "joshua@gmail.com",
-         "password" : "joshua",
+         "image": "",
          "role" : "Merchant",
          "status" : "active"
     }
@@ -159,7 +160,7 @@
          "nickname" : "joshua",
          "username" : "joshua",
          "email" : "joshua@gmail.com",
-         "password" : "joshua",
+         "image": "",
          "role" : "Merchant",
          "status" : "blocked"
     }
@@ -198,7 +199,7 @@
          "nickname" : "joshua",
          "username" : "joshua",
          "email" : "joshua@gmail.com",
-         "password" : "joshua",
+         "image": "",
          "role" : "Merchant",
          "status" : "active"
     }
@@ -240,7 +241,7 @@
     "nickname" : "hendra",
     "username" : "hendra",
     "email" : "hendra@gmail.com",
-    "password" : "hendra77"
+    "image": ""
 }
 ```
 
@@ -258,7 +259,7 @@
          "nickname" : "joshua",
          "username" : "joshua",
          "email" : "joshua@gmail.com",
-         "password" : "joshua",
+         "image": "",
          "role" : "Merchant",
          "status" : "active"
     }
