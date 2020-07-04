@@ -13,7 +13,7 @@ import com.example.goToba.repository.OrderDetailRepo;
 import com.example.goToba.repository.SequenceOrderRepo;
 import com.example.goToba.repository.TicketRepo;
 import com.example.goToba.service.OrderDetailService;
-import com.example.goToba.service.SkuGenerator;
+import com.example.goToba.service.utils.SkuGenerator;
 import com.example.goToba.service.redisService.OrderDetailRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,14 +52,11 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
     @Override
-    public Mono<ResponseEntity<?>> findBySku(String sku) {
-        return orderDetailRepo.findFirstBySku(sku).map((data) -> {
-            if (data.getUserSku() != null) {
-                orderDetailRedisService.add(data);
-                return ResponseEntity.status(HttpStatus.OK).body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
-            }
-            return ResponseEntity.status(HttpStatus.OK).body(new NotFoundResponse(timestamp.toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_UNAUTHORIZED, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "order with sku " + sku + ".", OrderDetailControllerRoute.ROUTE_ORDER + OrderDetailControllerRoute.ROUTE_ORDER_DETAIL_BY_SKU));
-        }).defaultIfEmpty(ResponseEntity.status(HttpStatus.OK).body(new NotFoundResponse(timestamp.toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "order with sku " + sku + ".", OrderDetailControllerRoute.ROUTE_ORDER + OrderDetailControllerRoute.ROUTE_ORDER_DETAIL_BY_SKU)));
+    public Mono<OrderDetail> findBySku(String sku) {
+        if (orderDetailRedisService.hasKey(sku)) {
+            return orderDetailRedisService.findById(sku);
+        }
+        return orderDetailRepo.findFirstBySku(sku);
     }
 
     @Override
@@ -110,22 +107,22 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                     Integer dayat = gc.get(Calendar.DAY_OF_MONTH) + 7;
                     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
                     LocalDateTime now = LocalDateTime.now();
-                    for (int i = 0; i < orderDetailRequest.getTicket().size(); i++) {
-                        Ticket ticket = new Ticket(
-                                (int) UUID.randomUUID().getLeastSignificantBits(),
-                                UUID.randomUUID().toString(),
-                                orderDetailRequest.getTicket().get(i).getCategory(),
-                                orderDetailRequest.getTicket().get(i).getPrice(),
-                                dayat.toString(),
-                                orderDetailRequest.getTicket().get(i).getMerchantSku(),
-                                dtf.format(now).toString(),
-                                Strings.STATUS_ACTIVE,
-                                orderDetailRequest.getTicket().get(i).getWisataSku(),
-                                orderDetail.getId(),
-                                skuUser
-                        );
-                        ticketRepo.save(ticket).subscribe();
-                    }
+//                    for (int i = 0; i < orderDetailRequest.getTicket().size(); i++) {
+//                        Ticket ticket = new Ticket(
+//                                (int) UUID.randomUUID().getLeastSignificantBits(),
+//                                UUID.randomUUID().toString(),
+//                                orderDetailRequest.getTicket().get(i).getCategory(),
+//                                orderDetailRequest.getTicket().get(i).getPrice(),
+//                                dayat.toString(),
+//                                orderDetailRequest.getTicket().get(i).getMerchantSku(),
+//                                dtf.format(now).toString(),
+//                                Strings.STATUS_ACTIVE,
+//                                orderDetailRequest.getTicket().get(i).getWisataSku(),
+//                                orderDetail.getId(),
+//                                skuUser
+//                        );
+//                        ticketRepo.save(ticket).subscribe();
+//                    }
                     return orderDetailRepo.save(orderDetail);
                 });
 

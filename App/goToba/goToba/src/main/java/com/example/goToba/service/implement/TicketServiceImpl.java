@@ -8,7 +8,7 @@ import com.example.goToba.payload.request.TicketRequest;
 import com.example.goToba.repository.OrderDetailRepo;
 import com.example.goToba.repository.SequenceTicketRepo;
 import com.example.goToba.repository.TicketRepo;
-import com.example.goToba.service.SkuGenerator;
+import com.example.goToba.service.utils.SkuGenerator;
 import com.example.goToba.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +16,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 /**

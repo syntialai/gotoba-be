@@ -13,15 +13,12 @@ import com.example.goToba.repository.OrderDetailRepo;
 import com.example.goToba.repository.TicketRepo;
 import com.example.goToba.repository.UsersRepo;
 import com.example.goToba.service.OrderDetailService;
-import com.example.goToba.service.redisService.OrderDetailRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 10/06/2020.
@@ -36,15 +33,12 @@ public class OrderDetailController {
     OrderDetailRepo orderDetailRepo;
 
     @Autowired
-    OrderDetailRedisService orderDetailRedisService;
-
-    @Autowired
     UsersRepo usersRepo;
 
     @Autowired
     TicketRepo ticketRepo;
 
-    @GetMapping("/all/")
+    @GetMapping(OrderDetailControllerRoute.ROUTE_ORDER_DETAIL_ALL)
     public Mono<ResponseEntity<?>> findAll() {
         return orderDetailRepo.findAll().collectList().map(data -> {
             return ResponseEntity.ok(data);
@@ -53,17 +47,18 @@ public class OrderDetailController {
 
     @GetMapping(OrderDetailControllerRoute.ROUTE_ORDER_DETAIL_BY_SKU)
     public Mono<ResponseEntity<?>> findBySku(@PathVariable String sku) {
-        if (orderDetailRedisService.hasKey(sku)) {
-            return orderDetailRedisService.findById(sku).map(data -> {
+        return orderDetailService.findBySku(sku).map((data) -> {
+            if (data.getUserSku() != null) {
                 return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
-            });
-        }
-        return orderDetailService.findBySku(sku);
+            }
+            return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "order with sku " + sku, OrderDetailControllerRoute.ROUTE_ORDER + OrderDetailControllerRoute.ROUTE_ORDER_DETAIL_BY_SKU));
+        }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "order with sku " + sku, OrderDetailControllerRoute.ROUTE_ORDER + OrderDetailControllerRoute.ROUTE_ORDER_DETAIL_BY_SKU)));
+
     }
 
     @GetMapping(OrderDetailControllerRoute.ROUTE_ORDER_DETAIL_BY_SKU_MERCHANT)
     public Mono<ResponseEntity<?>> findAllBySkuMerchant(@PathVariable String merchantSku) {
-        return orderDetailService.findAll().filter(data -> orderDetailService.checkTicket(data.getTicket(),merchantSku)==true)
+        return orderDetailService.findAll().filter(data -> orderDetailService.checkTicket(data.getTicket(), merchantSku) == true)
                 .collectList().map(data -> {
                     if (data.size() != 0) {
                         return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));

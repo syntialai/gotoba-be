@@ -17,12 +17,14 @@
     "status": "OK",
     "data": [{
         "id": 1,
+        "targetSku": "WIS_TOBA_0001",
         "rating": 5.0,
         "comment": null,
         "merchantSku": "synt_merc_0001",
         "userSku": "sima_cust_001"
     }, {
         "id": 2,
+        "targetSku": "WIS_TOBA_0001",
         "rating": 4.7,
         "comment": null,
         "merchantSku": "synt_merc_0001",
@@ -71,6 +73,7 @@
     "status": "OK",
     "data": [{
         "id": 1,
+        "targetSku": "WIS_TOBA_0001",
         "rating": 5.0,
         "comment": null,
         "merchantSku": "synt_merc_0001",
@@ -125,6 +128,7 @@
     "status": "OK",
     "data": {
         "id": 2,
+        "targetSku": "WIS_TOBA_0001",
         "category": "rest",
         "rating": 5.0,
         "comment": null,
@@ -156,9 +160,9 @@
 }
 ```
 
-## Add Review by Wisata / Restaurant Sku
+## Add Review by Restaurant Sku
 
-+ Endpoint : ``/review/{sku}/user/{userSku}/add``
++ Endpoint : ``/review/restaurant/{skuRestaurant}/user/{userSku}/add``
 + HTTP Method : `GET`
 + Path Variable :
   + sku
@@ -182,6 +186,7 @@
     "status": "Created",
     "data": {
         "id": 1,
+        "targetSku": "WIS_TOBA_0001",
         "rating": 5.0,
         "comment": "OK",
         "merchantSku": "synt_merc_0001",
@@ -216,7 +221,84 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find wisata/restaurant with sku ABC.",
+    "message": "Invalid Request: Cannot find restaurant with sku ABC.",
     "path": "/review/{sku}/add"
+}
+```
+
+
+## Add Review by Wisata Sku
+
++ Endpoint : ``/review/wisata/{skuWisata}/user/{userSku}/add``
++ HTTP Method : `GET`
++ Path Variable :
+  + sku
++ Request Body :
+
+```json
+{
+    "rating": 5.0,
+    "comment": "OK"
+}
+```
+
++ Request Header :
+  + Accept : `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
+    "code": 201,
+    "status": "Created",
+    "data": {
+        "id": 1,
+        "targetSku": "WIS_TOBA_0001",
+        "rating": 5.0,
+        "comment": "OK",
+        "merchantSku": "synt_merc_0001",
+        "userSku": "sima_cust_001"
+    }
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 409,
+    "error": "Duplicate",
+    "message": "The request could not be completed due to a conflict with the current state of the target resource",
+    "path": "/review/wisata/{skuWisata}/user/{userSku}/add"
+}
+```
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 400,
+    "error": "Bad Request",
+    "message": "Invalid Request: Invalid request format.",
+    "path": "/review/wisata/{skuWisata}/user/{userSku}/add"
+}
+```
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/review/wisata/{skuWisata}/user/{userSku}/add"
+}
+```
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Invalid Request: Cannot find restaurant with sku ABC.",
+    "path": "/review/wisata/{skuWisata}/user/{userSku}/add"
 }
 ```

@@ -8,6 +8,7 @@ import com.example.goToba.payload.request.MenuRestaurantsRequest;
 import com.example.goToba.repository.MenuRestaurantsRepo;
 import com.example.goToba.service.ImageService;
 import com.example.goToba.service.MenuRestaurantsService;
+import com.example.goToba.service.utils.RandomGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -28,6 +29,9 @@ public class MenuRestaurantsServiceImpl implements MenuRestaurantsService {
     @Autowired
     ImageService imageService;
 
+    @Autowired
+    RandomGenerator randomGenerator;
+
     @Override
     public Mono<MenuRestaurants> findByIdMenu(Integer idMenu) {
         return menuRestaurantsRepo.findById(idMenu);
@@ -40,7 +44,7 @@ public class MenuRestaurantsServiceImpl implements MenuRestaurantsService {
 
     @Override
     public Mono<MenuRestaurants> addRestaurantMenu(String sku, MenuRestaurantsRequest menuRestaurantsRequest) {
-        int id= (int) UUID.randomUUID().getLeastSignificantBits();
+        int id= randomGenerator.randInt();
         MenuRestaurants menuRestaurants = new MenuRestaurants(
                 id,
                 menuRestaurantsRequest.getName(),

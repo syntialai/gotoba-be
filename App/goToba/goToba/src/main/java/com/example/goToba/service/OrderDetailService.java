@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Sogumontar Hendra Simangunsong on 10/06/2020.
  */
 public interface OrderDetailService {
-    Mono<ResponseEntity<?>> findBySku(String sku);
+    Mono<OrderDetail> findBySku(String sku);
     Mono<OrderDetail> findFirstBySku(String sku);
     Mono<OrderDetail> findFirstBySkuUser(String skuUser);
     Flux<OrderDetail> findAll();

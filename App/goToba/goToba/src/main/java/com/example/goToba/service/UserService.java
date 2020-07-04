@@ -22,7 +22,7 @@ public interface UserService {
 
     public Mono<Users> save(RegisterRequest registerRequest);
 
-    public Mono<ResponseEntity<?>> signin(HttpServletResponse response, LoginRequest request);
+    public Mono<ResponseEntity<?>> signin(LoginRequest request);
 
     public RoleName checkRole(String role);
 

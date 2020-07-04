@@ -7,7 +7,7 @@ import com.example.goToba.payload.helper.Strings;
 import com.example.goToba.payload.request.TourGuideRequest;
 import com.example.goToba.repository.SequenceTourGuideRepo;
 import com.example.goToba.repository.TourGuideRepo;
-import com.example.goToba.service.SkuGenerator;
+import com.example.goToba.service.utils.SkuGenerator;
 import com.example.goToba.service.TourGuideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

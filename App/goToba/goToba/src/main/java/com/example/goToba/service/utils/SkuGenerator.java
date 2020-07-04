@@ -1,4 +1,4 @@
-package com.example.goToba.service;
+package com.example.goToba.service.utils;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 22/06/2020.

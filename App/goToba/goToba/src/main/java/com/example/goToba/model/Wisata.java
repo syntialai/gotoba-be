@@ -1,5 +1,6 @@
 package com.example.goToba.model;
 
+import com.example.goToba.model.elastic.WisataElastic;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Wisata {
-    public String skuWisata;
+    public String sku;
     public String name;
     public String title;
     public String description;
@@ -24,5 +25,24 @@ public class Wisata {
     public int price;
     public HoursOpen hoursOpen;
     public String status;
+
+
+    public WisataElastic toWisata(Wisata wisata){
+        WisataElastic wisata1 = new WisataElastic(
+                wisata.getSku(),
+                wisata.getName(),
+                wisata.getTitle(),
+                wisata.getDescription(),
+                wisata.getImage(),
+                wisata.getLongitude(),
+                wisata.getLatitude(),
+                wisata.getAddress(),
+                wisata.getCreatedBy(),
+                wisata.getPrice(),
+                wisata.getHoursOpen(),
+                wisata.getStatus()
+        );
+        return wisata1;
+    }
 
 }
