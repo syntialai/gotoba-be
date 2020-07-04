@@ -2,6 +2,7 @@ package com.example.goToba.service.implement;
 
 import com.example.goToba.model.SequenceWisata;
 import com.example.goToba.model.Wisata;
+import com.example.goToba.model.elastic.WisataElastic;
 import com.example.goToba.payload.helper.StockKeepingUnit;
 import com.example.goToba.payload.helper.Strings;
 import com.example.goToba.payload.imagePath.ImagePath;
@@ -12,13 +13,13 @@ import com.example.goToba.service.ImageService;
 import com.example.goToba.service.utils.SkuGenerator;
 import com.example.goToba.service.WisataService;
 import com.example.goToba.service.elasticService.WisataElasticService;
-import com.example.goToba.service.redisService.WisataRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 02/04/2020.
@@ -31,9 +32,6 @@ public class WisataServiceImpl implements WisataService {
 
     @Autowired
     SequenceWisataRepo sequenceWisataRepo;
-
-    @Autowired
-    WisataRedisService wisataRedisService;
 
     @Autowired
     ImageService imageService;
@@ -81,8 +79,8 @@ public class WisataServiceImpl implements WisataService {
     }
 
     @Override
-    public Flux<Wisata> findAll() {
-        return wisataRepo.findAll();
+    public Flux<WisataElastic> findAll() {
+        return wisataElasticService.findAll();
     }
 
 
@@ -91,6 +89,7 @@ public class WisataServiceImpl implements WisataService {
         return Mono.fromCallable(() -> wisataRequest)
                 .flatMap(data -> wisataRepo.findFirstBySku(sku))
                 .doOnNext(i -> {
+                    wisataElasticService.deleteBySku(sku);
                     wisataRepo.deleteBySku(sku).subscribe();
                 })
                 .flatMap(data -> {
@@ -108,10 +107,6 @@ public class WisataServiceImpl implements WisataService {
                             wisataRequest.getHoursOpen(),
                             data.getStatus()
                     );
-                    if (wisataRedisService.hasKey(sku)) {
-                        wisataRedisService.deleteByKey(sku);
-                        wisataRedisService.add(wisata);
-                    }
                     if (wisataRequest.getImage() != "") {
                         try {
                             imageService.addPicture(wisataRequest.getImage(), wisata.getSku(), ImagePath.IMAGE_PATH_WISATA);
@@ -119,6 +114,7 @@ public class WisataServiceImpl implements WisataService {
                             e.printStackTrace();
                         }
                     }
+                    wisataElasticService.save(wisata.toWisata(wisata));
                     return wisataRepo.save(wisata);
                 });
     }
@@ -127,6 +123,7 @@ public class WisataServiceImpl implements WisataService {
     public Mono<Wisata> deleteBySku(String sku) {
         return wisataRepo.findFirstBySku(sku)
                 .doOnNext(i -> {
+                    wisataElasticService.deleteBySku(sku);
                     wisataRepo.deleteBySku(sku).subscribe();
                 })
                 .flatMap(data -> {
@@ -144,12 +141,13 @@ public class WisataServiceImpl implements WisataService {
                             data.getHoursOpen(),
                             Strings.STATUS_DELETE
                     );
+                    wisataElasticService.save(wisata.toWisata(wisata));
                     return wisataRepo.save(wisata);
                 });
     }
 
     @Override
-    public Mono<Wisata> findBySku(String sku) {
-        return wisataRepo.findFirstBySku(sku);
+    public Mono<WisataElastic> findBySku(String sku) {
+        return wisataElasticService.findBySku(sku);
     }
 }

@@ -8,14 +8,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 07/05/2020.
+ * Created by Sogumontar Hendra Simangunsong on 04/07/2020.
  */
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(indexName = "gotoba", type = "wisata", shards = 3)
-public class Wisata {
+public class WisataElastic {
     @Id
     public String sku;
     public String name;
@@ -31,3 +30,4 @@ public class Wisata {
     public String status;
 
 }
+

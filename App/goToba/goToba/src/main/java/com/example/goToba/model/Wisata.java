@@ -1,5 +1,6 @@
 package com.example.goToba.model;
 
+import com.example.goToba.model.elastic.WisataElastic;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,8 +27,8 @@ public class Wisata {
     public String status;
 
 
-    public com.example.goToba.model.elastic.Wisata toWisata(Wisata wisata){
-        com.example.goToba.model.elastic.Wisata wisata1 = new com.example.goToba.model.elastic.Wisata(
+    public WisataElastic toWisata(Wisata wisata){
+        WisataElastic wisata1 = new WisataElastic(
                 wisata.getSku(),
                 wisata.getName(),
                 wisata.getTitle(),
