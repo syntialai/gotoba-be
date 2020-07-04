@@ -51,8 +51,8 @@ public class AuthenticationController extends HttpServlet {
     }
 
     @PostMapping(AuthenticationControllerRoute.ROUTE_SIGN_IN)
-    public Mono<ResponseEntity<?>> signin(HttpServletResponse response, @RequestBody LoginRequest request) {
-        return userService.signin(response,request);
+    public Mono<ResponseEntity<?>> signin(@RequestBody LoginRequest request) {
+        return userService.signin(request);
     }
 
     @CrossOrigin
