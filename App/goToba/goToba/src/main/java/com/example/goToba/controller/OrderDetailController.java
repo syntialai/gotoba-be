@@ -38,7 +38,7 @@ public class OrderDetailController {
     @Autowired
     TicketRepo ticketRepo;
 
-    @GetMapping("/all/")
+    @GetMapping(OrderDetailControllerRoute.ROUTE_ORDER_DETAIL_ALL)
     public Mono<ResponseEntity<?>> findAll() {
         return orderDetailRepo.findAll().collectList().map(data -> {
             return ResponseEntity.ok(data);

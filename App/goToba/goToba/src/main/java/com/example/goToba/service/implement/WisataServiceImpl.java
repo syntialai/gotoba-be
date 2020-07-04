@@ -2,7 +2,6 @@ package com.example.goToba.service.implement;
 
 import com.example.goToba.model.SequenceWisata;
 import com.example.goToba.model.Wisata;
-import com.example.goToba.model.elastic.WisataElastic;
 import com.example.goToba.payload.helper.StockKeepingUnit;
 import com.example.goToba.payload.helper.Strings;
 import com.example.goToba.payload.imagePath.ImagePath;
@@ -19,7 +18,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 02/04/2020.
@@ -79,8 +77,8 @@ public class WisataServiceImpl implements WisataService {
     }
 
     @Override
-    public Flux<WisataElastic> findAll() {
-        return wisataElasticService.findAll();
+    public Flux<Wisata> findAll() {
+        return wisataRepo.findAll();
     }
 
 
@@ -147,7 +145,7 @@ public class WisataServiceImpl implements WisataService {
     }
 
     @Override
-    public Mono<WisataElastic> findBySku(String sku) {
-        return wisataElasticService.findBySku(sku);
+    public Mono<Wisata> findBySku(String sku) {
+        return wisataRepo.findFirstBySku(sku);
     }
 }

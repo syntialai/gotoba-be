@@ -107,22 +107,22 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                     Integer dayat = gc.get(Calendar.DAY_OF_MONTH) + 7;
                     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
                     LocalDateTime now = LocalDateTime.now();
-                    for (int i = 0; i < orderDetailRequest.getTicket().size(); i++) {
-                        Ticket ticket = new Ticket(
-                                (int) UUID.randomUUID().getLeastSignificantBits(),
-                                UUID.randomUUID().toString(),
-                                orderDetailRequest.getTicket().get(i).getCategory(),
-                                orderDetailRequest.getTicket().get(i).getPrice(),
-                                dayat.toString(),
-                                orderDetailRequest.getTicket().get(i).getMerchantSku(),
-                                dtf.format(now).toString(),
-                                Strings.STATUS_ACTIVE,
-                                orderDetailRequest.getTicket().get(i).getWisataSku(),
-                                orderDetail.getId(),
-                                skuUser
-                        );
-                        ticketRepo.save(ticket).subscribe();
-                    }
+//                    for (int i = 0; i < orderDetailRequest.getTicket().size(); i++) {
+//                        Ticket ticket = new Ticket(
+//                                (int) UUID.randomUUID().getLeastSignificantBits(),
+//                                UUID.randomUUID().toString(),
+//                                orderDetailRequest.getTicket().get(i).getCategory(),
+//                                orderDetailRequest.getTicket().get(i).getPrice(),
+//                                dayat.toString(),
+//                                orderDetailRequest.getTicket().get(i).getMerchantSku(),
+//                                dtf.format(now).toString(),
+//                                Strings.STATUS_ACTIVE,
+//                                orderDetailRequest.getTicket().get(i).getWisataSku(),
+//                                orderDetail.getId(),
+//                                skuUser
+//                        );
+//                        ticketRepo.save(ticket).subscribe();
+//                    }
                     return orderDetailRepo.save(orderDetail);
                 });
 

@@ -1,9 +1,8 @@
 package com.example.goToba.service.elasticService;
 
 import com.example.goToba.model.elastic.WisataElastic;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -11,8 +10,8 @@ import java.util.List;
  */
 public interface WisataElasticService {
     List<WisataElastic> findOne(String nama);
-    Flux<WisataElastic> findAll();
+    Iterator<WisataElastic> findAll();
     WisataElastic save(WisataElastic wisata);
     Boolean deleteBySku(String sku);
-    Mono<WisataElastic> findBySku(String sku);
+    WisataElastic findBySku(String sku);
 }

@@ -5,9 +5,8 @@ import com.example.goToba.repository.elasticSearch.WisataElasticRepo;
 import com.example.goToba.service.elasticService.WisataElasticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -25,8 +24,8 @@ public class WisataElasticServiceImpl implements WisataElasticService {
     }
 
     @Override
-    public Flux<WisataElastic> findAll() {
-        return null;
+    public Iterator<WisataElastic> findAll() {
+        return wisataElasticRepo.findAll().iterator();
     }
 
     @Override
@@ -40,7 +39,7 @@ public class WisataElasticServiceImpl implements WisataElasticService {
     }
 
     @Override
-    public Mono<WisataElastic> findBySku(String sku) {
+    public WisataElastic findBySku(String sku) {
         return wisataElasticRepo.findBySku(sku);
     }
 
