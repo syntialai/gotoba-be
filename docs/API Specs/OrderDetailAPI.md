@@ -22,6 +22,7 @@
             "ticketSku": "TICK_REST_0001_0001",
             "quantity": 1,
             "price": 100000,
+            "discount": 0,
             "merchantSku": "synt_merc_0001",
             "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
@@ -29,6 +30,7 @@
             "ticketSku": "TICK_JOUR_0001_0002",
             "quantity": 1,
             "price": 100000,
+            "discount": 0,
             "merchantSku": "synt_merc_0001",
             "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
@@ -82,6 +84,7 @@
             "ticketSku": "TICK_REST_0001_0001",
             "quantity": 1,
             "price": 100000,
+            "discount": 0,
             "merchantSku": "synt_merc_0001",
             "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
@@ -89,6 +92,7 @@
             "ticketSku": "TICK_JOUR_0001_0002",
             "quantity": 1,
             "price": 100000,
+            "discount": 0,
             "merchantSku": "synt_merc_0001",
             "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
@@ -142,6 +146,7 @@
             "ticketSku": "TICK_REST_0001_0001",
             "quantity": 1,
             "price": 100000,
+            "discount": 0,
             "merchantSku": "synt_merc_0001",
             "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
@@ -194,6 +199,7 @@
         "ticketSku": "TICK_JOUR_0001_0002",
         "quantity": 1,
         "price": 100000,
+        "discount": 0,
         "merchantSku": "synt_merc_0001",
         "category": "wisata",
         "wisataSku" : "WAH_BAL_0003"
@@ -218,6 +224,7 @@
             "ticketSku": "TICK_REST_0001_0001",
             "quantity": 1,
             "price": 100000,
+            "discount": 0,
             "merchantSku": "synt_merc_0001",
             "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
@@ -225,6 +232,7 @@
             "ticketSku": "TICK_JOUR_0001_0002",
             "quantity": 1,
             "price": 100000,
+            "discount": 0,
             "merchantSku": "synt_merc_0001",
             "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
@@ -270,6 +278,7 @@
         "ticketSku": "TICK_JOUR_0001_0002",
         "quantity": 1,
         "price": 100000,
+        "discount": 0,
         "merchantSku": "synt_merc_0001",
         "category": "wisata",
         "wisataSku" : "WAH_BAL_0003"
@@ -294,6 +303,7 @@
             "ticketSku": "TICK_JOUR_0001_0002",
             "quantity": 1,
             "price": 100000,
+            "discount": 0,
             "merchantSku": "synt_merc_0001",
             "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
