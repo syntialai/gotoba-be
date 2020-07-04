@@ -67,6 +67,84 @@
 }
 ```
 
+
+## Get All Restaurant By MerchantSku
+
++ Endpoint : ``/restaurant//merchant/{merchantSku}``
++ HTTP Method : `GET`
++ Request Header :
+  + Accept : `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
+    "code": 200,
+    "status": "OK",
+    "data": [{
+        "sku": "jenn_rest_001_001",
+        "name": "Jenny's Restaurant",
+        "bistroType": "Salad Shop",
+        "location": "Samosir Regency, North Sumatra",
+        "rating": 5.0,
+        "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
+        "hoursOpen": {
+           "monday": ["8AM", "10PM"],
+           "tuesday": ["8AM", "10PM"],
+           "wednesday": ["8AM", "10PM"],
+           "thursday": ["8AM", "10PM"],
+           "friday": ["8AM", "10PM"],
+           "saturday": ["8AM", "10PM"],
+           "sunday": ["8AM", "10PM"]
+        },
+        "phone": "+62813 9791 4229",
+        "status": "active",
+        "merchantSku": "josh_merc_001"
+    }, {
+        "sku": "jenn_rest_002_002",
+        "name": "Jenny's Restaurant",
+        "bistroType": "Salad Shop",
+        "location": "Samosir Regency, North Sumatra",
+        "rating": 5.0,
+        "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
+        "hoursOpen": {
+             "monday": ["8AM", "10PM"],
+             "tuesday": ["8AM", "10PM"],
+             "wednesday": ["8AM", "10PM"],
+             "thursday": ["8AM", "10PM"],
+             "friday": ["8AM", "10PM"],
+             "saturday": ["8AM", "10PM"],
+             "sunday": ["8AM", "10PM"]
+        },
+        "phone": "+62813 9791 4229",
+        "status": "active",
+        "merchantSku": "josh_merc_002"
+    }]
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2019-08-23T04:22:26.690+0000",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/restaurant/merchant/{merchantSku}"
+}
+```
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Message: There is no data ",
+    "path": "/restaurant/merchant/{merchantSku}"
+}
+```
+
 ## Get Restaurant by Sku
 
 + Endpoint : ``/restaurant/{sku}``

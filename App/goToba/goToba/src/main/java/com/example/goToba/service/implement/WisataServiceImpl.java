@@ -9,18 +9,15 @@ import com.example.goToba.payload.request.WisataRequest;
 import com.example.goToba.repository.SequenceWisataRepo;
 import com.example.goToba.repository.WisataRepo;
 import com.example.goToba.service.ImageService;
-import com.example.goToba.service.SkuGenerator;
+import com.example.goToba.service.utils.SkuGenerator;
 import com.example.goToba.service.WisataService;
-import com.example.goToba.service.redisService.WisataRedisService;
+import com.example.goToba.service.elasticService.WisataElasticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Base64;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 02/04/2020.
@@ -35,13 +32,13 @@ public class WisataServiceImpl implements WisataService {
     SequenceWisataRepo sequenceWisataRepo;
 
     @Autowired
-    WisataRedisService wisataRedisService;
-
-    @Autowired
     ImageService imageService;
 
     @Autowired
     SkuGenerator skuGenerator;
+
+    @Autowired
+    WisataElasticService wisataElasticService;
 
     @Override
     public Mono<Wisata> addWisata(WisataRequest wisataRequest) {
@@ -53,7 +50,7 @@ public class WisataServiceImpl implements WisataService {
                 .switchIfEmpty(sequenceWisataRepo.save(new SequenceWisata(key, StockKeepingUnit.SKU_DATA_BEGINNING + "1")))
                 .flatMap(data -> {
                     Wisata wisata = new Wisata(
-                            data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()),
+                            StockKeepingUnit.WISATA + StockKeepingUnit.SKU_CONNECTOR + data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()),
                             wisataRequest.getName(),
                             wisataRequest.getTitle(),
                             wisataRequest.getDescription(),
@@ -68,12 +65,12 @@ public class WisataServiceImpl implements WisataService {
                     );
                     if (wisataRequest.getImage() != "") {
                         try {
-                            imageService.addPicture(wisataRequest.getImage(), wisata.getSkuWisata(), ImagePath.IMAGE_PATH_WISATA);
+                            imageService.addPicture(wisataRequest.getImage(), wisata.getSku(), ImagePath.IMAGE_PATH_WISATA);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                    wisataRedisService.add(wisata);
+                    wisataElasticService.save(wisata.toWisata(wisata));
                     return wisataRepo.save(wisata);
                 });
         return wisataMono;
@@ -88,9 +85,10 @@ public class WisataServiceImpl implements WisataService {
     @Override
     public Mono<Wisata> updateWisata(String sku, WisataRequest wisataRequest) {
         return Mono.fromCallable(() -> wisataRequest)
-                .flatMap(data -> wisataRepo.findFirstBySkuWisata(sku))
+                .flatMap(data -> wisataRepo.findFirstBySku(sku))
                 .doOnNext(i -> {
-                    wisataRepo.deleteBySkuWisata(sku).subscribe();
+                    wisataElasticService.deleteBySku(sku);
+                    wisataRepo.deleteBySku(sku).subscribe();
                 })
                 .flatMap(data -> {
                     Wisata wisata = new Wisata(
@@ -107,26 +105,24 @@ public class WisataServiceImpl implements WisataService {
                             wisataRequest.getHoursOpen(),
                             data.getStatus()
                     );
-                    if (wisataRedisService.hasKey(sku)) {
-                        wisataRedisService.deleteByKey(sku);
-                        wisataRedisService.add(wisata);
-                    }
                     if (wisataRequest.getImage() != "") {
                         try {
-                            imageService.addPicture(wisataRequest.getImage(), wisata.getSkuWisata(), ImagePath.IMAGE_PATH_WISATA);
+                            imageService.addPicture(wisataRequest.getImage(), wisata.getSku(), ImagePath.IMAGE_PATH_WISATA);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
+                    wisataElasticService.save(wisata.toWisata(wisata));
                     return wisataRepo.save(wisata);
                 });
     }
 
     @Override
     public Mono<Wisata> deleteBySku(String sku) {
-        return wisataRepo.findFirstBySkuWisata(sku)
+        return wisataRepo.findFirstBySku(sku)
                 .doOnNext(i -> {
-                    wisataRepo.deleteBySkuWisata(sku).subscribe();
+                    wisataElasticService.deleteBySku(sku);
+                    wisataRepo.deleteBySku(sku).subscribe();
                 })
                 .flatMap(data -> {
                     Wisata wisata = new Wisata(
@@ -143,12 +139,13 @@ public class WisataServiceImpl implements WisataService {
                             data.getHoursOpen(),
                             Strings.STATUS_DELETE
                     );
+                    wisataElasticService.save(wisata.toWisata(wisata));
                     return wisataRepo.save(wisata);
                 });
     }
 
     @Override
     public Mono<Wisata> findBySku(String sku) {
-        return wisataRepo.findFirstBySkuWisata(sku);
+        return wisataRepo.findFirstBySku(sku);
     }
 }

@@ -9,6 +9,8 @@ public interface StockKeepingUnit {
     String SKU_CONNECTOR = "_";
     String PAYMENT = "PAY";
     String ORDER = "ORD";
+    String WISATA = "WIS";
+    String RESTAURANTS = "RES";
     String TICKET = "TIC";
     String TOUD_GUIDE = "TG";
 }

@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 public interface WisataRepo extends ReactiveMongoRepository<Wisata, String> {
     public Mono<Wisata> findFirstByName(String name);
 
-    public Mono<Wisata> findFirstBySkuWisata(String sku);
+    public Mono<Wisata> findFirstBySku(String sku);
 
-    public Mono<Boolean> deleteBySkuWisata(String sku);
+    public Mono<Boolean> deleteBySku(String sku);
 }

@@ -1,6 +1,6 @@
-package com.example.goToba.service.implement;
+package com.example.goToba.service.utils.impl;
 
-import com.example.goToba.service.SkuGenerator;
+import com.example.goToba.service.utils.SkuGenerator;
 import org.springframework.stereotype.Service;
 
 /**

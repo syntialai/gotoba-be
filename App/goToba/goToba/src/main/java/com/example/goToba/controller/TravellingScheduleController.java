@@ -36,7 +36,7 @@ public class TravellingScheduleController {
         return travellingScheduleService.findAll().
                 collectList().
                 map(data -> {
-                    return ResponseEntity.ok().body(new Response(200, "OK", data));
+                    return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
                 });
     }
 

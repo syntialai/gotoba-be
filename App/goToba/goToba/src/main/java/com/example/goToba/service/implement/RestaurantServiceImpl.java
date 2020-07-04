@@ -2,22 +2,16 @@ package com.example.goToba.service.implement;
 
 import com.example.goToba.model.*;
 import com.example.goToba.payload.helper.StockKeepingUnit;
-import com.example.goToba.payload.imagePath.ImagePath;
-import com.example.goToba.payload.request.MenuRestaurantsRequest;
 import com.example.goToba.payload.request.RestaurantsRequest;
-import com.example.goToba.repository.MenuRestaurantsRepo;
 import com.example.goToba.repository.RestaurantRepo;
 import com.example.goToba.repository.SequenceRestaurantsRepo;
 import com.example.goToba.service.RestaurantService;
-import com.example.goToba.service.SkuGenerator;
+import com.example.goToba.service.utils.SkuGenerator;
 import com.example.goToba.service.redisService.RestaurantRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.io.IOException;
-import java.util.UUID;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 23/05/2020.
@@ -63,7 +57,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 .flatMap(i -> sequenceRestaurantsRepo.findFirstByKey(key))
                 .flatMap(req -> {
                     Restaurant restaurant = new Restaurant(
-                            req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
+                            StockKeepingUnit.RESTAURANTS + StockKeepingUnit.SKU_CONNECTOR + req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
                             restaurantsRequest.getName(),
                             restaurantsRequest.getBistroType(),
                             restaurantsRequest.getLocation(),
