@@ -14,7 +14,8 @@ import lombok.NoArgsConstructor;
 public class RestaurantsRequest {
     public String name;
     public String bistroType;
-    public String location;
+    public String longitude;
+    public String latitude;
     public String address;
     public HoursOpen hoursOpen;
     public String phone;
