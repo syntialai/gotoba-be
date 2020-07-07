@@ -3,6 +3,7 @@ package com.example.goToba.controller;
 
 import com.example.goToba.controller.route.AuthenticationControllerRoute;
 import com.example.goToba.controller.route.UserControllerRoute;
+import com.example.goToba.model.UserRole;
 import com.example.goToba.payload.AuthenticationResponse;
 import com.example.goToba.payload.Response;
 import com.example.goToba.payload.helper.StaticResponseCode;
@@ -14,7 +15,11 @@ import com.example.goToba.repository.SequenceUsersRepo;
 import com.example.goToba.repository.UsersRepo;
 import com.example.goToba.service.UserService;
 import com.example.goToba.service.implement.UserServiceImpl;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -44,6 +49,8 @@ public class AuthenticationController extends HttpServlet {
 
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
+    @Autowired
+    UsersRepo usersRepo;
 
     @PostMapping(AuthenticationControllerRoute.ROUTE_SIGN_UP)
     public ResponseEntity<?> signup(@RequestBody RegisterRequest registerRequest) {
@@ -52,14 +59,21 @@ public class AuthenticationController extends HttpServlet {
     }
 
     @PostMapping(AuthenticationControllerRoute.ROUTE_SIGN_IN)
-    public Mono<ResponseEntity<?>> signin(
-            @CookieValue(name = "accessToken", required = false) String accessToken,
-            @CookieValue(name = "refreshToken", required = false) String refreshToken,
-            @RequestBody LoginRequest request) {
-        return userService.signin(accessToken, refreshToken, request);
+    public Mono<ResponseEntity<?>> signin(@RequestBody LoginRequest request) {
+        return userService.signin(request);
     }
 
+    @GetMapping("/writeCookie/{key}")
+    public Mono<ResponseEntity<?>> writeCookie(@PathVariable String key) {
 
+        String favColour = "steelblue";
+        ResponseCookie cookie = ResponseCookie.from("fav-col", favColour).build();
+        return usersRepo.findFirstBySku(key).map(data -> {
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                    .build();
+        });
+    }
     @PostMapping("/logout")
     public static void myLogoff(HttpServletRequest request, HttpServletResponse response) {
         CookieClearingLogoutHandler cookieClearingLogoutHandler = new CookieClearingLogoutHandler(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY);

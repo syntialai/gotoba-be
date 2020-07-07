@@ -19,6 +19,7 @@ import com.example.goToba.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.Disposable;
@@ -90,13 +91,19 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Mono<ResponseEntity<?>> signin(String accesToken, String refreshToken, LoginRequest request) {
-        HttpHeaders responseHeaders = new HttpHeaders();
-        Token newAccessToken;
-        Token newRefreshToken;
+    public Mono<ResponseEntity<?>> signin(LoginRequest request) {
         return usersRepo.findFirstByUsername(request.getUsername()).map((userDetails) -> {
             if (passwordEncoder.encode(request.getPassword()).equals(userDetails.getPassword())) {
-                return ResponseEntity.ok(new JwtLoginResponse(userDetails.getNickname(), userDetails.getRoles().toString(), userDetails.getSku(), jwtTokenProvider.generateToken(userDetails)));
+                System.out.println("asd");
+                String jwt= jwtTokenProvider.generateToken(userDetails);
+//                ResponseCookie cookie = ResponseCookie.from("token", jwt).build();
+                String favColour = "steelblue";
+                ResponseCookie cookie = ResponseCookie.from("fav-col", favColour).build();
+
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                        .build();
+//                return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE,cookie.toString()).body(new JwtLoginResponse(userDetails.getNickname(), userDetails.getRoles().toString(), userDetails.getSku(), jwt));
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthenticationResponse(timestamp.toString(), StaticResponseCode.RESPONSE_CODE_BAD_UNAUTHORIZED, StaticResponseStatus.RESPONSE_STATUS_ERROR_UNAUTHORIZED, StaticResponseMessages.RESPONSE_MESSAGE_USER_UNAUTHORIZED));
             }
