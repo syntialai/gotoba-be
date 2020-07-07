@@ -17,5 +17,7 @@ public interface StaticResponseMessages {
     public String RESPONSE_MESSAGES_FOR_NOT_FOUND_DELETE = "Invalid Request: Cannot delete ";
     public String RESPONSE_MESSAGES_FOR_EMPTY = "Message: There is no data ";
     public String RESPONSE_MESSAGES_FOR_EMPTY_SCHEDULE = "Message: There is no schedule found in that user sku";
+    public String RESPONSE_MESSAGES_FOR_EMPTY_NEAR_BY_LOCATION_RESTAURANT = "Message: There is no Restaurants near by your current location";
+    public String RESPONSE_MESSAGES_FOR_EMPTY_NEAR_BY_LOCATION_WISATA = "Message: There is no Wisata near by your current location";
     public String RESPONSE_MESSAGES_FOR_SUCCESS_DELETE_TICKET = "Successfully delete ticket with sku ";
 }
