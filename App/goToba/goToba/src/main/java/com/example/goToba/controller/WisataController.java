@@ -40,34 +40,21 @@ public class WisataController {
 
     @GetMapping(WisataRoute.ROUTE_WISATA_All)
     public ResponseEntity<?> findAll() {
-        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS,StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK,wisataElasticService.findAll()));
-//        return wisataService.findAll()
-//                .filter(data -> data.status.equals(Strings.STATUS_ACTIVE))
-//                .collectList().
-//                        map(data -> {
-//                            if (data.size() != 0) {
-//                                return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
-//                            }
-//                            return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_EMPTY, WisataRoute.ROUTE_WISATA + WisataRoute.ROUTE_WISATA_All));
-//                        }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_EMPTY, WisataRoute.ROUTE_WISATA + WisataRoute.ROUTE_WISATA_All)));
+        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, wisataElasticService.findAll()));
     }
 
     @GetMapping(WisataRoute.ROUTE_WISATA_AllBY_MERCHANT)
-    public Mono<ResponseEntity<?>> findAllBySkuMerchant(@PathVariable String merchantSku){
+    public Mono<ResponseEntity<?>> findAllBySkuMerchant(@PathVariable String merchantSku) {
         return wisataService.findAll().filter(data -> data.createdBy.equals(merchantSku))
                 .collectList()
                 .map(data -> {
-                    if(data.size()!=0){
-                        return  ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS,StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK,data));
+                    if (data.size() != 0) {
+                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
                     }
                     return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_EMPTY, WisataRoute.ROUTE_WISATA + WisataRoute.ROUTE_WISATA_AllBY_MERCHANT));
                 }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_EMPTY, WisataRoute.ROUTE_WISATA + WisataRoute.ROUTE_WISATA_AllBY_MERCHANT)));
     }
 
-//    @GetMapping(WisataRoute.ROUTE_WISATA_FIND_BY_NAME)
-//    public ResponseEntity<?> findOne(@PathVariable String name) {
-//        return ResponseEntity.ok(wisataElasticService.findFirstByName(name));
-//    }
 
     @GetMapping(WisataRoute.ROUTE_WISATA_FIND_BY_SKU)
     public Mono<ResponseEntity<?>> findBySku(@PathVariable String sku) {
@@ -99,9 +86,6 @@ public class WisataController {
                     return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND_DELETE + "wisata with that sku " + sku, WisataRoute.ROUTE_WISATA + WisataRoute.ROUTE_WISATA_DETELE_BY_SKU));
                 })
                 .defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND_DELETE + "wisata with that sku " + sku, WisataRoute.ROUTE_WISATA + WisataRoute.ROUTE_WISATA_DETELE_BY_SKU)));
-
-
-
     }
 
     @PutMapping(WisataRoute.ROUTE_WISATA_EDIT_BY_SKU)

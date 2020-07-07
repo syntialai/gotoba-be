@@ -1,4 +1,4 @@
-# Ticket API
+# Find Near By Location API
 
 ## Find Near Location For Wisata
 
@@ -12,7 +12,7 @@
  
 ```json
 {
-   "code": 200,
+       "code": 200,
        "status": "OK",
        "data": [{
            "sku": "hend-para-batu-001",
@@ -86,19 +86,84 @@
 ```json
 {
     "timestamp": "2016-11-15T22:55:40.110Z",
-    "status": 401,
-    "error": "Unauthorized",
-    "message": "Invalid Request: You are not allowed to access.",
-    "path": "/ticket/merchant/{merchantSku}"
+    "status": 404,
+    "error": "Not Found",
+    "message": "Message: There is no Wisata near by your current location",
+    "path": "/nearBy/{longitude}/{lat}"
 }
 ```
+
+
+## Find Near Location For Restaurants
+
++ Endpoint : ``/nearBy/restaurants/{longitude}/{lat}``
++ HTTP Method : `GET`
++ Path Variable :
+  + merchantSku
++ Request Header :
+  + Accept : `application/json`
++ Response Body (Success) :
+ 
+ 
+ 
+```json
+{
+    "code": 200,
+    "status": "OK",
+    "data": [{
+        "sku": "jenn_rest_001_001",
+        "name": "Jenny's Restaurant",
+        "image": "asduqwyieuhxmz.png",
+        "bistroType": "Salad Shop",
+        "longitude": "10.905354",
+        "latitude": "42.905354",
+        "rating": 5.0,
+        "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
+        "hoursOpen": {
+           "monday": ["8AM", "10PM"],
+           "tuesday": ["8AM", "10PM"],
+           "wednesday": ["8AM", "10PM"],
+           "thursday": ["8AM", "10PM"],
+           "friday": ["8AM", "10PM"],
+           "saturday": ["8AM", "10PM"],
+           "sunday": ["8AM", "10PM"]
+        },
+        "phone": "+62813 9791 4229",
+        "status": "active",
+        "merchantSku": "josh_merc_001"
+    }, {
+        "sku": "jenn_rest_002_002",
+        "name": "Jenny's Restaurant",
+        "image": "asduqwyieuhxmz.png",
+        "bistroType": "Salad Shop",
+        "longitude": "10.905354",
+        "latitude": "42.905354",
+        "rating": 5.0,
+        "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
+        "hoursOpen": {
+             "monday": ["8AM", "10PM"],
+             "tuesday": ["8AM", "10PM"],
+             "wednesday": ["8AM", "10PM"],
+             "thursday": ["8AM", "10PM"],
+             "friday": ["8AM", "10PM"],
+             "saturday": ["8AM", "10PM"],
+             "sunday": ["8AM", "10PM"]
+        },
+        "phone": "+62813 9791 4229",
+        "status": "active",
+        "merchantSku": "josh_merc_002"
+    }]
+}
+```
+
++ Response Body (Fail) :
 
 ```json
 {
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find merchant with sku ABC.",
-    "path": "/ticket/merchant/{merchantSku}"
+    "message": "Message: There is no Restaurants near by your current location",
+    "path": "/nearBy/restaurants/{longitude}/{lat}"
 }
 ```

@@ -18,7 +18,8 @@
         "name": "Jenny's Restaurant",
         "image": "asduqwyieuhxmz.png",
         "bistroType": "Salad Shop",
-        "location": "Samosir Regency, North Sumatra",
+        "longitude": "10.905354",
+        "latitude": "42.905354",
         "rating": 5.0,
         "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
         "hoursOpen": {
@@ -38,7 +39,8 @@
         "name": "Jenny's Restaurant",
         "image": "asduqwyieuhxmz.png",
         "bistroType": "Salad Shop",
-        "location": "Samosir Regency, North Sumatra",
+        "longitude": "10.905354",
+        "latitude": "42.905354",
         "rating": 5.0,
         "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
         "hoursOpen": {
@@ -87,7 +89,8 @@
         "sku": "jenn_rest_001_001",
         "name": "Jenny's Restaurant",
         "bistroType": "Salad Shop",
-        "location": "Samosir Regency, North Sumatra",
+        "longitude": "10.905354",
+        "latitude": "42.905354",
         "rating": 5.0,
         "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
         "hoursOpen": {
@@ -106,7 +109,8 @@
         "sku": "jenn_rest_002_002",
         "name": "Jenny's Restaurant",
         "bistroType": "Salad Shop",
-        "location": "Samosir Regency, North Sumatra",
+        "longitude": "10.905354",
+        "latitude": "42.905354",
         "rating": 5.0,
         "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
         "hoursOpen": {
@@ -166,7 +170,8 @@
         "name": "Jenny's Restaurant",
         "image": "asduqwyieuhxmz.png",
         "bistroType": "Salad Shop",
-        "location": "Samosir Regency, North Sumatra",
+        "longitude": "10.905354",
+        "latitude": "42.905354",
         "rating": 5.0,
         "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
         "hoursOpen": {
@@ -220,7 +225,8 @@
     "name": "Jenny's Restaurant",
     "image": "asduqwyieuhxmz.png",
     "bistroType": "Salad Shop",
-    "location": "Samosir Regency, North Sumatra",
+    "longitude": "10.905354",
+    "latitude": "42.905354",
     "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
     "hoursOpen": {
         "monday": ["8AM", "10PM"],
@@ -249,7 +255,8 @@
         "name": "Jenny's Restaurant",
         "image": "asduqwyieuhxmz.png",
         "bistroType": "Salad Shop",
-        "location": "Samosir Regency, North Sumatra",
+        "longitude": "10.905354",
+        "latitude": "42.905354",
         "rating": 5.0,
         "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
         "hoursOpen": {
@@ -313,7 +320,8 @@
     "name": "Jenny's Restaurant",
     "image": "asduqwyieuhxmz.png",
     "bistroType": "Salad Shop",
-    "location": "Samosir Regency, North Sumatra",
+    "longitude": "10.905354",
+    "latitude": "42.905354",
     "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
     "hoursOpen": {
         "monday": ["8AM", "10PM"],
@@ -342,7 +350,8 @@
         "name": "Jenny's Restaurant",
         "image": "asduqwyieuhxmz.png",
         "bistroType": "Salad Shop",
-        "location": "Samosir Regency, North Sumatra",
+        "longitude": "10.905354",
+        "latitude": "42.905354",
         "rating": 5.0,
         "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
         "hoursOpen": {

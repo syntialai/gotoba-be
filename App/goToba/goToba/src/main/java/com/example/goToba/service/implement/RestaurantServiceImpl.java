@@ -2,6 +2,7 @@ package com.example.goToba.service.implement;
 
 import com.example.goToba.model.*;
 import com.example.goToba.payload.helper.StockKeepingUnit;
+import com.example.goToba.payload.helper.Strings;
 import com.example.goToba.payload.request.RestaurantsRequest;
 import com.example.goToba.repository.RestaurantRepo;
 import com.example.goToba.repository.SequenceRestaurantsRepo;
@@ -60,12 +61,13 @@ public class RestaurantServiceImpl implements RestaurantService {
                             StockKeepingUnit.RESTAURANTS + StockKeepingUnit.SKU_CONNECTOR + req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
                             restaurantsRequest.getName(),
                             restaurantsRequest.getBistroType(),
-                            restaurantsRequest.getLocation(),
+                            restaurantsRequest.getLongitude(),
+                            restaurantsRequest.getLatitude(),
                             5.0,
                             restaurantsRequest.getAddress(),
                             restaurantsRequest.getHoursOpen(),
                             restaurantsRequest.getPhone(),
-                            "active",
+                            Strings.STATUS_ACTIVE,
                             sku
                     );
                     return restaurantRepo.save(restaurant);
@@ -85,12 +87,13 @@ public class RestaurantServiceImpl implements RestaurantService {
                             sku,
                             restaurantsRequest.getName(),
                             restaurantsRequest.getBistroType(),
-                            restaurantsRequest.getLocation(),
+                            restaurantsRequest.getLongitude(),
+                            restaurantsRequest.getLatitude(),
                             data.getRating(),
                             restaurantsRequest.getAddress(),
                             restaurantsRequest.getHoursOpen(),
                             restaurantsRequest.getPhone(),
-                            "active",
+                            Strings.STATUS_ACTIVE,
                             data.getMerchantSku()
                     );
                     restaurantRedisService.add(restaurant);

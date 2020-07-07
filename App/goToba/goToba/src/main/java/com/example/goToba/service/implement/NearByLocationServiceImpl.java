@@ -1,12 +1,13 @@
 package com.example.goToba.service.implement;
 
+import com.example.goToba.service.NearByLocationService;
 import org.springframework.stereotype.Service;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 26/06/2020.
  */
 @Service
-public class NearByLocationServiceImpl {
+public class NearByLocationServiceImpl implements NearByLocationService {
 
     public  double distance(double lat1, double lat2, double lon1,
                                   double lon2) {

@@ -5,6 +5,7 @@ import com.example.goToba.model.SequenceUsers;
 import com.example.goToba.model.Users;
 import com.example.goToba.payload.AuthenticationResponse;
 import com.example.goToba.payload.JwtLoginResponse;
+import com.example.goToba.payload.Token;
 import com.example.goToba.payload.helper.StaticResponseCode;
 import com.example.goToba.payload.helper.StaticResponseMessages;
 import com.example.goToba.payload.helper.StaticResponseStatus;
@@ -16,6 +17,7 @@ import com.example.goToba.security.Encode;
 import com.example.goToba.security.JwtTokenProvider;
 import com.example.goToba.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -88,15 +90,12 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Mono<ResponseEntity<?>> signin( LoginRequest request) {
+    public Mono<ResponseEntity<?>> signin(String accesToken, String refreshToken, LoginRequest request) {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        Token newAccessToken;
+        Token newRefreshToken;
         return usersRepo.findFirstByUsername(request.getUsername()).map((userDetails) -> {
             if (passwordEncoder.encode(request.getPassword()).equals(userDetails.getPassword())) {
-//                Cookie cookie = new Cookie("username", "Jovan");
-//                //add cookie to response
-//                cookie.setSecure(true);
-////                cookie.setHttpOnly(true);
-//                cookie.setMaxAge( 30 * 60);
-//                response.addCookie(cookie);
                 return ResponseEntity.ok(new JwtLoginResponse(userDetails.getNickname(), userDetails.getRoles().toString(), userDetails.getSku(), jwtTokenProvider.generateToken(userDetails)));
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthenticationResponse(timestamp.toString(), StaticResponseCode.RESPONSE_CODE_BAD_UNAUTHORIZED, StaticResponseStatus.RESPONSE_STATUS_ERROR_UNAUTHORIZED, StaticResponseMessages.RESPONSE_MESSAGE_USER_UNAUTHORIZED));

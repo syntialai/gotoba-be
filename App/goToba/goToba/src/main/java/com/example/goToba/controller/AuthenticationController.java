@@ -12,6 +12,7 @@ import com.example.goToba.payload.request.LoginRequest;
 import com.example.goToba.payload.request.RegisterRequest;
 import com.example.goToba.repository.SequenceUsersRepo;
 import com.example.goToba.repository.UsersRepo;
+import com.example.goToba.service.UserService;
 import com.example.goToba.service.implement.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,7 @@ import java.util.stream.Collectors;
 @RequestMapping(AuthenticationControllerRoute.ROUTE_AUTH)
 public class AuthenticationController extends HttpServlet {
     @Autowired
-    UserServiceImpl userService;
+    UserService userService;
 
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
@@ -51,20 +52,13 @@ public class AuthenticationController extends HttpServlet {
     }
 
     @PostMapping(AuthenticationControllerRoute.ROUTE_SIGN_IN)
-    public Mono<ResponseEntity<?>> signin(@RequestBody LoginRequest request) {
-        return userService.signin(request);
+    public Mono<ResponseEntity<?>> signin(
+            @CookieValue(name = "accessToken", required = false) String accessToken,
+            @CookieValue(name = "refreshToken", required = false) String refreshToken,
+            @RequestBody LoginRequest request) {
+        return userService.signin(accessToken, refreshToken, request);
     }
 
-    @CrossOrigin
-    @GetMapping("/cookies/")
-    public String findCookies(HttpServletRequest request)throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            return Arrays.stream(cookies)
-                    .map(c -> c.getName() + "=" + c.getValue()).collect(Collectors.joining(", "));
-        }
-        return "No cookies";
-    }
 
     @PostMapping("/logout")
     public static void myLogoff(HttpServletRequest request, HttpServletResponse response) {
