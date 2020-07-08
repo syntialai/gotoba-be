@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
  * Created by Sogumontar Hendra Simangunsong on 11/04/2020.
  */
 public interface UserService {
+    ResponseEntity<?> test();
     public Mono<Users> findFirstBySku(String sku);
+    ResponseEntity<?> login(LoginRequest loginRequest);
 
     public String skuGenerator(String key, Integer seq);
 

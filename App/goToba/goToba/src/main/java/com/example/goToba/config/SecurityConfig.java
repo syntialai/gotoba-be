@@ -6,54 +6,58 @@ import com.example.goToba.security.SecurityContextRepository;
 import io.netty.handler.codec.http.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 27/03/2020.
  */
-@EnableWebFluxSecurity
-@EnableReactiveMethodSecurity
-public class SecurityConfig {
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(
+		securedEnabled = true,
+		jsr250Enabled = true,
+		prePostEnabled = true
+)
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Autowired
-    private SecurityContextRepository securityContextRepository;
-
-    @Bean
-    public SecurityWebFilterChain securitygWebFilterChain(ServerHttpSecurity http) {
-        return http
-                .exceptionHandling().and().csrf().disable()
-//				.authenticationEntryPoint((swe, e) -> {
-//					return Mono.fromRunnable(() -> {
-//						swe.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-//					});
-//				}).accessDeniedHandler((swe, e) -> {
-//					return Mono.fromRunnable(() -> {
-//						swe.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
-//					});
-//				}).and()
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+				.cors().and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				.csrf().disable()
 				.formLogin().disable()
 				.httpBasic().disable()
-				.authenticationManager(authenticationManager)
-				.securityContextRepository(securityContextRepository)
-				.authorizeExchange()
-//				.pathMatchers(HttpMethod.OPTIONS).permitAll()
-				.pathMatchers("/auth/login").permitAll()
-				.pathMatchers("/auth/signup").permitAll()
-				.pathMatchers("/wisata/**").permitAll()
-				.pathMatchers("/gallery/").permitAll()
-				.pathMatchers("/gallery/{sku}").permitAll()
-				.pathMatchers("/restaurant/**").permitAll()
-				.pathMatchers("/tour-guide").permitAll()
-				.pathMatchers("/tour-guide/{sku}").permitAll()
-//				.anyExchange().authenticated()
-				.anyExchange().permitAll()
-				.and().build();
-    }
+				.authorizeRequests()
+				.antMatchers("/",
+						"/error",
+						"/favicon.ico",
+						"/**/*.png",
+						"/**/*.gif",
+						"/**/*.svg",
+						"/**/*.jpg",
+						"/**/*.html",
+						"/**/*.css",
+						"/**/*.js").permitAll()
+				.antMatchers("/auth/**").permitAll()
+				.anyRequest().permitAll();
+
+//        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+	}
 }
