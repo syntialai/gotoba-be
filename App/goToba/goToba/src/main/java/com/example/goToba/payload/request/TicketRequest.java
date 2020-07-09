@@ -11,11 +11,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class TicketRequest {
+    String title;
+    String description;
     String category;
     Integer price;
+    Integer discount;
     String expiredDate;
     String merchantSku;
     String wisataSku;
-    Integer orderId;
-    String skuUser;
+    String orderSku;
+
 }

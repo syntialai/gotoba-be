@@ -6,30 +6,19 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by Sogumontar Hendra Simangunsong on 07/07/2020.
+ * Created by Sogumontar Hendra Simangunsong on 08/07/2020.
  */
 @Component
 public class CookieUtil {
-    @Value("accessToken")
+    @Value("accesToken")
     private String accessTokenCookieName;
 
     @Value("refreshToken")
     private String refreshTokenCookieName;
 
-
     public HttpCookie createAccessTokenCookie(String token, Long duration) {
-//        String encryptedToken = SecurityChiper.encrypt(token);
         String encryptedToken = token;
         return ResponseCookie.from(accessTokenCookieName, encryptedToken)
-                .maxAge(duration)
-                .httpOnly(true)
-                .path("/")
-                .build();
-    }
-
-    public HttpCookie createRefreshTokenCookie(String token, Long duration) {
-        String encryptedToken = SecurityChiper.encrypt(token);
-        return ResponseCookie.from(refreshTokenCookieName, encryptedToken)
                 .maxAge(duration)
                 .httpOnly(true)
                 .path("/")
@@ -39,6 +28,15 @@ public class CookieUtil {
     public HttpCookie testCookie(String token, Long duration) {
         String encryptedToken = "coba";
         return ResponseCookie.from("testt", encryptedToken)
+                .maxAge(duration)
+                .httpOnly(true)
+                .path("/")
+                .build();
+    }
+
+    public HttpCookie createRefreshTokenCookie(String token, Long duration) {
+        String encryptedToken = token;
+        return ResponseCookie.from(refreshTokenCookieName, encryptedToken)
                 .maxAge(duration)
                 .httpOnly(true)
                 .path("/")

@@ -19,45 +19,5 @@ public class OrderDetail {
     String sku ;
     List<OrderDetailTicket> ticket;
     String userSku;
-    String status;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getSku() {
-        return sku;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
-
-    public List<OrderDetailTicket> getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(List<OrderDetailTicket> ticket) {
-        this.ticket = ticket;
-    }
-
-    public String getUserSku() {
-        return userSku;
-    }
-
-    public void setUserSku(String userSku) {
-        this.userSku = userSku;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }

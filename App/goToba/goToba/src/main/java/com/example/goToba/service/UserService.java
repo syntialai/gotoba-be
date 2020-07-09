@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by Sogumontar Hendra Simangunsong on 11/04/2020.
  */
 public interface UserService {
-    ResponseEntity<?> test();
     public Mono<Users> findFirstBySku(String sku);
-    ResponseEntity<?> login(LoginRequest loginRequest);
 
     public String skuGenerator(String key, Integer seq);
 
@@ -25,6 +23,8 @@ public interface UserService {
     public Mono<Users> save(RegisterRequest registerRequest);
 
     public Mono<ResponseEntity<?>> signin(LoginRequest request);
+
+    public ResponseEntity<?> signOut();
 
     public RoleName checkRole(String role);
 

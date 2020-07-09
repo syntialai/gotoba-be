@@ -1,7 +1,6 @@
 package com.example.goToba.controller;
 
 import com.example.goToba.controller.route.OrderDetailControllerRoute;
-import com.example.goToba.model.Ticket;
 import com.example.goToba.payload.DeleteResponse;
 import com.example.goToba.payload.NotFoundResponse;
 import com.example.goToba.payload.Response;
@@ -106,15 +105,4 @@ public class OrderDetailController {
                 }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "order with sku " + sku, OrderDetailControllerRoute.ROUTE_ORDER + OrderDetailControllerRoute.ROUTE_ORDER_DETAIL_BY_SKU_USER)));
     }
 
-    @DeleteMapping(OrderDetailControllerRoute.ROUTE_DELETE_ORDER_DETAIL_BY_SKU)
-    public Mono<ResponseEntity<?>> deleteBySku(@PathVariable String sku) {
-        return orderDetailService.findFirstBySku(sku)
-                .map(data -> {
-                    if (data.getUserSku() != null) {
-                        orderDetailService.deleteBySku(sku).subscribe();
-                        return ResponseEntity.ok().body(new DeleteResponse(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, StaticResponseMessages.RESPONSE_MESSAGES_FOR_DELETE_WISATA));
-                    }
-                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "order with sku " + sku, OrderDetailControllerRoute.ROUTE_ORDER + OrderDetailControllerRoute.ROUTE_DELETE_ORDER_DETAIL_BY_SKU));
-                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "order with sku " + sku, OrderDetailControllerRoute.ROUTE_ORDER + OrderDetailControllerRoute.ROUTE_DELETE_ORDER_DETAIL_BY_SKU)));
-    }
 }

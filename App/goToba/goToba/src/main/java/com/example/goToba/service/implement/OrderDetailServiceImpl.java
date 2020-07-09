@@ -1,11 +1,7 @@
 package com.example.goToba.service.implement;
 
-import com.example.goToba.controller.route.OrderDetailControllerRoute;
 import com.example.goToba.model.OrderDetail;
 import com.example.goToba.model.SequenceOrder;
-import com.example.goToba.model.Ticket;
-import com.example.goToba.payload.NotFoundResponse;
-import com.example.goToba.payload.Response;
 import com.example.goToba.payload.helper.*;
 import com.example.goToba.payload.request.OrderDetailRequest;
 import com.example.goToba.payload.request.OrderDetailTicket;
@@ -16,8 +12,6 @@ import com.example.goToba.service.OrderDetailService;
 import com.example.goToba.service.utils.SkuGenerator;
 import com.example.goToba.service.redisService.OrderDetailRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -99,8 +93,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                             (int) UUID.randomUUID().getLeastSignificantBits(),
                             req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
                             orderDetailRequest.getTicket(),
-                            skuUser,
-                            Strings.STATUS_ACTIVE
+                            skuUser
                     );
                     GregorianCalendar gc = new GregorianCalendar();
                     gc.add(Calendar.DATE, 1);
@@ -141,31 +134,11 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                             data.getId(),
                             sku,
                             orderDetailRequest.getTicket(),
-                            data.getUserSku(),
-                            data.getStatus()
+                            data.getUserSku()
                     );
                     orderDetailRedisService.add(orderDetail);
                     return orderDetailRepo.save(orderDetail);
                 });
     }
 
-    @Override
-    public Mono<OrderDetail> deleteBySku(String sku) {
-        return orderDetailRepo.findFirstBySku(sku)
-                .doOnNext(i -> {
-                    orderDetailRepo.deleteBySku(sku).subscribe();
-                    orderDetailRedisService.delete(sku);
-                })
-                .flatMap(data -> {
-                    OrderDetail orderDetail = new OrderDetail(
-                            data.getId(),
-                            sku,
-                            data.getTicket(),
-                            data.getUserSku(),
-                            Strings.STATUS_DELETE
-                    );
-                    orderDetailRedisService.add(orderDetail);
-                    return orderDetailRepo.save(orderDetail);
-                });
-    }
 }

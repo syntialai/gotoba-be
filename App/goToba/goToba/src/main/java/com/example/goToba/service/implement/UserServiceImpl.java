@@ -5,7 +5,6 @@ import com.example.goToba.model.SequenceUsers;
 import com.example.goToba.model.Users;
 import com.example.goToba.payload.AuthenticationResponse;
 import com.example.goToba.payload.JwtLoginResponse;
-import com.example.goToba.payload.Response;
 import com.example.goToba.payload.Token;
 import com.example.goToba.payload.helper.StaticResponseCode;
 import com.example.goToba.payload.helper.StaticResponseMessages;
@@ -16,13 +15,11 @@ import com.example.goToba.repository.SequenceUsersRepo;
 import com.example.goToba.repository.UsersRepo;
 import com.example.goToba.security.Encode;
 import com.example.goToba.security.JwtTokenProvider;
-import com.example.goToba.service.TokenProvider;
 import com.example.goToba.service.UserService;
 import com.example.goToba.service.utils.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.Disposable;
@@ -31,9 +28,6 @@ import reactor.core.publisher.Mono;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -54,30 +48,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private Encode passwordEncoder;
 
-    @Autowired
-    private CookieUtil cookieUtil;
-
-    @Autowired
-    TokenProvider tokenProvider;
-
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-    @Override
-    public ResponseEntity<?> test() {
-        HttpHeaders responseHeaders = new HttpHeaders();
-        Token newAccessToken;
-        Token newRefreshToken;
-        Date now = new Date();
-        Date expiryDate = new Date(now.getTime());
-        newAccessToken =new Token(Token.TokenType.ACCESS,"asd",(long)1231, LocalDateTime.ofInstant(expiryDate.toInstant(), ZoneId.systemDefault()));
-        newRefreshToken =new Token(Token.TokenType.ACCESS,"hendra",(long)1231,LocalDateTime.ofInstant(expiryDate.toInstant(),  ZoneId.systemDefault()));
-        newRefreshToken = tokenProvider.generateRefreshToken("test");
-        addTestTokenCookie(responseHeaders,newAccessToken);
-        addAccessTokenCookie(responseHeaders, newAccessToken);
-        addRefreshTokenCookie(responseHeaders, newRefreshToken);
-        JwtLoginResponse loginResponse = new JwtLoginResponse("Auth successful. Tokens are created in cookie.","ROLE_ADMIN");
-        return ResponseEntity.ok().headers(responseHeaders).body(loginResponse);
-    }
+    @Autowired
+    CookieUtil cookieUtil;
 
     @Override
     public Mono<Users> findFirstBySku(String sku) {
@@ -123,17 +97,18 @@ public class UserServiceImpl implements UserService {
     public Mono<ResponseEntity<?>> signin(LoginRequest request) {
         return usersRepo.findFirstByUsername(request.getUsername()).map((userDetails) -> {
             if (passwordEncoder.encode(request.getPassword()).equals(userDetails.getPassword())) {
-                System.out.println("asd");
-                String jwt= jwtTokenProvider.generateToken(userDetails);
                 HttpHeaders responseHeaders = new HttpHeaders();
-                responseHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createAccessTokenCookie(jwt, (long) 12223).toString());
-                return ResponseEntity.ok().headers(responseHeaders).body(new JwtLoginResponse(userDetails.getNickname(), userDetails.getRoles().toString(), userDetails.getSku(), jwt));
-
-//                return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE,cookie.toString()).body(new JwtLoginResponse(userDetails.getNickname(), userDetails.getRoles().toString(), userDetails.getSku(), jwt));
+                responseHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createAccessTokenCookie(jwtTokenProvider.generateToken(userDetails), (long) 36000).toString());
+                return ResponseEntity.ok().headers(responseHeaders).body(new JwtLoginResponse(userDetails.getNickname(), userDetails.getRoles().toString(), userDetails.getSku(), jwtTokenProvider.generateToken(userDetails)));
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthenticationResponse(timestamp.toString(), StaticResponseCode.RESPONSE_CODE_BAD_UNAUTHORIZED, StaticResponseStatus.RESPONSE_STATUS_ERROR_UNAUTHORIZED, StaticResponseMessages.RESPONSE_MESSAGE_USER_UNAUTHORIZED));
             }
         }).defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+    }
+
+    @Override
+    public ResponseEntity<?> signOut() {
+        return null;
     }
 
     @Override
@@ -167,35 +142,5 @@ public class UserServiceImpl implements UserService {
                     return usersRepo.findFirstBySku(sku);
                 });
     }
-
-
-    @Override
-    public ResponseEntity<?> login(LoginRequest loginRequest) {
-//        HttpHeaders responseHeaders = new HttpHeaders();
-//        Token newAccessToken;
-//        Token newRefreshToken;
-//        newAccessToken = tokenProvider.generateAccessToken(loginRequest.getUsername());
-//        newRefreshToken = tokenProvider.generateRefreshToken(loginRequest.getUsername());
-//        addTestTokenCookie(responseHeaders,newAccessToken);
-//        addAccessTokenCookie(responseHeaders, newAccessToken);
-//        addRefreshTokenCookie(responseHeaders, newRefreshToken);
-
-//        LoginResponse loginResponse = new LoginResponse(LoginResponse.SuccessFailure.SUCCESS, "Auth successful. Tokens are created in cookie.");
-        return ResponseEntity.ok("asd");
-
-    }
-
-    private void addAccessTokenCookie(HttpHeaders httpHeaders, Token token) {
-        httpHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createAccessTokenCookie(token.getTokenValue(), token.getDuration()).toString());
-    }
-
-    private void addRefreshTokenCookie(HttpHeaders httpHeaders, Token token) {
-        httpHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createRefreshTokenCookie(token.getTokenValue(), token.getDuration()).toString());
-    }
-    private void addTestTokenCookie(HttpHeaders httpHeaders, Token token) {
-        httpHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.testCookie("asd", (long) 12223).toString());
-//        httpHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createRefreshTokenCookie(token.getTokenValue(), token.getDuration()).toString());
-    }
-
 
 }

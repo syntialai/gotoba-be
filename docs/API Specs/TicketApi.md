@@ -204,7 +204,7 @@
     "description": "Nikmati diskon 50% setiap pembelian tiket masuk Danau ...",
     "category": "restaurant",
     "price": 50000,
-    "discount": 0,
+        "discount": 0,
     "expiredDate": "2020-09-03",
     "merchantSku": "synt_merc_0001",
     "wisataSku": "WAT_0001",
@@ -266,7 +266,7 @@
     "timestamp": "2016-11-15T22:55:40.110Z",
     "status": 404,
     "error": "Not Found",
-    "message": "Invalid Request: Cannot find ticket with merchant sku ABC.",
+    "message": "Invalid Request: Cannot find merchant with sku ABC.",
     "path": "/ticket/merchant/{merchantSku}/add"
 }
 ```
