@@ -16,6 +16,7 @@ import com.example.goToba.repository.UsersRepo;
 import com.example.goToba.security.Encode;
 import com.example.goToba.security.JwtTokenProvider;
 import com.example.goToba.service.UserService;
+import com.example.goToba.service.utils.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -48,6 +49,9 @@ public class UserServiceImpl implements UserService {
     private Encode passwordEncoder;
 
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+    @Autowired
+    CookieUtil cookieUtil;
 
     @Override
     public Mono<Users> findFirstBySku(String sku) {
@@ -90,17 +94,21 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Mono<ResponseEntity<?>> signin(String accesToken, String refreshToken, LoginRequest request) {
-        HttpHeaders responseHeaders = new HttpHeaders();
-        Token newAccessToken;
-        Token newRefreshToken;
+    public Mono<ResponseEntity<?>> signin(LoginRequest request) {
         return usersRepo.findFirstByUsername(request.getUsername()).map((userDetails) -> {
             if (passwordEncoder.encode(request.getPassword()).equals(userDetails.getPassword())) {
-                return ResponseEntity.ok(new JwtLoginResponse(userDetails.getNickname(), userDetails.getRoles().toString(), userDetails.getSku(), jwtTokenProvider.generateToken(userDetails)));
+                HttpHeaders responseHeaders = new HttpHeaders();
+                responseHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createAccessTokenCookie(jwtTokenProvider.generateToken(userDetails), (long) 36000).toString());
+                return ResponseEntity.ok().headers(responseHeaders).body(new JwtLoginResponse(userDetails.getNickname(), userDetails.getRoles().toString(), userDetails.getSku(), jwtTokenProvider.generateToken(userDetails)));
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthenticationResponse(timestamp.toString(), StaticResponseCode.RESPONSE_CODE_BAD_UNAUTHORIZED, StaticResponseStatus.RESPONSE_STATUS_ERROR_UNAUTHORIZED, StaticResponseMessages.RESPONSE_MESSAGE_USER_UNAUTHORIZED));
             }
         }).defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+    }
+
+    @Override
+    public ResponseEntity<?> signOut() {
+        return null;
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.example.goToba.payload.request.TicketRequest;
 import com.example.goToba.repository.OrderDetailRepo;
 import com.example.goToba.repository.SequenceTicketRepo;
 import com.example.goToba.repository.TicketRepo;
+import com.example.goToba.service.utils.RandomGenerator;
 import com.example.goToba.service.utils.SkuGenerator;
 import com.example.goToba.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     SequenceTicketRepo sequenceTicketRepo;
+
+    @Autowired
+    RandomGenerator randomGenerator;
 
 
     @Override
@@ -69,17 +73,19 @@ public class TicketServiceImpl implements TicketService {
                 .flatMap(dat -> sequenceTicketRepo.findFirstByKey(key))
                 .flatMap(data -> {
                     Ticket ticket = new Ticket(
-                            (int) UUID.randomUUID().getLeastSignificantBits(),
+                            randomGenerator.randInt(),
                             data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()),
+                            ticketRequest.getTitle(),
+                            ticketRequest.getDescription(),
                             ticketRequest.getCategory(),
                             ticketRequest.getPrice(),
+                            ticketRequest.getDiscount(),
                             ticketRequest.getExpiredDate(),
                             ticketRequest.getMerchantSku(),
                             new Timestamp(System.currentTimeMillis()).toString(),
                             Strings.STATUS_ACTIVE,
                             ticketRequest.getWisataSku(),
-                            ticketRequest.getOrderId(),
-                            ticketRequest.getSkuUser()
+                            ticketRequest.getOrderSku()
                     );
                     return ticketRepo.save(ticket);
                 });
@@ -97,15 +103,17 @@ public class TicketServiceImpl implements TicketService {
                     Ticket ticket = new Ticket(
                             data.getId(),
                             sku,
+                            ticketRequest.getTitle(),
+                            ticketRequest.getDescription(),
                             ticketRequest.getCategory(),
                             ticketRequest.getPrice(),
+                            ticketRequest.getDiscount(),
                             ticketRequest.getExpiredDate(),
                             ticketRequest.getMerchantSku(),
-                            new Timestamp(System.currentTimeMillis()).toString(),
-                            data.getStatus(),
+                            data.getCreatedAt(),
+                            Strings.STATUS_ACTIVE,
                             ticketRequest.getWisataSku(),
-                            ticketRequest.getOrderId(),
-                            ticketRequest.getSkuUser()
+                            ticketRequest.getOrderSku()
                     );
                     return ticketRepo.save(ticket);
                 });
@@ -123,15 +131,17 @@ public class TicketServiceImpl implements TicketService {
                     Ticket ticket = new Ticket(
                             data.getId(),
                             sku,
+                            data.getTitle(),
+                            data.getDescription(),
                             data.getCategory(),
                             data.getPrice(),
+                            data.getDiscount(),
                             data.getExpiredDate(),
                             data.getMerchantSku(),
-                            new Timestamp(System.currentTimeMillis()).toString(),
-                            Strings.STATUS_DELETE,
+                            data.getCreatedAt(),
+                            Strings.STATUS_ACTIVE,
                             data.getWisataSku(),
-                            data.getOrderId(),
-                            data.getSkuUser()
+                            data.getOrderSku()
                     );
                     return ticketRepo.save(ticket);
                 });

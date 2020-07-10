@@ -15,6 +15,4 @@ import java.util.List;
 public class OrderDetailRequest {
     List<OrderDetailTicket> ticket;
     String userSku;
-
-
 }

@@ -14,7 +14,11 @@ import com.example.goToba.repository.SequenceUsersRepo;
 import com.example.goToba.repository.UsersRepo;
 import com.example.goToba.service.UserService;
 import com.example.goToba.service.implement.UserServiceImpl;
+import com.example.goToba.service.utils.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -42,6 +46,9 @@ public class AuthenticationController extends HttpServlet {
     @Autowired
     UserService userService;
 
+    @Autowired
+    CookieUtil cookieUtil;
+
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
 
@@ -52,20 +59,13 @@ public class AuthenticationController extends HttpServlet {
     }
 
     @PostMapping(AuthenticationControllerRoute.ROUTE_SIGN_IN)
-    public Mono<ResponseEntity<?>> signin(
-            @CookieValue(name = "accessToken", required = false) String accessToken,
-            @CookieValue(name = "refreshToken", required = false) String refreshToken,
-            @RequestBody LoginRequest request) {
-        return userService.signin(accessToken, refreshToken, request);
+    public Mono<ResponseEntity<?>> signin(@RequestBody LoginRequest request) {
+        return userService.signin(request);
     }
 
-
     @PostMapping("/logout")
-    public static void myLogoff(HttpServletRequest request, HttpServletResponse response) {
-        CookieClearingLogoutHandler cookieClearingLogoutHandler = new CookieClearingLogoutHandler(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY);
-        SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
-        cookieClearingLogoutHandler.logout(request, response, null);
-        securityContextLogoutHandler.logout(request, response, null);
+    public static void myLogoff() {
+
     }
 
 }
