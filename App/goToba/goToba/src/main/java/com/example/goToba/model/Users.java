@@ -32,6 +32,13 @@ public class Users  implements UserDetails {
 
     public String status;
 
+    public RoleName getRoles() {
+        return roles;
+    }
+
+    public void setRoles(RoleName roles) {
+        this.roles = roles;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
