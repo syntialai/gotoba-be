@@ -29,5 +29,6 @@ public class TourGuide {
      String experience;
      String description;
      String status;
+     String gender;
 
 }

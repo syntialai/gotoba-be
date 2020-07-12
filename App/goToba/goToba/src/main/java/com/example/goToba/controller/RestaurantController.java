@@ -47,11 +47,10 @@ public class RestaurantController {
     UsersRepo usersRepo;
 
     @GetMapping(RestaurantControllerRoute.ROUTE_RESTAURANT_BISTRO_TYPES)
-    public Mono<ResponseEntity<?>> findAllBistroTypes() {
-        return restaurantService.findAll().collectList().
-                map(data -> {
-                    return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
-                });
+    public ResponseEntity<?> findAllBistroTypes() {
+
+        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, bistroRedisService.findAll()));
+
     }
 
     @GetMapping(RestaurantControllerRoute.ROUTE_RESTAURANT_All)

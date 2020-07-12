@@ -225,8 +225,8 @@
     "name": "Jenny's Restaurant",
     "image": "asduqwyieuhxmz.png",
     "bistroType": "Salad Shop",
-    "longitude": "10.905354",
-    "latitude": "42.905354",
+    "longitude": 10.905354,
+    "latitude": 42.905354,
     "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
     "hoursOpen": {
         "monday": ["8AM", "10PM"],
@@ -255,8 +255,8 @@
         "name": "Jenny's Restaurant",
         "image": "asduqwyieuhxmz.png",
         "bistroType": "Salad Shop",
-        "longitude": "10.905354",
-        "latitude": "42.905354",
+        "longitude": 10.905354,
+        "latitude": 42.905354,
         "rating": 5.0,
         "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
         "hoursOpen": {
@@ -320,8 +320,8 @@
     "name": "Jenny's Restaurant",
     "image": "asduqwyieuhxmz.png",
     "bistroType": "Salad Shop",
-    "longitude": "10.905354",
-    "latitude": "42.905354",
+    "longitude": 10.905354,
+    "latitude": 42.905354,
     "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
     "hoursOpen": {
         "monday": ["8AM", "10PM"],
@@ -350,8 +350,8 @@
         "name": "Jenny's Restaurant",
         "image": "asduqwyieuhxmz.png",
         "bistroType": "Salad Shop",
-        "longitude": "10.905354",
-        "latitude": "42.905354",
+        "longitude": 10.905354,
+        "latitude": 42.905354,
         "rating": 5.0,
         "address": "Jl. Lkr. Tuktuk, Tuktuk Siadong, Simanindo, Kabupaten Samosir, Sumatera Utara 22395",
         "hoursOpen": {

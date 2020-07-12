@@ -72,7 +72,8 @@ public class TourGuideServiceImpl implements TourGuideService {
                             tourGuideRequest.getWhatsapp(),
                             tourGuideRequest.getExperience(),
                             tourGuideRequest.getDescription(),
-                            Strings.STATUS_ACTIVE
+                            Strings.STATUS_ACTIVE,
+                            tourGuideRequest.getGender()
                     );
                     return tourGuideRepo.save(tourGuide);
                 });
@@ -101,7 +102,8 @@ public class TourGuideServiceImpl implements TourGuideService {
                             tourGuideRequest.getWhatsapp(),
                             tourGuideRequest.getExperience(),
                             tourGuideRequest.getDescription(),
-                            data.getStatus()
+                            data.getStatus(),
+                            tourGuideRequest.getGender()
                     );
                     tourGuideRepo.save(tourGuide).subscribe();
                     return tourGuideRepo.findBySku(sku);
@@ -130,7 +132,8 @@ public class TourGuideServiceImpl implements TourGuideService {
                             data.getWhatsapp(),
                             data.getExperience(),
                             data.getDescription(),
-                            Strings.STATUS_DELETE
+                            Strings.STATUS_DELETE,
+                            data.getGender()
                     );
                     tourGuideRepo.save(tourGuide).subscribe();
                     return tourGuideRepo.findBySku(sku);

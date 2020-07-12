@@ -25,5 +25,6 @@ public class TourGuideRequest {
     String whatsapp;
     String experience;
     String description;
+    String gender;
 
 }
