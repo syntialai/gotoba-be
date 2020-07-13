@@ -28,7 +28,8 @@
     "whatsapp": "+62812 3456 7890",
     "experience": null,
     "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me.",
-    "status": "active"
+    "status": "active",
+    "gender" : "Male"
   }, {
     "id": 2,
     "sku": "TG_ANAB_0002",
@@ -45,7 +46,8 @@
     "whatsapp": "+62812 3456 7890",
     "experience": null,
     "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me.",
-    "status": "active"
+    "status": "active",
+    "gender" : "Male"
   }]
 }
 ```
@@ -92,7 +94,8 @@
         "whatsapp": "+62812 3456 7890",
         "experience": null,
         "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me.",
-        "status": "active"
+        "status": "active",
+        "gender" : "Male"
     }
 }
 ```
@@ -139,7 +142,8 @@
     "email": "anakayam.jago@gmail.com",
     "whatsapp": "+62812 3456 7890",
     "experience": null,
-    "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me."
+    "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me.",
+    "gender" : "Male"
 }
 ```
 
@@ -168,7 +172,8 @@
         "whatsapp": "+62812 3456 7890",
         "experience": null,
         "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me.",
-        "status": "active"
+        "status": "active",
+        "gender" : "Male"
     }
 }
 ```
@@ -217,7 +222,8 @@
     "email": "anakayam.jago@gmail.com",
     "whatsapp": "+62812 3456 7890",
     "experience": null,
-    "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me."
+    "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me.",
+    "gender" : "Male"
 }
 ```
 
@@ -246,7 +252,8 @@
         "whatsapp": "+62812 3456 7890",
         "experience": null,
         "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me.",
-        "status": "active"
+        "status": "active",
+        "gender" : "Male"
     }
 }
 ```

@@ -38,7 +38,7 @@ public class NearByLocationController {
     @GetMapping(NearByLocationControllerRoute.ROUTE_TO_NEAR_BY_LOCATION_WISATA)
     public Mono<ResponseEntity<?>> findNearWisata(@PathVariable Double longitude, @PathVariable Double lat) {
         return wisataRepo.findAll()
-                .filter(data -> nearByLocationService.distance(lat, Double.parseDouble(data.getLatitude()), longitude, Double.parseDouble(data.getLongitude())) <= 500000)
+                .filter(data -> nearByLocationService.distance(lat, data.getLatitude(), longitude, data.getLongitude()) <= 500000)
                 .collectList()
                 .map(data -> {
                     if (data.size() != 0) {
@@ -51,7 +51,7 @@ public class NearByLocationController {
     @GetMapping(NearByLocationControllerRoute.ROUTE_TO_NEAR_BY_LOCATION_RESTAURANTS)
     public Mono<ResponseEntity<?>> findNearByLocationRestaurant(@PathVariable Double longitude, @PathVariable Double lat) {
         return restaurantRepo.findAll()
-                .filter(data -> nearByLocationService.distance(lat, Double.parseDouble(data.getLatitude()), longitude, Double.parseDouble(data.getLongitude())) <= 500000)
+                .filter(data -> nearByLocationService.distance(lat, data.getLatitude(), longitude, data.getLongitude()) <= 500000)
                 .collectList()
                 .map(data -> {
                     if (data.size()!=0) {

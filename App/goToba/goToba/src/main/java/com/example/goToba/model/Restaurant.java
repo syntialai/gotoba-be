@@ -15,8 +15,8 @@ public class Restaurant {
     private String sku;
     private String name;
     private String bistroType;
-    public String longitude;
-    public String latitude;
+    public Double longitude;
+    public Double latitude;
     private Double rating;
     private String address;
     private HoursOpen hoursOpen;

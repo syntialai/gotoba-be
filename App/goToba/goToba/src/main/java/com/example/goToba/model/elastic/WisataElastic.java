@@ -21,8 +21,8 @@ public class WisataElastic {
     public String title;
     public String description;
     public String image;
-    public String longitude;
-    public String latitude;
+    public Double longitude;
+    public Double latitude;
     public String address;
     public String createdBy;
     public int price;
