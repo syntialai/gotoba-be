@@ -30,16 +30,21 @@ public class TicketController {
     @Autowired
     UsersRepo usersRepo;
 
+    @GetMapping(TicketControllerRoute.ROUTE_TICKET_ALL)
+    public Mono<ResponseEntity<?>> findAll() {
+        return ticketService.findALl().collectList().map(data -> {
+            return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+        });
+    }
+
     @GetMapping(TicketControllerRoute.ROUTE_TICKET_ALL_BY_MERCHANT_SKU)
     public Mono<ResponseEntity<?>> findAllByMerchantSku(@PathVariable String merchantSku) {
-        return ticketService.findAllByMerchantSku(merchantSku).
-                collectList().
-                map(data -> {
-                    if (data.size() != 0) {
-                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
-                    }
-                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "merchant with sku " + merchantSku, OrderDetailControllerRoute.ROUTE_ORDER + TicketControllerRoute.ROUTE_TICKET_ALL_BY_MERCHANT_SKU));
-                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "merchant with sku " + merchantSku, OrderDetailControllerRoute.ROUTE_ORDER + TicketControllerRoute.ROUTE_TICKET_ALL_BY_MERCHANT_SKU)));
+        return ticketService.findAllByMerchantSku(merchantSku).collectList().map(data -> {
+            if (data.size() != 0) {
+                return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+            }
+            return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "merchant with sku " + merchantSku, OrderDetailControllerRoute.ROUTE_ORDER + TicketControllerRoute.ROUTE_TICKET_ALL_BY_MERCHANT_SKU));
+        }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "merchant with sku " + merchantSku, OrderDetailControllerRoute.ROUTE_ORDER + TicketControllerRoute.ROUTE_TICKET_ALL_BY_MERCHANT_SKU)));
     }
 
     @GetMapping(TicketControllerRoute.ROUTE_TICKET_ALL_BY_CATEGORY)
@@ -55,11 +60,11 @@ public class TicketController {
     public Mono<ResponseEntity<?>> findBySku(@PathVariable String sku) {
         return ticketService.findBySku(sku)
                 .map(data -> {
-            if (data.getSku() != null) {
-                return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
-            }
-            return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "ticket with sku " + sku, OrderDetailControllerRoute.ROUTE_ORDER + TicketControllerRoute.ROUTE_TICKET_BY_SKU));
-        }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "ticket with sku " + sku, OrderDetailControllerRoute.ROUTE_ORDER + TicketControllerRoute.ROUTE_TICKET_BY_SKU)));
+                    if (data.getSku() != null) {
+                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+                    }
+                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "ticket with sku " + sku, OrderDetailControllerRoute.ROUTE_ORDER + TicketControllerRoute.ROUTE_TICKET_BY_SKU));
+                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "ticket with sku " + sku, OrderDetailControllerRoute.ROUTE_ORDER + TicketControllerRoute.ROUTE_TICKET_BY_SKU)));
 
     }
 
