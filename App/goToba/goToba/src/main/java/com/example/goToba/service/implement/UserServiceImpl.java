@@ -9,6 +9,7 @@ import com.example.goToba.payload.Token;
 import com.example.goToba.payload.helper.StaticResponseCode;
 import com.example.goToba.payload.helper.StaticResponseMessages;
 import com.example.goToba.payload.helper.StaticResponseStatus;
+import com.example.goToba.payload.helper.Strings;
 import com.example.goToba.payload.request.LoginRequest;
 import com.example.goToba.payload.request.RegisterRequest;
 import com.example.goToba.repository.SequenceUsersRepo;
@@ -86,7 +87,7 @@ public class UserServiceImpl implements UserService {
                             request.getEmail(),
                             passwordEncoder.encode(request.getPassword()),
                             checkRole(request.getRole().toString()),
-                            "active"
+                            Strings.STATUS_ACTIVE
                     );
                     return usersRepo.save(users);
                 });
@@ -99,6 +100,7 @@ public class UserServiceImpl implements UserService {
             if (passwordEncoder.encode(request.getPassword()).equals(userDetails.getPassword())) {
                 HttpHeaders responseHeaders = new HttpHeaders();
                 responseHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createAccessTokenCookie(jwtTokenProvider.generateToken(userDetails), (long) 36000).toString());
+                System.out.println(responseHeaders);
                 return ResponseEntity.ok().headers(responseHeaders).body(new JwtLoginResponse(userDetails.getNickname(), userDetails.getRoles().toString(), userDetails.getSku(), jwtTokenProvider.generateToken(userDetails)));
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthenticationResponse(timestamp.toString(), StaticResponseCode.RESPONSE_CODE_BAD_UNAUTHORIZED, StaticResponseStatus.RESPONSE_STATUS_ERROR_UNAUTHORIZED, StaticResponseMessages.RESPONSE_MESSAGE_USER_UNAUTHORIZED));
@@ -108,7 +110,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> signOut() {
-        return null;
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.remove("accesToken");
+        return ResponseEntity.ok().headers(responseHeaders).body("Sukses");
     }
 
     @Override

@@ -1,5 +1,79 @@
 # Ticket API
 
+
+## Get Ticket by Merchant Sku
+
++ Endpoint : ``/ticket/``
++ HTTP Method : `GET`
++ Path Variable :
+  + merchantSku
++ Request Header :
+  + Accept : `application/json`
++ Response Body (Success) :
+
+```json
+{
+    "code": 200,
+    "status": "OK",
+    "data": [{
+        "id": 1,
+        "sku": "TICK_REST_0001_0001",
+        "title": "Diskon 50% untuk Tiket Masuk Danau Toba!",
+        "description": "Nikmati diskon 50% setiap pembelian tiket masuk Danau ...",
+        "category": "restaurant",
+        "price": 50000,
+        "discount": 0,
+        "expiredDate": "2020-09-03",
+        "merchantSku": "synt_merc_0001",
+        "createdAt": "2016-11-15T22:55:40.110Z",
+        "wisataSku": "asd_132",
+        "status": "active",
+        "orderSku": "ORD_USE_0001_0001"
+    }, {
+        "id": 2,
+        "sku": "TICK_JOUR_0001_0002",
+        "title": "Diskon 50% untuk Tiket Masuk Danau Toba!",
+        "description": "Nikmati diskon 50% setiap pembelian tiket masuk Danau ...",
+        "category": "journey",
+        "price": 100000,
+        "discount": 0,
+        "expiredDate": "2020-09-03",
+        "merchantSku": "synt_merc_0001",
+        "createdAt": "2016-11-15T22:55:40.110Z",
+        "wisataSku": "asd_132",
+        "status": "active",
+        "orderSku": "ORD_USE_0001_0001"
+    }, {
+        "id": 3,
+        "sku": "TICK_JOUR_0001_0002",
+        "category": "journey",
+        "title": "Diskon 50% untuk Tiket Masuk Danau Toba!",
+        "description": "Nikmati diskon 50% setiap pembelian tiket masuk Danau ...",
+        "price": 50000,
+        "discount": 0,
+        "expiredDate": "2020-09-03",
+        "merchantSku": "synt_merc_0001",
+        "createdAt": "2016-11-15T22:55:40.110Z",
+        "wisataSku": "asd_132",
+        "status": "active",
+        "orderSku": "ORD_USE_0001_0001"
+    }]
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/ticket/merchant/{merchantSku}"
+}
+```
+
+
 ## Get Ticket by Merchant Sku
 
 + Endpoint : ``/ticket/merchant/{merchantSku}``
@@ -163,7 +237,7 @@
         "createdAt": "2016-11-15T22:55:40.110Z",
         "status": "active",
         "wisataSku": "asd_132",
-        "orderSku": "ORD_0001_0001_0001",
+        "orderSku": "ORD_0001_0001_0001"
     }
 }
 ```
