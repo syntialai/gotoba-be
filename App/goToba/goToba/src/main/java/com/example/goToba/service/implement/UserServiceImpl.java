@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService {
         return usersRepo.findFirstByUsername(request.getUsername()).map((userDetails) -> {
             if (passwordEncoder.encode(request.getPassword()).equals(userDetails.getPassword())) {
                 HttpHeaders responseHeaders = new HttpHeaders();
-                responseHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createAccessTokenCookie(jwtTokenProvider.generateToken(userDetails), (long) 36000).toString());
+                responseHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createAccessTokenCookie(jwtTokenProvider.generateToken(userDetails), (long) 360000).toString());
                 System.out.println(responseHeaders);
                 return ResponseEntity.ok().headers(responseHeaders).body(new JwtLoginResponse(userDetails.getNickname(), userDetails.getRoles().toString(), userDetails.getSku(), jwtTokenProvider.generateToken(userDetails)));
             } else {
@@ -110,9 +110,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> signOut() {
+        System.out.println("cek");
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.remove("accesToken");
-        return ResponseEntity.ok().headers(responseHeaders).body("Sukses");
+        responseHeaders.remove(HttpHeaders.);
+        return ResponseEntity.ok().headers(responseHeaders).body("Test");
     }
 
     @Override
