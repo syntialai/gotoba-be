@@ -54,7 +54,7 @@ public class WisataServiceImpl implements WisataService {
                             wisataRequest.getName(),
                             wisataRequest.getTitle(),
                             wisataRequest.getDescription(),
-                            ImagePath.IMAGE_PATH_WISATA + ImagePath.IMAGE_CONNECTOR + data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()) + ImagePath.IMAGE_EXTENSION,
+                            ImagePath.IMAGE_PATH_WISATA + ImagePath.IMAGE_CONNECTOR  + StockKeepingUnit.WISATA +  StockKeepingUnit.SKU_CONNECTOR + data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()) + ImagePath.IMAGE_EXTENSION,
                             wisataRequest.getLongitude(),
                             wisataRequest.getLatitude(),
                             wisataRequest.getAddress(),
