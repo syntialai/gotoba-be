@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<?> signOut() {
         System.out.println("cek");
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.remove(HttpHeaders.);
+        responseHeaders.remove("accessToken");
         return ResponseEntity.ok().headers(responseHeaders).body("Test");
     }
 
