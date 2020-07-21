@@ -10,6 +10,7 @@ public interface ImagePath {
     String IMAGE_PATH_GALLERY = "/gallery";
     String IMAGE_PATH_MENU_RESTAURANTS = "/menu";
     String IMAGE_PATH_WISATA = "/wisata";
+    String IMAGE_PATH_USER = "/user";
     String IMAGE_CONNECTOR = "/";
     String IMAGE_EXTENSION = ".png";
 }

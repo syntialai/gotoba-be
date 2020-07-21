@@ -6,16 +6,15 @@ import com.example.goToba.model.Users;
 import com.example.goToba.payload.AuthenticationResponse;
 import com.example.goToba.payload.JwtLoginResponse;
 import com.example.goToba.payload.Token;
-import com.example.goToba.payload.helper.StaticResponseCode;
-import com.example.goToba.payload.helper.StaticResponseMessages;
-import com.example.goToba.payload.helper.StaticResponseStatus;
-import com.example.goToba.payload.helper.Strings;
+import com.example.goToba.payload.helper.*;
+import com.example.goToba.payload.imagePath.ImagePath;
 import com.example.goToba.payload.request.LoginRequest;
 import com.example.goToba.payload.request.RegisterRequest;
 import com.example.goToba.repository.SequenceUsersRepo;
 import com.example.goToba.repository.UsersRepo;
 import com.example.goToba.security.Encode;
 import com.example.goToba.security.JwtTokenProvider;
+import com.example.goToba.service.ImageService;
 import com.example.goToba.service.UserService;
 import com.example.goToba.service.utils.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,7 @@ import reactor.core.publisher.Mono;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -48,6 +48,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private Encode passwordEncoder;
+
+    @Autowired
+    ImageService imageService;
 
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
@@ -87,8 +90,16 @@ public class UserServiceImpl implements UserService {
                             request.getEmail(),
                             passwordEncoder.encode(request.getPassword()),
                             checkRole(request.getRole().toString()),
+                            ImagePath.IMAGE_PATH_USER + ImagePath.IMAGE_CONNECTOR + req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(req.getLast_seq()) + ImagePath.IMAGE_EXTENSION,
                             Strings.STATUS_ACTIVE
                     );
+                    if (request.getImage() != "") {
+                        try {
+                            imageService.addPicture(request.getImage(), users.getSku(), ImagePath.IMAGE_PATH_USER);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     return usersRepo.save(users);
                 });
     }
@@ -139,8 +150,16 @@ public class UserServiceImpl implements UserService {
                             request.getEmail(),
                             passwordEncoder.encode(request.getPassword()),
                             req.getRoles(),
-                            "active"
+                            req.getImage(),
+                            Strings.STATUS_ACTIVE
                     );
+                    if (request.getImage() != "") {
+                        try {
+                            imageService.addPicture(request.getImage(), users.getSku(), ImagePath.IMAGE_PATH_USER);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     usersRepo.save(users).subscribe();
                 })
                 .flatMap(data -> {
