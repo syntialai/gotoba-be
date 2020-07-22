@@ -4,9 +4,11 @@ import com.example.goToba.model.SequenceTourGuide;
 import com.example.goToba.model.TourGuide;
 import com.example.goToba.payload.helper.StockKeepingUnit;
 import com.example.goToba.payload.helper.Strings;
+import com.example.goToba.payload.imagePath.ImagePath;
 import com.example.goToba.payload.request.TourGuideRequest;
 import com.example.goToba.repository.SequenceTourGuideRepo;
 import com.example.goToba.repository.TourGuideRepo;
+import com.example.goToba.service.ImageService;
 import com.example.goToba.service.utils.SkuGenerator;
 import com.example.goToba.service.TourGuideService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.io.IOException;
 import java.util.UUID;
 
 /**
@@ -30,6 +33,9 @@ public class TourGuideServiceImpl implements TourGuideService {
 
     @Autowired
     SequenceTourGuideRepo sequenceTourGuideRepo;
+
+    @Autowired
+    ImageService imageService;
 
     @Override
     public Flux<TourGuide> findAll() {
@@ -73,8 +79,16 @@ public class TourGuideServiceImpl implements TourGuideService {
                             tourGuideRequest.getExperience(),
                             tourGuideRequest.getDescription(),
                             Strings.STATUS_ACTIVE,
-                            tourGuideRequest.getGender()
-                    );
+                            tourGuideRequest.getGender(),
+                            ImagePath.IMAGE_PATH_TOURE_GUIDE + ImagePath.IMAGE_CONNECTOR  + data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()) + ImagePath.IMAGE_EXTENSION
+                            );
+                    if (tourGuideRequest.getImage() != "") {
+                        try {
+                            imageService.addPicture(tourGuideRequest.getImage(), tourGuide.getSku(), ImagePath.IMAGE_PATH_TOURE_GUIDE);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     return tourGuideRepo.save(tourGuide);
                 });
     }
@@ -103,8 +117,16 @@ public class TourGuideServiceImpl implements TourGuideService {
                             tourGuideRequest.getExperience(),
                             tourGuideRequest.getDescription(),
                             data.getStatus(),
-                            tourGuideRequest.getGender()
+                            tourGuideRequest.getGender(),
+                            data.getImage()
                     );
+                    if (tourGuideRequest.getImage() != "") {
+                        try {
+                            imageService.addPicture(tourGuideRequest.getImage(), tourGuide.getSku(), ImagePath.IMAGE_PATH_TOURE_GUIDE);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     tourGuideRepo.save(tourGuide).subscribe();
                     return tourGuideRepo.findBySku(sku);
                 });
@@ -133,7 +155,8 @@ public class TourGuideServiceImpl implements TourGuideService {
                             data.getExperience(),
                             data.getDescription(),
                             Strings.STATUS_DELETE,
-                            data.getGender()
+                            data.getGender(),
+                            data.getImage()
                     );
                     tourGuideRepo.save(tourGuide).subscribe();
                     return tourGuideRepo.findBySku(sku);

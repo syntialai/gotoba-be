@@ -34,7 +34,7 @@ public class UserServiceImplTest {
 
     @Test
     public void testFindFirstBySku(){
-        Mono<Users> usersMono = usersRepo.findFirstBySku("HEND_001");
+            Mono<Users> usersMono = usersRepo.findFirstBySku("HEND_001");
         assertThat(usersMono).isNotNull();
     }
 }

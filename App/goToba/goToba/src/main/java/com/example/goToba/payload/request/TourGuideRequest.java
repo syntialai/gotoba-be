@@ -26,5 +26,6 @@ public class TourGuideRequest {
     String experience;
     String description;
     String gender;
+    String image;
 
 }
