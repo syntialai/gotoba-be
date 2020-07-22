@@ -3,7 +3,7 @@ package com.example.goToba.service.implement;
 import com.example.goToba.model.SequenceTourGuide;
 import com.example.goToba.model.TourGuide;
 import com.example.goToba.payload.helper.StockKeepingUnit;
-import com.example.goToba.payload.helper.Strings;
+import com.example.goToba.payload.helper.StaticStatus;
 import com.example.goToba.payload.imagePath.ImagePath;
 import com.example.goToba.payload.request.TourGuideRequest;
 import com.example.goToba.repository.SequenceTourGuideRepo;
@@ -78,7 +78,7 @@ public class TourGuideServiceImpl implements TourGuideService {
                             tourGuideRequest.getWhatsapp(),
                             tourGuideRequest.getExperience(),
                             tourGuideRequest.getDescription(),
-                            Strings.STATUS_ACTIVE,
+                            StaticStatus.STATUS_ACTIVE,
                             tourGuideRequest.getGender(),
                             ImagePath.IMAGE_PATH_TOURE_GUIDE + ImagePath.IMAGE_CONNECTOR + data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()) + ImagePath.IMAGE_EXTENSION
                     );
@@ -154,7 +154,7 @@ public class TourGuideServiceImpl implements TourGuideService {
                             data.getWhatsapp(),
                             data.getExperience(),
                             data.getDescription(),
-                            Strings.STATUS_DELETE,
+                            StaticStatus.STATUS_DELETE,
                             data.getGender(),
                             data.getImage()
                     );

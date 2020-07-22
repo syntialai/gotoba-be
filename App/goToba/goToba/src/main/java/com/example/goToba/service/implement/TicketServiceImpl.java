@@ -3,7 +3,7 @@ package com.example.goToba.service.implement;
 import com.example.goToba.model.SequenceTicket;
 import com.example.goToba.model.Ticket;
 import com.example.goToba.payload.helper.StockKeepingUnit;
-import com.example.goToba.payload.helper.Strings;
+import com.example.goToba.payload.helper.StaticStatus;
 import com.example.goToba.payload.imagePath.ImagePath;
 import com.example.goToba.payload.request.TicketRequest;
 import com.example.goToba.repository.OrderDetailRepo;
@@ -20,7 +20,6 @@ import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.UUID;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 13/06/2020.
@@ -89,7 +88,7 @@ public class TicketServiceImpl implements TicketService {
                             ticketRequest.getExpiredDate(),
                             ticketRequest.getMerchantSku(),
                             new Timestamp(System.currentTimeMillis()).toString(),
-                            Strings.STATUS_ACTIVE,
+                            StaticStatus.STATUS_ACTIVE,
                             ticketRequest.getWisataSku(),
                             ticketRequest.getOrderSku(),
                             ImagePath.IMAGE_PATH_TICKET + ImagePath.IMAGE_CONNECTOR + data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()) + ImagePath.IMAGE_EXTENSION
@@ -126,7 +125,7 @@ public class TicketServiceImpl implements TicketService {
                             ticketRequest.getExpiredDate(),
                             ticketRequest.getMerchantSku(),
                             data.getCreatedAt(),
-                            Strings.STATUS_ACTIVE,
+                            StaticStatus.STATUS_ACTIVE,
                             ticketRequest.getWisataSku(),
                             ticketRequest.getOrderSku(),
                             data.getImage()
@@ -162,7 +161,7 @@ public class TicketServiceImpl implements TicketService {
                             data.getExpiredDate(),
                             data.getMerchantSku(),
                             data.getCreatedAt(),
-                            Strings.STATUS_ACTIVE,
+                            StaticStatus.STATUS_ACTIVE,
                             data.getWisataSku(),
                             data.getOrderSku(),
                             data.getImage()

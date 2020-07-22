@@ -19,5 +19,6 @@ public class OrderDetail {
     String sku ;
     List<OrderDetailTicket> ticket;
     String userSku;
+    Integer status;
 
 }

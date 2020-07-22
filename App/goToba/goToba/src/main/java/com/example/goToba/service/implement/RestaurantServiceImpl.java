@@ -2,7 +2,7 @@ package com.example.goToba.service.implement;
 
 import com.example.goToba.model.*;
 import com.example.goToba.payload.helper.StockKeepingUnit;
-import com.example.goToba.payload.helper.Strings;
+import com.example.goToba.payload.helper.StaticStatus;
 import com.example.goToba.payload.request.RestaurantsRequest;
 import com.example.goToba.repository.RestaurantRepo;
 import com.example.goToba.repository.SequenceRestaurantsRepo;
@@ -67,7 +67,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                             restaurantsRequest.getAddress(),
                             restaurantsRequest.getHoursOpen(),
                             restaurantsRequest.getPhone(),
-                            Strings.STATUS_ACTIVE,
+                            StaticStatus.STATUS_ACTIVE,
                             sku
                     );
                     return restaurantRepo.save(restaurant);
@@ -93,7 +93,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                             restaurantsRequest.getAddress(),
                             restaurantsRequest.getHoursOpen(),
                             restaurantsRequest.getPhone(),
-                            Strings.STATUS_ACTIVE,
+                            StaticStatus.STATUS_ACTIVE,
                             data.getMerchantSku()
                     );
                     restaurantRedisService.add(restaurant);

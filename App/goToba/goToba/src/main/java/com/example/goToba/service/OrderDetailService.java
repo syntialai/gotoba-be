@@ -14,6 +14,9 @@ import java.util.List;
 public interface OrderDetailService {
     Mono<OrderDetail> findBySku(String sku);
     Mono<OrderDetail> findFirstBySku(String sku);
+    Mono<OrderDetail> checkOut(String sku);
+    Mono<OrderDetail> approval(String sku, Integer status);
+    Mono<OrderDetail> cancelOrDelete(String sku);
     Mono<OrderDetail> findFirstBySkuUser(String skuUser);
     Flux<OrderDetail> findAll();
     Boolean checkTicket(List<OrderDetailTicket> orderDetailTickets, String merchantSku);
