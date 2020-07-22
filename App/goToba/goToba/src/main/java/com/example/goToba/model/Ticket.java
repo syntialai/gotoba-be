@@ -24,6 +24,6 @@ public class Ticket {
     String wisataSku;
     String status;
     String orderSku;
-
+    String image;
 
 }

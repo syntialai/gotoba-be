@@ -30,7 +30,10 @@ public class Users  implements UserDetails {
 
     private RoleName roles ;
 
+    public String image;
+
     public String status;
+
 
     public RoleName getRoles() {
         return roles;

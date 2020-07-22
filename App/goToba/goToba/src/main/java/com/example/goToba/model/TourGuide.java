@@ -30,5 +30,6 @@ public class TourGuide {
      String description;
      String status;
      String gender;
+     String image;
 
 }
