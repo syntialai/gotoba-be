@@ -4,10 +4,12 @@ import com.example.goToba.model.SequenceTicket;
 import com.example.goToba.model.Ticket;
 import com.example.goToba.payload.helper.StockKeepingUnit;
 import com.example.goToba.payload.helper.Strings;
+import com.example.goToba.payload.imagePath.ImagePath;
 import com.example.goToba.payload.request.TicketRequest;
 import com.example.goToba.repository.OrderDetailRepo;
 import com.example.goToba.repository.SequenceTicketRepo;
 import com.example.goToba.repository.TicketRepo;
+import com.example.goToba.service.ImageService;
 import com.example.goToba.service.utils.RandomGenerator;
 import com.example.goToba.service.utils.SkuGenerator;
 import com.example.goToba.service.TicketService;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -39,6 +42,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     RandomGenerator randomGenerator;
+
+    @Autowired
+    ImageService imageService;
 
 
     @Override
@@ -85,8 +91,17 @@ public class TicketServiceImpl implements TicketService {
                             new Timestamp(System.currentTimeMillis()).toString(),
                             Strings.STATUS_ACTIVE,
                             ticketRequest.getWisataSku(),
-                            ticketRequest.getOrderSku()
+                            ticketRequest.getOrderSku(),
+                            ImagePath.IMAGE_PATH_TICKET + ImagePath.IMAGE_CONNECTOR + data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()) + ImagePath.IMAGE_EXTENSION
+
                     );
+                    if (ticketRequest.getImage() != "") {
+                        try {
+                            imageService.addPicture(ticketRequest.getImage(), ticket.getSku(), ImagePath.IMAGE_PATH_TICKET);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     return ticketRepo.save(ticket);
                 });
 
@@ -113,8 +128,16 @@ public class TicketServiceImpl implements TicketService {
                             data.getCreatedAt(),
                             Strings.STATUS_ACTIVE,
                             ticketRequest.getWisataSku(),
-                            ticketRequest.getOrderSku()
+                            ticketRequest.getOrderSku(),
+                            data.getImage()
                     );
+                    if (ticketRequest.getImage() != "") {
+                        try {
+                            imageService.addPicture(ticketRequest.getImage(), ticket.getSku(), ImagePath.IMAGE_PATH_TICKET);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     return ticketRepo.save(ticket);
                 });
 
@@ -141,7 +164,8 @@ public class TicketServiceImpl implements TicketService {
                             data.getCreatedAt(),
                             Strings.STATUS_ACTIVE,
                             data.getWisataSku(),
-                            data.getOrderSku()
+                            data.getOrderSku(),
+                            data.getImage()
                     );
                     return ticketRepo.save(ticket);
                 });

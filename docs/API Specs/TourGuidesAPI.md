@@ -16,7 +16,6 @@
     "id": 1,
     "sku": "TG_ANAS_0001",
     "name": "Anastasya",
-    "image": "",
     "age": 20,
     "occupation": "Tour Guide",
     "location": "Balige",
@@ -35,7 +34,6 @@
     "id": 2,
     "sku": "TG_ANAB_0002",
     "name": "Anabelle",
-    "image": "",
     "age": 25,
     "occupation": "Translator",
     "location": "Parapat",
@@ -84,7 +82,6 @@
         "id": 1,
         "sku": "TG_ANAS_0001",
         "name": "Anastasya",
-        "image": "",
         "age": 20,
         "occupation": "Tour Guide",
         "location": "Balige",
@@ -134,7 +131,6 @@
 ```json
 {
     "name": "Anastasya",
-    "image": "",
     "age": 20,
     "occupation": "Tour Guide",
     "location": "Balige",
@@ -164,7 +160,6 @@
         "id": 1,
         "sku": "TG_ANAS_0001",
         "name": "Anastasya",
-        "image": "",
         "age": 20,
         "occupation": "Tour Guide",
         "location": "Balige",
@@ -216,7 +211,6 @@
 ```json
 {
     "name": "Anastasya",
-    "image": "",
     "age": 20,
     "occupation": "Tour Guide",
     "location": "Balige",
@@ -228,8 +222,9 @@
     "whatsapp": "+62812 3456 7890",
     "experience": null,
     "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me.",
-    "gender" : "Male"
-}
+    "gender" : "Male",
+    "image" : ""
+ }
 ```
 
 + Request Header :
@@ -245,7 +240,6 @@
         "id": 1,
         "sku": "TG_ANAS_0001",
         "name": "Anastasya",
-        "image": "",
         "age": 20,
         "occupation": "Tour Guide",
         "location": "Balige",
@@ -258,7 +252,8 @@
         "experience": null,
         "description": "I'm a young tour guide that experienced, have served more than 50 customer and all of them are satisfied with me.",
         "status": "active",
-        "gender" : "Male"
+        "gender" : "Male",
+        "image" : "tour-guide/TG_HEND_0008"
     }
 }
 ```

@@ -80,8 +80,8 @@ public class TourGuideServiceImpl implements TourGuideService {
                             tourGuideRequest.getDescription(),
                             Strings.STATUS_ACTIVE,
                             tourGuideRequest.getGender(),
-                            ImagePath.IMAGE_PATH_TOURE_GUIDE + ImagePath.IMAGE_CONNECTOR  + data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()) + ImagePath.IMAGE_EXTENSION
-                            );
+                            ImagePath.IMAGE_PATH_TOURE_GUIDE + ImagePath.IMAGE_CONNECTOR + data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()) + ImagePath.IMAGE_EXTENSION
+                    );
                     if (tourGuideRequest.getImage() != "") {
                         try {
                             imageService.addPicture(tourGuideRequest.getImage(), tourGuide.getSku(), ImagePath.IMAGE_PATH_TOURE_GUIDE);
