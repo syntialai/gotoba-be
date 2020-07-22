@@ -20,5 +20,6 @@ public class TicketRequest {
     String merchantSku;
     String wisataSku;
     String orderSku;
+    String image;
 
 }
