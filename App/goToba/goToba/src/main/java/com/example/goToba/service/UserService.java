@@ -4,6 +4,7 @@ import com.example.goToba.model.RoleName;
 import com.example.goToba.model.Users;
 import com.example.goToba.payload.request.LoginRequest;
 import com.example.goToba.payload.request.RegisterRequest;
+import com.example.goToba.payload.request.UpdateUserRequest;
 import org.springframework.http.ResponseEntity;
 import reactor.core.Disposable;
 import reactor.core.publisher.Mono;
@@ -28,6 +29,6 @@ public interface UserService {
 
     public RoleName checkRole(String role);
 
-    public Mono<Users> editBySku(String sku, RegisterRequest request);
+    public Mono<Users> editBySku(String sku, UpdateUserRequest request);
 
 }

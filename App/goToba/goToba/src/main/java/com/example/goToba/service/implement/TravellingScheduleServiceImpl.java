@@ -1,7 +1,7 @@
 package com.example.goToba.service.implement;
 
 import com.example.goToba.model.TravellingSchedule;
-import com.example.goToba.payload.helper.Strings;
+import com.example.goToba.payload.helper.StaticStatus;
 import com.example.goToba.payload.request.ScheduleRequest;
 import com.example.goToba.repository.TravellingScheduleRepo;
 import com.example.goToba.service.TravellingScheduleService;
@@ -58,7 +58,7 @@ public class TravellingScheduleServiceImpl implements TravellingScheduleService 
                             scheduleRequest.getEndDate(),
                             scheduleRequest.getVacationDestination(),
                             sku,
-                            Strings.STATUS_ACTIVE
+                            StaticStatus.STATUS_ACTIVE
                     );
                     return travellingScheduleRepo.save(schedule1);
                 });
@@ -70,7 +70,7 @@ public class TravellingScheduleServiceImpl implements TravellingScheduleService 
         return Mono.fromCallable(() -> scheduleRequest)
                 .flatMap(data -> travellingScheduleRepo.findById(id))
                 .doOnNext(i -> {
-                    travellingScheduleRepo.deleteById(id).subscribe();
+                    travellingScheduleRepo.deleteById(id);
                 })
                 .flatMap(data -> {
                     TravellingSchedule schedule = new TravellingSchedule(
@@ -94,7 +94,7 @@ public class TravellingScheduleServiceImpl implements TravellingScheduleService 
         return Mono.fromCallable(() -> id)
                 .flatMap(data -> travellingScheduleRepo.findById(id))
                 .doOnNext(i -> {
-                    travellingScheduleRepo.deleteById(id).subscribe();
+                    travellingScheduleRepo.deleteById(id);
                 })
                 .flatMap(data -> {
                     TravellingSchedule schedule = new TravellingSchedule(
@@ -105,7 +105,7 @@ public class TravellingScheduleServiceImpl implements TravellingScheduleService 
                             data.getEndDate(),
                             data.getVacationDestination(),
                             data.getUserSku(),
-                            Strings.STATUS_DELETE
+                            StaticStatus.STATUS_DELETE
                     );
                     travellingScheduleRedisService.deleteByKey(id);
                     return travellingScheduleRepo.save(schedule);

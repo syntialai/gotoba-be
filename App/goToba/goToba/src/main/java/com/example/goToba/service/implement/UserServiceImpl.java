@@ -5,11 +5,11 @@ import com.example.goToba.model.SequenceUsers;
 import com.example.goToba.model.Users;
 import com.example.goToba.payload.AuthenticationResponse;
 import com.example.goToba.payload.JwtLoginResponse;
-import com.example.goToba.payload.Token;
 import com.example.goToba.payload.helper.*;
 import com.example.goToba.payload.imagePath.ImagePath;
 import com.example.goToba.payload.request.LoginRequest;
 import com.example.goToba.payload.request.RegisterRequest;
+import com.example.goToba.payload.request.UpdateUserRequest;
 import com.example.goToba.repository.SequenceUsersRepo;
 import com.example.goToba.repository.UsersRepo;
 import com.example.goToba.security.Encode;
@@ -22,14 +22,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import reactor.core.Disposable;
 import reactor.core.publisher.Mono;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 11/04/2020.
@@ -91,7 +87,7 @@ public class UserServiceImpl implements UserService {
                             passwordEncoder.encode(request.getPassword()),
                             checkRole(request.getRole().toString()),
                             ImagePath.IMAGE_PATH_USER + ImagePath.IMAGE_CONNECTOR + req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(req.getLast_seq()) + ImagePath.IMAGE_EXTENSION,
-                            Strings.STATUS_ACTIVE
+                            StaticStatus.STATUS_ACTIVE
                     );
                     if (request.getImage() != "") {
                         try {
@@ -138,11 +134,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Mono<Users> editBySku(String sku, RegisterRequest request) {
+    public Mono<Users> editBySku(String sku, UpdateUserRequest request) {
         return Mono.fromCallable(() -> request)
                 .flatMap(data -> usersRepo.findFirstBySku(sku))
-                .doOnNext(id -> usersRepo.deleteBySku(sku).subscribe())
-                .doOnNext(req -> {
+                .doOnNext(id -> usersRepo.deleteBySku(sku))
+                .flatMap(req -> {
                     Users users = new Users(
                             sku,
                             request.getNickname(),
@@ -151,7 +147,7 @@ public class UserServiceImpl implements UserService {
                             passwordEncoder.encode(request.getPassword()),
                             req.getRoles(),
                             req.getImage(),
-                            Strings.STATUS_ACTIVE
+                            StaticStatus.STATUS_ACTIVE
                     );
                     if (request.getImage() != "") {
                         try {
@@ -160,9 +156,7 @@ public class UserServiceImpl implements UserService {
                             e.printStackTrace();
                         }
                     }
-                    usersRepo.save(users).subscribe();
-                })
-                .flatMap(data -> {
+                    usersRepo.save(users);
                     return usersRepo.findFirstBySku(sku);
                 });
     }

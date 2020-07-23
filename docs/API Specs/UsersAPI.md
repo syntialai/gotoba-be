@@ -122,6 +122,7 @@
          "sku" : "josh_merc_001",
          "nickname" : "joshua",
          "username" : "joshua",
+         "password" : "joshua",
          "email" : "joshua@gmail.com",
          "image": "user/TEST_005.png",
          "role" : "Merchant",
@@ -159,6 +160,7 @@
          "sku" : "josh_merc_001",
          "nickname" : "joshua",
          "username" : "joshua",
+         "password" : "joshua",
          "email" : "joshua@gmail.com",
          "image": "user/TEST_005.png",
          "role" : "Merchant",
@@ -198,6 +200,7 @@
          "sku" : "josh_merc_001",
          "nickname" : "joshua",
          "username" : "joshua",
+         "password" : "joshua",
          "email" : "joshua@gmail.com",
          "image": "user/TEST_005.png",
          "role" : "Merchant",
@@ -240,6 +243,7 @@
 {
     "nickname" : "hendra",
     "username" : "hendra",
+    "password" : "joshua",
     "email" : "hendra@gmail.com",
     "image": ""
 }

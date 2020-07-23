@@ -11,7 +11,6 @@ import reactor.core.publisher.Mono;
 public interface ReviewsService {
 
     Flux<Reviews> findAllBySkuWisataOrRestaurants(String sku);
-    Mono<Reviews> addReviewBySku(String sku, String userSku, ReviewRequest reviewRequest);
     Mono<Reviews> addReviewWisata(String sku, String userSku, ReviewRequest reviewRequest);
     Mono<Reviews> addReviewRestaurants(String sku, String userSku, ReviewRequest reviewRequest);
 }

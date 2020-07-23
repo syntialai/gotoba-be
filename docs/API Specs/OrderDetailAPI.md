@@ -35,7 +35,8 @@
             "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
         }],
-        "userSku": "sima_cust_001"
+        "userSku": "sima_cust_001",
+        "status" : 1
     }
 }
 ```
@@ -97,7 +98,8 @@
             "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
         }],
-        "userSku": "sima_cust_001"
+        "userSku": "sima_cust_001",
+        "status" : 1
     }]
 }
 ```
@@ -126,7 +128,7 @@
 
 ## Get Order Detail by User Sku
 
-+ Endpoint : ``/order/user/{userSku}``
++ Endpoint : ``/order/user/{userSku}/status/{status}``
 + HTTP Method : `GET`
 + Path Variable :
   + userSku
@@ -158,7 +160,8 @@
             "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
         }],
-        "userSku": "sima_cust_001"
+        "userSku": "sima_cust_001",
+        "status" : 1
     }]
 }
 ```
@@ -237,7 +240,8 @@
             "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
         }],
-        "userSku": "sima_cust_001"
+        "userSku": "sima_cust_001",
+        "status" : 1
     }]
 }
 ```
@@ -264,6 +268,175 @@
 }
 ```
 
+
+
+## Checkout Order Detail by Sku
+
++ Endpoint : ``/order/checkout/{sku}``
++ HTTP Method : `PUT`
++ Path Variable :
+  + sku
++ Request Header :
+  + Accept : `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
+       "code": 200,
+       "status": "OK",
+       "message" : "Checkout success!"
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/order/edit/{sku}"
+}
+```
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Invalid Request: Cannot find order with sku ABC.",
+    "path": "/order/checkout/{sku}"
+}
+```
+
+## Approve Order Detail by Sku
+
++ Endpoint : ``/order/approve/{sku}``
++ HTTP Method : `PUT`
++ Path Variable :
+  + sku
++ Request Header :
+  + Accept : `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
+       "code": 200,
+       "status": "OK",
+       "message" : "Approval success!"
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/order/checkout/{sku}"
+}
+```
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Invalid Request: Cannot find order with sku ABC.",
+    "path": "/order/checkout/{sku}"
+}
+```
+
+## Reject Order Detail by Sku
+
++ Endpoint : ``/order/reject/{sku}``
++ HTTP Method : `PUT`
++ Path Variable :
+  + sku
++ Request Header :
+  + Accept : `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
+       "code": 200,
+       "status": "OK",
+       "message" : "Approval success!"
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/order/reject/{sku}"
+}
+```
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Invalid Request: Cannot find order with sku ABC.",
+    "path": "/order/reject/{sku}"
+}
+```
+
+
+## Cancel Order Detail by Sku
+
++ Endpoint : ``/order/cancel/{sku}``
++ HTTP Method : `PUT`
++ Path Variable :
+  + sku
++ Request Header :
+  + Accept : `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
+       "code": 200,
+       "status": "OK",
+       "message" : "Cancel Order Success!"
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/order/reject/{sku}"
+}
+```
+
+```json
+{
+    "timestamp": "2016-11-15T22:55:40.110Z",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Invalid Request: Cannot find order with sku ABC.",
+    "path": "/order/cancel/{sku}"
+}
+```
+
+
+
 ## Edit Order Detail by Sku
 
 + Endpoint : ``/order/edit/{sku}``
@@ -283,7 +456,8 @@
         "category": "wisata",
         "wisataSku" : "WAH_BAL_0003"
     }],
-    "userSku": "sima_cust_001"
+    "userSku": "sima_cust_001",
+    "status" : 1
 }
 ```
 
@@ -308,7 +482,8 @@
             "category": "wisata",
             "wisataSku" : "WAH_BAL_0003"
         }],
-        "userSku": "sima_cust_001"
+        "userSku": "sima_cust_001",
+        "status" : 1
     }]
 }
 ```

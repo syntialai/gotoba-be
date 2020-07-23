@@ -1,8 +1,7 @@
 package com.example.goToba.service.implement;
 
 import com.example.goToba.model.MenuRestaurants;
-import com.example.goToba.payload.helper.StockKeepingUnit;
-import com.example.goToba.payload.helper.Strings;
+import com.example.goToba.payload.helper.StaticStatus;
 import com.example.goToba.payload.imagePath.ImagePath;
 import com.example.goToba.payload.request.MenuRestaurantsRequest;
 import com.example.goToba.repository.MenuRestaurantsRepo;
@@ -15,7 +14,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.util.UUID;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 09/06/2020.
@@ -51,7 +49,7 @@ public class MenuRestaurantsServiceImpl implements MenuRestaurantsService {
                 ImagePath.IMAGE_PATH_MENU_RESTAURANTS + ImagePath.IMAGE_CONNECTOR + id + ImagePath.IMAGE_EXTENSION,
                 menuRestaurantsRequest.getCategory(),
                 menuRestaurantsRequest.getHarga(),
-                Strings.STATUS_ACTIVE,
+                StaticStatus.STATUS_ACTIVE,
                 menuRestaurantsRequest.getRestaurantSku(),
                 menuRestaurantsRequest.getMerchantSku()
         );
@@ -107,7 +105,7 @@ public class MenuRestaurantsServiceImpl implements MenuRestaurantsService {
                             data.getPicture(),
                             data.getCategory(),
                             data.getHarga(),
-                            Strings.STATUS_DELETE,
+                            StaticStatus.STATUS_DELETE,
                             data.getRestaurantSku(),
                             data.getMerchantSku()
                     );

@@ -1,14 +1,12 @@
 package com.example.goToba.controller;
 
 import com.example.goToba.controller.route.RestaurantControllerRoute;
-import com.example.goToba.payload.MenuRestaurantsResponse;
 import com.example.goToba.payload.NotFoundResponse;
 import com.example.goToba.payload.Response;
-import com.example.goToba.payload.ResponseWithMessages;
 import com.example.goToba.payload.helper.StaticResponseCode;
 import com.example.goToba.payload.helper.StaticResponseMessages;
 import com.example.goToba.payload.helper.StaticResponseStatus;
-import com.example.goToba.payload.helper.Strings;
+import com.example.goToba.payload.helper.StaticStatus;
 import com.example.goToba.payload.request.MenuRestaurantsRequest;
 import com.example.goToba.payload.request.RestaurantsRequest;
 import com.example.goToba.repository.UsersRepo;
@@ -160,7 +158,7 @@ public class RestaurantController {
     public Mono<ResponseEntity<?>> findMenuRestaurantBySkuRestaurants(@PathVariable String merchantSku) {
         return menuRestaurantsService.findAll()
                 .filter(data -> data.getMerchantSku().equals(merchantSku))
-                .filter(data -> data.getStatus().equals(Strings.STATUS_ACTIVE))
+                .filter(data -> data.getStatus().equals(StaticStatus.STATUS_ACTIVE))
                 .collectList().
                         map(data -> {
                             if (data.size() != 0) {

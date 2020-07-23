@@ -9,6 +9,9 @@ public interface StaticResponseMessages {
     public String RESPONSE_MESSAGES_FOR_ADD_WISATA = "Tambah data wisata sukses";
     public String RESPONSE_MESSAGES_FOR_ADD_TRAVELLING_SCHEDULE = "Tambah schedule sukses";
     public String RESPONSE_MESSAGES_FOR_DELETE_WISATA = "Delete success!";
+    public String RESPONSE_MESSAGES_FOR_APPROVAL = "Approval success!";
+    public String RESPONSE_MESSAGES_FOR_CANCEL = "Cancel Order Success!";
+    public String RESPONSE_MESSAGES_FOR_CHECKOUT = "Checkout success!";
     public String RESPONSE_MESSAGES_FOR_DELETE_SCHEDULE = "Schedule deleted with id ";
     public String RESPONSE_MESSAGES_FOR_UPDATE_SUKSES = "Update Sukses";
     public String RESPONSE_MESSAGES_FOR_DELETE_SUKSES = "Delete Sukses";

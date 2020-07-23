@@ -59,6 +59,70 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     }
 
     @Override
+    public Mono<OrderDetail> checkOut(String sku) {
+        return Mono.fromCallable(() -> sku)
+                .flatMap(data -> orderDetailRepo.findFirstBySku(sku))
+                .doOnNext(i -> {
+                    orderDetailRepo.deleteBySku(sku);
+                    orderDetailRedisService.delete(sku);
+                })
+                .flatMap(data -> {
+                    OrderDetail orderDetail = new OrderDetail(
+                            data.getId(),
+                            sku,
+                            data.getTicket(),
+                            data.getUserSku(),
+                            StaticStatus.STATUS_CHECKOUT
+                    );
+                    orderDetailRedisService.add(orderDetail);
+                    return orderDetailRepo.save(orderDetail);
+                });
+    }
+
+
+    @Override
+    public Mono<OrderDetail> approval(String sku, Integer status) {
+        return Mono.fromCallable(() -> sku)
+                .flatMap(data -> orderDetailRepo.findFirstBySku(sku))
+                .doOnNext(i -> {
+                    orderDetailRepo.deleteBySku(sku);
+                    orderDetailRedisService.delete(sku);
+                })
+                .flatMap(data -> {
+                    OrderDetail orderDetail = new OrderDetail(
+                            data.getId(),
+                            sku,
+                            data.getTicket(),
+                            data.getUserSku(),
+                            status
+                    );
+                    orderDetailRedisService.add(orderDetail);
+                    return orderDetailRepo.save(orderDetail);
+                });
+    }
+
+    @Override
+    public Mono<OrderDetail> cancelOrDelete(String sku) {
+        return Mono.fromCallable(() -> sku)
+                .flatMap(data -> orderDetailRepo.findFirstBySku(sku))
+                .doOnNext(i -> {
+                    orderDetailRepo.deleteBySku(sku);
+                    orderDetailRedisService.delete(sku);
+                })
+                .flatMap(data -> {
+                    OrderDetail orderDetail = new OrderDetail(
+                            data.getId(),
+                            sku,
+                            data.getTicket(),
+                            data.getUserSku(),
+                            StaticStatus.STATUS_CANCEL_REJECT_OR_DELETE
+                    );
+                    orderDetailRedisService.add(orderDetail);
+                    return orderDetailRepo.save(orderDetail);
+                });
+    }
+
+    @Override
     public Mono<OrderDetail> findFirstBySkuUser(String skuUser) {
         return orderDetailRepo.findFirstByUserSku(skuUser);
     }
@@ -93,32 +157,16 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                             (int) UUID.randomUUID().getLeastSignificantBits(),
                             req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
                             orderDetailRequest.getTicket(),
-                            skuUser
+                            skuUser,
+                            StaticStatus.STATUS_CART
                     );
                     GregorianCalendar gc = new GregorianCalendar();
                     gc.add(Calendar.DATE, 1);
                     Integer dayat = gc.get(Calendar.DAY_OF_MONTH) + 7;
                     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
                     LocalDateTime now = LocalDateTime.now();
-//                    for (int i = 0; i < orderDetailRequest.getTicket().size(); i++) {
-//                        Ticket ticket = new Ticket(
-//                                (int) UUID.randomUUID().getLeastSignificantBits(),
-//                                UUID.randomUUID().toString(),
-//                                orderDetailRequest.getTicket().get(i).getCategory(),
-//                                orderDetailRequest.getTicket().get(i).getPrice(),
-//                                dayat.toString(),
-//                                orderDetailRequest.getTicket().get(i).getMerchantSku(),
-//                                dtf.format(now).toString(),
-//                                Strings.STATUS_ACTIVE,
-//                                orderDetailRequest.getTicket().get(i).getWisataSku(),
-//                                orderDetail.getId(),
-//                                skuUser
-//                        );
-//                        ticketRepo.save(ticket).subscribe();
-//                    }
                     return orderDetailRepo.save(orderDetail);
                 });
-
     }
 
     @Override
@@ -134,11 +182,18 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                             data.getId(),
                             sku,
                             orderDetailRequest.getTicket(),
-                            data.getUserSku()
+                            data.getUserSku(),
+                            data.getStatus()
                     );
                     orderDetailRedisService.add(orderDetail);
                     return orderDetailRepo.save(orderDetail);
                 });
+    }
+
+    @Override
+    public Mono<Boolean> deleteBySku(String sku) {
+        orderDetailRedisService.delete(sku);
+        return orderDetailRepo.deleteBySku(sku);
     }
 
 }

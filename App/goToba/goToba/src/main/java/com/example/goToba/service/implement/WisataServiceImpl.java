@@ -3,7 +3,7 @@ package com.example.goToba.service.implement;
 import com.example.goToba.model.SequenceWisata;
 import com.example.goToba.model.Wisata;
 import com.example.goToba.payload.helper.StockKeepingUnit;
-import com.example.goToba.payload.helper.Strings;
+import com.example.goToba.payload.helper.StaticStatus;
 import com.example.goToba.payload.imagePath.ImagePath;
 import com.example.goToba.payload.request.WisataRequest;
 import com.example.goToba.repository.SequenceWisataRepo;
@@ -61,7 +61,7 @@ public class WisataServiceImpl implements WisataService {
                             wisataRequest.getCreatedBy(),
                             wisataRequest.getPrice(),
                             wisataRequest.getHoursOpen(),
-                            Strings.STATUS_ACTIVE
+                            StaticStatus.STATUS_ACTIVE
                     );
                     if (wisataRequest.getImage() != "") {
                         try {
@@ -88,7 +88,7 @@ public class WisataServiceImpl implements WisataService {
                 .flatMap(data -> wisataRepo.findFirstBySku(sku))
                 .doOnNext(i -> {
                     wisataElasticService.deleteBySku(sku);
-                    wisataRepo.deleteBySku(sku).subscribe();
+                    wisataRepo.deleteBySku(sku);
                 })
                 .flatMap(data -> {
                     Wisata wisata = new Wisata(
@@ -122,7 +122,7 @@ public class WisataServiceImpl implements WisataService {
         return wisataRepo.findFirstBySku(sku)
                 .doOnNext(i -> {
                     wisataElasticService.deleteBySku(sku);
-                    wisataRepo.deleteBySku(sku).subscribe();
+                    wisataRepo.deleteBySku(sku);
                 })
                 .flatMap(data -> {
                     Wisata wisata = new Wisata(
@@ -137,7 +137,7 @@ public class WisataServiceImpl implements WisataService {
                             data.getCreatedBy(),
                             data.getPrice(),
                             data.getHoursOpen(),
-                            Strings.STATUS_DELETE
+                            StaticStatus.STATUS_DELETE
                     );
                     wisataElasticService.save(wisata.toWisata(wisata));
                     return wisataRepo.save(wisata);
