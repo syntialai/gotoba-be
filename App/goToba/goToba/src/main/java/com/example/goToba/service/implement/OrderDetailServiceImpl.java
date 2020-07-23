@@ -63,14 +63,14 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         return Mono.fromCallable(() -> sku)
                 .flatMap(data -> orderDetailRepo.findFirstBySku(sku))
                 .doOnNext(i -> {
-                    orderDetailRepo.deleteBySku(sku).subscribe();
+                    orderDetailRepo.deleteBySku(sku);
                     orderDetailRedisService.delete(sku);
                 })
                 .flatMap(data -> {
                     OrderDetail orderDetail = new OrderDetail(
                             data.getId(),
                             sku,
-                            orderDetailRequest.getTicket(),
+                            data.getTicket(),
                             data.getUserSku(),
                             StaticStatus.STATUS_CHECKOUT
                     );
@@ -85,7 +85,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         return Mono.fromCallable(() -> sku)
                 .flatMap(data -> orderDetailRepo.findFirstBySku(sku))
                 .doOnNext(i -> {
-                    orderDetailRepo.deleteBySku(sku).subscribe();
+                    orderDetailRepo.deleteBySku(sku);
                     orderDetailRedisService.delete(sku);
                 })
                 .flatMap(data -> {
@@ -106,7 +106,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         return Mono.fromCallable(() -> sku)
                 .flatMap(data -> orderDetailRepo.findFirstBySku(sku))
                 .doOnNext(i -> {
-                    orderDetailRepo.deleteBySku(sku).subscribe();
+                    orderDetailRepo.deleteBySku(sku);
                     orderDetailRedisService.delete(sku);
                 })
                 .flatMap(data -> {
@@ -188,6 +188,12 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                     orderDetailRedisService.add(orderDetail);
                     return orderDetailRepo.save(orderDetail);
                 });
+    }
+
+    @Override
+    public Mono<Boolean> deleteBySku(String sku) {
+        orderDetailRedisService.delete(sku);
+        return orderDetailRepo.deleteBySku(sku);
     }
 
 }

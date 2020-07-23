@@ -9,6 +9,7 @@ import com.example.goToba.payload.helper.StaticResponseMessages;
 import com.example.goToba.payload.helper.StaticResponseStatus;
 import com.example.goToba.payload.request.LoginRequest;
 import com.example.goToba.payload.request.RegisterRequest;
+import com.example.goToba.payload.request.UpdateUserRequest;
 import com.example.goToba.repository.SequenceUsersRepo;
 import com.example.goToba.repository.UsersRepo;
 import com.example.goToba.service.implement.UserServiceImpl;
@@ -41,7 +42,6 @@ public class UserController {
                     return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
                 });
     }
-
 
     @GetMapping(UserControllerRoute.ROUTE_USER_FIND_BY_USERNAME)
     public Mono<ResponseEntity<?>> findByUsername(@PathVariable String username) {
@@ -76,17 +76,13 @@ public class UserController {
     }
 
     @PutMapping(UserControllerRoute.ROUTE_USER_EDIT_BY_SKU)
-    public Mono<ResponseEntity<?>> editBySku(@PathVariable String sku, @RequestBody RegisterRequest registerRequest) {
-        return Mono.fromCallable(() ->registerRequest).
-                doOnNext(data ->userService.editBySku(sku,registerRequest).subscribe()).
-                flatMap(
-                        data -> usersRepo.findFirstBySku(sku)
-                ).
-                map(
-                        data -> {
-                            return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
-                        }
-                );
+    public Mono<ResponseEntity<?>> editBySku(@PathVariable String sku, @RequestBody UpdateUserRequest request) {
+        return Mono.fromCallable(() -> request).
+                doOnNext(data -> userService.editBySku(sku, request).subscribe()).flatMap(
+                data -> usersRepo.findFirstBySku(sku)).map(data -> {
+                    return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+                }
+        );
     }
 
 }

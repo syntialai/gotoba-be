@@ -70,7 +70,7 @@ public class TravellingScheduleServiceImpl implements TravellingScheduleService 
         return Mono.fromCallable(() -> scheduleRequest)
                 .flatMap(data -> travellingScheduleRepo.findById(id))
                 .doOnNext(i -> {
-                    travellingScheduleRepo.deleteById(id).subscribe();
+                    travellingScheduleRepo.deleteById(id);
                 })
                 .flatMap(data -> {
                     TravellingSchedule schedule = new TravellingSchedule(
@@ -94,7 +94,7 @@ public class TravellingScheduleServiceImpl implements TravellingScheduleService 
         return Mono.fromCallable(() -> id)
                 .flatMap(data -> travellingScheduleRepo.findById(id))
                 .doOnNext(i -> {
-                    travellingScheduleRepo.deleteById(id).subscribe();
+                    travellingScheduleRepo.deleteById(id);
                 })
                 .flatMap(data -> {
                     TravellingSchedule schedule = new TravellingSchedule(

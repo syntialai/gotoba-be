@@ -10,6 +10,5 @@ public interface StaticStatus {
     public Integer STATUS_CANCEL_REJECT_OR_DELETE = 0;
     public Integer STATUS_CART = 1;
     public Integer STATUS_CHECKOUT = 2;
-    public Integer STATUS_PAID = 3;
-    public Integer STATUS_APPROVE = 4;
+    public Integer STATUS_APPROVE = 3;
 }

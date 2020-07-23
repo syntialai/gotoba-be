@@ -111,7 +111,7 @@ public class TicketServiceImpl implements TicketService {
         return Mono.fromCallable(() -> ticketRequest)
                 .flatMap(data -> ticketRepo.findFirstBySku(sku))
                 .doOnNext(i -> {
-                    ticketRepo.deleteBySku(sku).subscribe();
+                    ticketRepo.deleteBySku(sku);
                 })
                 .flatMap(data -> {
                     Ticket ticket = new Ticket(
@@ -147,7 +147,7 @@ public class TicketServiceImpl implements TicketService {
         return ticketRepo.findFirstBySku(sku)
                 .flatMap(data -> ticketRepo.findFirstBySku(sku))
                 .doOnNext(i -> {
-                    ticketRepo.deleteBySku(sku).subscribe();
+                    ticketRepo.deleteBySku(sku);
                 })
                 .flatMap(data -> {
                     Ticket ticket = new Ticket(

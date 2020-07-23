@@ -42,16 +42,6 @@ public class ReviewsServiceImpl implements ReviewsService {
         return reviewsRepo.findAllByMerchantSku(findSkuMerchantByWisata(sku).toString());
     }
 
-    @Override
-    public Mono<Reviews> addReviewBySku(String sku, String userSku, ReviewRequest reviewRequest) {
-        return null;
-//        return restaurantRepo.findBySku(sku).map(data -> {
-//            if (data.getMerchantSku() != null) {
-//                return addReviewRestaurants(sku, userSku, reviewRequest).subscribe();
-//            }
-//            return addReviewWisata(sku, userSku, reviewRequest).subscribe();
-//        });
-    }
 
     @Override
     public Mono<Reviews> addReviewWisata(String sku, String userSku, ReviewRequest reviewRequest) {

@@ -9,6 +9,7 @@ import com.example.goToba.payload.helper.*;
 import com.example.goToba.payload.imagePath.ImagePath;
 import com.example.goToba.payload.request.LoginRequest;
 import com.example.goToba.payload.request.RegisterRequest;
+import com.example.goToba.payload.request.UpdateUserRequest;
 import com.example.goToba.repository.SequenceUsersRepo;
 import com.example.goToba.repository.UsersRepo;
 import com.example.goToba.security.Encode;
@@ -133,11 +134,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Mono<Users> editBySku(String sku, RegisterRequest request) {
+    public Mono<Users> editBySku(String sku, UpdateUserRequest request) {
         return Mono.fromCallable(() -> request)
                 .flatMap(data -> usersRepo.findFirstBySku(sku))
-                .doOnNext(id -> usersRepo.deleteBySku(sku).subscribe())
-                .doOnNext(req -> {
+                .doOnNext(id -> usersRepo.deleteBySku(sku))
+                .flatMap(req -> {
                     Users users = new Users(
                             sku,
                             request.getNickname(),
@@ -155,9 +156,7 @@ public class UserServiceImpl implements UserService {
                             e.printStackTrace();
                         }
                     }
-                    usersRepo.save(users).subscribe();
-                })
-                .flatMap(data -> {
+                    usersRepo.save(users);
                     return usersRepo.findFirstBySku(sku);
                 });
     }
