@@ -36,7 +36,10 @@
             "wisataSku" : "WAH_BAL_0003"
         }],
         "userSku": "sima_cust_001",
-        "status" : 1
+        "status" : 1,
+        "redeem" : false,
+        "expiredDate" : "30-07-2020",
+        "title" : "title Order"
     }
 }
 ```
@@ -99,7 +102,10 @@
             "wisataSku" : "WAH_BAL_0003"
         }],
         "userSku": "sima_cust_001",
-        "status" : 1
+        "status" : 1,
+        "redeem" : false,
+        "expiredDate" : "30-07-2020",
+        "title" : "title Order"
     }]
 }
 ```
@@ -161,7 +167,10 @@
             "wisataSku" : "WAH_BAL_0003"
         }],
         "userSku": "sima_cust_001",
-        "status" : 1
+        "status" : 1,
+        "redeem" : true,
+        "expiredDate" : "30-07-2020",
+        "title" : "title Order"
     }]
 }
 ```
@@ -207,7 +216,9 @@
         "category": "wisata",
         "wisataSku" : "WAH_BAL_0003"
     }],
-    "userSku": "sima_cust_001"
+    "userSku": "sima_cust_001",
+    "expiredDate" : "30-07-2020",
+    "title" : "title Order"
 }
 ```
 
@@ -241,7 +252,10 @@
             "wisataSku" : "WAH_BAL_0003"
         }],
         "userSku": "sima_cust_001",
-        "status" : 1
+        "status" : 1,
+        "redeem" : false,
+        "expiredDate" : "30-07-2020",
+        "title" : "title Order"
     }]
 }
 ```
@@ -457,7 +471,9 @@
         "wisataSku" : "WAH_BAL_0003"
     }],
     "userSku": "sima_cust_001",
-    "status" : 1
+    "status" : 1,
+    "expiredDate" : "30-07-2020",
+    "title" : "title Order"
 }
 ```
 
@@ -483,7 +499,10 @@
             "wisataSku" : "WAH_BAL_0003"
         }],
         "userSku": "sima_cust_001",
-        "status" : 1
+        "status" : 1,
+        "redeem" : false,
+        "expiredDate" : "30-07-2020",
+        "title" : "title Order"
     }]
 }
 ```

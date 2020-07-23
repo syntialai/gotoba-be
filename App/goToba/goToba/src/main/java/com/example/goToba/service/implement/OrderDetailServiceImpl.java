@@ -72,7 +72,10 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                             sku,
                             data.getTicket(),
                             data.getUserSku(),
-                            StaticStatus.STATUS_CHECKOUT
+                            StaticStatus.STATUS_CHECKOUT,
+                            false,
+                            data.getExpiredDate(),
+                            data.getTitle()
                     );
                     orderDetailRedisService.add(orderDetail);
                     return orderDetailRepo.save(orderDetail);
@@ -94,7 +97,10 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                             sku,
                             data.getTicket(),
                             data.getUserSku(),
-                            status
+                            status,
+                            true,
+                            data.getExpiredDate(),
+                            data.getTitle()
                     );
                     orderDetailRedisService.add(orderDetail);
                     return orderDetailRepo.save(orderDetail);
@@ -115,7 +121,10 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                             sku,
                             data.getTicket(),
                             data.getUserSku(),
-                            StaticStatus.STATUS_CANCEL_REJECT_OR_DELETE
+                            StaticStatus.STATUS_CANCEL_REJECT_OR_DELETE,
+                            data.getRedeem(),
+                            data.getExpiredDate(),
+                            data.getTitle()
                     );
                     orderDetailRedisService.add(orderDetail);
                     return orderDetailRepo.save(orderDetail);
@@ -158,7 +167,10 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                             req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
                             orderDetailRequest.getTicket(),
                             skuUser,
-                            StaticStatus.STATUS_CART
+                            StaticStatus.STATUS_CART,
+                            false,
+                            orderDetailRequest.getExpiredDate(),
+                            orderDetailRequest.getTitle()
                     );
                     GregorianCalendar gc = new GregorianCalendar();
                     gc.add(Calendar.DATE, 1);
@@ -183,7 +195,10 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                             sku,
                             orderDetailRequest.getTicket(),
                             data.getUserSku(),
-                            data.getStatus()
+                            data.getStatus(),
+                            data.getRedeem(),
+                            orderDetailRequest.getExpiredDate(),
+                            orderDetailRequest.getTitle()
                     );
                     orderDetailRedisService.add(orderDetail);
                     return orderDetailRepo.save(orderDetail);

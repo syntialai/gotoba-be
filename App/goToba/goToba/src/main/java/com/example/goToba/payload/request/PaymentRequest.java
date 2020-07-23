@@ -14,37 +14,6 @@ public class PaymentRequest {
     Integer total;
     String status;
     String merchantSku;
-    Integer orderId;
+    String orderSku;
 
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setTotal(Integer total) {
-        this.total = total;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getMerchantSku() {
-        return merchantSku;
-    }
-
-    public void setMerchantSku(String merchantSku) {
-        this.merchantSku = merchantSku;
-    }
-
-    public Integer getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
-    }
 }
