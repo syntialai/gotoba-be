@@ -20,5 +20,7 @@ public class OrderDetail {
     List<OrderDetailTicket> ticket;
     String userSku;
     Integer status;
-
+    Boolean redeem;
+    String expiredDate;
+    String title;
 }

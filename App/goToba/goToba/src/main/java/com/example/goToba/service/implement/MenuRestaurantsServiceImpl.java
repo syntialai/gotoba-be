@@ -67,7 +67,7 @@ public class MenuRestaurantsServiceImpl implements MenuRestaurantsService {
     public Mono<MenuRestaurants> editRestaurantMenu(String sku, Integer idMenu, MenuRestaurantsRequest menuRestaurantsRequest) {
         return Mono.fromCallable(() -> menuRestaurantsRequest)
                 .flatMap(datas -> menuRestaurantsRepo.findById(idMenu))
-                .doOnNext(i -> menuRestaurantsRepo.deleteById(idMenu).subscribe())
+                .doOnNext(i -> menuRestaurantsRepo.deleteById(idMenu))
                 .flatMap(data -> {
                     MenuRestaurants menuRestaurants = new MenuRestaurants(
                             idMenu,

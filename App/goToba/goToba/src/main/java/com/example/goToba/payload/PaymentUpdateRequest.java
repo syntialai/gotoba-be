@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 public class PaymentUpdateRequest {
     Integer total;
     String status;
-    Integer orderId;
+    String orderSku;
 }

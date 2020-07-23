@@ -79,7 +79,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         return Mono.fromCallable(() -> restaurantsRequest)
                 .flatMap(data -> restaurantRepo.findBySku(sku))
                 .doOnNext(i -> {
-                    restaurantRepo.deleteBySku(sku).subscribe();
+                    restaurantRepo.deleteBySku(sku);
                     restaurantRedisService.delete(sku);
                 })
                 .flatMap(data -> {

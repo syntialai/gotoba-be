@@ -56,7 +56,7 @@ public class PaymentServiceImpl implements PaymentService {
                             req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
                             paymentRequest.getTotal(),
                             paymentRequest.getStatus(),
-                            paymentRequest.getOrderId(),
+                            paymentRequest.getOrderSku(),
                             paymentRequest.getMerchantSku(),
                             sku
                     );
@@ -74,7 +74,7 @@ public class PaymentServiceImpl implements PaymentService {
         return Mono.fromCallable(() -> paymentUpdateRequest).
                 flatMap(data -> paymentRepo.findFirstBySku(sku)).
                 doOnNext( i -> {
-                    paymentRepo.deleteBySku(sku).subscribe();
+                    paymentRepo.deleteBySku(sku);
                 }).
                 flatMap(data -> {
                     Payment payment = new Payment(
@@ -82,7 +82,7 @@ public class PaymentServiceImpl implements PaymentService {
                             sku,
                             paymentUpdateRequest.getTotal(),
                             paymentUpdateRequest.getStatus(),
-                            paymentUpdateRequest.getOrderId(),
+                            paymentUpdateRequest.getOrderSku(),
                             data.getMerchantSku(),
                             data.getUserSku()
                     );
