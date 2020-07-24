@@ -16,6 +16,7 @@ public class Payment {
     Integer total;
     String status;
     String orderSku;
+    String createdAt;
     String merchantSku;
     String userSku;
 

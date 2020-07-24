@@ -4,7 +4,6 @@ import com.example.goToba.model.OrderDetail;
 import com.example.goToba.model.SequenceOrder;
 import com.example.goToba.payload.helper.*;
 import com.example.goToba.payload.request.OrderDetailRequest;
-import com.example.goToba.payload.request.OrderDetailTicket;
 import com.example.goToba.repository.OrderDetailRepo;
 import com.example.goToba.repository.SequenceOrderRepo;
 import com.example.goToba.repository.TicketRepo;
@@ -70,7 +69,14 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                     OrderDetail orderDetail = new OrderDetail(
                             data.getId(),
                             sku,
-                            data.getTicket(),
+                            data.getTicketSku(),
+                            data.getQuantity(),
+                            data.getPrice(),
+                            data.getDiscount(),
+                            data.getMerchantSku(),
+                            data.getCategory(),
+                            data.getWisataSku(),
+                            data.getImage(),
                             data.getUserSku(),
                             StaticStatus.STATUS_CHECKOUT,
                             false,
@@ -95,7 +101,14 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                     OrderDetail orderDetail = new OrderDetail(
                             data.getId(),
                             sku,
-                            data.getTicket(),
+                            data.getTicketSku(),
+                            data.getQuantity(),
+                            data.getPrice(),
+                            data.getDiscount(),
+                            data.getMerchantSku(),
+                            data.getCategory(),
+                            data.getWisataSku(),
+                            data.getImage(),
                             data.getUserSku(),
                             status,
                             true,
@@ -116,18 +129,9 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                     orderDetailRedisService.delete(sku);
                 })
                 .flatMap(data -> {
-                    OrderDetail orderDetail = new OrderDetail(
-                            data.getId(),
-                            sku,
-                            data.getTicket(),
-                            data.getUserSku(),
-                            StaticStatus.STATUS_CANCEL_REJECT_OR_DELETE,
-                            data.getRedeem(),
-                            data.getExpiredDate(),
-                            data.getTitle()
-                    );
-                    orderDetailRedisService.add(orderDetail);
-                    return orderDetailRepo.save(orderDetail);
+                    data.setStatus(StaticStatus.STATUS_CANCEL_REJECT_OR_DELETE);
+                    orderDetailRedisService.add(data);
+                    return orderDetailRepo.save(data);
                 });
     }
 
@@ -142,15 +146,6 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         return orderDetailRepo.findAll();
     }
 
-    @Override
-    public Boolean checkTicket(List<OrderDetailTicket> orderDetailTickets, String merchantSku) {
-        for (int i=0 ; i<orderDetailTickets.size() ; i++ ){
-            if(orderDetailTickets.get(i).getMerchantSku().equals(merchantSku)){
-                return true;
-            }
-        }
-        return false;
-    }
 
     @Override
     public Mono<OrderDetail> addBySkuUser(String skuUser, OrderDetailRequest orderDetailRequest) {
@@ -165,7 +160,14 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                     OrderDetail orderDetail = new OrderDetail(
                             (int) UUID.randomUUID().getLeastSignificantBits(),
                             req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
-                            orderDetailRequest.getTicket(),
+                            orderDetailRequest.getTicketSku(),
+                            orderDetailRequest.getQuantity(),
+                            orderDetailRequest.getPrice(),
+                            orderDetailRequest.getDiscount(),
+                            orderDetailRequest.getMerchantSku(),
+                            orderDetailRequest.getCategory(),
+                            orderDetailRequest.getWisataSku(),
+                            orderDetailRequest.getImage(),
                             skuUser,
                             StaticStatus.STATUS_CART,
                             false,
@@ -193,7 +195,14 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                     OrderDetail orderDetail = new OrderDetail(
                             data.getId(),
                             sku,
-                            orderDetailRequest.getTicket(),
+                            orderDetailRequest.getTicketSku(),
+                            orderDetailRequest.getQuantity(),
+                            orderDetailRequest.getPrice(),
+                            orderDetailRequest.getDiscount(),
+                            orderDetailRequest.getMerchantSku(),
+                            orderDetailRequest.getCategory(),
+                            orderDetailRequest.getWisataSku(),
+                            orderDetailRequest.getImage(),
                             data.getUserSku(),
                             data.getStatus(),
                             data.getRedeem(),

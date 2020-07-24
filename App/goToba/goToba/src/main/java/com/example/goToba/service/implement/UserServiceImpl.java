@@ -107,12 +107,11 @@ public class UserServiceImpl implements UserService {
             if (passwordEncoder.encode(request.getPassword()).equals(userDetails.getPassword())) {
                 HttpHeaders responseHeaders = new HttpHeaders();
                 responseHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createAccessTokenCookie(jwtTokenProvider.generateToken(userDetails), (long) 360000).toString());
-                System.out.println(responseHeaders);
                 return ResponseEntity.ok().headers(responseHeaders).body(new JwtLoginResponse(userDetails.getNickname(), userDetails.getRoles().toString(), userDetails.getSku(), jwtTokenProvider.generateToken(userDetails)));
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthenticationResponse(timestamp.toString(), StaticResponseCode.RESPONSE_CODE_BAD_UNAUTHORIZED, StaticResponseStatus.RESPONSE_STATUS_ERROR_UNAUTHORIZED, StaticResponseMessages.RESPONSE_MESSAGE_USER_UNAUTHORIZED));
             }
-        }).defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+        }).defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthenticationResponse(timestamp.toString(), StaticResponseCode.RESPONSE_CODE_BAD_UNAUTHORIZED, StaticResponseStatus.RESPONSE_STATUS_ERROR_UNAUTHORIZED, StaticResponseMessages.RESPONSE_MESSAGE_USER_UNAUTHORIZED)));
     }
 
     @Override

@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -57,6 +59,7 @@ public class PaymentServiceImpl implements PaymentService {
                             paymentRequest.getTotal(),
                             paymentRequest.getStatus(),
                             paymentRequest.getOrderSku(),
+                            LocalDateTime.now().toString(),
                             paymentRequest.getMerchantSku(),
                             sku
                     );
@@ -83,6 +86,7 @@ public class PaymentServiceImpl implements PaymentService {
                             paymentUpdateRequest.getTotal(),
                             paymentUpdateRequest.getStatus(),
                             paymentUpdateRequest.getOrderSku(),
+                            data.getCreatedAt(),
                             data.getMerchantSku(),
                             data.getUserSku()
                     );
