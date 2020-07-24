@@ -62,7 +62,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         return Mono.fromCallable(() -> sku)
                 .flatMap(data -> orderDetailRepo.findFirstBySku(sku))
                 .doOnNext(i -> {
-                    orderDetailRepo.deleteBySku(sku);
+                    orderDetailRepo.deleteBySku(sku).subscribe();
                     orderDetailRedisService.delete(sku);
                 })
                 .flatMap(data -> {
@@ -94,7 +94,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         return Mono.fromCallable(() -> sku)
                 .flatMap(data -> orderDetailRepo.findFirstBySku(sku))
                 .doOnNext(i -> {
-                    orderDetailRepo.deleteBySku(sku);
+                    orderDetailRepo.deleteBySku(sku).subscribe();
                     orderDetailRedisService.delete(sku);
                 })
                 .flatMap(data -> {
@@ -125,7 +125,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         return Mono.fromCallable(() -> sku)
                 .flatMap(data -> orderDetailRepo.findFirstBySku(sku))
                 .doOnNext(i -> {
-                    orderDetailRepo.deleteBySku(sku);
+                    orderDetailRepo.deleteBySku(sku).subscribe();
                     orderDetailRedisService.delete(sku);
                 })
                 .flatMap(data -> {

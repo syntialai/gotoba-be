@@ -309,6 +309,35 @@
 
 ```json
 {
+    "name": "Lumban bulbul pantai 3",
+    "title": "Tempat wisata pantai 3 lumban bulbul",
+    "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
+    "image": "cvdafzxsqzxcasdasd.png",
+    "longitude" : 25.905354,
+    "latitude" : 45.191548,
+    "address": "jl.balige",
+    "createdBy" : "admi-josh-001",
+    "price" : "10000",
+    "hoursOpen": {
+         "monday": ["8AM", "10PM"],
+        "tuesday": ["8AM", "10PM"],
+        "wednesday": ["8AM", "10PM"],
+        "thursday": ["8AM", "10PM"],
+        "friday": ["8AM", "10PM"],
+        "saturday": ["8AM", "10PM"],
+        "sunday": ["8AM", "10PM"]
+    },
+    "status": "active"
+}
+```
+
++ Request Header :
+  + Accept : `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
     "code": 200,
     "status": "OK",
     "data": {
@@ -332,35 +361,6 @@
         },
         "status": "active"
     }
-}
-```
-
-+ Request Header :
-  + Accept : `application/json`
-  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
-+ Response Body (Success) :
-
-```json
-{
-    "name": "Lumban bulbul pantai 3",
-    "title": "Tempat wisata pantai 3 lumban bulbul",
-    "description": "Tempat wisata ini sangat bagus, berlokasi di lumban bulbul balige",
-    "image": "cvdafzxsqzxcasdasd.png",
-    "longitude" : 25.905354,
-    "latitude" : 45.191548,
-    "address": "jl.balige",
-    "createdBy" : "admi-josh-001",
-    "price" : "10000",
-    "hoursOpen": {
-         "monday": ["8AM", "10PM"],
-        "tuesday": ["8AM", "10PM"],
-        "wednesday": ["8AM", "10PM"],
-        "thursday": ["8AM", "10PM"],
-        "friday": ["8AM", "10PM"],
-        "saturday": ["8AM", "10PM"],
-        "sunday": ["8AM", "10PM"]
-    },
-    "status": "active"
 }
 ```
 

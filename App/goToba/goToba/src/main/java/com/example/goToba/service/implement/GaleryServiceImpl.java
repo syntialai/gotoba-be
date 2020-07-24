@@ -107,7 +107,7 @@ public class GaleryServiceImpl implements GaleryService {
     public Mono<Galery> updateBySku(String sku, GaleryRequest request) {
         return Mono.fromCallable(() -> request)
                 .flatMap(data -> galeryRepo.findFirstBySku(sku))
-                .doOnNext(id -> galeryRepo.deleteBySku(sku))
+                .doOnNext(id -> galeryRepo.deleteBySku(sku).subscribe())
                 .flatMap(req -> {
                     Galery galery = new Galery(
                             req.getId(),
@@ -137,7 +137,7 @@ public class GaleryServiceImpl implements GaleryService {
     public Mono<Galery> suspendBySku(String sku) {
         return Mono.just(galeryRepo.findFirstBySku(sku))
                 .flatMap(data -> galeryRepo.findFirstBySku(sku))
-                .doOnNext(id -> galeryRepo.deleteBySku(sku))
+                .doOnNext(id -> galeryRepo.deleteBySku(sku).subscribe())
                 .doOnNext(request -> {
                     Galery galery = new Galery(
                             request.getId(),
@@ -156,7 +156,7 @@ public class GaleryServiceImpl implements GaleryService {
     public Mono<Galery> activateBySku(String sku) {
         return Mono.just(galeryRepo.findFirstBySku(sku))
                 .flatMap(data -> galeryRepo.findFirstBySku(sku))
-                .doOnNext(id -> galeryRepo.deleteBySku(sku))
+                .doOnNext(id -> galeryRepo.deleteBySku(sku).subscribe())
                 .doOnNext(request -> {
                     Galery galery = new Galery(
                             request.getId(),
