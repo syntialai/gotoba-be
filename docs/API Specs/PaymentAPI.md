@@ -20,7 +20,8 @@
         "sku": "REV_rest_0001_0001",
         "total": 50000,
         "status": "ACCEPTED",
-        "orderId": 1,
+        "orderSku": 1,
+        "createdAt": "2016-11-15T22:55:40.110Z",
         "merchantSku": "synt_merc_0001",
         "userSku": "sima_cust_001"
     }, {
@@ -28,7 +29,8 @@
         "sku": "REV_rest_0001_0002",
         "total": 100000,
         "status": "WAITING",
-        "orderId": 1,
+        "orderSku": 1,
+        "createdAt": "2016-11-15T22:55:40.110Z",
         "merchantSku": "synt_merc_0001",
         "userSku": "sima_cust_001"
     }, {
@@ -36,7 +38,8 @@
         "sku": "REV_rest_0001_0002",
         "total": 100000,
         "status": "CANCELLED",
-        "orderId": 1,
+        "orderSku": 1,
+        "createdAt": "2016-11-15T22:55:40.110Z",
         "merchantSku": "synt_merc_0001",
         "userSku": "sima_cust_001"
     }]
@@ -86,7 +89,8 @@
         "sku": "REV_rest_0001_0001",
         "total": 50000,
         "status": "ACCEPTED",
-        "orderId": 1,
+        "createdAt": "2016-11-15T22:55:40.110Z",
+        "orderSku": 1,
         "merchantSku": "synt_merc_0001",
         "userSku": "sima_cust_001"
     }]
@@ -135,7 +139,8 @@
         "sku": "REV_rest_0001_0001",
         "total": 50000,
         "status": "ACCEPTED",
-        "orderId": 1,
+        "createdAt": "2016-11-15T22:55:40.110Z",
+        "orderSku": 1,
         "merchantSku": "synt_merc_0001",
         "userSku": "sima_cust_001"
     }
@@ -177,7 +182,7 @@
     "total": 50000,
     "status": "WAITING",
     "merchantSku": "synt_merc_0001",
-    "orderId": 2
+    "orderSku": 2
 }
 ```
 
@@ -195,7 +200,8 @@
         "sku": "REV_rest_0001_0004",
         "total": 50000,
         "status": "WAITING",
-        "orderId": 2,
+        "createdAt": "2016-11-15T22:55:40.110Z",
+        "orderSku": 2,
         "merchantSku": "synt_merc_0001",
         "userSku": "sima_cust_001"
     }
@@ -246,7 +252,7 @@
 {
     "total": 50000,
     "status": "ACCEPTED",
-    "orderId": 2
+    "orderSku": 2
 }
 ```
 
@@ -264,7 +270,8 @@
         "sku": "REV_rest_0001_0004",
         "total": 50000,
         "status": "ACCEPTED",
-        "orderId": 2,
+        "createdAt": "2016-11-15T22:55:40.110Z",
+        "orderSku": 2,
         "merchantSku": "synt_merc_0001",
         "userSku": "sima_cust_001"
     }

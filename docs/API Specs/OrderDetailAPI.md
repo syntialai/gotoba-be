@@ -18,23 +18,15 @@
     "data": {
         "id": 1,
         "sku": "ORD_0001_0001_0001",
-        "ticket": [{
-            "ticketSku": "TICK_REST_0001_0001",
-            "quantity": 1,
-            "price": 100000,
-            "discount": 0,
-            "merchantSku": "synt_merc_0001",
-            "category": "wisata",
-            "wisataSku" : "WAH_BAL_0003"
-        }, {
-            "ticketSku": "TICK_JOUR_0001_0002",
-            "quantity": 1,
-            "price": 100000,
-            "discount": 0,
-            "merchantSku": "synt_merc_0001",
-            "category": "wisata",
-            "wisataSku" : "WAH_BAL_0003"
-        }],
+        "ticketSku": "TICK_JOUR_0001_0002",
+        "quantity": 1,
+        "price": 100000,
+        "discount": 0,
+        "merchantSku": "synt_merc_0001",
+        "category": "wisata",
+        "wisataSku" : "WAH_BAL_0003",
+        "title": "OK",
+        "image": "img.png",
         "userSku": "sima_cust_001",
         "status" : 1,
         "redeem" : false,
@@ -84,23 +76,15 @@
     "data": [{
         "id": 1,
         "sku": "ORD_0001_0001_0001",
-        "ticket": [{
-            "ticketSku": "TICK_REST_0001_0001",
-            "quantity": 1,
-            "price": 100000,
-            "discount": 0,
-            "merchantSku": "synt_merc_0001",
-            "category": "wisata",
-            "wisataSku" : "WAH_BAL_0003"
-        }, {
-            "ticketSku": "TICK_JOUR_0001_0002",
-            "quantity": 1,
-            "price": 100000,
-            "discount": 0,
-            "merchantSku": "synt_merc_0001",
-            "category": "wisata",
-            "wisataSku" : "WAH_BAL_0003"
-        }],
+        "ticketSku": "TICK_JOUR_0001_0002",
+        "quantity": 1,
+        "price": 100000,
+        "discount": 0,
+        "merchantSku": "synt_merc_0001",
+        "category": "wisata",
+        "wisataSku" : "WAH_BAL_0003",
+        "title": "OK",
+        "image": "img.png",
         "userSku": "sima_cust_001",
         "status" : 1,
         "redeem" : false,
@@ -150,22 +134,15 @@
     "data": [{
         "id": 1,
         "sku": "ORD_0001_0001_0001",
-        "ticket": [{
-            "ticketSku": "TICK_REST_0001_0001",
-            "quantity": 1,
-            "price": 100000,
-            "discount": 0,
-            "merchantSku": "synt_merc_0001",
-            "category": "wisata",
-            "wisataSku" : "WAH_BAL_0003"
-        }, {
-            "ticketSku": "TICK_JOUR_0001_0002",
-            "quantity": 1,
-            "price": 100000,
-            "merchantSku": "synt_merc_0001",
-            "category": "wisata",
-            "wisataSku" : "WAH_BAL_0003"
-        }],
+        "ticketSku": "TICK_JOUR_0001_0002",
+        "quantity": 1,
+        "price": 100000,
+        "discount": 0,
+        "merchantSku": "synt_merc_0001",
+        "category": "wisata",
+        "wisataSku" : "WAH_BAL_0003",
+        "title": "OK",
+        "image": "img.png",
         "userSku": "sima_cust_001",
         "status" : 1,
         "redeem" : true,
@@ -207,15 +184,14 @@
 
 ```json
 {
-    "ticket": [{
-        "ticketSku": "TICK_JOUR_0001_0002",
-        "quantity": 1,
-        "price": 100000,
-        "discount": 0,
-        "merchantSku": "synt_merc_0001",
-        "category": "wisata",
-        "wisataSku" : "WAH_BAL_0003"
-    }],
+    "ticketSku": "TICK_JOUR_0001_0002",
+    "quantity": 1,
+    "price": 100000,
+    "discount": 0,
+    "merchantSku": "synt_merc_0001",
+    "category": "wisata",
+    "wisataSku" : "WAH_BAL_0003",
+    "image": "img.png",
     "userSku": "sima_cust_001",
     "expiredDate" : "30-07-2020",
     "title" : "title Order"
@@ -234,23 +210,14 @@
     "data": [{
         "id": 1,
         "sku": "ORD_0001_0001_0001",
-        "ticket": [{
-            "ticketSku": "TICK_REST_0001_0001",
-            "quantity": 1,
-            "price": 100000,
-            "discount": 0,
-            "merchantSku": "synt_merc_0001",
-            "category": "wisata",
-            "wisataSku" : "WAH_BAL_0003"
-        }, {
-            "ticketSku": "TICK_JOUR_0001_0002",
-            "quantity": 1,
-            "price": 100000,
-            "discount": 0,
-            "merchantSku": "synt_merc_0001",
-            "category": "wisata",
-            "wisataSku" : "WAH_BAL_0003"
-        }],
+        "ticketSku": "TICK_JOUR_0001_0002",
+        "quantity": 1,
+        "price": 100000,
+        "discount": 0,
+        "merchantSku": "synt_merc_0001",
+        "category": "wisata",
+        "wisataSku" : "WAH_BAL_0003",
+        "image": "img.png",
         "userSku": "sima_cust_001",
         "status" : 1,
         "redeem" : false,
@@ -281,8 +248,6 @@
     "path": "/order/user/{userSku}/add"
 }
 ```
-
-
 
 ## Checkout Order Detail by Sku
 
@@ -407,7 +372,6 @@
 }
 ```
 
-
 ## Cancel Order Detail by Sku
 
 + Endpoint : ``/order/cancel/{sku}``
@@ -449,8 +413,6 @@
 }
 ```
 
-
-
 ## Edit Order Detail by Sku
 
 + Endpoint : ``/order/edit/{sku}``
@@ -461,15 +423,15 @@
 
 ```json
 {
-    "ticket": [{
-        "ticketSku": "TICK_JOUR_0001_0002",
-        "quantity": 1,
-        "price": 100000,
-        "discount": 0,
-        "merchantSku": "synt_merc_0001",
-        "category": "wisata",
-        "wisataSku" : "WAH_BAL_0003"
-    }],
+    "ticketSku": "TICK_JOUR_0001_0002",
+    "quantity": 1,
+    "price": 100000,
+    "discount": 0,
+    "merchantSku": "synt_merc_0001",
+    "category": "wisata",
+    "wisataSku" : "WAH_BAL_0003",
+    "title": "OK",
+    "image": "img.png",
     "userSku": "sima_cust_001",
     "status" : 1,
     "expiredDate" : "30-07-2020",
@@ -489,15 +451,15 @@
     "data": [{
         "id": 1,
         "sku": "ORD_0001_0001_0001",
-        "ticket": [{
-            "ticketSku": "TICK_JOUR_0001_0002",
-            "quantity": 1,
-            "price": 100000,
-            "discount": 0,
-            "merchantSku": "synt_merc_0001",
-            "category": "wisata",
-            "wisataSku" : "WAH_BAL_0003"
-        }],
+        "ticketSku": "TICK_JOUR_0001_0002",
+        "quantity": 1,
+        "price": 100000,
+        "discount": 0,
+        "merchantSku": "synt_merc_0001",
+        "category": "wisata",
+        "wisataSku" : "WAH_BAL_0003",
+        "title": "OK",
+        "image": "img.png",
         "userSku": "sima_cust_001",
         "status" : 1,
         "redeem" : false,
