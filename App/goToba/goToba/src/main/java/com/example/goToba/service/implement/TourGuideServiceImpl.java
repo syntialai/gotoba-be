@@ -97,9 +97,7 @@ public class TourGuideServiceImpl implements TourGuideService {
     public Mono<TourGuide> editTourGuide(TourGuideRequest tourGuideRequest, String sku) {
         return Mono.fromCallable(() -> tourGuideRequest)
                 .flatMap(data -> tourGuideRepo.findBySku(sku))
-                .doOnNext(i -> {
-                    tourGuideRepo.deleteBySku(sku);
-                })
+                .doOnNext(i -> tourGuideRepo.deleteBySku(sku).subscribe())
                 .flatMap(data -> {
                     TourGuide tourGuide = new TourGuide(
                             data.getId(),
@@ -137,7 +135,7 @@ public class TourGuideServiceImpl implements TourGuideService {
     public Mono<TourGuide> deleteTourGuide(String sku) {
         return tourGuideRepo.findBySku(sku)
                 .flatMap(data -> tourGuideRepo.findBySku(sku))
-                .doOnNext(i -> tourGuideRepo.deleteBySku(sku))
+                .doOnNext(i -> tourGuideRepo.deleteBySku(sku).subscribe())
                 .flatMap(data -> {
                     TourGuide tourGuide = new TourGuide(
                             data.getId(),

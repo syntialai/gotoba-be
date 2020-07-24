@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
         return usersRepo.findFirstByUsername(request.getUsername()).map((userDetails) -> {
             if (passwordEncoder.encode(request.getPassword()).equals(userDetails.getPassword())) {
                 HttpHeaders responseHeaders = new HttpHeaders();
-                responseHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createAccessTokenCookie(jwtTokenProvider.generateToken(userDetails), (long) 360000).toString());
+                responseHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createAccessTokenCookie(jwtTokenProvider.generateToken(userDetails), (long) 3600).toString());
                 return ResponseEntity.ok().headers(responseHeaders).body(new JwtLoginResponse(userDetails.getNickname(), userDetails.getRoles().toString(), userDetails.getSku(), jwtTokenProvider.generateToken(userDetails)));
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthenticationResponse(timestamp.toString(), StaticResponseCode.RESPONSE_CODE_BAD_UNAUTHORIZED, StaticResponseStatus.RESPONSE_STATUS_ERROR_UNAUTHORIZED, StaticResponseMessages.RESPONSE_MESSAGE_USER_UNAUTHORIZED));
@@ -136,7 +136,7 @@ public class UserServiceImpl implements UserService {
     public Mono<Users> editBySku(String sku, UpdateUserRequest request) {
         return Mono.fromCallable(() -> request)
                 .flatMap(data -> usersRepo.findFirstBySku(sku))
-                .doOnNext(id -> usersRepo.deleteBySku(sku))
+                .doOnNext(id -> usersRepo.deleteBySku(sku).subscribe())
                 .flatMap(req -> {
                     Users users = new Users(
                             sku,

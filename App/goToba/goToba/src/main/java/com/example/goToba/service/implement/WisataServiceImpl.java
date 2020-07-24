@@ -88,7 +88,7 @@ public class WisataServiceImpl implements WisataService {
                 .flatMap(data -> wisataRepo.findFirstBySku(sku))
                 .doOnNext(i -> {
                     wisataElasticService.deleteBySku(sku);
-                    wisataRepo.deleteBySku(sku);
+                    wisataRepo.deleteBySku(sku).subscribe();
                 })
                 .flatMap(data -> {
                     Wisata wisata = new Wisata(
@@ -122,7 +122,7 @@ public class WisataServiceImpl implements WisataService {
         return wisataRepo.findFirstBySku(sku)
                 .doOnNext(i -> {
                     wisataElasticService.deleteBySku(sku);
-                    wisataRepo.deleteBySku(sku);
+                    wisataRepo.deleteBySku(sku).subscribe();
                 })
                 .flatMap(data -> {
                     Wisata wisata = new Wisata(

@@ -76,9 +76,7 @@ public class PaymentServiceImpl implements PaymentService {
     public Mono<Payment> editBySku(String sku, PaymentUpdateRequest paymentUpdateRequest) {
         return Mono.fromCallable(() -> paymentUpdateRequest).
                 flatMap(data -> paymentRepo.findFirstBySku(sku)).
-                doOnNext( i -> {
-                    paymentRepo.deleteBySku(sku);
-                }).
+                doOnNext( i -> paymentRepo.deleteBySku(sku).subscribe()).
                 flatMap(data -> {
                     Payment payment = new Payment(
                             (int) UUID.randomUUID().getLeastSignificantBits(),
