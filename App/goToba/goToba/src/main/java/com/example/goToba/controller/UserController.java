@@ -7,6 +7,7 @@ import com.example.goToba.payload.Response;
 import com.example.goToba.payload.helper.StaticResponseCode;
 import com.example.goToba.payload.helper.StaticResponseMessages;
 import com.example.goToba.payload.helper.StaticResponseStatus;
+import com.example.goToba.payload.helper.StaticStatus;
 import com.example.goToba.payload.request.LoginRequest;
 import com.example.goToba.payload.request.RegisterRequest;
 import com.example.goToba.payload.request.UpdateUserRequest;
@@ -43,6 +44,14 @@ public class UserController {
                 });
     }
 
+    @GetMapping(UserControllerRoute.ROUTE_USER_FIND_ALL_CUSTOMER)
+    public Mono<ResponseEntity<?>> findAllCustomer() {
+        return userService.findAllCustomer().collectList()
+                .map(data -> {
+                    return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+                });
+    }
+
     @GetMapping(UserControllerRoute.ROUTE_USER_FIND_BY_USERNAME)
     public Mono<ResponseEntity<?>> findByUsername(@PathVariable String username) {
         return usersRepo.findFirstByUsername(username)
@@ -61,7 +70,7 @@ public class UserController {
 
     @GetMapping(UserControllerRoute.ROUTE_USER_FIND_BY_STATUS_ACTIVE)
     public Mono<ResponseEntity<?>> findByStatusActive() {
-        return usersRepo.findAllByStatus("active").collectList()
+        return usersRepo.findAllByStatus(StaticStatus.STATUS_ACTIVE).collectList()
                 .map(data -> {
                     return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
                 });
@@ -69,7 +78,7 @@ public class UserController {
 
     @GetMapping(UserControllerRoute.ROUTE_USER_FIND_BY_STATUS_BLOCKED)
     public Mono<ResponseEntity<?>> findByStatusBlocked() {
-        return usersRepo.findAllByStatus("blocked").collectList()
+        return usersRepo.findAllByStatus(StaticStatus.STATUS_BLOCKED).collectList()
                 .map(data -> {
                     return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
                 });

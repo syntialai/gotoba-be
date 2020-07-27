@@ -6,6 +6,7 @@ package com.example.goToba.payload.helper;
 public interface StaticStatus {
     public String STATUS_DELETE = "deleted";
     public String STATUS_ACTIVE = "active";
+    public String STATUS_BLOCKED = "blocked";
 
     public Integer STATUS_CANCEL_REJECT_OR_DELETE = 0;
     public Integer STATUS_CART = 1;
