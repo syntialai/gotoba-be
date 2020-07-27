@@ -143,7 +143,7 @@ public class UserServiceImpl implements UserService {
                             request.getNickname(),
                             request.getUsername(),
                             request.getEmail(),
-                            passwordEncoder.encode(request.getPassword()),
+                            req.getPassword(),
                             req.getRoles(),
                             req.getImage(),
                             StaticStatus.STATUS_ACTIVE
@@ -162,6 +162,30 @@ public class UserServiceImpl implements UserService {
     @Override
     public Flux<Users> findAllCustomer() {
         return usersRepo.findAll().filter(data -> data.getRoles().toString().equals("ROLE_USER"));
+    }
+
+    @Override
+    public Mono<Users> blockBySku(String sku) {
+        return usersRepo.findFirstBySku(sku)
+                .doOnNext(data -> {
+                    usersRepo.deleteBySku(sku).subscribe();
+                })
+                .flatMap(data -> {
+                    data.setStatus(StaticStatus.STATUS_BLOCKED);
+                    return usersRepo.save(data);
+                });
+    }
+
+    @Override
+    public Mono<Users> activateBySku(String sku) {
+        return  usersRepo.findFirstBySku(sku)
+                .doOnNext(data -> {
+                    usersRepo.deleteBySku(sku).subscribe();
+                })
+                .flatMap(data -> {
+                    data.setStatus(StaticStatus.STATUS_ACTIVE);
+                    return usersRepo.save(data);
+                });
     }
 
 }

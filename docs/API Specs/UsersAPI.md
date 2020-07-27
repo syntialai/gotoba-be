@@ -299,7 +299,6 @@
 {
     "nickname" : "hendra",
     "username" : "hendra",
-    "password" : "joshua",
     "email" : "hendra@gmail.com",
     "image": ""
 }
@@ -337,6 +336,70 @@
     "path": "/user/edit/{sku}"
 }
 ```
+
+```json
+{
+    "timestamp": "2019-08-23T04:22:26.690+0000",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/user/edit/{sku}"
+}
+```
+
+
+
+## Block User by Sku
+
++ Endpoint : ``/user/block/{sku}``
++ HTTP Method : `PUT`
++ Path Variable :
+  + sku
++ Request Header :
+  + Accept: `application/json`
+  + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
++ Response Body (Success) :
+
+```json
+{
+    "code": 200,
+    "status": "OK",
+    "messages": "Block User Success "
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2019-08-23T04:22:26.690+0000",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/user/edit/{sku}"
+}
+```
+
+## Activate User by Sku
+
++ Endpoint : ``/user/activate/{sku}``
++ HTTP Method : `PUT`
++ Path Variable :
+  + sku
++ Request Header :
+  + Accept: `application/json`
+  + Authorization : `Bearer xkzndDiskwDkLSksLIlOQWJYsNkskdHXkjsLwJiwdncxKnsdWyTDidkjBCykjsbYcjuLsjcnqpsiLxmzjcJsiskdczmJkskwoTwGiqUScsdaJsOksCjskIwkLkskdjICksmlCKskwQpeikzSkoeiPlsqoIdukNClskeiKCjrjvnMCaoziee`
++ Response Body (Success) :
+
+```json
+{
+    "code": 200,
+    "status": "OK",
+    "messages": "Activate User Success "
+}
+```
+
++ Response Body (Fail) :
 
 ```json
 {
