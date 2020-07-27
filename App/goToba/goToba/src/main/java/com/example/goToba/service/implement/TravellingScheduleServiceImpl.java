@@ -1,11 +1,15 @@
 package com.example.goToba.service.implement;
 
+import com.example.goToba.model.SequenceTravellingSchedule;
 import com.example.goToba.model.TravellingSchedule;
 import com.example.goToba.payload.helper.StaticStatus;
+import com.example.goToba.payload.helper.StockKeepingUnit;
 import com.example.goToba.payload.request.ScheduleRequest;
+import com.example.goToba.repository.SequenceTravellingScheduleRepo;
 import com.example.goToba.repository.TravellingScheduleRepo;
 import com.example.goToba.service.TravellingScheduleService;
 import com.example.goToba.service.redisService.TravellingScheduleRedisService;
+import com.example.goToba.service.utils.SkuGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -25,86 +29,84 @@ public class TravellingScheduleServiceImpl implements TravellingScheduleService 
     @Autowired
     TravellingScheduleRedisService travellingScheduleRedisService;
 
+    @Autowired
+    SkuGenerator skuGenerator;
+
+    @Autowired
+    SequenceTravellingScheduleRepo sequencetravellingScheduleRepo;
+
     @Override
     public Flux<TravellingSchedule> findAll() {
-        return travellingScheduleRepo.findAll();
+        return travellingScheduleRepo.findAll()
+                .filter(data -> data.getStatus().equals(StaticStatus.STATUS_ACTIVE));
     }
 
     @Override
-    public Mono<TravellingSchedule> findByScheduleId(Integer id) {
-        if (travellingScheduleRedisService.hasKey(id)) {
-            return travellingScheduleRedisService.findById(id);
+    public Mono<TravellingSchedule> findByScheduleSku(String sku) {
+        if (travellingScheduleRedisService.hasKey(sku)) {
+            return travellingScheduleRedisService.findBySku(sku);
         }
-        return travellingScheduleRepo.findById(id).map(data -> {
+        return travellingScheduleRepo.findBySku(sku).map(data -> {
             travellingScheduleRedisService.add(data);
             return data;
         });
     }
 
-    @Override
-    public Mono<TravellingSchedule> updateById(String id) {
-        return null;
-    }
+
 
     @Override
     public Mono<TravellingSchedule> addBySku(String sku, ScheduleRequest scheduleRequest) {
-        Mono<TravellingSchedule> schedule = Mono.fromCallable(() -> scheduleRequest)
+
+        String key = skuGenerator.substring(StockKeepingUnit.TRAVELLING_SCHEDULE) + StockKeepingUnit.SKU_CONNECTOR + skuGenerator.substring(sku);
+        return Mono.fromCallable(() -> scheduleRequest)
+                .flatMap(dat -> sequencetravellingScheduleRepo.findFirstByKey(key))
+                .doOnNext(dat -> sequencetravellingScheduleRepo.deleteByKey(key).subscribe())
+                .doOnNext(dat -> sequencetravellingScheduleRepo.save(new SequenceTravellingSchedule(key, StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(dat.getLast_seq()) + 1))).subscribe())
+                .switchIfEmpty(sequencetravellingScheduleRepo.save(new SequenceTravellingSchedule(key, StockKeepingUnit.SKU_FIRST_DATA)))
+                .flatMap(dat -> sequencetravellingScheduleRepo.findFirstByKey(key))
                 .flatMap(data -> {
                     TravellingSchedule schedule1 = new TravellingSchedule(
                             (int) UUID.randomUUID().getMostSignificantBits(),
-                            scheduleRequest.getTitle(),
-                            scheduleRequest.getDescription(),
+                            data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()),
                             scheduleRequest.getDate(),
-                            scheduleRequest.getEndDate(),
-                            scheduleRequest.getVacationDestination(),
+                            scheduleRequest.getSchedule(),
                             sku,
                             StaticStatus.STATUS_ACTIVE
                     );
                     return travellingScheduleRepo.save(schedule1);
                 });
-        return schedule;
     }
 
     @Override
-    public Mono<TravellingSchedule> editById(Integer id, ScheduleRequest scheduleRequest) {
+    public Mono<TravellingSchedule> editBySku(String sku, ScheduleRequest scheduleRequest) {
         return Mono.fromCallable(() -> scheduleRequest)
-                .flatMap(data -> travellingScheduleRepo.findById(id))
-                .doOnNext(i -> travellingScheduleRepo.deleteById(id).subscribe())
+                .flatMap(data -> travellingScheduleRepo.findBySku(sku))
                 .flatMap(data -> {
+                    travellingScheduleRepo.deleteBySku(sku);
                     TravellingSchedule schedule = new TravellingSchedule(
-                            id,
-                            scheduleRequest.getTitle(),
-                            scheduleRequest.getDescription(),
+                            data.getId(),
+                            sku,
                             scheduleRequest.getDate(),
-                            scheduleRequest.getEndDate(),
-                            scheduleRequest.getVacationDestination(),
+                            scheduleRequest.getSchedule(),
                             data.getUserSku(),
                             data.getStatus()
                     );
-                    travellingScheduleRedisService.deleteByKey(id);
+                    travellingScheduleRedisService.deleteByKey(sku);
                     travellingScheduleRedisService.add(schedule);
-                    return travellingScheduleRepo.save(schedule);
+
+                   return travellingScheduleRepo.save(schedule);
                 });
     }
 
+
     @Override
-    public Mono<TravellingSchedule> deleteById(Integer id) {
-        return Mono.fromCallable(() -> id)
-                .flatMap(data -> travellingScheduleRepo.findById(id))
-                .doOnNext(i -> travellingScheduleRepo.deleteById(id).subscribe())
+    public Mono<TravellingSchedule> deleteBySku(String sku) {
+        return travellingScheduleRepo.findBySku(sku)
                 .flatMap(data -> {
-                    TravellingSchedule schedule = new TravellingSchedule(
-                            id,
-                            data.getTitle(),
-                            data.getDescription(),
-                            data.getDate(),
-                            data.getEndDate(),
-                            data.getVacationDestination(),
-                            data.getUserSku(),
-                            StaticStatus.STATUS_DELETE
-                    );
-                    travellingScheduleRedisService.deleteByKey(id);
-                    return travellingScheduleRepo.save(schedule);
+                    travellingScheduleRepo.deleteBySku(sku);
+                    data.setStatus(StaticStatus.STATUS_DELETE);
+                    travellingScheduleRedisService.deleteByKey(sku);
+                    return travellingScheduleRepo.save(data);
                 });
     }
 }

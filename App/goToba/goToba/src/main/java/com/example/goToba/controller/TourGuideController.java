@@ -80,11 +80,10 @@ public class TourGuideController {
 
     @DeleteMapping(TourGuideControllerRoute.ROUTE_TO_DELETE_TOUR_GUIDE)
     public Mono<ResponseEntity<?>> deleteTourGuideBySku(@PathVariable String sku, @RequestBody TourGuideRequest tourGuideRequest) {
-        return Mono.fromCallable(() -> tourGuideRequest)
-                .doOnNext(data -> tourGuideService.deleteTourGuide(sku).subscribe())
-                .flatMap(data -> tourGuideService.findBySku(sku))
+        return tourGuideService.findBySku(sku)
                 .map(data -> {
                     if (data != null) {
+                        tourGuideService.deleteTourGuide(sku).subscribe();
                         return ResponseEntity.ok(new DeleteResponse(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, StaticResponseStatus.RESPONSE_STATUS_DELETE_SUCCESS));
                     }
                     return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "tour guide with sku " + sku, TourGuideControllerRoute.ROUTE_TO_TOUR_GUIDE + TourGuideControllerRoute.ROUTE_TO_DELETE_TOUR_GUIDE));

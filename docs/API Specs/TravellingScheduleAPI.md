@@ -22,22 +22,26 @@
         "date": "2015-11-13",
         "schedule": [{
             "destination": "Danau Toba",
-            "time": "12:12:12",
+            "time": "12:12:12"
         }, {
             "destination": "Danau Toba",
-            "time": "12:15:20",
-        }]
+            "time": "12:15:20"
+        }],
+        "userSku" : "HEND_0001",
+        "status" : "active"
     }, {
         "id": 2,
         "sku": "TRAV_SYNT_0001_0002",
         "date": "2015-11-13",
         "schedule": [{
             "destination": "Danau Toba",
-            "time": "12:12:12",
+            "time": "12:12:12"
         }, {
             "destination": "Danau Toba",
-            "time": "12:15:20",
-        }]
+            "time": "12:15:20"
+        }],
+        "userSku" : "HEND_0001",
+        "status" : "active"
     }]
 }
 ```
@@ -77,10 +81,10 @@
     "date": "2015-11-13",
     "schedule": [{
         "destination": "Danau Toba",
-        "time": "12:12:12",
+        "time": "12:12:12"
     }, {
         "destination": "Danau Toba",
-        "time": "12:15:20",
+        "time": "12:15:20"
     }]
 }
 ```
@@ -140,11 +144,13 @@
         "date": "2015-11-13",
         "schedule": [{
             "destination": "Danau Toba",
-            "time": "12:12:12",
+            "time": "12:12:12"
         }, {
             "destination": "Danau Toba",
-            "time": "12:15:20",
-        }]
+            "time": "12:15:20"
+        }],
+        "userSku" : "HEND_0001",
+        "status" : "active"
     }
 }
 ```
@@ -184,10 +190,10 @@
     "date": "2015-11-13",
     "schedule": [{
         "destination": "Danau Toba",
-        "time": "12:12:12",
+        "time": "12:12:12"
     }, {
         "destination": "Danau Toba",
-        "time": "12:15:20",
+        "time": "12:15:20"
     }]
 }
 ```
@@ -207,11 +213,13 @@
         "date": "2015-11-13",
         "schedule": [{
             "destination": "Danau Toba",
-            "time": "12:12:12",
+            "time": "12:12:12"
         }, {
             "destination": "Danau Toba",
-            "time": "12:15:20",
-        }]
+            "time": "12:15:20"
+        }],
+        "userSku" : "HEND_0001",
+        "status" : "active"
     }]
 }
 ```

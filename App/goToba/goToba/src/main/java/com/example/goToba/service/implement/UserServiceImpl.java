@@ -134,10 +134,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Mono<Users> editBySku(String sku, UpdateUserRequest request) {
-        return Mono.fromCallable(() -> request)
-                .flatMap(data -> usersRepo.findFirstBySku(sku))
-                .doOnNext(id -> usersRepo.deleteBySku(sku).subscribe())
+        return usersRepo.findFirstBySku(sku)
                 .flatMap(req -> {
+                    usersRepo.deleteBySku(sku);
                     Users users = new Users(
                             sku,
                             request.getNickname(),
@@ -155,8 +154,7 @@ public class UserServiceImpl implements UserService {
                             e.printStackTrace();
                         }
                     }
-                    usersRepo.save(users);
-                    return usersRepo.findFirstBySku(sku);
+                    return usersRepo.save(users);
                 });
     }
 

@@ -13,4 +13,5 @@ public interface StockKeepingUnit {
     String RESTAURANTS = "RES";
     String TICKET = "TIC";
     String TOUD_GUIDE = "TG";
+    String TRAVELLING_SCHEDULE = "TRAV";
 }

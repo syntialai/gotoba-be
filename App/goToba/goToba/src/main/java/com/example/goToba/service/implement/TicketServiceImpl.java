@@ -69,7 +69,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Mono<Ticket> addByMerchantSku(String merchantSku, TicketRequest ticketRequest) {
-        String key = skuGenerator.substring(StockKeepingUnit.TICKET + StockKeepingUnit.SKU_CONNECTOR + skuGenerator.substring(ticketRequest.getCategory()));
+        String key = skuGenerator.substring(StockKeepingUnit.TICKET + StockKeepingUnit.SKU_CONNECTOR) + skuGenerator.substring(ticketRequest.getCategory());
         return Mono.fromCallable(() -> ticketRequest)
                 .flatMap(dat -> sequenceTicketRepo.findFirstByKey(key))
                 .doOnNext(dat -> sequenceTicketRepo.deleteByKey(key).subscribe())
@@ -110,8 +110,8 @@ public class TicketServiceImpl implements TicketService {
     public Mono<Ticket> editBySku(String sku, TicketRequest ticketRequest) {
         return Mono.fromCallable(() -> ticketRequest)
                 .flatMap(data -> ticketRepo.findFirstBySku(sku))
-                .doOnNext(i -> ticketRepo.deleteBySku(sku).subscribe())
                 .flatMap(data -> {
+                    ticketRepo.deleteBySku(sku);
                     Ticket ticket = new Ticket(
                             data.getId(),
                             sku,
@@ -143,26 +143,10 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public Mono<Ticket> deleteBySku(String sku) {
         return ticketRepo.findFirstBySku(sku)
-                .flatMap(data -> ticketRepo.findFirstBySku(sku))
-                .doOnNext(i -> ticketRepo.deleteBySku(sku).subscribe())
                 .flatMap(data -> {
-                    Ticket ticket = new Ticket(
-                            data.getId(),
-                            sku,
-                            data.getTitle(),
-                            data.getDescription(),
-                            data.getCategory(),
-                            data.getPrice(),
-                            data.getDiscount(),
-                            data.getExpiredDate(),
-                            data.getMerchantSku(),
-                            data.getCreatedAt(),
-                            StaticStatus.STATUS_ACTIVE,
-                            data.getWisataSku(),
-                            data.getOrderSku(),
-                            data.getImage()
-                    );
-                    return ticketRepo.save(ticket);
+                    ticketRepo.deleteBySku(sku);
+                    data.setStatus(StaticStatus.STATUS_DELETE);
+                    return ticketRepo.save(data);
                 });
 
     }

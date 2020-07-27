@@ -23,5 +23,6 @@ public class Restaurant {
     private String phone;
     private String status;
     private String merchantSku;
+    private String image;
 
 }

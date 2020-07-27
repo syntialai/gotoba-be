@@ -7,6 +7,7 @@ import com.example.goToba.payload.Response;
 import com.example.goToba.payload.helper.StaticResponseCode;
 import com.example.goToba.payload.helper.StaticResponseMessages;
 import com.example.goToba.payload.helper.StaticResponseStatus;
+import com.example.goToba.payload.helper.StaticStatus;
 import com.example.goToba.payload.request.ScheduleRequest;
 import com.example.goToba.service.TravellingScheduleService;
 import com.example.goToba.service.UserService;
@@ -33,32 +34,29 @@ public class TravellingScheduleController {
 
     @GetMapping(TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_ALL)
     public Mono<ResponseEntity<?>> findAll() {
-        return travellingScheduleService.findAll().
-                collectList().
-                map(data -> {
+        return travellingScheduleService.findAll()
+                .collectList().map(data -> {
                     return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
                 });
     }
 
     @GetMapping(TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_GET_ALL)
     public Mono<ResponseEntity<?>> findAllBySku(@PathVariable String userSku) {
-        return travellingScheduleService.findAll().
-                filter(data -> data.getUserSku().equals(userSku)).
-                collectList().
-                map(data -> {
-                    if(data.size()!=0) {
+        return travellingScheduleService.findAll().filter(data -> data.getUserSku().equals(userSku)).filter(data -> data.getStatus().equals(StaticStatus.STATUS_ACTIVE))
+                .collectList().map(data -> {
+                    if (data.size() != 0) {
                         return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
                     }
-                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND,StaticResponseMessages.RESPONSE_MESSAGES_FOR_EMPTY_SCHEDULE, TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE+TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_GET_ALL));
-                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND,StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND,StaticResponseMessages.RESPONSE_MESSAGES_FOR_EMPTY_SCHEDULE, TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE+TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_GET_ALL)));
+                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_EMPTY_SCHEDULE, TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE + TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_GET_ALL));
+                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_EMPTY_SCHEDULE, TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE + TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_GET_ALL)));
     }
 
     @GetMapping(TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_GET_DETAIL)
-    public Mono<ResponseEntity<?>> getDetailByScheduleId(@PathVariable Integer scheduleId) {
-        return Mono.fromCallable(() -> travellingScheduleService.findByScheduleId(scheduleId))
-                .flatMap(data -> travellingScheduleService.findByScheduleId(scheduleId))
+    public Mono<ResponseEntity<?>> getDetailByScheduleId(@PathVariable String sku) {
+        return Mono.fromCallable(() -> travellingScheduleService.findByScheduleSku(sku))
+                .flatMap(data -> travellingScheduleService.findByScheduleSku(sku))
                 .map(data -> {
-                    if(data.getUserSku()!=null) {
+                    if (data.getUserSku() != null) {
                         return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
                     }
                     return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "Schedule with that id.", TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE + TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_GET_DETAIL));
@@ -81,32 +79,29 @@ public class TravellingScheduleController {
     }
 
     @PutMapping(TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_UPDATE_DETAIL)
-    public Mono<ResponseEntity<?>> editScheduleBySku(@PathVariable Integer id, @RequestBody ScheduleRequest scheduleRequest) {
-
-        return Mono.fromCallable(() -> travellingScheduleService.findByScheduleId(id))
-                .flatMap(data -> travellingScheduleService.findByScheduleId(id))
+    public Mono<ResponseEntity<?>> editScheduleBySku(@PathVariable String sku, @RequestBody ScheduleRequest scheduleRequest) {
+        return Mono.fromCallable(() -> travellingScheduleService.findByScheduleSku(sku))
+                .flatMap(data -> travellingScheduleService.findByScheduleSku(sku))
                 .map(data -> {
                     if (data.getUserSku() != null) {
-                        travellingScheduleService.editById(id, scheduleRequest).subscribe();
+                        travellingScheduleService.editBySku(sku, scheduleRequest).subscribe();
                         return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
                     }
-                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "Schedule with that id.", TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE + TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_UPDATE_DETAIL));
-                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "Schedule with that id.", TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE + TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_UPDATE_DETAIL)));
+                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "Schedule with that sku.", TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE + TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_UPDATE_DETAIL));
+                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "Schedule with that sku.", TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE + TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_UPDATE_DETAIL)));
     }
 
     @DeleteMapping(TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_DELETE_DETAIL)
-    public Mono<ResponseEntity<?>> deleteScheduleBySku(@PathVariable Integer id) {
-        return Mono.fromCallable(() -> id)
-                .flatMap(data -> travellingScheduleService.findByScheduleId(id))
+    public Mono<ResponseEntity<?>> deleteScheduleBySku(@PathVariable String sku) {
+        return Mono.fromCallable(() -> sku)
+                .flatMap(data -> travellingScheduleService.findByScheduleSku(sku))
                 .map(data -> {
                     if (data.getUserSku() != null) {
-                        travellingScheduleService.deleteById(id).subscribe();
-                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, StaticResponseMessages.RESPONSE_MESSAGES_FOR_DELETE_SCHEDULE + id));
+                        travellingScheduleService.deleteBySku(sku).subscribe();
+                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, StaticResponseMessages.RESPONSE_MESSAGES_FOR_DELETE_SCHEDULE + sku));
                     }
                     return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "Schedule with that id.", TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE + TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_DELETE_DETAIL));
                 }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "Schedule with that id.", TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE + TravellingScheduleControllerRoute.ROUTE_TRAVELLING_SCEDULE_DELETE_DETAIL)));
-
-
     }
 
 }

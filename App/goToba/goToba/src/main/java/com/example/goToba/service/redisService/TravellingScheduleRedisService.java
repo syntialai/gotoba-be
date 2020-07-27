@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface TravellingScheduleRedisService<T> {
     void add(TravellingSchedule travellingSchedule);
-    Mono<T> findById(Integer id);
+    Mono<T> findBySku(String sku);
     List<?> findAll();
-    Boolean hasKey(Integer id);
-    void deleteByKey(Integer id);
+    Boolean hasKey(String sku);
+    void deleteByKey(String sku);
 }

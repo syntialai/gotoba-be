@@ -66,25 +66,10 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                     orderDetailRedisService.delete(sku);
                 })
                 .flatMap(data -> {
-                    OrderDetail orderDetail = new OrderDetail(
-                            data.getId(),
-                            sku,
-                            data.getTicketSku(),
-                            data.getQuantity(),
-                            data.getPrice(),
-                            data.getDiscount(),
-                            data.getMerchantSku(),
-                            data.getCategory(),
-                            data.getWisataSku(),
-                            data.getImage(),
-                            data.getUserSku(),
-                            StaticStatus.STATUS_CHECKOUT,
-                            false,
-                            data.getExpiredDate(),
-                            data.getTitle()
-                    );
-                    orderDetailRedisService.add(orderDetail);
-                    return orderDetailRepo.save(orderDetail);
+                    data.setRedeem(false);
+                    data.setStatus(StaticStatus.STATUS_CHECKOUT);
+                    orderDetailRedisService.add(data);
+                    return orderDetailRepo.save(data);
                 });
     }
 
@@ -98,25 +83,10 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                     orderDetailRedisService.delete(sku);
                 })
                 .flatMap(data -> {
-                    OrderDetail orderDetail = new OrderDetail(
-                            data.getId(),
-                            sku,
-                            data.getTicketSku(),
-                            data.getQuantity(),
-                            data.getPrice(),
-                            data.getDiscount(),
-                            data.getMerchantSku(),
-                            data.getCategory(),
-                            data.getWisataSku(),
-                            data.getImage(),
-                            data.getUserSku(),
-                            status,
-                            true,
-                            data.getExpiredDate(),
-                            data.getTitle()
-                    );
-                    orderDetailRedisService.add(orderDetail);
-                    return orderDetailRepo.save(orderDetail);
+                    data.setStatus(status);
+                    data.setRedeem(true);
+                    orderDetailRedisService.add(data);
+                    return orderDetailRepo.save(data);
                 });
     }
 
