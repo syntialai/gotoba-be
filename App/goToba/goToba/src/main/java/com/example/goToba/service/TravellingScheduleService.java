@@ -10,9 +10,12 @@ import reactor.core.publisher.Mono;
  */
 public interface TravellingScheduleService {
     Flux<TravellingSchedule> findAll();
-    Mono<TravellingSchedule> findByScheduleId(Integer id);
-    Mono<TravellingSchedule> updateById(String id);
+
+    Mono<TravellingSchedule> findByScheduleSku(String sku);
+
     Mono<TravellingSchedule> addBySku(String sku, ScheduleRequest scheduleRequest);
-    Mono<TravellingSchedule> editById(Integer sku, ScheduleRequest scheduleRequest);
-    Mono<TravellingSchedule> deleteById(Integer id);
+
+    Mono<TravellingSchedule> editBySku(String sku, ScheduleRequest scheduleRequest);
+
+    Mono<TravellingSchedule> deleteBySku(String sku);
 }

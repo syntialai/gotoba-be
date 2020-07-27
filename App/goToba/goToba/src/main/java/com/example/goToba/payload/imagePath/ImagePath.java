@@ -13,6 +13,7 @@ public interface ImagePath {
     String IMAGE_PATH_TOURE_GUIDE = "/tour-guide";
     String IMAGE_PATH_TICKET = "/ticket";
     String IMAGE_PATH_USER = "/user";
+    String IMAGE_PATH_RESTAURANTS = "/restaurants";
     String IMAGE_CONNECTOR = "/";
     String IMAGE_EXTENSION = ".png";
 }

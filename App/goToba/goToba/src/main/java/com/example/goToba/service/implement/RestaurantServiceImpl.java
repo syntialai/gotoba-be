@@ -3,9 +3,11 @@ package com.example.goToba.service.implement;
 import com.example.goToba.model.*;
 import com.example.goToba.payload.helper.StockKeepingUnit;
 import com.example.goToba.payload.helper.StaticStatus;
+import com.example.goToba.payload.imagePath.ImagePath;
 import com.example.goToba.payload.request.RestaurantsRequest;
 import com.example.goToba.repository.RestaurantRepo;
 import com.example.goToba.repository.SequenceRestaurantsRepo;
+import com.example.goToba.service.ImageService;
 import com.example.goToba.service.RestaurantService;
 import com.example.goToba.service.utils.SkuGenerator;
 import com.example.goToba.service.redisService.RestaurantRedisService;
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.io.IOException;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 23/05/2020.
@@ -32,6 +36,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
     SequenceRestaurantsRepo sequenceRestaurantsRepo;
+
+    @Autowired
+    ImageService imageService;
 
     @Override
     public Flux<Restaurant> findAll() {
@@ -68,8 +75,18 @@ public class RestaurantServiceImpl implements RestaurantService {
                             restaurantsRequest.getHoursOpen(),
                             restaurantsRequest.getPhone(),
                             StaticStatus.STATUS_ACTIVE,
-                            sku
+                            sku,
+                            ""
                     );
+                    restaurant.setImage(ImagePath.IMAGE_PATH_RESTAURANTS+ ImagePath.IMAGE_CONNECTOR + restaurant.getSku());
+                    if (restaurantsRequest.getImage() != "") {
+                        try {
+                            imageService.addPicture(restaurantsRequest.getImage(), restaurant.getSku(), ImagePath.IMAGE_PATH_RESTAURANTS);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
                     return restaurantRepo.save(restaurant);
                 });
     }
@@ -94,8 +111,16 @@ public class RestaurantServiceImpl implements RestaurantService {
                             restaurantsRequest.getHoursOpen(),
                             restaurantsRequest.getPhone(),
                             StaticStatus.STATUS_ACTIVE,
-                            data.getMerchantSku()
+                            data.getMerchantSku(),
+                            data.getImage()
                     );
+                    if (restaurantsRequest.getImage() != "") {
+                        try {
+                            imageService.addPicture(restaurantsRequest.getImage(), restaurant.getSku(), ImagePath.IMAGE_PATH_RESTAURANTS);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     restaurantRedisService.add(restaurant);
                     return restaurantRepo.save(restaurant);
                 });

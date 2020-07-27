@@ -1,8 +1,11 @@
 package com.example.goToba.payload.request;
 
+import com.example.goToba.model.Schedule;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 30/05/2020.
@@ -11,10 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class ScheduleRequest {
-    String title;
-    String description;
     String date;
-    String endDate;
-    String vacationDestination;
-
+    List<Schedule> schedule;
 }

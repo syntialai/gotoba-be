@@ -19,4 +19,5 @@ public class RestaurantsRequest {
     public String address;
     public HoursOpen hoursOpen;
     public String phone;
+    public String image;
 }

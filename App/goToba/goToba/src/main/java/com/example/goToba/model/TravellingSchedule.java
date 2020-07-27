@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * Created by Sogumontar Hendra Simangunsong on 30/05/2020.
  */
@@ -12,11 +14,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TravellingSchedule {
     Integer id;
-    String title;
-    String description;
+    String sku;
     String date;
-    String endDate;
-    String vacationDestination;
+    List<Schedule> schedule;
     String userSku;
     String status;
 }

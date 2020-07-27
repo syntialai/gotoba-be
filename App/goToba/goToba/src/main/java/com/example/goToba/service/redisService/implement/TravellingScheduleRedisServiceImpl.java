@@ -38,12 +38,12 @@ public class TravellingScheduleRedisServiceImpl implements TravellingScheduleRed
 
     @Override
     public void add(TravellingSchedule travellingSchedule) {
-        hashOperations.put(RedisKeys.REDIS_KEYS_FOR_TRAVELLING_SCHEDULE,travellingSchedule.getId(),travellingSchedule);
+        hashOperations.put(RedisKeys.REDIS_KEYS_FOR_TRAVELLING_SCHEDULE,travellingSchedule.getSku(),travellingSchedule);
     }
 
     @Override
-    public Mono<?> findById(Integer id) {
-        return Mono.fromCallable(() -> hashOperations.get(RedisKeys.REDIS_KEYS_FOR_TRAVELLING_SCHEDULE,id));
+    public Mono<?> findBySku(String sku) {
+        return Mono.fromCallable(() -> hashOperations.get(RedisKeys.REDIS_KEYS_FOR_TRAVELLING_SCHEDULE,sku));
     }
 
     @Override
@@ -52,12 +52,12 @@ public class TravellingScheduleRedisServiceImpl implements TravellingScheduleRed
     }
 
     @Override
-    public Boolean hasKey(Integer id) {
-        return hashOperations.hasKey(RedisKeys.REDIS_KEYS_FOR_TRAVELLING_SCHEDULE,id);
+    public Boolean hasKey(String  sku) {
+        return hashOperations.hasKey(RedisKeys.REDIS_KEYS_FOR_TRAVELLING_SCHEDULE,sku);
     }
 
     @Override
-    public void deleteByKey(Integer id) {
-        hashOperations.delete(RedisKeys.REDIS_KEYS_FOR_TRAVELLING_SCHEDULE,id);
+    public void deleteByKey(String sku) {
+        hashOperations.delete(RedisKeys.REDIS_KEYS_FOR_TRAVELLING_SCHEDULE,sku);
     }
 }

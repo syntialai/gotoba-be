@@ -10,8 +10,10 @@ import com.example.goToba.service.utils.CookieUtil;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import reactor.core.publisher.Mono;
+
 import static org.assertj.core.api.Assertions.*;
 
 /**
@@ -33,8 +35,10 @@ public class UserServiceImplTest {
     UserServiceImpl userService;
 
     @Test
-    public void testFindFirstBySku(){
-            Mono<Users> usersMono = usersRepo.findFirstBySku("HEND_001");
+    public void testFindFirstBySku() {
+        Mono<Users> usersMonos = null;
+        Mockito.when(usersRepo.findFirstBySku("HEND_0001")).thenReturn(usersMonos);
+        Mono<Users> usersMono = usersRepo.findFirstBySku("HEND_001");
         assertThat(usersMono).isNotNull();
     }
 }
