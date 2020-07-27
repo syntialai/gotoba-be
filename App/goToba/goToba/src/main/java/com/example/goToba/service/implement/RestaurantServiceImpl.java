@@ -76,9 +76,8 @@ public class RestaurantServiceImpl implements RestaurantService {
                             restaurantsRequest.getPhone(),
                             StaticStatus.STATUS_ACTIVE,
                             sku,
-                            ""
+                            ImagePath.IMAGE_PATH_RESTAURANTS + ImagePath.IMAGE_CONNECTOR + StockKeepingUnit.RESTAURANTS + StockKeepingUnit.SKU_CONNECTOR + req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())) + ImagePath.IMAGE_EXTENSION
                     );
-                    restaurant.setImage(ImagePath.IMAGE_PATH_RESTAURANTS+ ImagePath.IMAGE_CONNECTOR + restaurant.getSku());
                     if (restaurantsRequest.getImage() != "") {
                         try {
                             imageService.addPicture(restaurantsRequest.getImage(), restaurant.getSku(), ImagePath.IMAGE_PATH_RESTAURANTS);
