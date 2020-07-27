@@ -2,7 +2,9 @@ package com.example.goToba.controller;
 
 
 import com.example.goToba.controller.route.UserControllerRoute;
+import com.example.goToba.payload.ActionResponses;
 import com.example.goToba.payload.AuthenticationResponse;
+import com.example.goToba.payload.NotFoundResponse;
 import com.example.goToba.payload.Response;
 import com.example.goToba.payload.helper.StaticResponseCode;
 import com.example.goToba.payload.helper.StaticResponseMessages;
@@ -92,6 +94,30 @@ public class UserController {
                     return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
                 }
         );
+    }
+
+    @PutMapping(UserControllerRoute.ROUTE_USER_BLOCK_BY_SKU)
+    public Mono<ResponseEntity<?>> blockBySku(@PathVariable String sku) {
+        return userService.findFirstBySku(sku)
+                .map(data -> {
+                    if (data.getUsername() != null) {
+                        userService.blockBySku(sku).subscribe();
+                        return ResponseEntity.ok().body(new ActionResponses(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, StaticResponseMessages.RESPONSE_MESSAGES_FOR_BLOCK));
+                    }
+                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "user with sku" + sku, UserControllerRoute.ROUTE_USER_BLOCK_BY_SKU));
+                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "user with sku" + sku, UserControllerRoute.ROUTE_USER_BLOCK_BY_SKU)));
+    }
+
+    @PutMapping(UserControllerRoute.ROUTE_USER_ACTIVATE_BY_SKU)
+    public Mono<ResponseEntity<?>> activateBySku(@PathVariable String sku) {
+        return userService.findFirstBySku(sku)
+                .map(data -> {
+                    if (data.getUsername() != null) {
+                        userService.activateBySku(sku).subscribe();
+                        return ResponseEntity.ok().body(new ActionResponses(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, StaticResponseMessages.RESPONSE_MESSAGES_FOR_ACTIVATE));
+                    }
+                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "user with sku" + sku, UserControllerRoute.ROUTE_USER_BLOCK_BY_SKU));
+                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "user with sku" + sku, UserControllerRoute.ROUTE_USER_BLOCK_BY_SKU)));
     }
 
 }

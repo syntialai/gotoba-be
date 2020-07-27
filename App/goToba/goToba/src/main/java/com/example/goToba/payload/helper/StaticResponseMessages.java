@@ -16,6 +16,8 @@ public interface StaticResponseMessages {
     public String RESPONSE_MESSAGES_FOR_UPDATE_SUKSES = "Update Sukses";
     public String RESPONSE_MESSAGES_FOR_DELETE_SUKSES = "Delete Sukses";
     public String RESPONSE_MESSAGES_FOR_NOT_FOUND = "Invalid Request: Cannot find ";
+    public String RESPONSE_MESSAGES_FOR_BLOCK = "Block User Success ";
+    public String RESPONSE_MESSAGES_FOR_ACTIVATE = "Activate User Success ";
     public String RESPONSE_MESSAGES_FOR_DUPLICATE_SOURCE = "The request could not be completed due to a conflict with the current state of the target resource";
     public String RESPONSE_MESSAGES_FOR_NOT_FOUND_DELETE = "Invalid Request: Cannot delete ";
     public String RESPONSE_MESSAGES_FOR_EMPTY = "Message: There is no data ";

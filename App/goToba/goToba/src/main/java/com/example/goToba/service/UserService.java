@@ -34,4 +34,8 @@ public interface UserService {
 
     public Flux<Users> findAllCustomer();
 
+    public Mono<Users> blockBySku(String sku);
+
+    public Mono<Users> activateBySku(String sku);
+
 }

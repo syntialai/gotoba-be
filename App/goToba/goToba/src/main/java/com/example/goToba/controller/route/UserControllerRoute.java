@@ -12,4 +12,6 @@ public interface UserControllerRoute {
     public String ROUTE_USER_FIND_BY_STATUS_ACTIVE= "/active";
     public String ROUTE_USER_FIND_BY_STATUS_BLOCKED= "/blocked";
     public String ROUTE_USER_EDIT_BY_SKU= "/edit/{sku}";
+    public String ROUTE_USER_BLOCK_BY_SKU= "/block/{sku}";
+    public String ROUTE_USER_ACTIVATE_BY_SKU= "/activate/{sku}";
 }
