@@ -55,6 +55,62 @@
 }
 ```
 
+
+## Get All Users (ROLE_USER)
+
++ Endpoint : ``/user/customer/``
++ HTTP Method : `GET`
++ Request Header :
+  + Accept: `application/json`
+  + Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE1NjY1NTE5ODksImlhdCI6MTU2NjUzMzk4OX0.Kvx2VZkmckMexnTwK8A3vHSDar3J-K-dCrkJ2jmQtKdAWbw1dAjJ34WXCQXs-WO23OQPTqVF36E1STEhGZFZfg`
++ Response Body (Success) :
+
+```json
+{
+    "code": 200,
+    "status": "OK",
+    "data": [{
+        "sku" : "hend_merc_001",
+        "nickname" : "hendra",
+        "username" : "hendra",
+        "email" : "hendra@gmail.com",
+        "image": "user/TEST_005.png",
+        "role" : "ROLE_USER",
+        "status" : "active"
+    },
+    {
+        "sku" : "sima_cust_001",
+        "nickname" : "simangunsong",
+        "username" : "simangunsong",
+        "email" : "simangunsong@gmail.com",
+        "image": "",
+        "role" : "ROLE_USER",
+        "status" : "active"
+    },
+    {
+        "sku" : "josh_merc_001",
+        "nickname" : "joshua",
+        "username" : "joshua",
+        "email" : "joshua@gmail.com",
+        "image": "",
+        "role" : "ROLE_USER",
+        "status" : "active"
+    }]
+}
+```
+
++ Response Body (Fail) :
+
+```json
+{
+    "timestamp": "2019-08-23T04:22:26.690+0000",
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Invalid Request: You are not allowed to access.",
+    "path": "/user/"
+}
+```
+
 ## Get User by Sku
 
 + Endpoint : ``/user/{sku}``

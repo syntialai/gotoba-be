@@ -7,6 +7,7 @@ import com.example.goToba.payload.request.RegisterRequest;
 import com.example.goToba.payload.request.UpdateUserRequest;
 import org.springframework.http.ResponseEntity;
 import reactor.core.Disposable;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.servlet.http.HttpServletResponse;
@@ -30,5 +31,7 @@ public interface UserService {
     public RoleName checkRole(String role);
 
     public Mono<Users> editBySku(String sku, UpdateUserRequest request);
+
+    public Flux<Users> findAllCustomer();
 
 }

@@ -22,6 +22,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
@@ -156,6 +157,11 @@ public class UserServiceImpl implements UserService {
                     }
                     return usersRepo.save(users);
                 });
+    }
+
+    @Override
+    public Flux<Users> findAllCustomer() {
+        return usersRepo.findAll().filter(data -> data.getRoles().toString().equals("ROLE_USER"));
     }
 
 }
