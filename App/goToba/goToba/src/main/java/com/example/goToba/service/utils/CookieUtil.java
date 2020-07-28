@@ -44,7 +44,11 @@ public class CookieUtil {
     }
 
     public HttpCookie deleteAccessTokenCookie() {
-        return ResponseCookie.from(accessTokenCookieName, "").maxAge(0).httpOnly(true).path("/").build();
+        return ResponseCookie.from("test", "test")
+                .maxAge(0)
+                .httpOnly(true)
+                .path("/")
+                .build();
     }
 
 }

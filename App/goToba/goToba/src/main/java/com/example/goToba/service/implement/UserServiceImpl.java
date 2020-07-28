@@ -18,9 +18,7 @@ import com.example.goToba.service.ImageService;
 import com.example.goToba.service.UserService;
 import com.example.goToba.service.utils.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -117,10 +115,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> signOut() {
-        System.out.println("cek");
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.remove("accessToken");
-        return ResponseEntity.ok().headers(responseHeaders).body("Test");
+        responseHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.deleteAccessTokenCookie().toString());
+        return ResponseEntity.ok().headers(responseHeaders).body("test");
+
+//        return ResponseCookie.from("accesToken","").maxAge(0).httpOnly(true).path("/").build();
     }
 
     @Override
