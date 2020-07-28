@@ -64,8 +64,8 @@ public class AuthenticationController extends HttpServlet {
     }
 
     @PostMapping("/logout")
-    public void myLogoff() {
-        userService.signOut();
+    public ResponseEntity<?> myLogoff() {
+        return userService.signOut();
     }
 
 }

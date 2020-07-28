@@ -88,8 +88,8 @@ public class TicketServiceImpl implements TicketService {
                             ticketRequest.getExpiredDate(),
                             ticketRequest.getMerchantSku(),
                             new Timestamp(System.currentTimeMillis()).toString(),
-                            StaticStatus.STATUS_ACTIVE,
                             ticketRequest.getWisataSku(),
+                            StaticStatus.STATUS_ACTIVE,
                             ticketRequest.getOrderSku(),
                             ImagePath.IMAGE_PATH_TICKET + ImagePath.IMAGE_CONNECTOR + data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()) + ImagePath.IMAGE_EXTENSION
 
@@ -123,8 +123,8 @@ public class TicketServiceImpl implements TicketService {
                             ticketRequest.getExpiredDate(),
                             ticketRequest.getMerchantSku(),
                             data.getCreatedAt(),
-                            StaticStatus.STATUS_ACTIVE,
                             ticketRequest.getWisataSku(),
+                            StaticStatus.STATUS_ACTIVE,
                             ticketRequest.getOrderSku(),
                             data.getImage()
                     );
