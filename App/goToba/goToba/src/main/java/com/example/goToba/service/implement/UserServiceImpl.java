@@ -116,10 +116,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<?> signOut() {
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.deleteAccessTokenCookie().toString());
+        responseHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createAccessTokenCookie("", (long) 1).toString());
         return ResponseEntity.ok().headers(responseHeaders).body("test");
-
-//        return ResponseCookie.from("accesToken","").maxAge(0).httpOnly(true).path("/").build();
     }
 
     @Override

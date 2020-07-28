@@ -125,22 +125,8 @@ public class WisataServiceImpl implements WisataService {
                     wisataRepo.deleteBySku(sku).subscribe();
                 })
                 .flatMap(data -> {
-                    Wisata wisata = new Wisata(
-                            sku,
-                            data.getName(),
-                            data.getTitle(),
-                            data.getDescription(),
-                            data.getImage(),
-                            data.getLongitude(),
-                            data.getLatitude(),
-                            data.getAddress(),
-                            data.getCreatedBy(),
-                            data.getPrice(),
-                            data.getHoursOpen(),
-                            StaticStatus.STATUS_DELETE
-                    );
-                    wisataElasticService.save(wisata.toWisata(wisata));
-                    return wisataRepo.save(wisata);
+                    data.setStatus(StaticStatus.STATUS_DELETE);
+                    return wisataRepo.save(data);
                 });
     }
 
