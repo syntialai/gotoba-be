@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Mono<ResponseEntity<?>> signin(LoginRequest request) {
         return usersRepo.findFirstByUsername(request.getUsername()).map((userDetails) -> {
-            if (passwordEncoder.encode(request.getPassword()).equals(userDetails.getPassword())) {
+            if (passwordEncoder.encode(request.getPassword()).equals(userDetails.getPassword()) && userDetails.getStatus().equals(StaticStatus.STATUS_ACTIVE)) {
                 HttpHeaders responseHeaders = new HttpHeaders();
                 responseHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createAccessTokenCookie(jwtTokenProvider.generateToken(userDetails), (long) 3600).toString());
                 return ResponseEntity.ok().headers(responseHeaders).body(new JwtLoginResponse(userDetails.getNickname(), userDetails.getRoles().toString(), userDetails.getSku(), jwtTokenProvider.generateToken(userDetails)));

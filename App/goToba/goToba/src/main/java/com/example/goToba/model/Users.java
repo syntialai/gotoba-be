@@ -1,8 +1,10 @@
 package com.example.goToba.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,9 +14,12 @@ import java.util.Collection;
 /**
  * Created by Sogumontar Hendra Simangunsong on 11/04/2020.
  */
-@NoArgsConstructor
+
 @Data
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
+@Document
 public class Users  implements UserDetails {
 
     public String sku;

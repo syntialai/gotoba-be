@@ -5,16 +5,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.UUID;
 
 /**
  * Created by Sogumontar Hendra Simangunsong on 16/04/2020.
  */
+
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Document
 public class Galery {
     public Integer id;
     public String sku;
