@@ -39,18 +39,20 @@ public class TourGuideServiceImpl implements TourGuideService {
 
     @Override
     public Flux<TourGuide> findAll() {
-        return tourGuideRepo.findAll();
+        return tourGuideRepo.findAll()
+                .filter(data -> data.getStatus().equals(StaticStatus.STATUS_ACTIVE));
     }
 
     @Override
     public Mono<TourGuide> findBySku(String sku) {
-        return tourGuideRepo.findBySku(sku);
+        return tourGuideRepo.findBySku(sku)
+                .filter(data -> data.getStatus().equals(StaticStatus.STATUS_ACTIVE));
     }
 
     @Override
     public Mono<TourGuide> findByName(String name) {
-        System.out.println(tourGuideRepo.findFirstByName(name));
-        return tourGuideRepo.findFirstByName(name);
+        return tourGuideRepo.findFirstByName(name)
+                .filter(data -> data.getStatus().equals(StaticStatus.STATUS_ACTIVE));
     }
 
     @Override

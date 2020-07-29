@@ -1,6 +1,9 @@
 package com.example.goToba.service.implement;
 
 import com.example.goToba.model.*;
+import com.example.goToba.payload.Response;
+import com.example.goToba.payload.helper.StaticResponseCode;
+import com.example.goToba.payload.helper.StaticResponseStatus;
 import com.example.goToba.payload.helper.StockKeepingUnit;
 import com.example.goToba.payload.helper.StaticStatus;
 import com.example.goToba.payload.imagePath.ImagePath;
@@ -12,6 +15,7 @@ import com.example.goToba.service.RestaurantService;
 import com.example.goToba.service.utils.SkuGenerator;
 import com.example.goToba.service.redisService.RestaurantRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -42,14 +46,19 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Flux<Restaurant> findAll() {
-        return restaurantRepo.findAll();
+        return restaurantRepo.findAll().filter(data -> data.getStatus().equals(StaticStatus.STATUS_ACTIVE));
     }
 
     @Override
     public Mono<Restaurant> findBySku(String sku) {
-        return restaurantRepo.findBySku(sku).
-                doOnNext(data -> restaurantRedisService.add(data)).
-                flatMap(data -> {
+        if (restaurantRedisService.hasKey(sku)) {
+            return restaurantRedisService.findById(sku).map(data -> {
+                return data;
+            });
+        }
+        return restaurantRepo.findBySku(sku).filter(data -> data.getStatus().equals(StaticStatus.STATUS_ACTIVE))
+                .doOnNext(data -> restaurantRedisService.add(data))
+                .flatMap(data -> {
                     return restaurantRepo.findBySku(sku);
                 });
     }

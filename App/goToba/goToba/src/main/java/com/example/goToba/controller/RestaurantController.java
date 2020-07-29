@@ -46,9 +46,7 @@ public class RestaurantController {
 
     @GetMapping(RestaurantControllerRoute.ROUTE_RESTAURANT_BISTRO_TYPES)
     public ResponseEntity<?> findAllBistroTypes() {
-
         return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, bistroRedisService.findAll()));
-
     }
 
     @GetMapping(RestaurantControllerRoute.ROUTE_RESTAURANT_All)
@@ -74,23 +72,12 @@ public class RestaurantController {
 
     @GetMapping(RestaurantControllerRoute.ROUTE_GET_RESTAURANT_BY_SKU)
     public Mono<ResponseEntity<?>> findRestaurantsBySku(@PathVariable String sku) {
-        if (restaurantRedisService.hasKey(sku)) {
-            return restaurantRedisService.findById(sku).
-                    map(data -> {
-                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
-                    });
-        }
-        return restaurantService.findBySku(sku).
-                map(data -> {
-                    if (data.getMerchantSku() != null) {
-                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
-                    }
-                    return ResponseEntity.ok().body(new NotFoundResponse(
-                            new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "restaurant with sku " + sku, RestaurantControllerRoute.ROUTE_RESTAURANT + RestaurantControllerRoute.ROUTE_GET_RESTAURANT_BY_SKU)
-                    );
-                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(
-                new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "restaurant with sku " + sku, RestaurantControllerRoute.ROUTE_RESTAURANT + RestaurantControllerRoute.ROUTE_GET_RESTAURANT_BY_SKU))
-        );
+        return restaurantService.findBySku(sku).map(data -> {
+            if (data.getMerchantSku() != null) {
+                return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+            }
+            return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "restaurant with sku " + sku, RestaurantControllerRoute.ROUTE_RESTAURANT + RestaurantControllerRoute.ROUTE_GET_RESTAURANT_BY_SKU));
+        }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "restaurant with sku " + sku, RestaurantControllerRoute.ROUTE_RESTAURANT + RestaurantControllerRoute.ROUTE_GET_RESTAURANT_BY_SKU)));
     }
 
     @PutMapping(RestaurantControllerRoute.ROUTE_EDIT_RESTAURANT_BY_SKU)

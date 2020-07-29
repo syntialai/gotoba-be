@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 /**
  * Created by Sogumontar Hendra Simangunsong on 02/04/2020.
  */
+
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class Wisata {
     public String sku;
     public String name;

@@ -43,19 +43,6 @@ public class PaymentController {
                 }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "merchant with sku " + merchantSku, PaymentControllerRoute.ROUTE_PAYMENT + PaymentControllerRoute.ROUTE_PAYMENT_BY_MERCHANT_SKU)));
     }
 
-//    @GetMapping(PaymentControllerRoute.ROUTE_PAYMENT_BY_MERCHANT_SKU_AND_CATEGORY)
-//    public Mono<ResponseEntity<?>> findByMerchantSkuAndCategory(@PathVariable String merchantSku, @PathVariable String category) {
-//        return paymentService.findAll()
-//                .filter(data -> data.getMerchantSku().equals(merchantSku))
-//                .filter(data -> data.getCategory().equals(category))
-//                .collectList()
-//                .map(data -> {
-//                    if (data.size() != 0) {
-//                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
-//                    }
-//                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "payment with category " + category, PaymentControllerRoute.ROUTE_PAYMENT + PaymentControllerRoute.ROUTE_PAYMENT_BY_MERCHANT_SKU_AND_CATEGORY));
-//                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "payment with category " + category, PaymentControllerRoute.ROUTE_PAYMENT + PaymentControllerRoute.ROUTE_PAYMENT_BY_MERCHANT_SKU_AND_CATEGORY)));
-//    }
 
     @GetMapping(PaymentControllerRoute.ROUTE_PAYMENT_BY_USER_SKU_AND_STATUS)
     public Mono<ResponseEntity<?>> findByUserSkuAndStatus(@PathVariable String userSku, @PathVariable String status) {

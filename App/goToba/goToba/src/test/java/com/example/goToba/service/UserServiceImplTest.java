@@ -1,5 +1,6 @@
 package com.example.goToba.service;
 
+import com.example.goToba.model.RoleName;
 import com.example.goToba.model.Users;
 import com.example.goToba.repository.SequenceUsersRepo;
 import com.example.goToba.repository.UsersRepo;
@@ -19,8 +20,12 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertEquals;
 /**
@@ -47,18 +52,27 @@ public class UserServiceImplTest {
     public void testFindFirstBySku() {
         Users users = Users.builder().status("active").build();
         when(usersRepo.findFirstBySku("HEND_0001")).thenReturn(Mono.just(users));
-        assertThat(userService.findFirstBySku("HEND_0001")).isEqualTo(usersRepo.findFirstBySku("HEND_0001"));
+//        assertThat(userService.findFirstBySku("HEND_0001")).isEqualTo(usersRepo.findFirstBySku("HEND_0001"));
         assertThat(users).isNotNull();
 //        assertEquals(userService.findFirstBySku("HEND_0001"),Mono.just(users));
-        StepVerifier.create(Flux.just("foo", "bar"))
-                .expectNext("foo")
-                .expectNext("bar")
+        StepVerifier.create(userService.findFirstBySku("HEND_0001"))
+                .consumeNextWith(r -> {
+                    assertEquals(r ,users);
+                })
                 .expectComplete()
                 .verify();
+        verify(usersRepo).findFirstBySku("HEND_0001");
     }
 
     @Test
     public void testFindAllCustomer() {
-//        when(usersRepo.)
+        Users users = Users.builder().roles(RoleName.ROLE_USER).build();
+//        Flux<Users> usersFlux = Flux.just(users);
+        when(usersRepo.findAll()).thenReturn(Flux.just(users).filter(data -> data.getRoles().toString().equals("ROLE_USER")));
+//        StepVerifier.create(userService.findAllCustomer())
+//                .expectNext(users)
+//                .expectComplete()
+//                .verify();
+//        verify(usersRepo).findAll();
     }
 }
