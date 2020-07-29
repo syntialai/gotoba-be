@@ -32,12 +32,14 @@ public class MenuRestaurantsServiceImpl implements MenuRestaurantsService {
 
     @Override
     public Mono<MenuRestaurants> findByIdMenu(Integer idMenu) {
-        return menuRestaurantsRepo.findById(idMenu);
+        return menuRestaurantsRepo.findById(idMenu)
+                .filter(data -> data.getStatus().equals(StaticStatus.STATUS_ACTIVE));
     }
 
     @Override
     public Mono<MenuRestaurants> findByNama(String nama) {
-        return menuRestaurantsRepo.findFirstByName(nama);
+        return menuRestaurantsRepo.findFirstByName(nama)
+                .filter(data -> data.getStatus().equals(StaticStatus.STATUS_ACTIVE));
     }
 
     @Override
@@ -113,6 +115,7 @@ public class MenuRestaurantsServiceImpl implements MenuRestaurantsService {
 
     @Override
     public Flux<MenuRestaurants> findAll() {
-        return menuRestaurantsRepo.findAll();
+        return menuRestaurantsRepo.findAll()
+                .filter(data -> data.getStatus().equals(StaticStatus.STATUS_ACTIVE));
     }
 }
