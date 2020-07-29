@@ -487,7 +487,7 @@
     "data": {
         "id":1,
         "name": "Cumi Goreng",
-        "image": "asduqwyieuhxmz.png",
+        "image": "asduqwyieuhxmz.p  ng",
         "category" : "Food",
         "harga": "50000",
         "status": "1",
