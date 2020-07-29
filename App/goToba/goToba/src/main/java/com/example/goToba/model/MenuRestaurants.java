@@ -18,7 +18,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class MenuRestaurants {
     private Integer id;
     private String name;
-    private String picture;
+    private String image;
     private String category;
     private String harga;
     private String status;

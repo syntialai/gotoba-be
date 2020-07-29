@@ -55,9 +55,10 @@ public class MenuRestaurantsServiceImpl implements MenuRestaurantsService {
                 menuRestaurantsRequest.getRestaurantSku(),
                 menuRestaurantsRequest.getMerchantSku()
         );
-        if (menuRestaurantsRequest.getPicture() != "") {
+        System.out.println("test" + menuRestaurantsRequest.getImage());
+        if (menuRestaurantsRequest.getImage() != "") {
             try {
-                imageService.addPicture(menuRestaurantsRequest.getPicture(), menuRestaurants.getId().toString(), ImagePath.IMAGE_PATH_MENU_RESTAURANTS);
+                imageService.addPicture(menuRestaurantsRequest.getImage(), menuRestaurants.getId().toString(), ImagePath.IMAGE_PATH_MENU_RESTAURANTS);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -74,16 +75,16 @@ public class MenuRestaurantsServiceImpl implements MenuRestaurantsService {
                     MenuRestaurants menuRestaurants = new MenuRestaurants(
                             idMenu,
                             menuRestaurantsRequest.getName(),
-                            data.getPicture(),
+                            data.getImage(),
                             menuRestaurantsRequest.getCategory(),
                             menuRestaurantsRequest.getHarga(),
                             data.getStatus(),
                             menuRestaurantsRequest.getRestaurantSku(),
                             menuRestaurantsRequest.getMerchantSku()
                     );
-                    if (menuRestaurantsRequest.getPicture() != "") {
+                    if (menuRestaurantsRequest.getImage() != "") {
                         try {
-                            imageService.addPicture(menuRestaurantsRequest.getPicture(), menuRestaurants.getId().toString(), ImagePath.IMAGE_PATH_MENU_RESTAURANTS);
+                            imageService.addPicture(menuRestaurantsRequest.getImage(), menuRestaurants.getId().toString(), ImagePath.IMAGE_PATH_MENU_RESTAURANTS);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -99,17 +100,8 @@ public class MenuRestaurantsServiceImpl implements MenuRestaurantsService {
                 .flatMap(data -> menuRestaurantsRepo.findById(idMenu))
                 .doOnNext(i -> menuRestaurantsRepo.deleteByIdAndRestaurantSku(idMenu,sku).subscribe())
                 .flatMap(data -> {
-                    MenuRestaurants menuRestaurants = new MenuRestaurants(
-                            idMenu,
-                            data.getName(),
-                            data.getPicture(),
-                            data.getCategory(),
-                            data.getHarga(),
-                            StaticStatus.STATUS_DELETE,
-                            data.getRestaurantSku(),
-                            data.getMerchantSku()
-                    );
-                    return menuRestaurantsRepo.save(menuRestaurants);
+                    data.setStatus(StaticStatus.STATUS_DELETE);
+                    return menuRestaurantsRepo.save(data);
                 });
     }
 
