@@ -1,8 +1,10 @@
 package com.example.goToba.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.lang.reflect.Array;
 import java.util.List;
@@ -13,6 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
+@Document
 public class TourGuide {
      Integer id;
      String sku;

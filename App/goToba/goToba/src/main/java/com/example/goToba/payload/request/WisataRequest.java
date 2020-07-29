@@ -2,6 +2,7 @@ package com.example.goToba.payload.request;
 
 import com.example.goToba.model.HoursOpen;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
  */
 @AllArgsConstructor
 @Data
+@Builder
 @NoArgsConstructor
 public class WisataRequest {
     public String name;

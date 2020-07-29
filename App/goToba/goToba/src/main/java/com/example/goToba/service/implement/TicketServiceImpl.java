@@ -48,22 +48,28 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Flux<Ticket> findAllByMerchantSku(String sku) {
-        return ticketRepo.findAll().filter(data -> data.getMerchantSku().equals(sku));
+        return ticketRepo.findAll()
+                .filter(data -> data.getMerchantSku().equals(sku))
+                .filter(data -> data.getStatus().equals(StaticStatus.STATUS_ACTIVE));
     }
 
     @Override
     public Flux<Ticket> findALl() {
-        return ticketRepo.findAll();
+        return ticketRepo.findAll()
+                .filter(data -> data.getStatus().equals(StaticStatus.STATUS_ACTIVE));
     }
 
     @Override
     public Flux<Ticket> findAllByCategory(String category) {
-        return ticketRepo.findAll().filter(data -> data.getCategory().equals(category));
+        return ticketRepo.findAll()
+                .filter(data -> data.getCategory().equals(category))
+                .filter(data -> data.getStatus().equals(StaticStatus.STATUS_ACTIVE));
     }
 
     @Override
     public Mono<Ticket> findBySku(String sku) {
-        return ticketRepo.findFirstBySku(sku);
+        return ticketRepo.findFirstBySku(sku)
+                .filter(data -> data.getStatus().equals(StaticStatus.STATUS_ACTIVE));
     }
 
 
