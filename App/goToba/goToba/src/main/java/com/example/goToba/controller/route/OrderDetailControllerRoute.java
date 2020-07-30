@@ -6,6 +6,8 @@ package com.example.goToba.controller.route;
 public interface OrderDetailControllerRoute {
     public String ROUTE_ORDER = "/order";
     public String ROUTE_ORDER_DETAIL_BY_SKU = "/{sku}";
+    public String ROUTE_ORDER_DETAIL_NOT_CART = "/notCart/";
+    public String ROUTE_ORDER_DETAIL_BY_USER_SKU = "/userSku/{userSku}";
     public String ROUTE_ORDER_DETAIL_ALL = "/all/";
     public String ROUTE_ORDER_DETAIL_BY_SKU_MERCHANT = "/merchant/{merchantSku}";
     public String ROUTE_ORDER_DETAIL_BY_SKU_USER = "/user/{userSku}/status/{status}";
