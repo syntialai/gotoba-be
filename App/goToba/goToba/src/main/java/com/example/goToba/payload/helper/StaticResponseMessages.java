@@ -5,6 +5,7 @@ package com.example.goToba.payload.helper;
  */
 public interface StaticResponseMessages {
     public String RESPONSE_MESSAGE_USER_REGISTERED = "User registered successfully";
+    public String RESPONSE_MESSAGE_USERNAME_IN_USE = "Username already in use";
     public String RESPONSE_MESSAGE_USER_UNAUTHORIZED = "username or password is wrong";
     public String RESPONSE_MESSAGES_FOR_ADD_WISATA = "Tambah data wisata sukses";
     public String RESPONSE_MESSAGES_FOR_ADD_TRAVELLING_SCHEDULE = "Tambah schedule sukses";

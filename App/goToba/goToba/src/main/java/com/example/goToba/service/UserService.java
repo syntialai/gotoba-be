@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 public interface UserService {
     public Mono<Users> findFirstBySku(String sku);
 
+    public Mono<Users> findFirstByUsername(String username);
+
     public String skuGenerator(String key, Integer seq);
 
     public String sub_str(String str);

@@ -17,4 +17,5 @@ public class NotFoundResponse {
     String message;
     String path;
 
+
 }
