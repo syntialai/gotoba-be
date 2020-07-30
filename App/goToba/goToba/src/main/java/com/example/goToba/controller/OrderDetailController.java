@@ -57,8 +57,8 @@ public class OrderDetailController {
     }
 
     @GetMapping(OrderDetailControllerRoute.ROUTE_ORDER_DETAIL_NOT_CART)
-    public Mono<ResponseEntity<?>> findNotCart() {
-        return orderDetailService.findAll().filter(data -> data.getStatus() != 1).collectList()
+    public Mono<ResponseEntity<?>> findNotCart(@PathVariable String userSku) {
+        return orderDetailService.findAll().filter(data -> data.getStatus() != 1).filter(data -> data.getUserSku().equals(userSku)).collectList()
                 .map((data) -> {
                     if (data.size() != 0) {
                         return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
@@ -69,7 +69,7 @@ public class OrderDetailController {
     }
 
     @GetMapping(OrderDetailControllerRoute.ROUTE_ORDER_DETAIL_BY_USER_SKU)
-    public Mono<ResponseEntity<?>> findNotCart(@PathVariable String userSku) {
+    public Mono<ResponseEntity<?>> findByUserSku(@PathVariable String userSku) {
         return orderDetailService.findAll().filter(data -> data.getUserSku().equals(userSku)).collectList().map((data) -> {
             if (data.size() != 0) {
                 return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
