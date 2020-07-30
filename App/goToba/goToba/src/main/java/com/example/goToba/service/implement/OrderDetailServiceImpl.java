@@ -73,6 +73,21 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                 });
     }
 
+    @Override
+    public Mono<OrderDetail> redeemed(String sku) {
+        return Mono.fromCallable(() -> sku)
+                .flatMap(data -> orderDetailRepo.findFirstBySku(sku))
+                .doOnNext(i -> {
+                    orderDetailRepo.deleteBySku(sku).subscribe();
+                    orderDetailRedisService.delete(sku);
+                })
+                .flatMap(data -> {
+                    data.setRedeem(false);
+                    orderDetailRedisService.add(data);
+                    return orderDetailRepo.save(data);
+                });
+    }
+
 
     @Override
     public Mono<OrderDetail> approval(String sku, Integer status) {
@@ -84,7 +99,10 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                 })
                 .flatMap(data -> {
                     data.setStatus(status);
-                    data.setRedeem(true);
+                    data.setRedeem(false);
+                    if(status == StaticStatus.STATUS_APPROVE){
+                        data.setRedeem(true);
+                    }
                     orderDetailRedisService.add(data);
                     return orderDetailRepo.save(data);
                 });

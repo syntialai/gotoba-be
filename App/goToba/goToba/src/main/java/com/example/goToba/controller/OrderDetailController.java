@@ -117,6 +117,17 @@ public class OrderDetailController {
         }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "order with sku " + sku, OrderDetailControllerRoute.ROUTE_ORDER + OrderDetailControllerRoute.ROUTE_APPROVE_ORDER_DETAIL_BY_SKU)));
     }
 
+    @PutMapping(OrderDetailControllerRoute.ROUTE_REDEEM_ORDER_DETAIL_BY_SKU)
+    public Mono<ResponseEntity<?>> redeemOrder(@PathVariable String sku) {
+        return orderDetailRepo.findFirstBySku(sku).map(data -> {
+            if (data.getSku() != "") {
+                orderDetailService.redeemed(sku).subscribe();
+                return ResponseEntity.ok().body(new DeleteResponse(StaticResponseCode.RESPONSE_CODE_SUCCESS_CREATED, StaticResponseStatus.RESPONSE_STATUS_CREATED, StaticResponseMessages.RESPONSE_MESSAGES_FOR_REDEEM));
+            }
+            return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "order with sku " + sku, OrderDetailControllerRoute.ROUTE_ORDER + OrderDetailControllerRoute.ROUTE_REDEEM_ORDER_DETAIL_BY_SKU));
+        }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "order with sku " + sku, OrderDetailControllerRoute.ROUTE_ORDER + OrderDetailControllerRoute.ROUTE_REDEEM_ORDER_DETAIL_BY_SKU)));
+    }
+
     @PutMapping(OrderDetailControllerRoute.ROUTE_REJECT_ORDER_DETAIL_BY_SKU)
     public Mono<ResponseEntity<?>> rejectOrder(@PathVariable String sku) {
         return orderDetailRepo.findFirstBySku(sku).map(data -> {
