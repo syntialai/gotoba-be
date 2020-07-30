@@ -44,6 +44,11 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+    public Mono<Payment> findFirstByOrderSku(String orderSku) {
+        return paymentRepo.findFirstByOrderSku(orderSku);
+    }
+
+    @Override
     public Mono<Payment> addByUserSku(String sku, PaymentRequest paymentRequest) {
         String key = StockKeepingUnit.PAYMENT + StockKeepingUnit.SKU_CONNECTOR + skuGenerator.substring(paymentRequest.getMerchantSku());
         return Mono.fromCallable(() -> paymentRequest)

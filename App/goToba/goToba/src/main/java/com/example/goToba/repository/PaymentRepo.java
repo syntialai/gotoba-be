@@ -13,4 +13,5 @@ public interface PaymentRepo extends ReactiveMongoRepository<Payment,Integer> {
     Mono<Payment> findFirstBySku(String sku);
     Mono<Payment> findFirstByUserSku(String skuUser);
     Mono<Boolean> deleteBySku(String sku);
+    Mono<Payment> findFirstByOrderSku(String orderSku);
 }
