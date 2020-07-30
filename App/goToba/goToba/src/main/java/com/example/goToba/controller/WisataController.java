@@ -39,8 +39,12 @@ public class WisataController {
     ImageService imageService;
 
     @GetMapping(WisataRoute.ROUTE_WISATA_All)
-    public ResponseEntity<?> findAll() {
-        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, wisataElasticService.findAll()));
+    public Mono<ResponseEntity<?>> findAll() {
+//        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, wisataElasticService.findAll()));
+        return wisataService.findAll().collectList().map(data -> {
+            return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+        });
+
     }
 
     @GetMapping(WisataRoute.ROUTE_WISATA_AllBY_MERCHANT)

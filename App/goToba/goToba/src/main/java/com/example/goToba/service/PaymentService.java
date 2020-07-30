@@ -12,6 +12,7 @@ import reactor.core.publisher.Mono;
 public interface PaymentService {
     Flux<Payment> findAll();
     Mono<Payment> findBySku(String sku);
+    Mono<Payment> findFirstByOrderSku(String orderSku);
     Mono<Payment> addByUserSku(String sku, PaymentRequest  paymentRequest);
     Mono<Payment> findFirstBySkuUser(String sku);
     Mono<Payment> editBySku(String sku, PaymentUpdateRequest paymentUpdateRequest);

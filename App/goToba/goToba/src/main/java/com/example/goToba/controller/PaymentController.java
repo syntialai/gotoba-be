@@ -71,14 +71,12 @@ public class PaymentController {
 
     @PostMapping(PaymentControllerRoute.ROUTE_ADD_PAYMENT_BY_USER_SKU)
     public Mono<ResponseEntity<?>> addPayementByUserSku(@PathVariable String userSku, @RequestBody PaymentRequest paymentRequest) {
-        return userService.findFirstBySku(userSku)
+        paymentService.addByUserSku(userSku, paymentRequest).subscribe();
+        return paymentService.findFirstByOrderSku(paymentRequest.getOrderSku())
                 .map(data -> {
-                    if (data.getUsername() != null) {
-                        paymentService.addByUserSku(userSku, paymentRequest).subscribe();
-                        return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, paymentRequest));
-                    }
-                    return ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "user with sku " + userSku, PaymentControllerRoute.ROUTE_PAYMENT + PaymentControllerRoute.ROUTE_EDIT_PAYMENT_BY_SKU));
-                }).defaultIfEmpty(ResponseEntity.ok().body(new NotFoundResponse(new Timestamp(System.currentTimeMillis()).toString(), StaticResponseCode.RESPONSE_CODE_NOT_FOUND, StaticResponseStatus.RESPONSE_STATUS_ERROR_NOT_FOUND, StaticResponseMessages.RESPONSE_MESSAGES_FOR_NOT_FOUND + "user with sku " + userSku, PaymentControllerRoute.ROUTE_PAYMENT + PaymentControllerRoute.ROUTE_EDIT_PAYMENT_BY_SKU)));
+                            return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, paymentRequest));
+                        }
+                );
     }
 
     @PutMapping(PaymentControllerRoute.ROUTE_EDIT_PAYMENT_BY_SKU)
