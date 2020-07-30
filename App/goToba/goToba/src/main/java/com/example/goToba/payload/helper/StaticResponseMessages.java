@@ -11,6 +11,7 @@ public interface StaticResponseMessages {
     public String RESPONSE_MESSAGES_FOR_ADD_TRAVELLING_SCHEDULE = "Tambah schedule sukses";
     public String RESPONSE_MESSAGES_FOR_DELETE_WISATA = "Delete success!";
     public String RESPONSE_MESSAGES_FOR_APPROVAL = "Approval success!";
+    public String RESPONSE_MESSAGES_FOR_REDEEM = "Redeem success!";
     public String RESPONSE_MESSAGES_FOR_CANCEL = "Cancel Order Success!";
     public String RESPONSE_MESSAGES_FOR_CHECKOUT = "Checkout success!";
     public String RESPONSE_MESSAGES_FOR_DELETE_SCHEDULE = "Schedule deleted with sku ";
