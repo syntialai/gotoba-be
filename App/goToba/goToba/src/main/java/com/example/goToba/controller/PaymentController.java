@@ -73,10 +73,19 @@ public class PaymentController {
     public Mono<ResponseEntity<?>> addPayementByUserSku(@PathVariable String userSku, @RequestBody PaymentRequest paymentRequest) {
         paymentService.addByUserSku(userSku, paymentRequest).subscribe();
         return paymentService.findFirstByOrderSku(paymentRequest.getOrderSku())
+                .doOnSuccess(data -> paymentService.findFirstByOrderSku(paymentRequest.getOrderSku()))
                 .map(data -> {
                             return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, paymentRequest));
                         }
                 );
+    }
+
+    @GetMapping(PaymentControllerRoute.ROUTE_ADD_PAYMENT_BY_ORDER_ID)
+    public Mono<ResponseEntity<?>> findByOrderId(@PathVariable String orderSku){
+        return paymentService.findFirstByOrderSku(orderSku).map(data -> {
+            System.out.println(data);
+            return ResponseEntity.ok().body(new Response(StaticResponseCode.RESPONSE_CODE_SUCCESS, StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK, data));
+        });
     }
 
     @PutMapping(PaymentControllerRoute.ROUTE_EDIT_PAYMENT_BY_SKU)
