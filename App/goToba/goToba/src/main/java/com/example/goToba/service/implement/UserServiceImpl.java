@@ -58,6 +58,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Mono<Users> findFirstByUsername(String username) {
+        return usersRepo.findFirstByUsername(username);
+    }
+
+    @Override
     public String skuGenerator(String key, Integer seq) {
         String counter = "_000";
         return key + counter + seq;

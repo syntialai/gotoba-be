@@ -98,7 +98,6 @@ public class TicketServiceImpl implements TicketService {
                             StaticStatus.STATUS_ACTIVE,
                             ticketRequest.getOrderSku(),
                             ImagePath.IMAGE_PATH_TICKET + ImagePath.IMAGE_CONNECTOR + data.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + Integer.parseInt(data.getLast_seq()) + ImagePath.IMAGE_EXTENSION
-
                     );
                     if (ticketRequest.getImage() != "") {
                         try {

@@ -271,7 +271,7 @@
     "path": "/ticket/{sku}"
 }
 ```
-
+    
 ## Add Ticket by Merchant Sku
 
 + Endpoint : ``/ticket/merchant/{merchantSku}/add``

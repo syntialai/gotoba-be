@@ -16,4 +16,5 @@ public interface UsersRepo extends ReactiveMongoRepository<Users,String> {
     Mono<Users> findFirstBySku(String sku);
     Mono<Void> deleteBySku(String sku);
     Boolean existsBySku(String sku);
+    Boolean existsByUsername(String username);
 }
