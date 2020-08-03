@@ -60,7 +60,8 @@ public class PaymentServiceImpl implements PaymentService {
                 .flatMap(req -> {
                     Payment payment = new Payment(
                             (int) UUID.randomUUID().getLeastSignificantBits(),
-                            req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
+//                            req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
+                            UUID.randomUUID().toString(),
                             paymentRequest.getTotal(),
                             paymentRequest.getStatus(),
                             paymentRequest.getOrderSku(),

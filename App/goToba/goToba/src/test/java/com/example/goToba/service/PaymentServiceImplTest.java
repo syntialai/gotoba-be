@@ -47,8 +47,9 @@ public class PaymentServiceImplTest {
                 .verify();
         verify(paymentRepo).findAll();
     }
+
     @Test
-    public void findBySkuTest(){
+    public void findBySkuTest() {
         when(paymentRepo.findFirstBySku("sku")).thenReturn(Mono.just(payment));
         StepVerifier.create(paymentService.findBySku("sku"))
                 .expectNext(payment)

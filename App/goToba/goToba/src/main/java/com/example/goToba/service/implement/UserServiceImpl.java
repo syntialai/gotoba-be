@@ -3,6 +3,7 @@ package com.example.goToba.service.implement;
 import com.example.goToba.model.RoleName;
 import com.example.goToba.model.SequenceUsers;
 import com.example.goToba.model.Users;
+import com.example.goToba.payload.ActionResponses;
 import com.example.goToba.payload.AuthenticationResponse;
 import com.example.goToba.payload.JwtLoginResponse;
 import com.example.goToba.payload.helper.*;
@@ -122,7 +123,7 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<?> signOut() {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createAccessTokenCookie("", (long) 1).toString());
-        return ResponseEntity.ok().headers(responseHeaders).body("test");
+        return ResponseEntity.ok().headers(responseHeaders).body(new ActionResponses(StaticResponseCode.RESPONSE_CODE_SUCCESS,StaticResponseStatus.RESPONSE_STATUS_SUCCESS_OK,StaticResponseMessages.RESPONSE_MESSAGES_FOR_LOGOUT));
     }
 
     @Override
