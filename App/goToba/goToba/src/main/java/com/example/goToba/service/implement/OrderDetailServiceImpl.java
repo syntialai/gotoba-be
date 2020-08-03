@@ -147,7 +147,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                 .flatMap(req -> {
                     OrderDetail orderDetail = new OrderDetail(
                             (int) UUID.randomUUID().getLeastSignificantBits(),
-                            req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
+//                            req.getKey() + StockKeepingUnit.SKU_CONNECTOR + StockKeepingUnit.SKU_DATA_BEGINNING + (Integer.parseInt(req.getLast_seq())),
+                            UUID.randomUUID().toString(),
                             orderDetailRequest.getTicketSku(),
                             orderDetailRequest.getQuantity(),
                             orderDetailRequest.getPrice(),
